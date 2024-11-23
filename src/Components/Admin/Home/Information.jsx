@@ -28,6 +28,7 @@ function Information() {
     SchoolUsersService.getTotalStudentsNumber(user?.schoolcode).then((res) =>
       setTotalStudents(res.totalStudentsNumber)
     );
+    
 
     SchoolUsersService.getTotalTeachersNumber(user?.schoolcode).then((res) =>
       setTotalTeachers(res.totalTeachersNumber)
