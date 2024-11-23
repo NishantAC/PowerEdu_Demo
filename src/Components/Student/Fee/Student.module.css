@@ -1,0 +1,38 @@
+.tableCon{
+    /* padding: 0px 30px; */
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+TableHead {
+    position: sticky;
+    top: 0;
+}
+.pdLeft{
+    padding-left: 10px;
+}
+.tabCell{
+    font-family: Poppins !important; 
+    font-style: normal !important; 
+    font-weight: 600 !important; 
+    font-size: 15px !important; 
+    line-height: 30px !important; 
+    color: #545454 !important; 
+    border-bottom: none !important;
+}
+.tabCell2{
+    font-family: Lato !important; 
+    font-style: normal !important; 
+    font-weight: 500 !important; 
+    font-size: 15px !important; 
+    line-height: 15px; 
+    color: #000000 !important;
+}
+.tbCell2{
+    font-family: Lato !important; 
+    font-style: normal !important; 
+    font-weight: 500 !important; 
+    font-size: 15px !important; 
+    line-height: 1px; 
+    color: #000000;
+}

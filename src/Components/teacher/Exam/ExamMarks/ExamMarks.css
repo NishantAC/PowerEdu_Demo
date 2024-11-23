@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Roboto&family=Rubik:wght@500&display=swap');
+
+.exammarks{
+    position: relative;
+    margin-top: 5px;
+    width: 93%;
+    margin: auto;
+}
+
+.exammarksheader {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #4D4D4D;
+}

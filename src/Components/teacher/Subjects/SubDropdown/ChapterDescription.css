@@ -1,0 +1,101 @@
+.tabsdivd1{
+    padding: 1px 20px;
+    background: #F9F9F9;
+    border-radius: 0px 4px 0px 0px;
+    border-bottom: 1px solid #ABABAB;
+}
+.tabsdiv{
+    justify-content:center;
+    height:450px;
+    margin:auto;
+    width:100%;
+}
+.tabsdiv>div>h2{
+    text-align: left;
+    color: #686868;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+}
+.ant-tabs-nav-list{
+    display: flex;
+    justify-content: center;
+}
+.ant-tabs-ink-bar{
+    display: none;
+}
+.tab{
+    color: #575757;
+}
+.tab:hover{
+    cursor: pointer;
+}
+.ant-tabs-tab{
+    margin: 10px;
+    font-size: 20px;
+}
+.tab1{
+    display: flex;
+    width: 92%;
+    margin: auto;
+    background: linear-gradient(180deg, #FDFDFD 0%, rgba(245, 245, 245, 0.75) 100%);
+    border: 1px solid #ABABAB;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 0px 12px;
+    color: #646464;
+    height: 50px;
+    margin-bottom: 20px;
+}
+.ant-tabs-tab-btn:focus{
+    text-decoration: underline;
+    font-weight: 600;
+}
+.tab1>h4{
+    margin-top: auto;
+    margin-bottom: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+}
+.chapterdescaddbtn{
+    padding: 6px 20px;
+    background-color: #214DF9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 32px;
+    font-size: 18px;
+}
+.chapterdescaddbtn:hover{
+    cursor: pointer;
+}
+.tabbtn1{
+    padding: 6px 20px;
+    background-color: white;
+    color: #214DF9;
+    border: 2px solid #214DF9;
+    border-radius: 5px;
+    height: 32px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+}
+.tabbtn2{
+    padding: 6px 20px;
+    background-color: #CF232C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 32px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.tabbtn1:hover, .tabbtn2:hover{
+    cursor: pointer;
+}
+@media (max-width:1080px) {
+    .tabsdiv{
+        margin-top: 10px;
+    }
+}

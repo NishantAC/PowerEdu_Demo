@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@400;600&family=Roboto&family=Rubik:wght@500&display=swap");
+
+.Tassigndiv {
+  width: 90%;
+  margin: 28px auto auto 50px;
+}
+
+.Tpara {
+  font-size: 14px;
+  color: #000;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Thead {
+  color: #000;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 40px;
+}
+
+.Tdiv1 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.Tdiv2 {
+  width: 100%;
+  display: flex;
+}
+
+.Tpara2 {
+  font-family: Rubik !important;
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 14px;
+  margin: 0;
+  color: #000000;
+}
+
+.Tfilt {
+  display: flex;
+  margin-left: 20px;
+}
+.Tddwn {
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 2px 10px;
+  border: 1px solid #414141;
+  background: #fff;
+  color: #414141;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.Tddwn {
+  font-size: 14px !important;
+  color: #202020;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Tanchor {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  color: #ff7575;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.newassignment {
+  margin-left: auto;
+}
+
+.Taddassignbtn {
+  border: none;
+  border-radius: 5px;
+  background: #214df9;
+  color: white;
+  padding: 4px 10px;
+  font-size: 14px;
+}
+
+.Taddassignbtn:hover {
+  cursor: pointer;
+}
+
+.TCont {
+  width: 100%;
+  max-height: 297px;
+  overflow-y: auto;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  color: #000;
+}
+
+.Trow {
+  background: linear-gradient(
+    180deg,
+    #fdfdfd 0%,
+    rgba(245, 245, 245, 0.92) 100%
+  );
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border: 2px solid #a4a4a4;
+  box-sizing: border-box;
+  border-radius: 5px !important;
+}
+
+.TtabCell {
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  line-height: 30px !important;
+  color: #545454 !important;
+  border-bottom: none !important;
+}
+
+.TtabCell2 {
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: #000000 !important;
+  text-align: left !important;
+  font-family: Lato !important;
+  line-height: normal;
+}
+.TtabDel {
+  margin-left: 18px;
+  border-radius: 5px;
+  background: #cf232c;
+  color: #fff;
+  font-family: Rubik;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 8px 15px;
+  border: none;
+  align-self: center;
+  box-sizing: border-box;
+}
+.TtabDel:hover {
+  cursor: pointer;
+}
+
+Tbody {
+  background: "#FFFFFF";
+  border: "1px solid #A5A5A5";
+  box-sizing: "border-box";
+  box-shadow: "0px 4px 4px rgba(0, 0, 0, 0.25)";
+  border-radius: "5px";
+}
+
+.Trow2 {
+  background: linear-gradient(
+    180deg,
+    #fdfdfd 0%,
+    rgba(245, 245, 245, 0.92) 100%
+  );
+  box-sizing: border-box;
+  border-radius: 5px !important;
+}
+
+@media screen and (min-width: 1000px) {
+  .assignviewbtn {
+    margin-bottom: 0px;
+  }
+}
+@media (max-width: 1000px) {
+  .TtabDel {
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+@media (max-width: 720px) {
+  .Tassigndiv {
+    margin: 28px 20px auto 20px;
+  }
+  .Tdiv2 {
+    margin-top: 10px;
+    flex-direction: column;
+  }
+  .newassignment {
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+}

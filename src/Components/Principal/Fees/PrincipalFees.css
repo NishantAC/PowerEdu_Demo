@@ -1,0 +1,259 @@
+.prncplfees {
+  position: relative;
+  width: 93%;
+  margin: auto;
+  margin-top: 20px;
+}
+.para {
+  font-size: 14px;
+  color: #4d4d4d;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.feeDiv1 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.feebtnfocus {
+  font-weight: 400;
+  background: #309d1e;
+  border-radius: 5px;
+  color: #ffffff;
+  font-family: Rubik;
+  font-size: 14px;
+  font-style: normal;
+  border: 0;
+}
+
+.feebtn {
+  border: none;
+  border-radius: 5px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: #7e7e7e;
+  padding: 4px 10px;
+  text-align: center;
+  background-color: #ffffff;
+  font-weight: 300;
+}
+
+.feebtn:hover {
+  cursor: pointer;
+}
+
+.prncphead {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-family: Rubik;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+}
+.prncselect {
+  border-radius: 5px;
+  border: 1px solid #414141;
+  background: #fff;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+.anchor {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  color: #ff7575;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+}
+.applybtnprncplfees {
+  border: none;
+  border-radius: 5px;
+  background-color: #214df9;
+  color: white;
+  margin-left: 30px;
+  padding: 5px 25px;
+}
+
+.feesdiv {
+  width: 90%;
+  margin: 28px auto auto 50px;
+}
+
+.feebutton {
+  border-radius: 5px;
+  background: #ececec;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: #8e8a8a;
+  padding: 8px 10px;
+  border: none;
+  margin-right: 15px;
+}
+
+.feebutton1 {
+  border: 1.5px solid #3cb532;
+  border-radius: 5px;
+  background: #ffffff;
+  font-family: Rubik;
+  font-style: normal;
+  font-size: 14px;
+  color: #3cb532;
+  padding: 8px 10px;
+  line-height: 15px;
+  margin-right: 15px;
+  margin-left: 60px;
+  font-weight: 500;
+}
+
+.feebutton2 {
+  border: none;
+  background: #3cb532;
+  border-radius: 5px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 8px 10px;
+  line-height: 15px;
+  margin-right: -40px;
+}
+.feebutton:hover,
+.feebutton1:hover,
+.feebutton2:hover {
+  cursor: pointer;
+}
+
+.modalstyles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 580px;
+  transform: translate(-50%, -50%);
+  box-shadow: 24;
+  background-color: white;
+  padding: 20px;
+}
+.modalbutton {
+  border: none;
+  margin: 5px;
+  float: right;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  font-size: 18px;
+  text-align: center;
+  background-color: #ff2934;
+  color: white;
+}
+.modalbutton:hover {
+  cursor: pointer;
+}
+.cdiv1 {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+.cimg {
+  max-height: 100%;
+  width: 80px;
+  overflow: hidden;
+}
+.ch3 {
+  margin: auto;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+  margin-left: 10px;
+  color: #000;
+  font-weight: 500;
+}
+.slipbg {
+  background-color: #f0fbfc;
+}
+.slipdiv1 {
+  display: flex;
+  border-bottom: 1px solid black;
+  padding: 15px 20px;
+}
+.slipdiv2 {
+  flex: 0.65;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
+  line-height: normal;
+}
+.cdiv2 {
+  flex: 0.35;
+  margin: auto;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+}
+.cdiv3 {
+  display: flex;
+  border-bottom: 1px dashed black;
+  padding: 10px 20px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+}
+.cdiv4 {
+  flex: 0.75;
+}
+.cdiv5 {
+  flex: 0.25;
+}
+.cdiv6 {
+  display: flex;
+  padding: 12px 20px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+}
+@media (max-width: 1440px) {
+  .feebutton,
+  .feebutton1,
+  .feebutton2 {
+    margin-bottom: 5px;
+  }
+}
+@media (max-width: 1248px) {
+  .feebutton1 {
+    margin-left: 30px;
+  }
+}
+@media (max-width: 1214px) {
+  .feebutton1 {
+    margin-left: 0;
+  }
+}
+@media (max-width: 720px) {
+  .feesdiv {
+    width: 100%;
+    margin: 0;
+    padding: 28px;
+  }
+  .modalstyles {
+    width: 400px;
+  }
+}

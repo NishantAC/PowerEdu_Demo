@@ -1,0 +1,124 @@
+.main {
+  width: 100%;
+}
+.para {
+  /* font-family: noto;
+    font-style: normal;
+    font-weight: normal; */
+  font-size: 14px;
+  color: #4d4d4d;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.feeDiv1 {
+  margin-top: 62px;
+  margin-bottom: 50px;
+}
+.feeDiv2 {
+  display: flex;
+}
+
+.feebtn {
+  border: none;
+  border-radius: 5px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: #7e7e7e;
+  padding: 4px 10px;
+  text-align: center;
+  margin-right: 25px;
+  background-color: #ffffff;
+  font-weight: 300;
+}
+
+.feebtnfocus {
+  font-weight: 400;
+  background: #214df9;
+  color: #ffffff;
+}
+
+.feebtn:focus {
+  background: #214df9;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.feebtn:hover {
+  cursor: pointer;
+}
+.feelayout {
+  background: linear-gradient(
+    180deg,
+    #fdfdfd 0%,
+    rgba(245, 245, 245, 0.92) 100%
+  ) !important;
+  border: 2px solid #a4a4a4 !important;
+  border-radius: 5px !important;
+  padding: 18px;
+}
+
+.feeheading {
+  margin: 0;
+  padding: 0;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: normal;
+  color: #474747;
+}
+
+.feeTablayout {
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #a5a5a5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.tableCon {
+  max-height: "310px";
+  overflow-y: "auto";
+}
+.tabHead {
+  min-width: 200;
+}
+.tabCell {
+  color: #545454;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.tabCell2 {
+  color: #000;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+@media (max-width: 456px) {
+  .feebtn {
+    margin-right: 0px;
+  }
+  .feeDiv1 {
+    margin-top: 20px;
+  }
+}
+@media (max-width: 388px) {
+  /* .feebtn{
+     font-size: 12px;
+    } */
+  .feeDiv2 {
+    display: block;
+  }
+  .feebtn {
+    width: 100%;
+  }
+}

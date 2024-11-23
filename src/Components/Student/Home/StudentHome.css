@@ -1,0 +1,57 @@
+.stdhome {
+    position: relative;
+    background-color: #ffffff;
+    margin-top: 5px;
+    width: 100%;
+
+}
+
+.studenthome {
+    position: relative;
+    overflow: auto;
+    background-color: #F8F9FF;
+    margin-top: 5px;
+
+}
+
+.Div1 {
+    /* height: 80%; */
+    display: flex;
+    width: 100%;
+    margin: 10px;
+
+}
+
+
+
+
+.div2 {
+    height: 91%;
+    display: flex;
+    padding-top: 1.5%;
+    padding-bottom: 14px;
+}
+
+.attendancebtns {
+    margin-left: auto;
+    margin-right: 1px;
+}
+
+@media (max-width:1080px) {
+
+    .Div1,
+    .div2 {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .div2 {
+        padding-top: 0px;
+    }
+}
+@media (max-width: 578px){
+    .Div1{
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

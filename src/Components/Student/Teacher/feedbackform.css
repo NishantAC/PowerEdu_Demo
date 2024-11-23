@@ -1,0 +1,124 @@
+.feedback-model div {
+  border-radius: 10px;
+  width: max-content;
+  padding: 10px 12px;
+  border: none;
+}
+.feedback-question {
+  padding: 2px !important;
+  width: 100% !important;
+  /* border: 1px solid #000; */
+}
+
+.feedback-question-item {
+  margin-bottom: 0px;
+  font-family: "Rubik" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  margin-bottom: 5px;
+  color: #3d3d3d;
+}
+
+.radio-group {
+  padding: 5px !important;
+  /* border: 1px solid #000; */
+}
+
+.radio-label {
+  display: inline-flex;
+  margin: auto;
+  font-size: 11px;
+  font-weight: 600;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 6px;
+  /* border: 1px solid #000; */
+}
+
+.radio-label:hover {
+  background-color: #ececec;
+}
+
+.radio-item {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  box-shadow: inset 0 0 0 1.2px #fff;
+}
+
+.radio-item:hover {
+  background-color: #f2f2f2;
+}
+
+.radio-item:checked {
+  background-color: #6755d9;
+  border-color: #6755d9;
+}
+
+.radio-item:checked:hover {
+  background-color: #6755d9;
+}
+
+.comment-box {
+  width: 100%;
+  margin-top: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 15px;
+  border: 1px solid #e7e7e7;
+  background-color: #ffffff;
+  resize: none;
+  border-radius: 4px;
+}
+
+.comment-box:focus {
+  outline: none;
+  border-color: none;
+  box-shadow: none;
+}
+
+.feedback-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: end !important;
+  border: none;
+  width: 100% !important;
+}
+
+.cancel-btn {
+  padding: 6px 14px;
+  font-family: "Rubik" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  color: #6d6d6d;
+  border-radius: 3px;
+  background-color: #fff;
+  border: 1px solid #ececec;
+}
+
+.submit-btn {
+  padding: 6px 14px;
+  font-family: "Rubik" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  color: #fff;
+  border-radius: 3px;
+  background-color: #6755d9;
+  border: 1px solid #6755d9;
+}
+
+
+@media (max-width : 550px) {
+  .feedback-model div {
+    width: 100%;
+  }
+}

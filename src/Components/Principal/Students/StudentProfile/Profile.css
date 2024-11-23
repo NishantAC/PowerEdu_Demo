@@ -1,0 +1,42 @@
+.stdnttabbox{
+    text-align: center;
+    width: 100%;
+}
+.stdnttabs > .MuiTabs-root > .MuiTabs-fixed > .MuiTabs-flexContainer{
+    border: 1px solid #B158E8;
+    width: max-content;
+    margin: auto;
+    border-radius: 10px;
+    padding: 0;
+    margin-top: 25px;
+}
+.stdnttabs{
+    display: flex;
+}
+.stdnttab1{
+    color: #8A8A8A;
+}
+.stdnttab1:focus{
+    background-color: #B158E8 !important;
+    color: white;
+    border-radius: 10px;
+}
+.prncplprofilebackbtn{
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    border: none;
+    background: transparent;
+}
+.prncplprofilebackbtn:hover{
+    cursor: pointer;
+}
+#simple-tab-0:focus,#simple-tab-1:focus,#simple-tab-2:focus{
+    color: white;
+}
+#simple-tab-0,#simple-tab-1,#simple-tab-2{
+    color: #8A8A8A;
+}
+.MuiTabs-indicator{
+    display: none;
+}

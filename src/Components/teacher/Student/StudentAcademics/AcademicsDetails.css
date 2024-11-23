@@ -1,0 +1,33 @@
+.academicsfilters{
+    display:flex;
+    margin-top:20px;
+    margin-bottom:25px;
+}
+.academicsbtn{
+    border: none;
+    padding: 5px 20px;
+    height: 34px;
+    align-self: center;
+    background-color: #214DF9;
+    color: white;
+    border-radius: 5px;
+    margin: 0px 30px;
+    cursor: pointer;
+}
+.dropdown{
+    margin:0px 25px;
+}
+@media (max-width:720px) {
+    .academicsfilters{
+        flex-direction: column;
+        text-align: left;
+        
+    }
+    .academicsbtn{
+        margin: 10px 25px;
+        width: 25%;
+    }
+    .dropdown{
+        margin: 10px 0px;
+    }
+}

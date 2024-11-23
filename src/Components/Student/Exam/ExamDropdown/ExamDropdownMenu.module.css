@@ -1,0 +1,66 @@
+.main {
+    width: 100%;
+    width: 100% !important;
+    /* flex: 1; */
+    /* overflow: auto; */
+}
+
+.tableContainer {
+    max-height: '297px' !important; 
+    overflow-y: 'auto' !important;
+  }
+  
+.cell {
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    font-family: Poppins !important;
+    color: #545454 !important;
+}
+
+.bcell {
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    font-family: Lato !important;
+    color: #000000 !important;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Slayout {
+    border-radius: 5px !important;
+    margin-right: 10px;
+    margin-bottom: 4px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    color: #7E7E7E;
+    background-color: #ECECEC;
+    width: max-content;
+    padding: 5px 13px;
+    font-size: 14px !important;
+}
+
+.Tbody {
+    max-height: '50px' ;
+    overflow-y: scroll !important;
+}
+
+.syll {
+    width: 330px; /* Adjust the width as per your needs */
+    word-wrap: break-word;
+    white-space: normal;
+  }
+  
+
+/* .row {
+    height: 40px; 
+  } */
+  
+  .row td,
+  .row th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* line-height: 1;  */
+  }
+  

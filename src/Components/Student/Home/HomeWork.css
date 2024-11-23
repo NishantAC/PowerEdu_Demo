@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&family=Rubik:wght@300&display=swap");
+
+.homework {
+  width: 60%;
+  height: 300px;
+  /* min-width: 350px; */
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  border-radius: 10px;
+  -moz-box-shadow: 0 0 5px #999;
+  -webkit-box-shadow: 0 0 5px #999;
+  box-shadow: 0 0 5px #999;
+  display: inline-flex;
+  margin-left: 12px;
+  position: relative;
+  /* top: 40px; 
+    right: 60px;  */
+  /* padding: 4px 2px;  */
+  background-color: #ffffff;
+}
+
+.homeworkdiv1 {
+  /* background-color: #F9F9F9;  */
+  /* height: 300px;  */
+  align-items: center;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.homeworkdate {
+  padding: 8px 15px;
+  align-items: center;
+  display: flex;
+  background-color: #f9f9f9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 1px solid rgb(235, 234, 234);
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  top: auto;
+  left: auto;
+}
+
+.homeworkspan {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  float: left;
+  line-height: normal;
+}
+
+.homeworkdated1 {
+  margin-right: 0px;
+  margin-left: auto;
+  /* border: none;
+    align-items: center; 
+    text-align: right;
+    display: inline-flex; 
+    align-items: center;  */
+  /* padding: 2px 10px;  */
+  color: #414141;
+  font-size: 13px;
+  font-family: Rubik;
+
+  font-weight: 400;
+  border-radius: 5px;
+  background: #e0dddd;
+  box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+
+.homeworkdate>button:hover {
+  cursor: pointer;
+}
+
+.homeworkdate>button:focus {
+  background-color: #e0dddd;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+
+.homeworkdiv2 {
+  padding: 0px 15px;
+  margin-top: 70px;
+  overflow-y: auto;
+  word-break: break-word;
+}
+
+.hwdiv21 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 9px solid white;
+  border-bottom: 1px solid #dbdbdb !important;
+  background-color: #fcfcfc;
+  box-shadow: 0px 2px 4px rgba(219, 210, 210, 0.18);
+  padding: 2px 0px;
+  width: 95%;
+}
+
+.hwdiv21 h4 {
+  margin: 5px 10px;
+  color: #292929;
+
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.hwdiv21 p {
+  margin: 6px 10px;
+  color: #4f4f4f;
+
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.no-homework-message {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 35px;
+  color: #646464;
+  text-align: center;
+}
+
+/* 
+@media (min-width:720px) and (max-width:775px) {
+    .homework{
+        min-height: 420px;
+    }
+} */
+@media (max-width: 1080px) {
+  .homework {
+    height: 300px;
+    width: 100%;
+    margin: 20px 0;
+    z-index: 1;
+  }
+}

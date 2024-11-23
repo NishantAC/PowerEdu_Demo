@@ -1,0 +1,58 @@
+.subjectsContainer {
+  position: relative;
+  padding: 20px 80px 20px 40px;
+}
+
+.inputBox {
+  height: 100%;
+  width: 100%;
+  padding: 0px 10px;
+  color: rgba(0, 0, 0, 0.65);
+  border: none;
+  outline: none;
+  user-select: none;
+  font-family: Inter;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.name {
+  height: 50px;
+  width: 200px;
+}
+
+.address {
+  height: 50px;
+  width: 300px;
+}
+
+.email {
+  height: 50px;
+  width: 200px;
+}
+
+.phoneNo {
+  height: 50px;
+  width: 200px;
+}
+
+.altNo {
+  height: 50px;
+  width: 200px;
+}
+
+.license {
+  height: 50px;
+  width: 239px;
+}
+
+.board {
+  height: 50px;
+  width: 239px;
+}
+
+.class-and-sections{
+  position: relative;
+  height: 50px;
+  width: 239px;
+}

@@ -1,0 +1,21 @@
+.quill-wrapper {
+    display: flex;
+    flex-direction: column-reverse; /* Reversing the order of toolbar and editor */
+    border-top: 1px solid #ccc;
+    height: 100%;
+  }
+
+  
+  .ql-toolbar {
+    border-top: 1px solid #ccc;
+    margin-top: 0; /* Remove top margin to prevent double margin */
+  }
+  
+  .ql-container {
+    flex: 1; /* Allow the editor to take remaining vertical space */
+  }
+
+  .display-editor .ql-editor {
+    height: 360px;
+  }
+  

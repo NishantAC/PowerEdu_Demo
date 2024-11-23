@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&family=Rubik:wght@300&display=swap");
+
+.upcoming {
+  width: 35%;
+  /* overflow-y:scroll;  */
+  height: auto;
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  border-radius: 10px;
+  -moz-box-shadow: 0 0 5px #999;
+  -webkit-box-shadow: 0 0 5px #999;
+  box-shadow: 0 0 5px #999;
+  display: inline-flex;
+  /* bottom: 14px;  */
+  position: relative;
+  top: auto;
+  /* right: 60px;  */
+  /* padding: 2px;  */
+  margin-left: 12px;
+  background-color: #ffffff;
+}
+
+.upcomingdiv {
+  background-color: #ffffff;
+  /* height: 60px;  */
+  align-items: center;
+  border-radius: 10px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.upcdd1 {
+  padding: 20px 15px;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 1px solid rgb(235, 234, 234);
+  position: absolute;
+  height: 20px;
+  /* width: 310px; */
+  width: 100%;
+  left: auto;
+  top: auto;
+  /* left: 996px; */
+  /* top: 494px; */
+}
+
+.upcdd1 span {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  position: absolute;
+  width: 156px;
+  height: 20px;
+  left: 16px;
+  top: 6px;
+  /* float: left; */
+}
+
+.upcdd2 {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+.upcdd2div {
+  border: 1px solid #dbdbdb;
+  background: #fcfcfc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(219, 210, 210, 0.18);
+  margin: 10px 0px;
+  margin-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  cursor: pointer;
+}
+
+.upcdd2div h4 {
+  margin: 2px 10px 5px 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.upcdd2div h6 {
+  margin: 5px 5px 10px 2px;
+  color: #000;
+  font-family: Rubik;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.upcdd2div p {
+  margin: 5px 10px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: normal;
+}
+
+.headingdiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialogbtn {
+  position: absolute !important;
+  right: 0 !important;
+  color: black !important;
+  font-weight: bold !important;
+}
+
+.DialogContent {
+  padding-top: 25px !important;
+}
+
+@media screen and (max-width: 1080px) {
+  .upcoming {
+    height: 380px;
+    width: 100%;
+    margin: 20px 0;
+  }
+}

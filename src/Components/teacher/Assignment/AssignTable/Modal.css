@@ -1,0 +1,63 @@
+.head {
+  color: #494949;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.crsbtn {
+  height: 25px;
+  width: 25px;
+  border: none;
+  margin-left: auto;
+  border-radius: 50%;
+  line-height: 10px;
+  font-size: 16px;
+  text-align: center;
+  background-color: #ff2934;
+  color: white;
+}
+
+.text {
+  color: #000;
+  margin: 7px 0;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.radiobtn {
+  float: right;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  background-color: white;
+  border: 2px solid #e6e6e6;
+}
+.radiobtn:checked {
+  border: 6px solid #3cb532;
+}
+
+.save {
+  background: #3cb532;
+  width: 100%;
+  margin: auto;
+  color: white;
+  border: none;
+  padding: 8px;
+  position: absolute;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

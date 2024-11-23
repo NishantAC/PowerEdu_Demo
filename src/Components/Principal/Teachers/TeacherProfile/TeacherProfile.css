@@ -1,0 +1,145 @@
+.prncplstdnt{
+    position: relative;
+    margin-top: 5px;
+    width: 93%;
+    margin: auto;
+}
+.applybtnprncpl{
+    border: none;
+    border-radius: 5px;
+    background-color: #214DF9;
+    color: white;
+    margin-left: 30px;
+    padding: 5px 25px;
+}
+.profileoverview{
+    position: relative;
+    width: 100%;
+    margin: auto;
+    margin-top: 5px;
+    display: flex;
+    align-items: stretch;
+    background-color: #F8F9FF;
+    overflow-x: hidden;
+}
+.profileicon {
+    min-width: 240px;
+    /* height: 88vh; */
+    text-align: left;
+    padding: 5px 10px;
+    align-items: center;
+    background-color: #FFFFFF;
+  }
+  
+.stdntavtr{
+    margin: auto;
+}
+.stdntavtr > span{
+    font-size: 42px;
+}
+.stdntprofilebtn{
+    border-radius: 5px;
+    background: #CB4C53;
+    max-width: 200px;
+    margin-top: 50px;
+    padding: 10px 12px;
+    border: none;
+    color: #FFF;
+    font-family: Rubik;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.stdntprofilebtn:hover{
+    cursor: pointer;
+}
+.prncplprofilebackbtn{
+    height: 30px;
+    font-size: 20px;
+    margin: 10px !important;
+    background: transparent;
+}
+.prncplprofilebackbtn:hover{
+    cursor: pointer;
+}
+.stdnttabbox{
+    text-align: center;
+    width: 100%;
+}
+.stdnttabs > .MuiTabs-root > .MuiTabs-fixed > .MuiTabs-flexContainer{
+    border: 1px solid #B158E8;
+    width: max-content;
+    margin: auto;
+    border-radius: 10px;
+    padding: 0;
+    margin-top: 25px;
+}
+.stdnttabs{
+    display: flex;
+}
+.stdnttab1{
+    color: #8A8A8A;
+}
+.stdnttab1:focus{
+    background-color: #B158E8 !important;
+    color: white;
+    border-radius: 10px;
+}
+#simple-tab-0:focus,#simple-tab-1:focus,#simple-tab-2:focus{
+    color: white;
+}
+#simple-tab-0,#simple-tab-1,#simple-tab-2{
+    color: #8A8A8A;
+}
+.MuiTabs-indicator{
+    display: none;
+}
+
+.profile-heading{
+    margin-top: 40px;
+    color: #000;
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.classes {
+    width: 330px; /* Adjust the width as per your needs */
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+/* @media (max-width:1000px) {
+    .stdntprofilebtn {
+        width: 65%;
+    }
+
+} */
+@media (max-width: 720px) {
+    .profileoverview {
+        flex-direction: column;
+    }
+    .profileicon{
+        height: auto;
+        padding-bottom: 20px;
+    }
+    .prncplprofilebackbtn{
+        position: absolute !important;
+        top: 0;
+        right: 0;
+        margin-top: 0 !important;
+    }
+    .profile-heading{
+        margin-top: 0;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .details {
+      padding: 0 50px;
+    }
+
+  }

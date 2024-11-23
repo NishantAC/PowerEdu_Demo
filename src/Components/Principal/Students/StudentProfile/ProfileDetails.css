@@ -1,0 +1,206 @@
+.Main {
+  display: flex;
+}
+.backcol2 {
+  width: 20%;
+  background-color: white;
+}
+.profile {
+  float: left;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+.divh2 {
+  margin-left: -2px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 38px;
+  color: #000000;
+}
+.divp {
+  margin-top: 70px;
+}
+.proIcon {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  color: #959595;
+  background-color: #e6e6e6;
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  font-size: 48px;
+  line-height: 150px;
+}
+.details {
+  margin-bottom: 20px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.Principaldiv1 {
+  /* margin: 8px 0px; */
+  text-align: left;
+  display: inline-flex;
+  width: 100%;
+}
+.Principaldiv2 {
+  /* margin: 8px 0px; */
+  /* padding: 0px 17px; */
+  /* text-align: left; */
+  display: inline-flex;
+  /* gap: 0; */
+  width: 96%;
+}
+.TextField {
+  font-weight: 600;
+  width: 100%;
+  background-color: white;
+  margin: 0px 2% !important;
+  border: 1px solid #ffffff;
+  border-radius: 0px !important;
+}
+.TextField2 {
+  width: 100%;
+  background-color: white;
+}
+.div3 {
+  text-align: right;
+  padding-right: 10px;
+}
+.profilebtn {
+  font-size: 16px;
+  margin: 0px 10px;
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+.div3 > button:nth-child(1) {
+  background-color: #309d1e;
+}
+.div3 > button:nth-child(2) {
+  background-color: #214df9;
+}
+.EdIcon {
+  font-size: 16px;
+  margin: 0px 8px;
+  vertical-align: middle;
+}
+@media (max-width: 1135px) {
+  .Main {
+    display: block;
+  }
+  .details {
+    width: 100%;
+  }
+  .Principaldiv1 {
+    justify-content: center;
+  }
+  .Principaldiv2 {
+    display: flex;
+    justify-content: center;
+    width: 95.6%;
+  }
+  .profile {
+    float: none;
+    width: 100%;
+    margin: 0;
+  }
+  .Principaldiv2 {
+    margin-left: 40px;
+  }
+  .divp {
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .proIcon {
+    font-family: "Rubik";
+    font-style: normal;
+    font-weight: 500;
+    color: #959595;
+    background-color: #e6e6e6;
+    position: relative;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    font-size: 48px;
+    line-height: 150px;
+  }
+  .backcol2 {
+    width: 100%;
+  }
+  .TextField {
+    width: 30%;
+  }
+  .TextField2 {
+    width: 100%;
+  }
+}
+@media (max-width: 720px) {
+  /* .proIcon {
+    display: none;
+  } */
+  .Principaldiv1 {
+    display: block;
+    margin: 0;
+  }
+  .details {
+    padding: 0 100px;
+    margin-top: 20px;
+  }
+  .TextField,
+  .Principaldiv2 {
+    width: 100%;
+    margin: 0 0 10px 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .details {
+    padding: 0 10px;
+  }
+}
+/* @media (max-width:1080px) {
+    .TextField{
+        width: 30%;
+    }
+    .details{
+        overflow-x: visible;
+    }
+    .details>div{
+        display: flex;
+    }
+    .TextField2{
+        width: 100%;
+    }
+    .profilebtn{
+        padding: 10px;
+        margin-right: 10px;
+        margin-left: 5px;
+    }
+}
+@media (max-width:1020px) {
+    .Main{
+        display: block;
+    }
+    .divp{
+        padding-left: 355px;
+
+    }
+    .proIcon{
+        margin-top: 60px;
+        margin-bottom: 30px;
+    }
+    
+} */

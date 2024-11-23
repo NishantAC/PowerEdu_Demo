@@ -1,0 +1,81 @@
+.accountsnav{
+    height: 120px; 
+    background: #FFFFFF; 
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+    display: flex; 
+    align-items: center; 
+    
+}
+.navbarbtn{
+    display: none;
+    border: none;
+    background: transparent;
+}
+.navicon{
+    z-index: 3;
+    border: 2px solid rgb(73, 73, 73);
+    border-radius: 50%;
+}
+.notificationicon{
+    margin: auto 64px;  
+    color: #6755D9; 
+}
+.collapsed-nav{
+    display:flex;
+    margin-left:auto;
+    margin-right:3%;
+}
+.collapsed-nav>p{
+    text-align:center; 
+    width: 40px; 
+    height: 40px; 
+    background: #5647B2; 
+    border-radius: 50%; 
+    font-family: Rubik; 
+    font-style: normal; 
+    font-weight: 500; 
+    font-size: 30px; 
+    color: #FFFFFF;
+    padding:3px;
+}
+.collapsed-nav > hr{
+    display: none;
+    height: 0.5px;
+    width: 100%;
+    background-color: grey;
+    margin: 15px auto;
+}
+@media (min-width:851px) and (max-width:1080px) {
+    .notificationicon{
+        margin: auto 10%;
+    }
+}
+@media (max-width:850px) {
+    
+    .navbarbtn{
+        display: block;   
+    }
+    .collapsed-nav{
+        flex-direction: column-reverse; 
+        padding: 20px 10px;  
+        background: linear-gradient(179.21deg, rgba(4, 5, 19, 0.85) 6.55%, rgba(4, 5, 19, 0.8) 35.17%, rgba(4, 5, 19, 0.77) 64.84%, rgba(4, 5, 19, 0.85) 99.32%);
+        -moz-box-shadow: 0 0 5px #999;
+        -webkit-box-shadow: 0 0 5px #999;
+        box-shadow: 0 0 5px #999;
+        border: 1px solid black;
+        border-radius: 15px;
+        margin-right: -38px;
+        margin-top: 310px;
+        z-index: 4;
+        width: 70%;
+    }
+    .collapsed-nav>.notificationicon{
+        margin: auto;
+    }
+    .collapsed-nav>p{
+        margin: auto;
+    }
+    .collapsed-nav>hr{
+        display: block;
+    }
+}

@@ -1,0 +1,97 @@
+.mainbox {
+  padding-bottom: 50px !important;
+}
+.Utabview {
+  border-radius: 5px;
+  border: 1px solid #214df9;
+  background: #fff;
+  color: #214df9;
+  font-family: Rubik;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.head {
+  color: #494949;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.crsbtn {
+  height: 25px;
+  width: 25px;
+  border: none;
+  margin-left: auto;
+  border-radius: 50%;
+  line-height: 10px;
+  font-size: 16px;
+  text-align: center;
+  background-color: #ff2934;
+  color: white;
+}
+.lbltext {
+  color: #494949;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+.insidetext {
+  color: #494949;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: auto;
+}
+.insidetext:focus {
+  outline: none;
+}
+.indrp {
+  font-size: 14px;
+  padding: 2px 140px 2px 0px;
+  color: #494949;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.indrp:focus {
+  outline: none;
+}
+
+.upldp {
+  background: #3cb532;
+  width: 30%;
+  margin: auto;
+  border: none;
+  padding: 8px;
+  position: absolute;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.error-color{
+  color: red;
+}
+
+@media (max-width: 720px) {
+  .mainbox {
+    width: 400px !important;
+  }
+  .indrp {
+    padding: 2px 100px 2px 0px;
+  }
+}

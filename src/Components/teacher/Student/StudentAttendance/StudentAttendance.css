@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@500&family=Roboto&family=Rubik&display=swap');
+
+.studentattendance{
+    position: relative;
+    margin-top: 5px;
+    width: 93%;
+    margin: auto;
+}
+.stdntAttndnceApplyBtn{
+    background-color: #214DF9;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 25px;
+}
+.stdntAttndnceApplyBtn:hover{
+    cursor: pointer;
+}
+.backbtn{
+    font-size: 18px;
+    line-height: 21px;
+    position:absolute;
+    right:0;
+    top:0
+}
+.backbtn>button{
+    border:none;
+    background:none;
+    font-size:18px;
+    color: #414141;
+}
+.backbtn>button:hover{
+    cursor: pointer;
+}
+.markattendancebtn{
+    background-color: #3CB532;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 20px;
+}
+.markattendancebtn:hover{
+    cursor: pointer;
+}
+
+@media screen and (min-width: 880px) {
+    .markattendancebtn {
+        margin-left: auto;
+        margin-top: 0;
+    }
+}

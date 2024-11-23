@@ -1,0 +1,43 @@
+.studenttimetable{
+    position: relative;
+    margin-top: 5px;
+    width: 93%;
+    margin: auto;
+}
+.ttsubject{
+    width: 20%;
+    overflow-y:auto; 
+    height: 100%; 
+    border: 1px solid #E7E7E7; 
+    box-sizing: border-box; 
+    border-radius: 10px; 
+    -moz-box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999; 
+    bottom: 14px; 
+    right: 60px; 
+    margin-left: 12px;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    text-align: center;
+}
+.ttsub > button{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(248, 248, 248, 0.75) 100%);
+    border: 1px solid #C8C8C8;
+    border-radius: 5px;
+    padding: 10px 25px;
+    width: 70%;
+    font-size: 18px;
+    margin: 6px auto;
+}
+.ttsub >button:hover{
+    cursor: pointer;
+}
+.assignteacherbtn{
+    width: 100%;
+    background: #D0D0D0;
+    color: #979797;
+    padding: 10px;
+    border: none;
+    font-size: 18px;
+}

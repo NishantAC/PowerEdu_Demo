@@ -1,0 +1,40 @@
+.prncplexam {
+  position: relative;
+  width: 93%;
+  margin: auto;
+  margin-top: 15px;
+}
+.applybtnprncplexam {
+  border: none;
+  border-radius: 5px;
+  background-color: #214df9;
+  color: white;
+  margin-left: 30px;
+  padding: 5px 25px;
+}
+.add-new-exam-tile {
+  box-sizing: border-box;
+  width: 100%;
+  height: 65px;
+  padding: 0px 40px;
+  background: #fff;
+  border: 2px dashed #a4a4a4;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  color: #9b9b9b;
+  cursor: pointer;
+}
+
+.plus-symbol {
+  margin-right: 10px;
+}
+
+.title {
+  margin-right: 10px;
+}

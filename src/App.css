@@ -1,42 +1,69 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body{
+  overflow-x: hidden;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@font-face {
+  font-family: 'Helvetica';
+  src: url('./assets/Fonts/Helvetica/Helvetica.ttf');
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: 'Helvetica-Bold';
+  src: url('./assets/Fonts/Helvetica/Helvetica-Bold.ttf');
 }
 
-.card {
-  padding: 2em;
+@font-face {
+  font-family: 'Helvetica-Light';
+  src: url('./assets/Fonts/Helvetica/helvetica-light-587ebe5a59211.ttf');
 }
 
-.read-the-docs {
-  color: #888;
+@font-face {
+  font-family: 'Work-Sans';
+  src: url('./assets/Fonts/Work-sans/WorkSans-VariableFont_wght.ttf');
 }
+
+@font-face {
+  font-family: 'Work Sans-Italic';
+  src: url('./assets/Fonts/Work-sans/WorkSans-Italic-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Playwrite';
+  src: url('./assets/Fonts/Playwrite/PlaywriteGBS-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Playwrite-Italic';
+  src: url('./assets/Fonts/Playwrite/PlaywriteGBS-Italic-VariableFont_wght.ttf');
+}
+@font-face {
+  font-family: 'Big-Shoulders';
+  src: url("./assets/Fonts/BigShoulders/BigShouldersDisplay-VariableFont_wght.ttf");
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::selection {
+  background-color: #2d53ff; /* Gold background */
+  color: #e0e0e0; /* White text */
+}
+
+
+/* ! Copyright (c) 2024 Aquaria Core Pvt. Ltd. */

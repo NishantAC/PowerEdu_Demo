@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Roboto&family=Rubik:wght@500&display=swap");
+
+.importinput {
+  display: none;
+}
+
+.importinput::before {
+  content: "Import File";
+}
+
+.importlabel {
+  color: #b420f9;
+  border: 1px solid #b420f9;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 16px;
+  margin: 10px;
+  margin-left: auto;
+}
+
+.exportlabel {
+  color: #5647b2;
+  border: 1px solid #5647b2;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.importlabel:hover,
+.exportlabel:hover {
+  cursor: pointer;
+}
+
+.backbtn {
+  font-size: 18px;
+  line-height: 21px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.backbtn > button {
+  border: none;
+  background: none;
+  font-size: 18px;
+  color: #414141;
+}
+
+.backbtn > button:hover {
+  cursor: pointer;
+}
+
+.verifybtn {
+  background: #309d1e;
+  color: white;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 8px 20px;
+  font-size: 18px;
+  border: none;
+}
+
+.savendclosebtn {
+  background: #214df9;
+  color: white;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 8px 20px;
+  font-size: 18px;
+  border: none;
+}
+
+.verifybtn:hover,
+.savendclosebtn:hover {
+  cursor: pointer;
+}
+
+.entermarksbtn {
+  background: #9f8fff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  font-size: 15px;
+}
+
+.entermarksbtn:hover {
+  cursor: pointer;
+}
+
+.passbtn {
+  background: green;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  font-size: 15px;
+}
+.passbtn:disabled {
+  background: lightgray;
+  color: gray;
+  cursor: not-allowed; /* Optional: Change cursor to not-allowed when button is disabled */
+}
+
+.footerbutton {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5vh;
+}
+
+.fixedcell {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.fixedcell2 {
+  position: sticky;
+  left: 40px;
+  z-index: 1;
+}
+
+.scrollablecontainer {
+  overflow-x: auto;
+}

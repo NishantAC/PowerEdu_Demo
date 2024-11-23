@@ -1,0 +1,11 @@
+#outlined-basic{
+    font-weight: 600;
+}
+.profilebtn{
+    font-size: 16px;
+    margin: 0px 10px;
+    padding: 10px 30px ;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}

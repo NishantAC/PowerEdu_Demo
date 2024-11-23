@@ -1,0 +1,23 @@
+.tchrexam {
+    position: relative;
+    width: 95%;
+    margin: auto;
+}
+
+.d1 {
+    margin-left: auto;
+    margin-right: 5%;
+}
+
+.folderparent {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+@media screen and (max-width: 900px) {
+    .folderparent {
+        justify-content: center;
+    }
+}

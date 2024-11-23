@@ -1,0 +1,89 @@
+.syllabusbtn {
+  margin-left: 10px;
+  background: transparent;
+  border: 1px dashed #7e7e7e;
+  color: #7e7e7e;
+  border-radius: 3px;
+  font-size: 18px;
+}
+.syllabusbtn:hover {
+  cursor: pointer;
+}
+.syllabusboxstyle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  background-color: white;
+  border: none;
+  box-shadow: 24;
+}
+.timeboxstyle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  background-color: white;
+  border: none;
+  box-shadow: 24;
+  padding: 0px 20px 20px 20px;
+}
+.timesavebtn {
+  color: white;
+  background-color: #214df9;
+  border-radius: 5px;
+  border: none;
+  padding: 8px 20px;
+  font-size: 16px;
+}
+.timesavebtn:hover {
+  cursor: pointer;
+}
+.css-1hbyad5-MuiTypography-root {
+  font-weight: 600 !important;
+  font-size: 20px !important;
+  color: black !important;
+  font-style: Poppins !important;
+}
+.PrivateTimePickerToolbar-penIconLandscape {
+  display: none !important;
+}
+.css-12ha4i7,
+.css-7lip4c,
+.css-118whkv {
+  background-color: #6755d9 !important;
+}
+.css-2ujp1m,
+.css-118whkv {
+  border: 16px solid #6755d9 !important;
+}
+.css-5l80dt > .css-1x2wh54-MuiButtonBase-root-MuiButton-root {
+  padding: 5px 10px !important;
+}
+.css-5l80dt > .css-1x2wh54-MuiButtonBase-root-MuiButton-root:focus {
+  background-color: #6755d9 !important;
+  color: white !important;
+  padding: 5px 10px !important;
+  border-radius: 0 !important;
+}
+.css-5l80dt > .css-1x2wh54-MuiButtonBase-root-MuiButton-root:focus > span {
+  color: white !important;
+}
+
+/* Style the scrollbar */
+.scrollableDiv::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+.scrollableDiv::-webkit-scrollbar-thumb {
+  background-color: #cccccc; /* Set the color of the scrollbar thumb */
+  border-radius: 3px; /* Set the border radius of the scrollbar thumb */
+}
+
+/* Style the track (the non-draggable part of the scrollbar) */
+.scrollableDiv::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Set the color of the scrollbar track */
+}

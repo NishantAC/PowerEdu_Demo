@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@500&family=Roboto&family=Rubik&display=swap");
+
+.status1 {
+  background: #3cb532;
+  border: none;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: white;
+  padding: 4px 8px;
+}
+.status2 {
+  background: #ffffff;
+  border: 1px solid #5647b2;
+  box-sizing: border-box;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #5647b2;
+  padding: 4px 8px;
+}
+.status2:hover {
+  cursor: pointer;
+}
+.actionbtns {
+  display: flex;
+}
+
+.assigndeletebtn {
+  background: #cf232c;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-family: Rubik;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 17px;
+  color: white;
+  padding: 8px 15px;
+}
+.assigndeletebtn:hover {
+  cursor: pointer;
+}
+@media (max-width: 1000px) {
+  .actionbtns {
+    flex-direction: column;
+  }
+}

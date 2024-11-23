@@ -1,0 +1,63 @@
+.boxstyle{
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(100%, 150%, 0); */
+    transform: translate3d(940px, 164px, 0px);
+    top: auto;
+    left: auto;
+    width: 350px;
+    background-color: white;
+    border: none;
+    box-shadow: 24;
+    padding: 0px 20px 20px 20px;
+}
+.boxstylediv1{
+    display: flex; 
+    padding: 0;
+}
+.boxstylediv1 h4{
+    color: rgba(0, 0, 0, 0.55); 
+    margin: auto; 
+    width: 100%; 
+    text-align: center;
+}
+.boxstylediv2{
+    width: 70%; 
+    margin: auto; 
+    margin-top: 30px;
+}
+
+.modalbutton{
+    border:none; 
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 15px;
+    margin-bottom: auto;
+    border-radius:50%;
+    height:30px;
+    width:30px;
+    font-size: 18px;
+    text-align: center;
+    background-color:#FF2934;
+    color:white;
+}
+.modalbutton:hover{
+    cursor: pointer;
+}
+.clndr{
+    height: 100%;
+}
+.PrivatePickersSlideTransition-root{
+    min-height: 200px !important;
+}
+.addbtn{
+    background-color: #3CB532;
+    color: white;
+    width: 100%;
+    height: 34px;
+    border: none;
+}
+.addbtn:hover{
+    cursor: pointer;
+}

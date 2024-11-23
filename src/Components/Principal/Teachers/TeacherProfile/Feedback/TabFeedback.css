@@ -1,0 +1,14 @@
+.prncpltchrfeedbackfilters{
+    display:flex;
+    gap: 10px;
+    align-items: center;
+    margin-top:20px;
+    margin-bottom:25px;
+}
+
+@media (max-width:720px) {
+    .prncpltchrfeedbackfilters{
+        /* flex-direction: column; */
+        text-align: left;
+    }
+}

@@ -1,0 +1,25 @@
+.layout__main {
+  display: flex;
+}
+
+.layout__leftSide {
+  display: flex;
+}
+
+.layout__rightSide {
+  width: 100%;
+  margin-left: 140px !important;
+}
+
+@media (max-width: 720px) {
+  .layout {
+    width: auto;
+    margin-left: 0px;
+  }
+  .layout__rightSide {
+    margin-left: 0px !important;
+  }
+  .layout__main {
+    display: block;
+  }
+}

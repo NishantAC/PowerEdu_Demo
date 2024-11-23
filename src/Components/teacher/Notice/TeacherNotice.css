@@ -1,0 +1,79 @@
+.noticediv{
+    margin-top: 55px; 
+    display: flex;
+    margin-bottom:50px; 
+}
+.addnoticebtn{
+    margin-left: auto;
+    border: none;
+    border-radius: 5px;
+    background: #214DF9;
+    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
+    margin-top: 20px;
+}
+.addnoticebtn:hover{
+    cursor: pointer;
+}
+
+.noticebtn{
+    height: 40px;
+    background-color: #ECECEC;
+    border: none;
+    border-radius: 5px;
+    font-family: Rubik;
+    font-size:18px;
+    color: #8E8A8A;
+    padding:8px 20px;
+    margin:5px;
+}
+.noticebtn:hover{
+    cursor: pointer;
+}
+.noticebtn:focus{
+    background: #1BBF9C;
+    color: #FFFFFF;
+}
+.noticedivD1{
+    overflow-y:scroll;
+    max-height: 480px;
+    width: 47%;
+    background: #FFFFFF;
+    border: 1px solid #E7E7E7;
+    box-shadow: 0px 2px 7px rgba(52, 52, 52, 0.35);
+    border-radius: 5px;
+}
+.noticedivD2{
+    height: 300px;
+    width: 40%;
+    background: #FFFFFF;
+    border: 1px solid #E7E7E7;
+    box-shadow: 0px 2px 7px rgba(52, 52, 52, 0.35);
+    border-radius: 5px;
+    margin-left: 78px;
+}
+.messagepara{
+    margin-top:-15px;
+    width:100%; 
+    padding-right:20px;
+    height: 250px;
+    overflow-y:auto;
+}
+@media (max-width:1080px) {
+    .noticediv{
+        flex-direction: column;
+    }
+    .noticedivD1{
+        width: 100%;
+    }
+    .noticedivD2{
+        height: 420px;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 25px;
+    }
+    .messagepara{
+        height: 350px;
+    }
+}

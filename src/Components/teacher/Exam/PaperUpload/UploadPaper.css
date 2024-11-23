@@ -1,0 +1,73 @@
+.paperupload>button {
+    border: none;
+    padding: 8px 15px;
+    background: #214DF9;
+    color: white;
+    height: 38px;
+    border-radius: 5px;
+}
+
+.paperupload>button:hover {
+    cursor: pointer;
+}
+
+.uploadmodald2 {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    gap: 5px;
+    justify-content: center;
+    margin: auto;
+    /* margin-top: ; */
+}
+
+.uploadmodald2>label {
+    color: #494949;
+    font-size: 15px;
+    margin-bottom: -0.5rem;
+    margin-left: 7px;
+}
+
+.uploadmodald2>input,
+.uploadmodald2>select {
+    margin: 10px 0;
+    height: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.uploadfile>button {
+    background: #9F8FFF;
+    padding: 8px 15px;
+    border: none;
+    color: white;
+    margin: 10px 0;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.uploadfile>button:hover {
+    cursor: pointer;
+}
+
+.fileinput {
+    display: none;
+}
+
+.fileinput::before {
+    content: 'Select';
+    color: #00a3cc;
+    font-size: 16px;
+}
+
+.paperfilter {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+@media screen and (max-width: 900px) {
+    .paperfilter {
+        justify-content: center;
+    }
+}

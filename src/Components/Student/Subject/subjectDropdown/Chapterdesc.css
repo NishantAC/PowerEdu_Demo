@@ -1,0 +1,58 @@
+/* Center-align tab titles */
+.react-bootstrap-tabs {
+  border: none !important;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px !important;
+  margin-top: 3px;
+}
+
+.react-bootstrap-tabs .nav-item {
+  border: none !important;
+}
+
+.react-bootstrap-tabs .nav-link {
+  text-align: center;
+  color: #686868;
+  font-weight: 300 !important;
+  font-family: "Poppins", sans-serif !important;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+/* Remove default background color and borders */
+.react-bootstrap-tabs .nav-link {
+  background-color: transparent !important;
+  border: none !important;
+  font-weight: 400 !important;
+}
+
+.react-bootstrap-tabs .nav-link.active {
+  font-weight: 600 !important;
+}
+
+/* Add underline to active tab title */
+.react-bootstrap-tabs .nav-link.active::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: #575757;
+  transition: width 0.5s ease;
+}
+
+/* Add transition effect */
+.react-bootstrap-tabs .nav-link::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: transparent;
+  font-weight: 600 !important;
+  transition: width 0.5s ease;
+}
+
+.react-bootstrap-tabs .nav-link.active::after,
+.react-bootstrap-tabs .nav-link:hover::after {
+  width: 100%;
+  font-weight: 600 !important;
+}

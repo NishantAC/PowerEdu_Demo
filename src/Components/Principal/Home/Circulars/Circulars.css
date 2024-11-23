@@ -1,0 +1,71 @@
+.prncplcircular {
+  width: 40%;
+  overflow-y: hidden; /* Hide the scrollbar here */
+  height: 100%;
+  margin: auto;
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  border-radius: 10px;
+  -moz-box-shadow: 0 0 5px #999;
+  -webkit-box-shadow: 0 0 5px #999;
+  box-shadow: 0 0 5px #999;
+  bottom: 14px;
+  right: 60px;
+  /* margin-left: 12px; */
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+.prncplcircular-body {
+  /* Add a new class for the body to control the scrollbar */
+  height: 100%; /* Height after considering the header's height */
+  overflow-y: auto; /* Show the scrollbar here */
+}
+
+.prncplcircular-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.prncplcircular-body::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f0f0f0;
+  overflow-x: auto;
+}
+
+.prncplcircularheader {
+  padding: 8px 10px;
+  align-items: center;
+  display: flex;
+}
+
+.prncplcircularheader > button {
+  margin-right: 0px;
+  margin-left: auto;
+  border: none;
+  padding: 0px 10px;
+  align-items: center;
+  font-size: 24px;
+  text-align: right;
+  color: #6d6d6d;
+  background-color: #e0dddd;
+  box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+
+.prncplcircularheader > button:hover {
+  cursor: pointer;
+}
+
+.prncplcircularheader > button:focus {
+  background-color: #e0dddd;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+
+@media screen and (max-width: 1080px) {
+  .prncplcircular {
+    height: 380px;
+    width: 100%;
+    /* margin: 20px 0; */
+    /* margin-left: 34px; */
+  }
+}

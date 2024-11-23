@@ -1,0 +1,74 @@
+.timetable{
+    border: 1px solid #D7D7D7; 
+    box-sizing: border-box; 
+    -moz-box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999; 
+    border-radius: 10px 10px 0px 0px; 
+    padding: 2px;
+}
+.timetabledate{
+    margin-right: 2px;
+    margin-left: auto;
+    display: inline-flex; 
+    align-items: center; 
+    border: none;
+    font-size: 16px;
+    padding: 5px;
+}
+.timetabledate:hover{
+    cursor: pointer;
+}
+.timetabledate:focus{
+    background-color: #E0DDDD; 
+    border-radius: 5px; 
+    box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48); 
+}
+.timetablediv1{
+    background-color: #F9F9F9; 
+    height: max-content; 
+    align-items: center; 
+    width: 100%;
+}
+.classactive{
+    background: linear-gradient(269.96deg, #3D3AC8 0.03%, #8B64FC 99.96%);
+    color: white;
+    display: flex;
+    margin: 22px 2px;
+    padding: 0px 10px;
+    border-radius: 5px;
+}
+.class{
+    display: flex;
+    margin: 20px 2px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    border: 2px solid #E7E7E7;
+    box-sizing: border-box;
+}
+@media (max-width:1080px) {
+    .timetable{
+        min-width: 155px;
+    }
+    .timetablediv1>div{
+        flex-direction: column;
+    }
+    .timetabledate{
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+}
+@media (max-width:580px) {
+    .timetable{
+        min-width: 155px;
+    }
+    .timetablediv1>div{
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .timetabledate{
+        margin: 0;
+    }
+}

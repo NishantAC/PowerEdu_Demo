@@ -1,0 +1,118 @@
+.main {
+    width: 100%;
+}
+
+.examLayout {
+    border: 1.5px solid #A4A4A4 !important;
+    border-radius: 5px !important;
+    height: 80px !important;
+    padding: 0 40px !important;
+    background-color: #FDFDFD !important;
+}
+
+.accord {
+    border: none !important;
+}
+
+.examLayout:hover {
+    box-shadow: 1px 2px 5px 1px rgb(211, 211, 211);
+}
+
+.details {
+    border: 1px solid #A5A5A5 !important;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    border-radius: 5px;
+    max-height: 300px !important;
+    padding: 0 !important;
+    /* display: flex; */
+    /* overflow-y: auto !important; */
+}
+
+.typo {
+    color: #646464 !important;
+    font-weight: 500 !important;
+    font-family: Rubik !important;
+    font-size: 18px !important;
+}
+
+.examdropExam {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: 'space-around';
+    /* justify-content: space-between; */
+}
+
+.headin {
+    display: flex;
+    color: #646464 !important;
+    font-weight: 500 !important;
+    font-family: Rubik !important;
+    font-size: 18px !important;
+}
+
+.styleselect {
+    margin-right: 40px;
+    font-size: 14px;
+    font-family: Rubik;
+    border-radius: 5px;
+    background-color: #6755D9;
+    color: white;
+    padding: 10px 12px;
+    text-align: center !important;
+    cursor: pointer;
+    border: none !important;
+}
+
+.styleselect option {
+    background-color: white;
+    color: black;
+}
+
+.content {
+    margin: -7px 5px -10px auto;
+    padding: auto 5px !important;
+}
+
+.css-15v22id-MuiAccordionDetails-root {
+    padding: 0 !important;
+}
+
+@media (max-width:709px) {
+    .MuiPaper-root {
+        width: 90%;
+    }
+    .styleselect{
+        margin-right: 0;
+    }
+}
+
+@media (max-width:650px) {
+    .MuiPaper-root {
+        width: 85%;
+    }
+}
+
+@media (max-width:409px) {
+    .MuiPaper-root {
+        width: 50%;
+    }
+    .styleselect{
+        width: 100px;
+    }
+    /* .examdropExam{
+        flex-direction: column;
+        justify-content: flex-start;
+    } */
+    .examLayout{
+        padding: 0px 15px !important;
+    }
+}
+@media (max-width:328px){
+    .styleselect{
+        width: 60px;
+    }
+    .examLayout{
+        padding: 0 5px !important;
+    }
+}

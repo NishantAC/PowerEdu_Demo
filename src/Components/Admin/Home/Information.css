@@ -1,0 +1,35 @@
+/* .information-grid {
+  display: grid;
+  place-content: center;
+} */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: white;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: gray;
+}
+
+
+.scrolling::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+  
+}
+
+.scrolling::-webkit-scrollbar-track {
+  background: white;
+  margin: 20px 0;
+}
+
+
+.scrolling::-webkit-scrollbar-thumb {
+  background: rgb(255, 154, 154);
+  border-radius: 10px;
+}
+

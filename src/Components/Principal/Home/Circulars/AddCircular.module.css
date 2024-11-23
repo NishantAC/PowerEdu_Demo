@@ -1,0 +1,94 @@
+.boxstyle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: white;
+    border: none;
+    box-shadow: 24;
+    padding: 15px;
+}
+.modalbutton{
+    border:none; 
+    margin:5px;
+    float:right;
+    border-radius:50%;
+    height:30px;
+    width:30px;
+    font-size: 18px;
+    text-align: center;
+    background-color:#FF2934;
+    color:white;
+  }
+.modalbutton:hover{
+    cursor: pointer;
+}
+
+.clndrbtn{
+    /* height: 20px; */
+    background-color: #2ED573;
+    color: white;
+    border: none;
+    /* position: absolute; */
+    /* margin-top: -28px; */
+    font-size: small;
+    border-radius: 3px;
+}
+.clndrbtn:hover{
+    cursor: pointer;
+}
+.inputbox{
+    width: 100%;
+    border: none;
+}
+.addbtn{
+    background-color: #3CB532;
+    color: white;
+    width: 100%;
+    height: 34px;
+    border: none;
+}
+.addbtn:hover{
+    cursor: pointer;
+}
+.clndr{
+    height: 100%;
+    width: 100%;
+}
+.PrivatePickersSlideTransition-root{
+    min-height: 200px !important;
+}
+.postbtn{
+    float: right;
+    background-color: #214DF9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 6px 15px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+.schoolname{
+    font-size: 25px;
+    margin: auto;
+    text-align: center;
+}
+.logo{
+    width: 80px;
+}
+@media screen and (max-width: 780px) {
+    .boxstyle{
+        width: 90%;
+    }
+    .logo{
+        width: 60px;
+    }
+    .schoolname{
+        font-size: 21px;
+        margin: auto;
+        text-align: center;
+    }
+  }

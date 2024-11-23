@@ -1,0 +1,293 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@100;200;600&family=Rubik:wght@400&display=swap");
+
+.main {
+  width: 90%;
+  margin: 28px auto auto 50px;
+}
+
+.heading {
+  color: #4d4d4d;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.noticediv {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.addnoticebtn {
+  margin-left: auto;
+  border: none;
+  border-radius: 5px;
+  background: #214df9;
+  color: white;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.addicon {
+  vertical-align: middle;
+  margin-right: 3px;
+  font-family: Rubik;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+  color: #ffffff;
+}
+
+.noticedivD1,
+.noticedivD2 {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 7px rgba(52, 52, 52, 0.35);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.noticedivD1 {
+  width: 60%;
+  height:600px
+}
+
+.noticedivD2 {
+  width: 35%;
+  height:600px
+
+}
+
+.principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e1e1e1;
+  padding: 10px;
+  border-radius: 4px 4px 0 0;
+
+}
+
+.principal p {
+  font-family: Poppins;
+  /* font-size: 18px;
+  font-weight: 600;
+  color: #000; */
+}
+
+.principal img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.principal button {
+  background-color: #e0dddd;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #414141;
+}
+
+.principal button:hover {
+  background-color: #1bbf9c;
+  color: white;
+}
+
+.msg {
+  display: flex;
+  margin-top: 20px;
+}
+
+.avatar {
+  max-height: 100%;
+  margin-right: 20px;
+}
+
+.messagepara {
+  width: 100%;
+  font-family: Poppins;
+  font-size: 16px;
+  line-height: 25px;
+  padding-top: 15px;
+  border: none;
+  background-color: transparent;
+  overflow-y: auto;
+}
+
+.editable .messagepara {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.messagepara p {
+  padding: 0px 2px;
+}
+
+
+.savebtn {
+  width: 100%;
+  padding: 10px;
+  background: #3cb532;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.savebtn:hover {
+  background-color: #32a028;
+}
+
+.noticedivD1 .clas,
+.noticedivD2 .principal {
+  margin-bottom: 20px;
+}
+
+.noticebtn {
+  background-color: #ececec;
+  border: none;
+  border-radius: 5px;
+  font-family: Rubik;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+  color: #8e8a8a;
+  padding: 8px 20px;
+  margin: 5px;
+}
+
+.noticebtnfocus {
+  background: #1bbf9c;
+  color: #ffffff;
+}
+
+.area {
+  padding: 30px 30px 30px 20px;
+  width: 100%;
+  overflow-y: auto;
+  height: 400px;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+.area div {
+  background-color: #fdfdfd;
+  margin-bottom: 30px;
+}
+
+.area div p {
+  font-family: Rubik;
+  font-size: 15px;
+  color: #292929;
+}
+
+.area div p:nth-child(1) {
+  font-family: "Rubik";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+  color: #292929;
+}
+
+.area div p:nth-child(2) {
+  color: #6755d9 !important;
+  font-family: Lato !important;
+  font-weight: 700 !important;
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.area div p:nth-child(3) {
+  color: #000000 !important;
+  font-family: Lato !important;
+  font-weight: 400 !important;
+  font-size: 16px;
+  line-height: 25px;
+  word-wrap: break-word;
+}
+
+.button {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1080px) {
+  .main {
+    width: 100%;
+    margin: 0;
+    padding: 28px;
+  }
+  .noticediv {
+    flex-direction: column;
+  }
+  .noticedivD1 {
+    width: 100%;
+  }
+  .noticedivD2 {
+    height: 420px;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 25px;
+  }
+  .messagepara {
+    height: 372px;
+  }
+}
+
+@media (max-width: 720px) {
+  .messagepara p {
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .main {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+  .box {
+    width: 325px !important;
+  }
+}
+
+
+.principalHeader {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between; /* Ensure the title and button are aligned properly */
+  width: 100%;
+  margin-bottom: 20px; /* Add some space below the row */
+}
+
+.principalHeader p {
+  margin: 0; /* Ensure no extra margins */
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.principalHeader svg {
+  cursor: pointer;
+}
+
+
+.customAvatar {
+  width: 50px !important;
+  height: 132px !important;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

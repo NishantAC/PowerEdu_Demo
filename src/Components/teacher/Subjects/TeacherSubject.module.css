@@ -1,0 +1,577 @@
+/*--TeacherStudentSubject css--*/
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Roboto&family=Rubik&display=swap");
+
+.main {
+  width: 90%;
+  margin: 28px auto auto 50px;
+}
+
+.para {
+  color: #4d4d4d;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.TSdiv {
+  margin: 50px 0;
+}
+
+/*--SubDropdown css--*/
+
+.SubLayout {
+  border: 2px solid #a4a4a4 !important;
+  border-radius: 5px !important;
+  height: 70px !important;
+  padding: 0 40px !important;
+}
+
+.accord {
+  border: none !important;
+  margin-bottom: 30px;
+  box-shadow: none !important;
+}
+
+.SubLayout:hover {
+  box-shadow: 1px 2px 5px 1px rgb(211, 211, 211);
+}
+
+.accord .details {
+  border: 1px solid #a5a5a5 !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 0 !important;
+  margin-top: 2px !important;
+}
+
+.typo {
+  color: #646464 !important;
+  font-weight: bold !important;
+  font-family: "Rubik", sans-serif !important;
+  font-size: 18px !important;
+}
+.typography {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*--DropdownMenu css--*/
+
+.basictable {
+  display: flex;
+  width: 100%;
+  height: 330px;
+}
+.div1 {
+  flex: 0.6;
+  border-right: 1px solid #a4a4a4;
+  max-height: 330px;
+  scroll-behavior: smooth;
+  /* overflow-y: auto; */
+}
+.tablecon {
+  box-shadow: none !important;
+  max-height: 330px !important;
+  overflow-y: auto !important;
+}
+.cell {
+  color: #545454 !important;
+  font-weight: 600 !important;
+  font-size: 20px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-style: normal;
+  line-height: 30px;
+}
+.cell2 {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Lato", sans-serif !important;
+  font-style: normal;
+  text-transform: capitalize;
+  line-height: 22px;
+  color: #373737;
+}
+
+.status {
+  display: inline-block;
+  width: 134px;
+  height: 37px;
+  border-radius: 5px;
+}
+
+.DTcell3 {
+  font-family: "Lato", sans-serif !important;
+  display: flex !important;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: normal;
+  color: #373737;
+  padding-left: 0 !important;
+  border-bottom: none !important;
+}
+
+.DTcell3 p {
+  padding: 4px 8px;
+  margin-left: 5px;
+  margin-bottom: 0 !important;
+}
+
+.tbrow {
+  height: 14px;
+}
+
+.tbstatus {
+  background-color: #c2ffb8;
+  padding: 5px 10px;
+  margin: 0;
+  border-radius: 5px;
+  font-weight: 400;
+  width: 134px;
+  font-style: normal;
+  font-family: "Lato";
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+}
+
+.tbbtn {
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  background-color: #ececec;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+}
+
+.tbbtnclicked {
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background-color: #6755d9;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+/* .tbbtn:focus {
+  background-color: #6755d9;
+  color: white;
+} */
+
+.div2 {
+  flex: 0.4;
+  margin: 0;
+  width: 100%;
+  max-height: 330px;
+  text-align: "center";
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.div2h2 {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 35px;
+  color: #646464;
+  text-align: center;
+}
+
+.div2else {
+  flex: 0.4;
+  margin: 0;
+  width: 100%;
+  max-height: 330px;
+  text-align: "center";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.visib {
+  font-size: 16px !important;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+/*--Status css--*/
+
+.addnoticebtn {
+  border-radius: 5px;
+  margin-left: auto;
+  border: none;
+  padding: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  background: #f0f0f0;
+}
+
+.box {
+  width: 220px;
+  background: #ffffff;
+}
+
+.boxdiv {
+  display: flex;
+  padding: 10px;
+}
+
+.boxdivh3 {
+  margin-top: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  color: #494949;
+}
+
+.crossbtn {
+  border: none;
+  margin-left: auto;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  font-size: 16px;
+  text-align: center;
+  background-color: #ff2934;
+  color: white;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+
+.selectItem {
+  display: flex;
+  align-items: baseline;
+  padding: 0 10px;
+  margin: 0 !important;
+  font-size: 14px !important;
+  justify-content: space-between;
+  border-bottom: 1px solid #d7d7d7;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  /* identical to box height */
+
+  color: #494949;
+}
+
+.selectItem p {
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+.save {
+  background-color: #3cb532;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  margin-top: 30px;
+  width: 100%;
+  font-weight: 500;
+  font-family: "Poppins";
+  font-style: normal;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/*--Chapterdesc css--*/
+
+.tabsdiv {
+  font-size: 14px;
+}
+
+.tabsdiv .tbs:focus {
+  font-weight: 600;
+}
+
+.tabsdivd1 {
+  padding: 8px 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ababab;
+  border-radius: 0px 4px 0px 0px;
+  /* position: 'sticky';
+  top: 0;
+  z-index: 1 */
+}
+
+.tabsdivd1 > h2 {
+  text-align: left;
+  color: #686868;
+  font-style: normal;
+  font-weight: 600;
+  padding-top: 10px;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.tbs {
+  color: #575757;
+}
+
+.Ctab {
+  font-family: "Poppins", sans-serif !important;
+  color: #575757 !important;
+  padding-bottom: 0 !important;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 27px;
+}
+.Ctab:focus {
+  font-weight: 600;
+}
+
+.CAdd {
+  text-align: right;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  width: 90px;
+  float: right;
+  height: 34px;
+  justify-content: space-between;
+  display: flex;
+  background: #204df9;
+}
+
+.CAdd:hover {
+  cursor: pointer;
+}
+
+.chapterdescaddbtn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  margin-right: 10px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.CAddIcon {
+  font-size: 20px;
+  vertical-align: middle;
+  margin-top: 4px;
+  margin-left: 10px;
+  color: white;
+  transform: rotate(-180deg);
+}
+
+.tab1 {
+  display: flex;
+  width: 92%;
+  margin: auto;
+  background: linear-gradient(
+    180deg,
+    #fdfdfd 0%,
+    rgba(245, 245, 245, 0.75) 100%
+  );
+  border: 1px solid #ababab;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0px 12px;
+  color: #646464;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.tab1 > h4 {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #646464;
+}
+
+.tab1div {
+  margin: auto;
+  margin-left: auto;
+  margin-right: 5px;
+  display: flex;
+}
+
+.tabbtn1 {
+  padding: 0px 20px;
+  background-color: white;
+  color: #214df9;
+  border: 1px solid #214df9;
+  border-radius: 5px;
+  height: 32px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.tabbtn2 {
+  padding: 0px 20px;
+  background-color: #cf232c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  height: 32px;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.tabbtn1:hover,
+.tabbtn2:hover {
+  cursor: pointer;
+}
+
+/*--Notes css--*/
+.Notesdiv {
+  border: 1px dashed #c5c5c5;
+  text-align: center;
+  color: #1ea6c6;
+  padding-top: 20px;
+}
+.Notesdiv p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #494949;
+}
+
+.p {
+  margin: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #494949;
+  padding-right: 165px;
+}
+
+.NotesdivP1 {
+  color: #707070;
+  font-size: 14px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 139.69%;
+  letter-spacing: 0.04em;
+}
+
+.NotesdivP2 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 139.69%;
+  letter-spacing: 0.04em;
+  margin: 0;
+  color: #242424;
+}
+
+/*--Link css--*/
+
+.Linkdiv {
+  margin: 0 auto;
+}
+
+.Linkdivd1 {
+  width: 190px;
+  margin: auto;
+  justify-content: center;
+}
+
+.Linkdivd1 p {
+  margin-bottom: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #494949;
+}
+
+.Linkdivbtn {
+  background-color: #3cb532;
+  border: none;
+  width: 100%;
+  height: 40px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/*--Media css--*/
+
+@media (max-width: 1080px) {
+  .basictable {
+    flex-direction: column;
+  }
+
+  .basictable > div {
+    flex: 0.5;
+    overflow: auto;
+  }
+
+  .tabsdiv {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .div2h2 {
+    line-height: 10;
+  }
+}
+
+@media (max-width: 720px) {
+  .main {
+    width: 100%;
+    margin: 0;
+    padding: 28px;
+  }
+}

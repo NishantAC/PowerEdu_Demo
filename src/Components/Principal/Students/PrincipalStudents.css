@@ -1,0 +1,55 @@
+.prncplstdnt{
+    position: relative;
+    margin: auto;
+    padding-top: 10px;
+    width: 93%;
+}
+.custom-table-header-row {
+    /* Add your custom styles for the table header row here */
+    /* Example styles */
+    padding-left: '10px';
+    background: 'linear-gradient(180deg, #FDFDFD 0%, rgba(245, 245, 245, 0.92) 100%)' !important;
+    border: '2px solid #A4A4A4' !important;
+    box-sizing: 'border-box' !important;
+    border-radius: '5px' !important;
+  }
+
+  .clearbtn{
+    font-size: medium;
+    cursor: pointer;
+}
+.applybtnprncpl{
+    border: none;
+    border-radius: 5px;
+    background-color: #214DF9;
+    color: white;
+    margin-left: 30px;
+    padding: 5px 25px;
+}
+.profileoverview{
+    position: relative;
+    width: 100%;
+    margin: auto;
+    margin-top: 5px;
+    display: flex;
+    background-color: #F8F9FF;
+    overflow-x: hidden;
+}
+.stdntavtr{
+    margin: auto;
+}
+.stdntavtr > span{
+    font-size: 42px;
+}
+.stdntprofilebtn{
+    background:#D10707;
+    color:white;
+    border-radius:5px;
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 15px;
+    border: none;
+}
+.stdntprofilebtn:hover{
+    cursor: pointer;
+}

@@ -1,0 +1,129 @@
+.student-container {
+    position: relative;
+    width: 93%;
+    margin: auto;
+    margin-top: 5px;
+  }
+  
+  .student-avatar {
+    margin: auto;
+  }
+  
+  .student-avatar > span {
+    font-size: 42px;
+  }
+  
+  .student-profile-btn {
+    background: #d10707;
+    color: white;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 15px;
+    border: none;
+  }
+  
+  .student-profile-btn:hover {
+    cursor: pointer;
+  }
+  
+  .profile-back-btn {
+    height: 30px;
+    font-size: 20px;
+    margin: 20px;
+    display: flex;
+    border: none;
+    background: transparent;
+  }
+  
+  .profile-back-btn:hover {
+    cursor: pointer;
+  }
+  
+  .student-profile {
+    display: flex;
+    background-color: #f8f9ff;
+  }
+  
+  .student-account {
+    min-width: 150px;
+    width: 35%;
+    height: 100vh;
+    text-align: left;
+    padding: 5px 10px;
+    align-items: center;
+    background-color: #ffffff;
+  }
+  
+  .student-tab-box {
+    text-align: center;
+    justify-content: center;
+  }
+  
+  /* Styling for default (inactive) tabs */
+  .student-tab-default {
+    color: #8a8a8a;
+    font-weight: normal;
+  }
+  
+  /* Styling for active tab */
+  .student-tab-active {
+    background-color: #b158e8 !important;
+    color: white !important;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease; /* Smooth transition for tab color change */
+  }
+  
+  .student-tabs-container > .MuiTabs-root > .MuiTabs-fixed > .MuiTabs-flexContainer {
+    border: 1px solid #b158e8;
+    width: max-content;
+    margin: auto;
+    border-radius: 10px;
+    padding: 0;
+    margin-top: 25px;
+   
+  } 
+  .MuiTabs-flexContainer {
+   
+    justify-content: center;
+    display: flex;
+    margin-top: 20px;
+  } 
+
+
+
+
+
+
+
+  
+  .MuiTabs-indicator {
+    display: none;
+  }
+  
+  @media (max-width: 1000px) {
+    .student-profile {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .student-account {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .profile-section {
+      display: block;
+      margin: 0;
+    }
+  
+    .textfield-profile,
+    .textfield-profile-full,
+    .profile-section {
+      width: 100%;
+      margin: 0 0 10px 0 !important;
+    }
+  }
+  

@@ -1,0 +1,50 @@
+.content-box {
+    width: 60vw;
+    height: 30vh;
+  }
+  
+  .heading {
+    font-size: 20px;
+  }
+  
+  .text {
+    font-size: 18px;
+  }
+  
+  .cross-circle {
+    height: 32px;
+    width: 32px;
+  }
+  
+  @media (min-width: 1280px) {
+    .content-box {
+      width: 461px;
+      height: 229px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .content-box {
+      width: 75vw;
+      height: 20vh;
+    }
+  
+    .heading-box {
+      height: 70px;
+    }
+  
+    .heading {
+      font-size: 16px;
+    }
+  
+    .cross-circle {
+      height: 24px;
+      width: 24px;
+    }
+  
+    .text {
+      font-size: 15px;
+      text-align: center;
+    }
+  }
+  

@@ -1,0 +1,79 @@
+.attendancefilters {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.attendancedetails {
+    -moz-box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999;
+    background: white;
+    border-radius: 5px;
+    margin: 0px 10px;
+}
+
+.attendancebtn,.attendancebtn1,.attendancebtn2{
+    cursor: default;
+}
+.attendancebtn {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    margin: 5px;
+    border: none;
+}
+
+.attendancebtn1 {
+    background-color: #3CB532;
+    color: white;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    margin: 5px;
+    border: none;
+}
+
+.attendancebtn2 {
+    background-color: #FF2934;
+    color: white;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    margin: 5px;
+    border: none;
+}
+
+.attendancediv2 {
+    display: flex;
+}
+
+.attendancerightdiv {
+    flex: 0.35;
+    text-align: left;
+}
+
+.input1,
+.input2,
+.input3 {
+    cursor: pointer;
+}
+
+@media (max-width:720px) {
+    .attendancefilters {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .attendancediv2 {
+        flex-direction: column;
+    }
+
+    .attendancediv2>div {
+        width: 100%;
+    }
+
+    .attendancerightdiv {
+        margin: 20px 0px;
+    }
+}

@@ -1,0 +1,57 @@
+.inbox{
+    width:60%; 
+    height: 100%; 
+    min-width: 350px;
+    border: 1px solid #E7E7E7; 
+    box-sizing: border-box; 
+    border-radius: 10px; 
+    -moz-box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999; 
+    /* display: inline-flex;  */
+    margin-left: 12px;
+    top: 40px; 
+    right: 60px; 
+    /* padding: 4px 2px;  */
+    background-color: #FFFFFF; 
+    overflow-y: auto;
+}
+.inboxheader{
+    padding: 8px 12px; 
+    align-items: center;
+    display: flex;
+}
+.inboxheader>button{
+    margin-right: 0px;
+    margin-left: auto;
+    border: none;
+    color: #6D6D6D;
+    background-color: #E0DDDD;
+    padding: 0px 10px;
+    align-items: center; 
+    font-size: 24px;
+    text-align: right;
+    box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+.inboxheader>button:hover{
+    cursor: pointer;
+}
+.inboxheader>button:focus{
+    background-color: #E0DDDD; 
+    border-radius: 5px; 
+    box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+@media (min-width:720px) and (max-width:775px) {
+    .inbox{
+        min-height: 420px;
+    }
+}
+@media screen and (max-width:1080px) {
+    .inbox{
+        height: 340px;
+        width: 100%;
+        margin: 20px 0;
+        z-index: 1;
+        /* margin-left: 34px; */
+    }
+}

@@ -1,0 +1,132 @@
+.prncplstdnt{
+    position: relative;
+    width: 93%;
+    margin: auto;
+    margin-top: 5px;
+}
+.filters{
+    display: inline-flex;
+     width: 100%;
+    justify-content: space-between;
+            flex-direction: column;
+
+}
+.applybtnprncpl{
+    border: none;
+    border-radius: 5px;
+    background-color: #214DF9;
+    color: white;
+    margin-left: 30px;
+    padding: 5px 25px;
+}
+
+.tchrviewoverallbtn{
+    background:#9F8FFF;
+    color:white;
+    padding:6px 12px;
+    border:none;
+    font-size: 15px;
+}
+.markattendancetchr{
+    border: none;
+    background: #3CB532;
+    color: white;
+    border-radius: 5px;
+    margin-left: auto;
+    padding: 8px 18px;
+    font-size: 15px;
+}
+.markattendancetchr:hover{
+    cursor: pointer;
+}
+
+.tchrattendancebackbtn{
+    height: 30px;
+    font-size: 20px;
+    margin-left: auto;
+    display: flex;
+    border: none;
+    background: transparent;
+    margin-top: 20px;
+}
+.tchrattendancebackbtn:hover{
+    cursor: pointer;
+}
+.input1,.input2{
+    margin-right: 40px;
+}
+
+.input1[type="radio"]:checked:before{
+    background-color: #3CB532;
+    color: white;
+}
+.input2[type="radio"]:checked:before{
+    background-color: #FF2934;
+    color: white;
+}
+.input3[type="radio"]:checked::before{
+    background-color: #FFDD9C;
+    color: white;
+}
+.input1::before{
+        content: 'P';
+        font-size: 16px;
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        border: none;
+        background: #C0C0C0;
+        padding: 7px 10px;
+        margin: -2px;
+        color: #474747;
+}
+
+.input2::before{
+    content: 'AB';
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    border: none;
+    background-color: #C0C0C0;
+    padding: 8px 6px;
+    margin: -2px;
+    font-size: 16px;
+    color: #474747;
+}
+.input3::before{
+    content: 'L';
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    border: none;
+    background-color: #C0C0C0;
+    padding: 7px 11px;
+    margin: -2px;
+    font-size: 16px;
+    color: #474747;
+}
+.table-head{
+    padding-left: 10px !important;
+    background: linear-gradient(180deg, #FDFDFD 0%, rgba(245, 245, 245, 0.92) 100%) !important;
+    border-top: 2px solid #A4A4A4 !important;
+    border-bottom: 2px solid #A4A4A4 !important;
+    box-sizing: border-box !important;
+}
+/* tbody{
+    background: #FFFFFF !important;
+    border: 2px solid #A5A5A5 !important;
+    box-sizing: border-box !important;
+} */
+@media (max-width: 1000px) {
+    .filters{
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 720px) {
+    .filters > div{
+        flex-direction: column;
+        gap: 10px;
+    }
+}

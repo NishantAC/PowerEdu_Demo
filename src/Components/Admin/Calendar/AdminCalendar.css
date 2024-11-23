@@ -1,0 +1,26 @@
+.prncplclndr{
+    position: relative;
+    margin-top: 5px;
+    flex:0.8;
+    padding-left: 30px;
+    background: #E5E5E5;
+}
+.applybtnprncplclndr{
+    border: none;
+    border-radius: 5px;
+    background-color: #214DF9;
+    color: white;
+    margin-left: 30px;
+    padding: 5px 25px;
+}
+.addholidaybtn,.addeventbtn{
+    border: none;
+    margin-left: auto;
+    padding: 5px 8px;
+    height: 32px;
+    font-size: 20px;
+    align-self: center;
+    color: #6D6D6D;
+    background: #E0DDDD;
+    box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}

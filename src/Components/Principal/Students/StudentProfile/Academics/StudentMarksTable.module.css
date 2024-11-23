@@ -1,0 +1,88 @@
+.prncplstdnt{
+    position: relative;
+    margin: auto;
+    padding-top: 10px;
+    width: 93%;
+}
+
+.main {
+    width: 100%;
+    width: 100% !important;
+    /* flex: 1; */
+    /* overflow: auto; */
+}
+
+.tableContainer {
+    max-height: '297px' !important; 
+    overflow-y: 'auto' !important;
+  }
+  
+.cell {
+    background-color: #3D628E !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    font-family: Lato !important;
+    color: #FCFCFC !important;
+}
+
+.bcell {
+    background-color: #FCFCFC;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    font-family: Lato !important;
+    color: #000000 !important;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Slayout {
+    border-radius: 5px !important;
+    margin-right: 10px;
+    margin-bottom: 4px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    color: #7E7E7E;
+    background-color: #ECECEC;
+    width: max-content;
+    padding: 5px 13px;
+    font-size: 14px !important;
+}
+
+.Tbody {
+    max-height: '50px' ;
+    overflow-y: scroll !important;
+}
+
+.syll {
+    width: 330px; /* Adjust the width as per your needs */
+    word-wrap: break-word;
+    white-space: normal;
+  }
+  
+
+/* .row {
+    height: 40px; 
+  } */
+  
+  .row td,
+  .row th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* line-height: 1;  */
+  }
+  
+.footerbtn{
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+
+/* .downloadbtn {
+    color: #5647B2;
+    border: 1px solid #5647B2;
+    border-radius: 5px;
+    padding: 5px 20px;
+    font-size: 16px;
+} */

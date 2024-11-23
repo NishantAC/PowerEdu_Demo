@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@500&family=Roboto&family=Rubik&display=swap');
+
+
+.tchrstdnt{
+    position: relative;
+    width: 93%;
+    margin: auto;
+    margin-top: 5px;
+}
+.stdntavtr{
+    margin: auto;
+}
+.stdntavtr > span{
+    font-size: 42px;
+}
+.stdntprofilebtn{
+    background:#D10707;
+    color:white;
+    border-radius:5px;
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 15px;
+    border: none;
+}
+.stdntprofilebtn:hover{
+    cursor: pointer;
+}
+.tchrprofilebackbtn{
+    height: 30px;
+    font-size: 20px;
+    margin: 20px ;
+    display: flex;
+    border: none;
+    background: transparent;
+}
+
+.tchrprofilebackbtn:hover{
+    cursor: pointer;
+}
+
+@media (max-width:1000px) {
+    .tchrprofilebackbtn {
+        right: 0px;
+        margin-top: 24px;
+        position: absolute;
+    }
+}

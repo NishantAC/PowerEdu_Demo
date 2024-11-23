@@ -1,0 +1,69 @@
+.prncpltodo{
+    width: 40%;
+    height: 100%; 
+    border: 1px solid #E7E7E7; 
+    box-sizing: border-box; 
+    border-radius: 10px; 
+    -moz-box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999;  
+    bottom: 14px; 
+    right: 60px; 
+    /* padding: 2px;  */
+    /* margin-left: 12px; */
+    margin: auto;
+    background-color: #FFFFFF;
+    overflow: hidden;
+}
+.prncpltodoheader {
+    background-color: #F9F9F9;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    /* height: 50px; */
+    padding: 8px 10px; 
+    display: flex; 
+    align-items: center;
+}
+.prncpltodo-body {
+    padding-bottom: 50px;
+    height: 100%;
+    overflow-y: auto; /* Show the scrollbar here */
+  }
+.prncpltodo-body::-webkit-scrollbar{
+    width: 8px;
+}
+.prncpltodo-body::-webkit-scrollbar-thumb
+{
+  box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #C1C1C1;
+  overflow-x: auto;
+}
+.prncpltodoheader>button{
+    margin-right: 0px;
+    margin-left: auto;
+    border: none;
+    padding: 0px 10px;
+    align-items: center; 
+    font-size: 24px;
+    text-align: right;
+    color: #6D6D6D;
+    background-color: #E0DDDD;
+    box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+.prncpltodoheader>button:hover{
+    cursor: pointer;
+}
+.prncpltodoheader>button:focus{
+    background-color: #E0DDDD; 
+    border-radius: 5px; 
+    box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+@media screen and (max-width:1080px) {
+    .prncpltodo{
+        height: 380px;
+        width: 100%;
+        /* margin: 20px 0; */
+        /* margin-left: 34px; */
+    }
+}

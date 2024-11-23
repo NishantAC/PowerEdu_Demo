@@ -1,0 +1,14 @@
+.caldendarClassDropdown {
+    font-size: 14px;
+    padding: 2px 30px 2px 0px;
+    color: #494949;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  .caldendarClassDropdown:focus {
+    outline: none;
+  }

@@ -1,0 +1,212 @@
+.time-slots {
+  display: flex;
+  flex-direction: column;
+  /* align-items: baseline; */
+}
+
+.time-slot {
+  display: flex;
+  /* align-items: center; */
+  /* position: relative; */
+}
+
+.time-divider {
+  width: calc(100% - 80px);
+  /* Adjust width to fit within time-slot */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.timetable {
+  border: 1px solid #d7d7d7;
+  box-sizing: border-box;
+  -moz-box-shadow: 0 0 5px #999;
+  -webkit-box-shadow: 0 0 5px #999;
+  box-shadow: 0 0 5px #999;
+  border-radius: 10px 10px 0px 0px;
+  padding: 2px;
+  height: 68.5vh;
+  scroll-behavior: auto;
+  overflow: scroll;
+}
+
+.timetabledate {
+  margin-right: 2px;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.timetabledate:hover {
+  cursor: pointer;
+}
+
+.timetabledate:focus {
+  background-color: #e0dddd;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px rgba(33, 33, 33, 0.48);
+}
+
+.timetablediv1 {
+  background-color: #f9f9f9;
+  height: 60px;
+  /* align-items: center; */
+  width: 100%;
+}
+
+.classactive {
+  background: linear-gradient(269.96deg, #3d3ac8 0.03%, #8b64fc 99.96%);
+  color: white;
+  display: flex;
+  margin: 22px 2px;
+  /* position: relative;
+  z-index: 1; */
+  padding: 0px 10px;
+  border-radius: 5px;
+}
+
+.lecture {
+  display: flex;
+  justify-content: space-between;
+  /*  position: relative;
+  z-index: 1; */
+  margin: 0 auto;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 2px solid #e7e7e7;
+  /* box-sizing: border-box; */
+  width: 90%;
+}
+
+table {
+  border-collapse: unset;
+  width: 100%;
+}
+
+.sublec {
+  display: flex;
+  gap: 0 5px;
+}
+
+th,
+td {
+  padding: 8px 5px;
+  text-align: left;
+  height: 2.4rem;
+  /* border-bottom: 1px solid #ddd; */
+}
+
+.trt {
+  display: flex;
+  width: 3.5rem;
+  position: relative;
+}
+
+.sub {
+  display: flex;
+  width: 100%;
+  padding: 8px 8px;
+  position: relative;
+}
+
+.subActive {
+  display: flex;
+  width: 100%;
+  padding: 8px 8px;
+  position: relative;
+}
+
+.sub .lec {
+  display: flex;
+  width: 100%;
+  padding: 10px 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  justify-content: space-between;
+  border: 1px solid rgb(155, 154, 154);
+  border-radius: 8px;
+  background-color: white;
+  z-index: 2;
+}
+
+.subActive .lecActive {
+  display: flex;
+  width: 100%;
+  padding: 10px 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  justify-content: space-between;
+  border: 1px solid rgb(155, 154, 154);
+  color: white;
+
+  border-radius: 8px;
+  background: linear-gradient(269.96deg, #3d3ac8 0.03%, #8b64fc 99.96%);
+  z-index: 2;
+}
+
+.subActive::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 5px);
+  height: 0px;
+  /* z-index: -1; */
+  border: 0.8px solid rgb(222, 222, 222);
+}
+
+.sub::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 5px);
+  height: 0px;
+  /* z-index: -1; */
+  border: 0.8px solid rgb(222, 222, 222);
+}
+
+.trt span {
+  align-self: flex-start;
+  position: absolute;
+  top: -12px;
+}
+
+/* .trt span::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 5px);
+  height: 0px;
+  z-index: 1;
+  border: 5px solid #000;
+} */
+
+@media (max-width: 1080px) {
+  .timetable {
+    min-width: 155px;
+  }
+
+  .timetablediv1>div {
+    flex-direction: column;
+  }
+
+  .timetabledate {
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}

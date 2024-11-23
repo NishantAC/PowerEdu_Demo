@@ -1,0 +1,16 @@
+.overallgrade{
+    width: 40%;
+    overflow-y:auto; 
+    height: 100%; 
+    border: 1px solid #E7E7E7; 
+    box-sizing: border-box; 
+    border-radius: 10px; 
+    -moz-box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999; 
+    bottom: 14px; 
+    right: 60px; 
+    margin-left: 12px;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+}

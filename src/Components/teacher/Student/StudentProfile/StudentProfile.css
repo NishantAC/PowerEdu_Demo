@@ -1,0 +1,137 @@
+.profilediv1 {
+    margin: 24px 0px;
+    text-align: left;
+    width: 100%;
+}
+
+.profilediv2 {
+    margin: 24px 0px;
+    text-align: left;
+    width: 100%;
+
+}
+
+.textfieldprofile {
+    width: 25%;
+    margin: 0px 2% !important;
+
+}
+
+.textfieldprofile2 {
+    width: 83%;
+    margin: 0px 2% !important;
+}
+.studentprofile {
+    display: flex;
+    background-color: #F8F9FF;
+}
+
+.studentaccount {
+    min-width: 150px;
+    width: 35%;
+    height: screen;
+    text-align: left;
+    padding: 5px 10px;
+    align-items: center;
+    background-color: #FFFFFF;
+
+}
+
+.stdnttabbox {
+    text-align: center;
+}
+
+.stdnttabs>.MuiTabs-root>.MuiTabs-fixed>.MuiTabs-flexContainer {
+    border: 1px solid #B158E8;
+    width: max-content;
+    margin: auto;
+    border-radius: 10px;
+    padding: 0;
+    margin-top: 25px;
+}
+
+.stdnttabs {
+    display: flex;
+}
+
+.stdnttab1 {
+    color: #8A8A8A;
+}
+
+.stdnttab2 {
+    background-color: #B158E8 !important;
+    color: white !important;
+    border-radius: 10px !important;
+}
+
+#simple-tab-0:focus,
+#simple-tab-1:focus,
+#simple-tab-2:focus {
+    color: white;
+}
+
+#simple-tab-0,
+#simple-tab-1,
+#simple-tab-2 {
+    color: #8A8A8A;
+}
+
+.MuiTabs-indicator {
+    display: none;
+}
+
+.profilebackbtn {
+    margin-left: auto;
+    font-size: 18px;
+    line-height: 21px;
+    border: none;
+    background: transparent;
+    position: absolute;
+}
+
+.profilebackbtn:hover {
+    cursor: pointer;
+}
+
+@media (max-width:1000px) {
+    .studentprofile {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .studentaccount {
+        width: 100%;
+    }
+
+    .profilediv1 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .profilediv2 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .textfieldprofile {
+        width: 30%;
+    }
+
+    .textfieldprofile2 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .profilediv1 {
+        display: block;
+        margin: 0;
+    }
+
+    .textfieldprofile,
+    .textfieldprofile2,
+    .profilediv2 {
+        width: 100%;
+        margin: 0 0 10px 0 !important;
+    }
+}
