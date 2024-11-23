@@ -189,12 +189,12 @@ function SideBar(props) {
     <div className="cursor-pointer absolute -right-7 top-5"  onClick={toggleSidebar}>
         <div className="scale-75"> 
             <div className=" w-7 h-7 border-4 rounded-[5px] flex items-center"
-              style={{ borderColor: themeProperties.primaryColor }}
+              style={{ borderColor: themeProperties.normal1 }}
             >
               {/* line */}
               <div className=" w-[3px] h-7 sideBarIcon ml-[4px] "
               
-              style={{ background: themeProperties.primaryColor }}
+              style={{ background: themeProperties.normal1 }}
               ></div>
 
             </div>
@@ -369,7 +369,7 @@ function SideBar(props) {
         <button
           className="flex items-center  p-3 rounded-lg w-full mt-4 transition-colors duration-200  bottom-0  "
           onClick={logOut}
-          style={{ borderColor: themeProperties.textColor, background: themeProperties.normal1 }}
+          style={{ borderColor: themeProperties.textColor, background: themeProperties.logoutColor }}
         >
           <FaSignOutAlt className="icon mr-3" />
            <span className="icon-name text-sm font-medium logout">Logout</span>

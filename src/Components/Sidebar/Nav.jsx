@@ -127,7 +127,7 @@ function Navbar() {
 
     <>
 
-{/*
+{/* 
   <div className="cursor-pointer absolute -translate-x-9 translate-y-10"  onClick={toggleNavbar}>
         <div className="scale-75 rotate-90">
             <div className=" w-7 h-7 border-4 rounded-[5px] flex items-center"
@@ -146,25 +146,25 @@ function Navbar() {
 
     <div
       ref={navbarRef}
-      className="rounded-[20px] p-[3px] my-2 relative overflow-hidden"
+      className="rounded-[20px] mt-2 p-1 shadow-lg mb-4 relative overflow-hidden"
       style={{
-        // background: themeProperties?.secondaryColor,
-        color: themeProperties?.textColorAlt,
+        background: themeProperties?.secondaryColor,
+        color: themeProperties?.textColor,
       }}
     >
 
 
 
 
-      <div className="flex items-center rounded-[18px] w-full justify-between px-4 bg-[#ffffff41] backdrop-blur-lg">
+      <div className="flex items-center rounded-[18px] w-full justify-between px-4 ">
         <div className="flex items-center gap-10">
           <div className="flex items-center justify-center">
             <img src={logo} loading="lazy" alt="logo" className="object-cover w-12 h-12" />
           </div>
-          <div className="text-[23px] font-helvetica-bold text-nowrap" >{schooldata?.school_name ?? "School Name"}</div>
+          <div className="text-[18px] font-helvetica text-nowrap" >{schooldata?.school_name ?? "School Name"}</div>
           <div className="text-sm divider"
             style={{
-              "--before-bg": themeProperties?.normal1,
+              "--before-bg": themeProperties?.textColor,
             }}
           >
             <style>
@@ -174,7 +174,7 @@ function Navbar() {
                 }
               `}
             </style>
-            <p className="italic text-nowrap">Powered By PowerEdu</p>
+            <p className="italic text-nowrap text-sm3">Powered By PowerEdu</p>
           </div>
         </div>
 

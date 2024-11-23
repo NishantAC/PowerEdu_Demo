@@ -94,7 +94,7 @@ const AddEventModal = ({ themeProperties }) => {
                    }}
               />
             </div>
-            <div className=" flex justify-around gap-2">
+            <div className=" flex justify-between  w-full">
             <div className="">
               <Popover>
                 <PopoverTrigger asChild>

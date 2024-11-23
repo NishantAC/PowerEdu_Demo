@@ -107,7 +107,6 @@ function Home() {
                   borderRadius: "10px",
                   padding: "10px 48px",
                   width: "100%",
-                  border: `2px solid ${themeProperties.textColor}`,
 
                 }}
               >

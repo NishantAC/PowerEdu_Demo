@@ -80,3 +80,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+body{
+  color: #143e7ccd;
+}

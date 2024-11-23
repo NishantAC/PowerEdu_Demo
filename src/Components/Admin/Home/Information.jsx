@@ -1,16 +1,61 @@
-import React, { useEffect, useRef, useState } from "react";
-import { CiSearch } from "react-icons/ci";
-import { Input } from "@mui/material";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import { API_BASE_URL } from "@/common/constant";
 import { selectThemeProperties } from "@/slices/theme";
 import SchoolUsersService from "../../../services/schoolusers.service";
 import UserAndCirculars from "./UserAndCirculars";
 import StatsAndCharts from "./StatsAndCharts";
 import "./Information.css";
-import gsap from "gsap";
+import { styled, alpha } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: '20px',
+  backgroundColor: theme.properties?.inputBackground || alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  transition: 'box-shadow 0.3s ease-in-out',
+}));
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingLeft: theme.spacing(2),
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '20ch',
+      '&:focus': {
+        width: '30ch',
+      },
+    },
+  },
+}));
 
 function Information() {
   const { user } = useSelector((state) => state.user);
@@ -23,12 +68,12 @@ function Information() {
   const [options, setOptions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const history = useNavigate();
+  const searchRef = useRef(null);
 
   useEffect(() => {
     SchoolUsersService.getTotalStudentsNumber(user?.schoolcode).then((res) =>
       setTotalStudents(res.totalStudentsNumber)
     );
-    
 
     SchoolUsersService.getTotalTeachersNumber(user?.schoolcode).then((res) =>
       setTotalTeachers(res.totalTeachersNumber)
@@ -125,111 +170,104 @@ function Information() {
     };
   }
 
-  // Debounced function for API call
   const debouncedFetch = debounce(async (value) => {
     if (value) {
       try {
         const response = await axios.get(API_BASE_URL + `schoolusers/listofid/${value}`);
-
-        console.log(response?.data, "response.data.userIds");
         const formattedOptions = response?.data?.userIds.map((id) => id);
         setOptions(formattedOptions);
-        setShowDropdown(true); // Show dropdown when there are results
+        setShowDropdown(true);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     } else {
-      setShowDropdown(false); // Hide dropdown if input is empty
+      setShowDropdown(false);
     }
-  }, 500); // 500ms debounce time
+  }, 500);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setSearchString(value);
-    debouncedFetch(value); // Call the debounced fetch
+    debouncedFetch(value);
   };
 
   const handleOptionClick = (option) => {
-    console.log(option, "optiondetails");
-    setSearchString(option); // Set the selected option as the input value
-    setShowDropdown(false); // Hide dropdown after selection
-    console.log(`Selected: ${option}`);
-
+    setSearchString(option);
+    setShowDropdown(false);
     history(`/admin/edit-profile`, {
       state: { userId: option.user_id, userType: option.userType },
     });
   };
 
+  const handleClickOutside = (event) => {
+    if (searchRef.current && !searchRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const themeProperties = useSelector(selectThemeProperties);
 
-  const searchRef = useRef(null);
-
-  useEffect(() => { 
-    const searchTL = gsap.timeline();
-
-
-    searchRef.current.addEventListener("click", (e) => {
-      searchTL.to(searchRef.current, {
-        duration: 0.4,
-        width: "400px",
-        ease: "power2.inOut",
-      });
-    })
-
-    searchRef.current.addEventListener("focusout", (e) => {
-      searchTL.to(searchRef.current, {
-        duration: 0.4,
-        width: "300px",
-        ease: "power2.inOut",
-      });
-    }
-    );
-
- }, []);
-    
   return (
     <div className=" max-xl:max-w-4/5 max-xl:mt-10 relative">
-      <div className={`flex max-xl:flex-col flex-row gap-10 justify-around items-center p-4 mb-2 rounded-[20px]  `}
+      <div className={`flex max-xl:flex-col-reverse flex-row gap-10 justify-around items-center  max-xl:py-4 mb-2 rounded-[20px]`}
         style={{
           background: themeProperties.secondaryColor,
-        }}  
+        }}
       >
-        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative">
-          <div className="flex gap-2 bg-white items-center w-60 shadow-md px-2 rounded-[50px] overflow-hidden" ref={searchRef}>
-            <CiSearch color={themeProperties.primaryColor} size={25} />
-            <div className="">
-              {/* Input for search */}
-              <input
-                type="text"
-                value={searchString}
-                onChange={handleChange}
-                style={{ color: themeProperties?.textColorAlt }}
-                placeholder="Search "
-                className="border-none outline-none p-2 flex-1" 
-              />
-              {/* Dropdown for showing search results */}
-              {showDropdown && options.length > 0 && (
-                <div className="p-[4px] absolute top-14 left-0 z-[100] rounded-[20px] shadow-lg"
+        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative" ref={searchRef}>
+          <Box sx={{ }}>
+            <Toolbar>
+              <Search
+                style={{
+                  background: themeProperties.inputBackground,
+                  color: themeProperties.inputTextColor,
+                }}
+              >
+                <SearchIconWrapper>
+                  <SearchIcon style={{
+                    color: themeProperties.inputTextColor,
+                   }} />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                  value={searchString}
+                  onChange={handleChange}
                   style={{
-                    background: themeProperties.textColor,
+                    color: themeProperties.inputTextColor,
+                    borderRadius: '20px',
                   }}
-                >
-                  <ul className="list-none p-0 m-0 bg-[white] w-60 overflow-y-auto scrolling z-10 max-h-60 shadow-2xl rounded-[20px] backdrop-blur-lg">
-                    {options.map((option, index) => (
-                      <li
-                        key={index}
-                        onClick={() => handleOptionClick(option)}
-                        className="p-2 cursor-pointer hover:bg-gray-200 text-[14px] font-thin"
-                        style={{ color: themeProperties?.textColorAlt }}
-                      >
-                        {option.user_id}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+                />
+              </Search>
+            </Toolbar>
+          </Box>
+          {showDropdown && options.length > 0 && (
+            <div className="p-[4px] absolute top-14 z-[100] w-full rounded-[20px] shadow-lg"
+              style={{
+                background: themeProperties.textColor,
+              }}
+            >
+              <ul className="list-none p-0 m-0 bg-[white] w-full overflow-y-auto scrolling z-10 max-h-60 shadow-2xl rounded-[20px] backdrop-blur-lg">
+                {options.map((option, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleOptionClick(option)}
+                    className="p-2 cursor-pointer hover:bg-gray-200 text-[14px] font-thin"
+                    style={{ color: themeProperties?.textColorAlt }}
+                  >
+                    {option.user_id}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          )}
         </div>
         <div>
           <StatsAndCharts
@@ -249,7 +287,6 @@ function Information() {
           />
         </div>
       </div>
-
       <UserAndCirculars newlyAddedUsersArray={newlyAddedUsersArray} deviceSize={deviceSize} />
     </div>
   );
