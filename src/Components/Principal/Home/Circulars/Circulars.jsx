@@ -12,22 +12,8 @@ import { useSelector } from 'react-redux';
 import CircularService from '../../../../services/circular.service';
 import moment from 'moment';
 import CircularModal from './CircularModal';
+import { FaCalendarAlt } from "react-icons/fa";
 
-// function createData(sno, subject, date) {
-//   return { sno, subject, date };
-// }
-
-// const rows = [
-//   createData('1', 'Sports Day Celebration', '13-8-2021'),
-//   createData('2', 'Sports Day Celebration', '13-8-2021'),
-//   createData('3', 'Sports Day Celebration', '13-8-2021'),
-//   createData('4', 'Sports Day Celebration', '13-8-2021'),
-//   createData('5', 'Sports Day Celebration', '13-8-2021'),
-//   createData('6', 'Sports Day Celebration', '13-8-2021'),
-//   createData('7', 'Sports Day Celebration', '13-8-2021'),
-//   createData('8', 'Sports Day Celebration', '13-8-2021'),
-//   createData('9', 'Sports Day Celebration', '13-8-2021'),
-// ];
 
 function Circulars() {
   const { user } = useSelector(state => state.user)

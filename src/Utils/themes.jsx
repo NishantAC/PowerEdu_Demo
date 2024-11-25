@@ -68,7 +68,7 @@ const themes = {
     OceanBreeze: {
       primaryColor: "#ae1dc4",
       secondaryColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
-      normal1: "#F41F4E",
+      normal1: "#b2b8ff",
       normal2: "#7978E9",
       normal3: "#c96bff",
       background: "#FFF",

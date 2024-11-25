@@ -42,18 +42,14 @@ function SideBar(props) {
       return;
     } 
     if (userType === "Admin") {
-      console.log("Admin");
       setItems(AdminSidebarItems);
     } else if (userType === "Principal") {
-      console.log("Principal"); 
       setItems(PrincipalSideBarItem);
     }
     else if (userType === "Teacher") {
-      console.log("Teacher");
       setItems(TeacherSideBarItem);
     }
     else if (userType === "Student") {
-      console.log("Student");
       setItems(StudentSidebarItems);
     }
   }, [user]);
@@ -173,7 +169,7 @@ function SideBar(props) {
 
   return (
     <div className=" py-2">
-    <div className={`sidebar text-white h-[97.5vh] flex flex-col transition-width items-center duration-300 relative backdrop-blur-md rounded-[20px] max-h-screen max-md:hidden`}
+    <div className={`sidebar text-white h-[97.5vh] flex flex-col transition-width items-center duration-300 relative backdrop-blur-md rounded-[20px] max-h-screen `}
 
     style={{ 
       background:  themeProperties.sideBarColor, 

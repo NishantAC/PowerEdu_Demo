@@ -17,7 +17,7 @@ function Layout(props) {
     return (
         <div>
             <div className=' flex gap-8 pb-0 m-0 px-2 max-md:px-2 max-h-screen'>
-                <div className='z-50 max-md:hidden '>
+                <div className='z-50'>
                     <SideBar/>
                 </div>
                 <div className=' flex flex-col flex-1 overflow-x-hidden overflow-y-scroll'>

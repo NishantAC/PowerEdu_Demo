@@ -81,6 +81,7 @@
   }
 }
 
-body{
-  color: #143e7ccd;
+.prose :where(p, ul, ol , li, h3, h1 , br ):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }

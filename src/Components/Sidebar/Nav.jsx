@@ -15,7 +15,7 @@ import { IoMailUnreadOutline } from "react-icons/io5";
 import SelectTheme from "./SelectTheme";
 import { selectThemeProperties } from "@/slices/theme";
 import gsap from "gsap";
-
+import SideBar from "./SideBar";
 function Navbar() {
   const [data, setData] = useState({});
   const [newMail, setNewMail] = useState(true);
@@ -146,7 +146,7 @@ function Navbar() {
 
     <div
       ref={navbarRef}
-      className="rounded-[20px] mt-2 p-1 shadow-lg mb-4 relative overflow-hidden"
+      className="rounded-[20px] mt-2 p-1 max-md:py-2 shadow-lg mb-4 relative overflow-hidden"
       style={{
         background: themeProperties?.secondaryColor,
         color: themeProperties?.textColor,
@@ -156,13 +156,16 @@ function Navbar() {
 
 
 
-      <div className="flex items-center rounded-[18px] w-full justify-between px-4 ">
+      <div className="flex items-center rounded-[18px] w-full justify-between px-4  ">
+        <div className=" xl:hidden">
+
+        </div>
         <div className="flex items-center gap-10">
           <div className="flex items-center justify-center">
             <img src={logo} loading="lazy" alt="logo" className="object-cover w-12 h-12" />
           </div>
           <div className="text-[18px] font-helvetica text-nowrap" >{schooldata?.school_name ?? "School Name"}</div>
-          <div className="text-sm divider"
+          <div className="text-sm divider max-md:hidden"
             style={{
               "--before-bg": themeProperties?.textColor,
             }}
@@ -174,14 +177,14 @@ function Navbar() {
                 }
               `}
             </style>
-            <p className="italic text-nowrap text-sm3">Powered By PowerEdu</p>
+            <p className="italic text-nowrap text-sm3 max-md:hidden">Powered By PowerEdu</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-10 justify-between">
+        <div className="flex items-center gap-10 justify-between max-md:hidden">
           {data.view_performance_button && (
             <>
-              <button className="py-3 px-4 rounded-full border-2 text-nowrap" onClick={toggleNav}
+              <button className="py-3 px-4 rounded-full border-2 text-nowrap " onClick={toggleNav}
                 style={{
                   background: themeProperties?.normal1,
                   color: themeProperties?.headerTextColor,
@@ -194,7 +197,7 @@ function Navbar() {
           )}
           <NotificationModal />
 
-          <div onClick={handleAvatarClick} className="cursor-pointer border-2 rounded-full"
+          <div onClick={handleAvatarClick} className="cursor-pointer border-2 max-md:hidden rounded-full"
               style={{ borderColor: themeProperties?.textColor }} 
           
           >

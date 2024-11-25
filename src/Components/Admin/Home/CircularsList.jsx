@@ -2,87 +2,128 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CircularService from "../../../services/circular.service";
 import moment from "moment";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import DOMPurify from "dompurify";
+import { FaCalendarAlt } from "react-icons/fa";
+
 
 function CircularsList({ themeProperties }) {
-  const [deviceSize, setDeviceSize] = useState("pc");
 
-  useEffect(() => {
-    const handleResize = () => {
-      const screenSize = window.innerWidth;
-      if (screenSize < 640) {
-        setDeviceSize("sm");
-      } else if (screenSize < 720) {
-        setDeviceSize("md");
-      } else if (screenSize < 1024) {
-        setDeviceSize("xl");
-      } else if (screenSize < 1280) {
-        setDeviceSize("2xl");
-      } else {
-        setDeviceSize("pc");
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const { user } = useSelector((state) => state.user);
   const [circularsArray, setCircularsArray] = useState([]);
   useEffect(() => {
-    CircularService.getCirculars(user?.school_code).then((res) => {
-      res.forEach((circular, index) => {
-        const newRow = {
-          id: circular.id,
-          subject: circular.title,
-          date: moment(circular.date).format("DD-MM-YYYY"),
-        };
-        setCircularsArray((prevState) => [...prevState, newRow]);
-      });
+    CircularService.getCirculars(user?.schoolcode).then((res) => {
+      const formattedCirculars = res.map((circular) => ({
+        id: circular.id,
+        subject: circular.title,
+        date: moment(circular.date).format("DD-MM-YYYY"),
+        message: circular.message,
+      }));
+      setCircularsArray(formattedCirculars);
     });
   }, [user]);
 
   return (
     <div
-      className={`min-h-[72vh] w-full lg:w-4/5 flex flex-col rounded-[20px] shadow-md bg-white overflow-hidden`}
+      className="min-h-[72vh] w-full lg:w-4/5 flex flex-col rounded-2xl shadow-md bg-white overflow-hidden"
+      style={{
+        color: themeProperties.textColorAlt,
+        backgroundColor: themeProperties.background,
+      }}
     >
-      {/* top heading box */}
-      <div className="w-full h-15 rounded-t-lg flex items-center p-2 justify-center">
-        <div
-          className={`font-poppins ${deviceSize === "sm" ? "text-lg" : "text-xl"} text-center text-black bg-white`}
+      {/* Top heading box */}
+      <div className="w-full flex items-center  px-5 py-3 justify-center bg-gray-50 shadow-sm">
+        <h2
+          className={` text-lg font-normal text-center`}
           style={{
             color: themeProperties.normal2,
-            borderBottom: `2px solid ${themeProperties.primaryColor}`,
           }}
         >
           Circulars
-        </div>
+        </h2>
       </div>
 
-      {/* bottom box */}
-      <div className="h-75 flex flex-col pt-4 rounded-b-lg bg-white">
-        {/* title */}
+      {/* List container */}
+      <div className="flex flex-col rounded-b-lg bg-white">
+        {/* Header */}
         <div
-          className="flex justify-between text-end px-4 font-poppins text-lg"
-          style={{
-            color: themeProperties.textColorAlt,
-          }}
+          className="flex justify-between px-6 py-3 text-xs text-gray-500 bg-slate-50 sticky top-0  left-0"
         >
-          <p className="w-50">Subject</p>
-          <p className="w-28">Date</p>
+          <span className="text-[12px] ">SUBJECT</span>
+          <span className=" text-[12px] ">DATE</span>
         </div>
 
-        {/* List of circulars box */}
-        <div className="custom-scrollbar h-4/5 w-full flex flex-col overflow-y-scroll px-5 bg-white rounded-b-lg">
+        {/* Circulars */}
+        <div className="custom-scrollbar w-full flex flex-col overflow-y-scroll px-6 py-4">
           {circularsArray.map((circular, index) => (
-            <div
-              key={index}
-              className={`flex items-center justify-between font-roboto ${deviceSize === "sm" ? "text-base" : "text-lg"} font-normal leading-5 py-4`}
-            >
-              <div className="w-50">{circular.subject}</div>
-              <div className="w-25">{circular.date}</div>
-            </div>
+            <Dialog key={index} className ="custom-scrollbar">
+              <DialogTrigger asChild>
+                <div
+                  className="flex justify-between py-3  hover:bg-gray-100 rounded-lg px-3 cursor-pointer transition"
+                  style={{
+                    color: themeProperties.textColorAlt,
+                  }}
+                >
+                  <span className="w-2/3 truncate">{circular.subject}</span>
+                  <span className="w-1/3 text-right">{circular.date}</span>
+                </div>
+              </DialogTrigger>
+
+              <DialogContent
+                style={{
+                  color: themeProperties.textColorAlt,
+                }}
+                className="p-0  max-h-[80vh] min-w-[60vw] overflow-y-scroll"
+              >
+                <DialogHeader >
+                  <DialogTitle
+                  className = "text-center p-4 text-2xl font-normal flex items-center justify-center"
+                  style={{ color: themeProperties.textColor, 
+                    background: themeProperties.secondaryColor,
+                   }}>
+
+
+                  <div className="text-center flex items-center justify-center absolute left-4">
+                <DialogDescription className=" flex p-4 gap-2 w-fit rounded-md justify-center items-center"
+                  style={{ 
+                      color : themeProperties.textColor
+                   }}
+                  >
+                      <FaCalendarAlt  />
+
+                    {circular.date}
+                  </DialogDescription>
+                  </div>
+
+                    {circular.subject}
+
+
+
+
+                  </DialogTitle>
+                  
+                </DialogHeader>
+                  <DialogDescription
+                  className="m-4 p-4 flex flex-col items-start text-start "
+                  style={{ color: themeProperties.textColorAlt }}
+                >
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(circular.message),
+                    }}
+                    className="prose text-sm m-0 p-0"
+                  />
+                </DialogDescription>
+              </DialogContent>
+            </Dialog>
           ))}
         </div>
       </div>
