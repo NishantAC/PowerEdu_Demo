@@ -76,9 +76,10 @@ const themes = {
       textColorAlt: "#000000",
       sideBarColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
       googleMeetButton : "#9694FF",
-      inputBackground: "#F8F8FF",
+      inputBackground: "#FFF",
       inputTextColor: "#000000",
       logoutColor: "red",
+      boxBackground:"#FFF",
     } 
 
 

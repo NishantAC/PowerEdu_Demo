@@ -65,5 +65,15 @@ body{
   color: #e0e0e0; /* White text */
 }
 
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  -moz-appearance: textfield;
+}
+
 
 /* ! Copyright (c) 2024 Aquaria Core Pvt. Ltd. */

@@ -1,96 +1,57 @@
-import React, { useEffect, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import BackupIcon from "@mui/icons-material/Backup";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./ConfirmationModal.css";
+import { IoMdClose } from "react-icons/io";
 
-const ConfirmationModal = ({  close, userId, password  }) => {
+
+
+const ConfirmationModal = ({ close, userId, password,themeProperties }) => {
   return (
-    <div
-      className="containerBox"
-      style={{
-        position: "fixed",
-        height: "100%",
-        width:"100%",
-        left:0,
-        top:0,
-        background: "rgba(83, 83, 83,0.35)",
-        zIndex: "20",
-        display: "grid",
-        placeContent: "center",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        className="content-box"
-        style={{
-          border: "2px solid #FFFFFF",
-          backgroundColor: "#FBFBFB",
-          display: "flex",
-          flexDirection: "column",
-          gap: "0px",
-        }}
+    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 z-[200] flex items-center justify-center openTransition  overflow-hidden rounded-[10px]">
+      <div className="flex flex-col gap-0 w-[600px] rounded-[10px] "
+      style={{ backgroundColor: themeProperties?.inputBackground}}
       >
         {/* heading box */}
-        <div
-          className="heading"
-          style={{
-            width: "100%",
-            height: "54px",
-            backgroundColor: "#FBFBFB",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "0px 3%",
-            fontFamily: "Poppins",
-            fontWeight: "600",
-            color: "#494949",
-          }}
-        >
-          Added New User
-        </div>
+        <div className="w-full h-14 flex justify-center items-center px-3  text-[18px] text-gray-700 rounded-t-[10px] relative"
+        style={{ backgroundColor: themeProperties?.normal1, 
+          color: themeProperties?.textColor,
+        }}
 
-        <div
-          className="text"
-          style={{
-            backgroundColor: "white",
-            flex: "1",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            gap: "20px",
-            fontFamily: "Poppins",
-            color: "#494949",
-          }}
         >
-          <p
-            style={{
-              fontWeight: "700",
-            }}
-          >
-            New user has been added
+          <p>
+          New user has been added 🎉
           </p>
+
+          <button onClick={close} className="absolute right-0 p-2 cursor-pointer"
+          style={{ color: themeProperties?.textColor}}
+          >
+            <IoMdClose  />
+          </button>
+
+        </div> 
+
+        <div className="bg-white flex flex-col items-center my-20 gap-5 font-poppins text-gray-700">
           <div>
-            <p style={{ margin: "10px 0" }}>
-              <strong>User ID:</strong> {userId}
+            <p className=" mb-8">
+              Please note down the following credentials for future reference.
             </p>
-            <p style={{ margin: "10px 0" }}>
-              <strong>Password:</strong> {password}
+            <div className=" border-l-2 pl-4 py-2">
+            <p className="my-2 mb-4">
+              <span >User ID:</span> {userId}
             </p>
+            <p className="my-2">
+              <span>Password:</span> {password}
+            </p>
+            </div>
           </div>
 
-          <Link to="/home">
+          <Link to="/admin/home">
             <button
               onClick={close}
-              style={{
-                fontWeight: "500",
-                border: "none",
-                outline: "none",
-                backgroundColor: "#204DF9",
-                color: "white",
-                borderRadius: "5px",
+              className="font-medium border-none outline-none rounded px-4 py-2 mt-10"
+
+              style={{ backgroundColor: themeProperties?.normal3, 
+                color: themeProperties?.textColor,
               }}
             >
               Go to Home
