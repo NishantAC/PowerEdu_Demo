@@ -26,10 +26,10 @@ const TeacherMailTabs = ({
   handleChange,
   toggleMenu,
   toggleItem,
-  screenWidth,
   newInboxEmail,
   isAuthorised,
   logout,
+  screenWidth,
 }) => {
   return (
     <div className="w-full lg:w-1/5 min-w-[150px] h-full text-left pr-4 pt-5 bg-white">
@@ -41,7 +41,7 @@ const TeacherMailTabs = ({
             <ListIcon onClick={toggleItem} />
           )}
         </button>
-        {(toggleMenu || screenWidth > 1300) && (
+        {(toggleMenu || screenWidth > 600) && (
           <Tabs
             orientation="vertical"
             value={value}

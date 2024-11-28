@@ -16,11 +16,10 @@ import { socketUrl } from "../../../common/socketLink";
 import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import MailPromotion from "./Promotion/MailPromotion";
-import InfiniteScroll from "react-infinite-scroll-component";
 import TeacherMailTabs from "./TeacherMailTabs";
 import { selectThemeProperties } from "@/slices/theme";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch} from "react-redux";
+import { CircularProgress } from '@mui/material';
 
 
 function TabPanel(props) {
@@ -49,10 +48,6 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-
-/**
- * url,doesnt not use http polling,doesnt reconnect automatically
- */
 export const socket = io(socketUrl, {
   transports: ["websocket"],
   upgrade: false,
@@ -77,8 +72,8 @@ function TeacherMail() {
   const [hasMore, setHasMore] = useState(true);
   const [nextPageToken, setNextPageToken] = useState(null);
   const [toggleMenu, setToggleMenu] = useState(false);
-
-
+  const [googleLoading, setGoogleLoading] = useState(true);
+  const dispatch = useDispatch();
   const inboxMails = useMemo(
     () =>
       mails.filter(
@@ -87,39 +82,43 @@ function TeacherMail() {
     [mails]
   );
 
+
+  const googleLogin = useGoogleLogin({
+    flow: "auth-code",
+    scope:
+      "https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar",
+    include_granted_scopes: false,
+    onSuccess: async (codeResponse) => {
+      try {
+        await googleAuth({ code: codeResponse.code, userId: user?.id });
+        setIsAuthorised(true);
+      } catch (error) {
+        console.error("Authentication error:", error);
+        toast.error("Authentication failed!", { autoClose: 500 });
+      }
+    },
+    onError: (errorResponse) => {
+      console.error("Authentication error:", errorResponse);
+      toast.error("Authentication failed!", { autoClose: 500 });
+    },
+  });
+
   const promotionMails = useMemo(
     () => mails.filter((mail) => mail?.body?.trim().startsWith("<!DOCTYPE")),
     [mails]
   );
 
-  
-  
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 1 && isAuthorised) {
       fetchInbox(); // Fetch new emails
     }
   };
-  
-  
-
-
-
   const toggleItem = () => {
     setToggleMenu(!toggleMenu);
   };
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const changeWidth = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", changeWidth);
-    return () => {
-      window.removeEventListener("resize", changeWidth);
-    };
-  }, []);
 
   useEffect(() => {
     socket.emit("connected", user.id);
@@ -183,17 +182,16 @@ function TeacherMail() {
   const fetchInbox = async () => {
     if (loading) return; 
     setLoading(true);
-
     try {
-      
       const inbox = await getInbox({ pageToken: nextPageToken });
+      console.log(inbox?.response?.data);
       const mailItems = inbox?.response?.data?.mails;
       const newNextPageToken = inbox?.response?.data?.nextPageToken;
-
       if (mailItems) {
         setMails((prevMails) => [...prevMails, ...mailItems]);
         setNextPageToken(newNextPageToken || null);
         setHasMore(!!newNextPageToken); 
+        setGoogleLoading(false);
       } else {
         setHasMore(false);
       }
@@ -209,7 +207,7 @@ function TeacherMail() {
   };
 
   const fetchMoreMails = async () => {
-    if (!hasMore || loading) return; // Prevent multiple fetches if already loading or no more mails
+    if (!hasMore || loading) return;
     setLoading(true);
     try {
       const response = await getInbox({ pageToken: nextPageToken });
@@ -231,8 +229,6 @@ function TeacherMail() {
     }
   };
   
-
-
   const checkUserAuthorization = async () => {
     const response = await checkAuth();
     setIsAuthorised(response?.data?.isAuthorised);
@@ -240,7 +236,7 @@ function TeacherMail() {
 
   const logout = async () => {
     const response = await logoutGoogle();
-    toast.success(response.data.message, {
+    toast.success(response?.data.message, {
       position: "top-center",
       autoClose: 1000,
       hideProgressBar: false,
@@ -253,29 +249,33 @@ function TeacherMail() {
     setIsAuthorised(false);
   };
 
-  const googleLogin = useGoogleLogin({
-    flow: "auth-code",
-    scope:
-      "https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar",
-    include_granted_scopes: false,
-    onSuccess: async (codeResponse) => {
-      
 
-      try {
-        await googleAuth({ code: codeResponse.code, userId: user?.id });
-        setIsAuthorised(true);
-      } catch (error) {
-        console.error("Authentication error:", error);
-        toast.error("Authentication failed!", { autoClose: 500 });
-      }
-    },
-    onError: (errorResponse) => {
-      console.error("Authentication error:", errorResponse);
-      toast.error("Authentication failed!", { autoClose: 500 });
-    },
-  });
 
   return (
+    <>{
+      googleLoading ? (
+        <div className="flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px]">
+          <CircularProgress />
+        </div>
+      ) : (
+      !isAuthorised ? (
+    <div className="flex items-center justify-center h-screen">
+            <div className=" p-[2px] rounded-[10px] w-fit"
+      style={{ color: themeProperties.textColorAlt, 
+        background: 'linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335)', 
+
+       }}   >
+        <button onClick={googleLogin} className=" p-2 flex rounded-[10px] bg-white hover:bg-white  "
+         
+        > 
+          <img src={GoogleImage} width={20} alt="Sign in with Google" />
+          <span className="ml-2"
+          style={{ color: themeProperties.textColorAlt }}
+          >Sign in with Google</span>
+          </button>
+      </div>
+    </div>
+    ) : (
     <div className="ml-12">
       <div className="flex flex-col lg:flex-row">
         <TeacherMailTabs
@@ -283,30 +283,19 @@ function TeacherMail() {
           handleChange={handleChange}
           toggleMenu={toggleMenu}
           toggleItem={toggleItem}
-          screenWidth={screenWidth}
           newInboxEmail={newInboxEmail}
           isAuthorised={isAuthorised}
           logout={logout}
+          screenWidth={screenWidth}
         />
         {/*tab component*/}
-        <div className="w-full lg:w-4/5">
+        <div className="w-full">
           <TabPanel value={value} index={0}>
             <ComposeMail fltMails={fltMails} setFltMails={setFltMails} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-          <InfiniteScroll
-            dataLength={mails.length}
-            next={fetchMoreMails}
-            hasMore={hasMore}
-            loader={<h4 className="text-center">Loading more emails...</h4>}
-            endMessage={
-              <p style={{ textAlign: 'center', marginTop: '20px' }}>
-                <b>No more emails</b>
-              </p>
-            }
-          >
-            <MailInbox inboxMails={inboxMails} />
-          </InfiniteScroll>
+
+            <MailInbox inboxMails={inboxMails} fetchMoreMails={fetchMoreMails} themeProperties={themeProperties} loading ={loading}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <MailPromotion promotionMails={promotionMails} />
@@ -325,19 +314,10 @@ function TeacherMail() {
             <FavouriteMail fltMails={fltMails} setFltMails={setFltMails} />
           </TabPanel>
         </div>
-        {!isAuthorised && (
-          <div>
-            <button onClick={googleLogin} className=" flex p-2 rounded-[10px] bg-white hover:bg-white "            
-            > 
-              <img src={GoogleImage} width={20} alt="Sign in with Google" />
-              <span className="ml-2"
-              style={{ color: themeProperties.textColorAlt }}
-              >Sign in with Google</span>
-              </button>
-          </div>
-        )}
+
       </div>
-    </div>
+    </div> ) ) }
+  </>
   );
 }
 
