@@ -19,7 +19,7 @@ function PrincipalNav(props) {
   const [ring, setRing] = useState(true);
   const [bellColor, setBellColor] = useState("#6755D9");
   const [logo, setLogo] = useState("");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useSelector((state) => state.user);
   const code = user?.schoolcode;
   const [newMail, setNewMail] = useState(true);
 

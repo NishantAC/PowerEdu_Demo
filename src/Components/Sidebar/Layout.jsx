@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import SideBar from './SideBar';
 import Nav from './Nav';
 import { useNavigate } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 function Layout(props) {
 
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem("user"));
+    const { user } = useSelector((state) => state.user);
     useEffect(() => {
         if (!user) {
             navigate("/");

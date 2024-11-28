@@ -1,14 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import InboxMessage from "./InboxMessage";
-import { Avatar } from "@mui/material";
 import styles from "./InboxMessage.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { getTime } from "../../../../common/Time";
 import { getThread, setReadMail } from "../../../../services/mail.service";
-import { toast } from "react-toastify";
 
 function MailInbox({ inboxMails }) {
-  console.log(inboxMails, "this is inbox mail");
+  console.log( "inbox mail",inboxMails);
 
   const [value, setValue] = useState({});
 
@@ -18,7 +16,6 @@ function MailInbox({ inboxMails }) {
       pageToken: m.nextPageToken ? m.nextPageToken : null,
       id: m.threadId,
     }).then((res) => {
-      // get all thread for the email
       console.log(res.response.data);
       setValue(res.response.data);
     });

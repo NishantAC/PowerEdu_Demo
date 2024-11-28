@@ -5,10 +5,8 @@ export default function authHeader() {
   if (token) {
     try {
       const parsedToken = JSON.parse(token);
-      console.log(parsedToken,"parsedtojken")
 
       if (parsedToken) {
-        // Return the parsed token in the expected format
         return { "x-access-token": parsedToken };
       }
     } catch (error) {

@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useSelector((state) => state.user);
   const [deviceSize, setDeviceSize] = useState("pc");
   const yearArray = [];
   for (let year = 1951; year <= 2050; year++) {

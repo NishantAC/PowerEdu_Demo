@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./ConfirmationModal.css";
 import { IoMdClose } from "react-icons/io";
 
 

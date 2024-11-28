@@ -27,7 +27,7 @@ function SideBar(props) {
   const [openIndex, setOpenIndex] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [Items, setItems] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const themeProperties = useSelector(selectThemeProperties);
 

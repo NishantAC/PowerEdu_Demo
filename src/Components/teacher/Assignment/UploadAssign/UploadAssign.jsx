@@ -28,7 +28,7 @@ function UploadAssign(props) {
 
     const [initialData, setInitialData] = useState(null);
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    const { user } = useSelector((state) => state.user);
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setInitial().then(() => {  // set class and subject data then open upload model

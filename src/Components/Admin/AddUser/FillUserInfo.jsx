@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { handleImageUpload, handleChange, handleSubmit } from "./fillUserInfoFunction";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import WestIcon from "@mui/icons-material/West";
-import SelectUserType from "./SelectUserType";
 import "./FillUserInfo.css";
-import { Link } from "react-router-dom";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useSelector } from "react-redux";
-import SchoolUsersService from "../../../services/schoolusers.service";
 import authService from "../../../services/auth.service";
 import ConfirmationModal from "./Modal/ConfirmationModal";
 import classService from "../../../services/class.service";
@@ -16,16 +10,8 @@ import { useDispatch } from "react-redux";
 import UserProfileImage from "./UserProfileImage";
 import UserTypeSelection from "./UserTypeSelection";
 import UserDetailsForm from "./UserDetailsForm";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 function FillUserInfo() {
+
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const themeProperties = useSelector(selectThemeProperties);
