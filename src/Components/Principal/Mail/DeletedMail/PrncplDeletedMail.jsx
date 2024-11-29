@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
 
 function PrncplDeletedMail({ fltMails, setFltMails }) {
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
+  const user = useSelector((state) => state.auth.user);
   const [value, setValue] = useState({});
   const [deletedMails, setDeletedMails] = useState([]);
 

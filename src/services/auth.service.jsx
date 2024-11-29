@@ -16,7 +16,7 @@ const login = async (user_id, password, rememberMe) => {
       ? Date.now() + 7 * 24 * 60 * 60 * 1000
       : Date.now() + 24 * 60 * 60 * 1000; // set token expiry to 7 days if rememberMe is checked, otherwise 24 hours
     localStorage.setItem("user", JSON.stringify(user)); // stores the user data in the browser's local storage for persistent use.
-    localStorage.setItem("token", JSON.stringify(accessToken));
+    localStorage.setItem("powerEduAuthToken", JSON.stringify(accessToken));
     localStorage.setItem("tokenExpiry", JSON.stringify(tokenExpiry));
     return response;
   } catch (error) {

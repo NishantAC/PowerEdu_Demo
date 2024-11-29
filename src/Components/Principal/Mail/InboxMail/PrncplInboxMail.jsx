@@ -7,10 +7,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
 import { setReadMail } from '../../../../services/mail.service';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 function PrncplInboxMail({ fltMails, setFltMails }) {
 
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
+  const user = useSelector((state) => state.auth.user);
   const [value, setValue] = useState({});
   const [inboxmails, setInboxMails] = useState({});
 

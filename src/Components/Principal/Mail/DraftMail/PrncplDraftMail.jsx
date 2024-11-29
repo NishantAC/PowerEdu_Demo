@@ -5,9 +5,10 @@ import { Avatar } from '@mui/material';
 import styles from '../../../teacher/Mail/Inbox/InboxMessage.module.css';
 import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
+import { useSelector } from 'react-redux';
 
 function PrncplDraftMail({ fltMails, setFltMails }) {
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
+  const user = useSelector((state) => state.auth.user);
   const [draftMails, setDraftMails] = useState([]);
   const [value, setValue] = useState({});
 

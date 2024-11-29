@@ -95,11 +95,28 @@ function SideBar(props) {
 
 
   useEffect(() => {
+    const lastActiveIndexString = localStorage.getItem("lastActiveIndex");
+    const lastActiveIndex = Number(lastActiveIndexString);
+    setActiveIndex(lastActiveIndex || 0);
+    console.log(lastActiveIndex, "lastActiveIndex");
+
+    const route = Items[lastActiveIndex]?.route;
+    console.log(route, "route");
+    if (route) {
+      navigate(route);
+    }
+  }, [Items]);
+
+
+  useEffect(() => {
     const isCollapsedString = localStorage.getItem("isCollapsed");
     const isCollapsed = isCollapsedString === "true";
     setTimeout(() => {
       setIsCollapsed(isCollapsed);
     }, 1000);
+
+    // Navigate the user according to the last active index if the user comes back to the page
+
   }, []);
 
 

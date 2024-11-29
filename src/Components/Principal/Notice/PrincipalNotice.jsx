@@ -28,9 +28,7 @@ export default function PrincipalNotice() {
   });
   const mycontext = useContext(MenuContext);
   const dispatch = useDispatch();
-  const user =
-    useSelector((state) => state.auth.user) ?? 
-    JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.auth.user)
   const code = user?.schoolcode;
   const [principalMsgs, setPrincipalMsgs] = useState([]); // Multiple messages
   const [allNotices, setAllNotices] = useState([]);

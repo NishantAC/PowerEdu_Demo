@@ -18,9 +18,10 @@ import {
   sendMail,
 } from "../../../../services/mail.service";
 import ImageModal from "../ComposeMail/ImageModal";
+import { useSelector } from "react-redux";
 
 function ReplyForwardMail({ email, setFltMails, setValue }) {
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
+  const user = useSelector((state) => state.auth.user);
   const [err, setErr] = useState(false);
   const [mailType, setMailType] = useState("reply");
   const [attachments, setAttachments] = useState([]);

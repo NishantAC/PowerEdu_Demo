@@ -20,6 +20,7 @@ import { MakefavouriteMail, fetchAllUsername, sendMail } from '../../../../servi
 import { toast } from 'react-toastify';
 import ReactToPrint from "react-to-print";
 import { getCurrentTime } from '../../../../common/Time';
+import { useSelector } from 'react-redux';
 
 const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -56,7 +57,7 @@ function PrncplDraftMsg({ draftMails, setFltMails }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const user = useMemo(() => JSON.parse(localStorage.getItem("user")), [])
+    const user = useSelector((state) => state.auth.user);
 
     //form state
     const [recipient, setRecipient] = useState('');

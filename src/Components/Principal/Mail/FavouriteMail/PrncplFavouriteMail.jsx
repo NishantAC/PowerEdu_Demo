@@ -5,9 +5,10 @@ import { Avatar } from '@mui/material';
 import styles from '../../../teacher/Mail/Inbox/InboxMessage.module.css';
 import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
+import { useSelector } from 'react-redux';
 
 function PrncplFavouriteMail({ fltMails, setFltMails }) {
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
+  const user = useSelector((state) => state.auth.user);
   const [value, setValue] = useState({});
   const [favMails, setFavMails] = useState([]);
 

@@ -15,8 +15,7 @@ import Readmore from "../Home/Readmore";
 export default function StudentNotice() {
   const mycontext = useContext(MenuContext);
   const { user: currentUser } =
-    useSelector((state) => state.user) ??
-    JSON.parse(localStorage.getItem("user"));
+    useSelector((state) => state.user);
   const code = currentUser.schoolcode;
 
   const [principalMsg, setPrincipalMsg] = useState({});

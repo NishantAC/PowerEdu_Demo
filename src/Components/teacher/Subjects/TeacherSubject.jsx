@@ -11,9 +11,7 @@ import ClassDropdown from "./SubDropdown/classDropdown";
 function TeacherSubject() {
   const dispatch = useDispatch();
   const mycontext = useContext(MenuContext);
-  const user =
-    useSelector((state) => state.auth.user) ??
-    JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.auth.user)
   const { subject } = useSelector((state) => state.subject);
   const [tableData, setTableData] = useState([]);
   const [classes, Setclasses] = useState([]);

@@ -79,7 +79,7 @@ export const handleTokenExpiry = createAsyncThunk(
   "auth/handleLoginExpiry",
   async (_, { dispatch }) => {
     const user = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("powerEduAuthToken");
     const tokenExpiry = localStorage.getItem("tokenExpiry");
     if (token && tokenExpiry && user) {
       const expiryTime = parseInt(tokenExpiry);

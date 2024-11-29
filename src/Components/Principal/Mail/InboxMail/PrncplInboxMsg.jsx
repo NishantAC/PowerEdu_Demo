@@ -15,6 +15,7 @@ import { MakefavouriteMail } from '../../../../services/mail.service';
 import { toast } from 'react-toastify';
 import ReactToPrint from "react-to-print";
 import { getCurrentTime } from '../../../../common/Time';
+import { useSelector } from 'react-redux';
 
 const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -32,7 +33,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 
 
 function PrncplInboxMsg({ messageData, setFltMails }) {
-    const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
+    const user = useSelector((state) => state.auth.user);
     //print
     const componentRef = useRef();
 

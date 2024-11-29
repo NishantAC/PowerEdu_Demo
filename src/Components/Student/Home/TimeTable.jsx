@@ -16,7 +16,7 @@ import ShowTimeTableSubjects from "./ShowTimeTableSubjects";
 export default function TimeTable() {
 
     //destructing data from localStorage
-    const { schoolcode, classid } = JSON.parse(localStorage.getItem("user"));
+    const user = useSelector((state) => state.auth.user);
     const [startDate, setDate] = useState(new Date());
 
     const dispatch = useDispatch();

@@ -25,6 +25,8 @@ import PrncplSentMail from './SentMail/PrncplSentMail';
 import PrncplDraftMail from './DraftMail/PrncplDraftMail';
 import PrncplDeletedMail from './DeletedMail/PrncplDeletedMail';
 import PrncplFavouriteMail from './FavouriteMail/PrncplFavouriteMail'
+import { useSelector } from 'react-redux';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,7 +78,10 @@ export const socket = io(socketUrl, {
 });
 
 function PrincipalMail() {
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), [localStorage.getItem("user")]);
+
+
+  const user = useSelector((state) => state.auth.user);
+
   const [AllMails, setAllMails] = useState([]);
   const [fltMails, setFltMails] = useState([]);
   const [value, setValue] = React.useState(0);
@@ -104,9 +109,6 @@ function PrincipalMail() {
   }, []);
 
 
-  /**
- * Socket
-*/
 
   useEffect(() => {
 

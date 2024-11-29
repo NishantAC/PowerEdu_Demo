@@ -20,7 +20,7 @@ import TeacherMailTabs from "./TeacherMailTabs";
 import { selectThemeProperties } from "@/slices/theme";
 import { useSelector, useDispatch} from "react-redux";
 import { CircularProgress } from '@mui/material';
-
+import debounce from 'lodash.debounce';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,21 +67,14 @@ function TeacherMail() {
   const [mails, setMails] = useState([]);
   const [value, setValue] = useState(0);
   const [newInboxEmail, setNewInboxEmail] = useState();
-  const [isAuthorised, setIsAuthorised] = useState(false);
+  const [isAuthorised, setIsAuthorised] = useState(true);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [nextPageToken, setNextPageToken] = useState(null);
   const [toggleMenu, setToggleMenu] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(true);
   const dispatch = useDispatch();
-  const inboxMails = useMemo(
-    () =>
-      mails.filter(
-        (mail) => mail?.body && !mail.body.trim().startsWith("<!DOCTYPE")
-      ),
-    [mails]
-  );
-
+  const inboxMails =mails;
 
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
@@ -111,7 +104,6 @@ function TeacherMail() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 1 && isAuthorised) {
-      fetchInbox(); // Fetch new emails
     }
   };
   const toggleItem = () => {
@@ -169,13 +161,14 @@ function TeacherMail() {
     getinboxMail();
   }, []);
 
-  useEffect(() => {
-    checkUserAuthorization();
-  }, []);
+
 
   useEffect(() => {
     if (isAuthorised) {
+      setGoogleLoading(true);
       fetchInbox();
+    } else {
+      setGoogleLoading(false);
     }
   }, [isAuthorised]);
 
@@ -184,7 +177,6 @@ function TeacherMail() {
     setLoading(true);
     try {
       const inbox = await getInbox({ pageToken: nextPageToken });
-      console.log(inbox?.response?.data);
       const mailItems = inbox?.response?.data?.mails;
       const newNextPageToken = inbox?.response?.data?.nextPageToken;
       if (mailItems) {
@@ -203,10 +195,11 @@ function TeacherMail() {
       setHasMore(false);
     } finally {
       setLoading(false);
+
     }
   };
 
-  const fetchMoreMails = async () => {
+  const fetchMoreMails = debounce(async () => {
     if (!hasMore || loading) return;
     setLoading(true);
     try {
@@ -227,12 +220,28 @@ function TeacherMail() {
     } finally {
       setLoading(false);
     }
-  };
+  }, 300); // Adjust the debounce delay as needed
   
+ 
+  useEffect(() => {
+ 
   const checkUserAuthorization = async () => {
-    const response = await checkAuth();
-    setIsAuthorised(response?.data?.isAuthorised);
+
+    try {
+      const response = await checkAuth();
+      setIsAuthorised(response?.data?.isAuthorised);
+    }
+    catch ( error){
+      setIsAuthorised(false);
+    }
+    
   };
+  checkUserAuthorization();
+
+}, []) 
+
+  
+
 
   const logout = async () => {
     const response = await logoutGoogle();
@@ -250,15 +259,10 @@ function TeacherMail() {
   };
 
 
-
-  return (
-    <>{
-      googleLoading ? (
-        <div className="flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px]">
-          <CircularProgress />
-        </div>
-      ) : (
-      !isAuthorised ? (
+  if (!isAuthorised) {
+    return(
+    <>
+    
     <div className="flex items-center justify-center h-screen">
             <div className=" p-[2px] rounded-[10px] w-fit"
       style={{ color: themeProperties.textColorAlt, 
@@ -275,8 +279,20 @@ function TeacherMail() {
           </button>
       </div>
     </div>
-    ) : (
-    <div className="ml-12">
+    
+    </>)
+  }
+
+
+  return (
+    <>
+    {
+      googleLoading ? (
+        <div className={`flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px] ${!isAuthorised && 'hidden' }`}>
+          <CircularProgress />
+        </div>
+      ) : (
+    <div className={`ml-12 ${!isAuthorised && 'hidden' }`}>
       <div className="flex flex-col lg:flex-row">
         <TeacherMailTabs
           value={value}
@@ -295,7 +311,7 @@ function TeacherMail() {
           </TabPanel>
           <TabPanel value={value} index={1}>
 
-            <MailInbox inboxMails={inboxMails} fetchMoreMails={fetchMoreMails} themeProperties={themeProperties} loading ={loading}/>
+            <MailInbox inboxMails={inboxMails} fetchMoreMails={fetchMoreMails} themeProperties={themeProperties} loading ={loading} setLoading = {setLoading}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <MailPromotion promotionMails={promotionMails} />
@@ -316,7 +332,7 @@ function TeacherMail() {
         </div>
 
       </div>
-    </div> ) ) }
+    </div> )}
   </>
   );
 }

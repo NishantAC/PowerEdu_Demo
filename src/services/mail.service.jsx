@@ -40,10 +40,10 @@ export const checkAuth = async (user_id) => {
     });
     return response;
   } catch (error) {
-    console.error('Error in checkAuth:', error.response || error.message); // Log detailed error
-
+    console.log('Error in checkAuth:', error.response || error.message); 
     console.log(error);
     throw error;
+    
   }
 };
 

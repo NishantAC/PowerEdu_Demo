@@ -16,7 +16,7 @@ export default function AcademicCalendar() {
   const [events, setEvents] = useState([]);
 
   const { user: currentUser } =
-    useSelector((state) => state.user) ?? JSON.parse(localStorage.getItem("user"));
+    useSelector((state) => state.user);
 
   // Fetch events from the calendar service
   const getEvents = () => {

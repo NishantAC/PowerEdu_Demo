@@ -14,11 +14,12 @@ import { fetchAllUsername, sendMail, getDraftMails } from '../../../../services/
 import { toast } from 'react-toastify';
 import { getCurrentTime } from '../../../../common/Time';
 import { Avatar } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 
 function PrncplComposeMsg({ messageData, setFltMails }) {
+  const user = useSelector((state) => state.auth.user);
 
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), [])
   const [time, setTime] = useState(getCurrentTime());
 
   //form state

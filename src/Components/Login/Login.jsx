@@ -68,17 +68,13 @@ const Login = () => {
       }
       dispatch(handleTokenExpiry());
     }
-    // Retrieve login data from local storage and set the state if it exists
     const loginData = JSON.parse(localStorage.getItem("loginData"));
     if (loginData && loginData.rememberMe) {
       setFormData({ ...formData, email: loginData.email, rememberMe: true });
-      // perform other actions to indicate successful login
     }
-    // Start rotating banners
     const bannerInterval = setInterval(() => {
       setBannerIndex((bannerIndex) => (bannerIndex + 1) % bannerSources.length);
     }, 3000);
-    return () => clearInterval(bannerInterval); // Stop rotating banners when the component is unmounted
   }, [user]);
 
   const handlePasswordVisibility = () => {
@@ -116,8 +112,6 @@ const Login = () => {
       const password = formData.password;
       const userid = formData.email;
       const rememberMe = formData.rememberMe;
-      // send email and password to server for authentication
-      // perform any necessary actions to indicate successful login
       const response = await dispatch(login({ userid, password, rememberMe }));
       const schoolCode = response?.payload?.response?.schoolcode;
       const user_id = response?.payload?.response?.id.toString();

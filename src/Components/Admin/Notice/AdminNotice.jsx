@@ -27,7 +27,7 @@ import AddPrincipalMsg from "./AddPrincipalMsg";
 export default function AdminNotice() {
   const mycontext = useContext(MenuContext);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user) ?? JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.auth.user);
   const code = user?.schoolcode;
   const [principalMsg, setPrincipalMsg] = useState({});
   // const allNotices = useRef([]);

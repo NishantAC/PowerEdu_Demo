@@ -24,7 +24,7 @@ function TabAcademics1({ userId }) {
     subject: ""
   });
 
-  const { user: currentUser } = useSelector((state) => state.user) ?? JSON.parse(localStorage.getItem("user"));
+  const { user: currentUser } = useSelector((state) => state.user) ;
   const schoolCode = currentUser.schoolcode;
 
   useEffect(() => {

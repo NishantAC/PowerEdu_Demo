@@ -9,6 +9,7 @@ import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { alpha } from "@mui/material/styles";
+import debounce from 'lodash.debounce';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function MailInbox({ inboxMails, fetchMoreMails, hasMore ,themeProperties, loading}) {
+function MailInbox({ inboxMails, fetchMoreMails ,themeProperties, loading, setLoading}) {
   const [value, setValue] = useState({});
   const scrollRef = useRef(null);
   const openMsg = (m) => {
@@ -68,14 +69,18 @@ function MailInbox({ inboxMails, fetchMoreMails, hasMore ,themeProperties, loadi
   };
 
   useEffect(() => {
-    const handleScroll = () => {
+    console.log("mailInboc", inboxMails);
+    const handleScroll = debounce(() => {
       if (scrollRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
-        if (scrollHeight - scrollTop <= clientHeight + 200) {
+        if (scrollHeight - scrollTop <= clientHeight + 400) {
+          console.log("scrolling");
+          if (loading) { return; }
           fetchMoreMails();
+          setLoading(true);
         }
       }
-    };
+    }, 300); 
 
     const scrollElement = scrollRef.current;
     if (scrollElement) {
@@ -87,7 +92,7 @@ function MailInbox({ inboxMails, fetchMoreMails, hasMore ,themeProperties, loadi
         scrollElement.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [fetchMoreMails]);
+  }, [fetchMoreMails, loading]);
 
   return (
     <div className="flex gap-2 h-full text-black">

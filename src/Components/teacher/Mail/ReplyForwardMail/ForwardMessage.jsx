@@ -9,9 +9,10 @@ import {
 } from "../../../../services/mail.service";
 import { toast } from "react-toastify";
 import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 
 function ForwardMessage({ email, setForward, forward, attachments }) {
-  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
+  const user = useSelector((state) => state.auth.user);
   const [recipient, setRecipient] = useState("");
   const [mailType, setMailType] = useState("forward");
   const [err, setErr] = useState(false);

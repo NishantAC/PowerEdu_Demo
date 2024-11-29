@@ -31,7 +31,7 @@ function PrincipalCalendar() {
   const dispatch = useDispatch();
   const { googleEvents } = useSelector((state) => state.calendarSlice);
   const { user: currentUser } =
-    useSelector((state) => state.user) ?? JSON.parse(localStorage.getItem("user"));
+    useSelector((state) => state.user) ;
 
   const separateEvents = (events) => {
     const holidayEventsArray = [];

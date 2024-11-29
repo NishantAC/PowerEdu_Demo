@@ -31,6 +31,7 @@ import admin from "./slices/admin";
 import calendarSlice from "./slices/calendar";
 import theme from "./slices/theme";
 
+
 const reducer = {
   auth,
   user,
@@ -63,6 +64,7 @@ const reducer = {
   admin,
   calendarSlice,
   theme,
+
 };
 
 const store = configureStore({
