@@ -158,7 +158,7 @@ function MeetingsBox() {
                 <MeetingsTable meetings={meetings} themeProperties={themeProperties} />
               ) : (
                 <div className="flex justify-center items-center text-gray-500 h-full">
-                  No meetings scheduled for today.
+                  No meetings scheduled today.
                 </div>
               )}
             </div>

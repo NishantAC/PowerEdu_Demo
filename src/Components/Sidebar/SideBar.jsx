@@ -1,26 +1,127 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { MenuContext } from "@/context/Menu/MenuContext";
-import { FaSignOutAlt, FaHome, FaUser, FaEnvelope, FaBook, FaBus, FaSchool, FaMoneyBill, FaBell, FaCalendarAlt } 
-from "react-icons/fa";
 import { logout } from "@/slices/auth";
 import { eventBus } from "@/common/EventBus";
-import { useDispatch } from "react-redux";
-import AdminSidebarItems from "./AdminSideBarItems";
-import PrincipalSideBarItem from "./PrincipalSideBarItem";
-import StudentSidebarItems from "./StudentSidebarItems";
-import TeacherSideBarItem from "./TeacherSideBarItem";
 import gsap from "gsap";
-import { FaAngleDown } from "react-icons/fa";
-import "./SideBar.css";
+import { FaSignOutAlt, FaHome, FaUser, FaEnvelope, FaBook, FaBus, FaSchool, FaMoneyBill, FaBell, FaCalendarAlt , FaAngleDown,} from "react-icons/fa";
+import { MdAssignment } from "react-icons/md";
+
 import checkUserType from "@/common/checkUserType";
-import { useSelector } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
+import "./SideBar.css";
+
+const sidebarItems = {
+  Admin: [
+    { name: "Home", route: "/admin/home", icon: FaHome, child: [] },
+    {
+      name: "Profiles",
+      icon: FaUser,
+      child: [
+        { name: "Students", route: "/admin/profile/students" },
+        { name: "Teachers", route: "/admin/profile/teachers" },
+        { name: "Principal", route: "/admin/profile/principal" },
+        { name: "Accountant", route: "/admin/profile/accountant" },
+        { name: "Staff", route: "/admin/profile/staff" },
+      ],
+    },
+    { name: "Calendar", route: "/admin/calendar", icon: FaCalendarAlt, child: [] },
+    { name: "Mail", route: "/admin/mail", icon: FaEnvelope, child: [] },
+    { name: "Subjects", route: "/admin/subjects", icon: FaBook, child: [] },
+    { name: "Transport", route: "/admin/transport", icon: FaBus, child: [] },
+    {
+      name: "Expenses",
+      icon: FaMoneyBill,
+      child: [
+        { name: "Academic Fees", route: "/admin/academic-fees" },
+        { name: "Transport Fees", route: "/admin/transport-fees" },
+        { name: "Extracurricular", route: "/admin/extracurricular" },
+      ],
+    },
+    { name: "School", route: "/admin/school", icon: FaSchool, child: [] },
+    { name: "Notice", route: "/admin/notice", icon: FaBell, child: [] },
+  ],
+  Principal: [
+    { name: "Home", route: "/principal/home", icon: FaHome, child: [] },
+    {
+      name: "Students",
+      icon: FaUser,
+      child: [
+        { name: "Student", route: "/principal/student/profile" },
+        { name: "Student Timetable", route: "/principal/student/timetable" },
+      ],
+    },
+    { name: "Teachers", route: "/principal/teacher/attendance", icon: FaUser, child: [] },
+    {
+      name: "Exam",
+      icon: FaBook,
+      child: [
+        { name: "Exam Schedule", route: "/principal/exam" },
+        { name: "Student's Progress", route: "/principal/student/progress" },
+      ],
+    },
+    { name: "Calendar", route: "/principal/calendar", icon: FaCalendarAlt, child: [] },
+    { name: "Fees", route: "/principal/fees", icon: FaMoneyBill, child: [] },
+    { name: "Mail", route: "/principal/mail", icon: FaEnvelope, child: [] },
+    { name: "Notice", route: "/principal/notice", icon: FaBell, child: [] },
+  ],
+  Teacher: [
+    { name: "Home", route: "/teacher/home", icon: FaHome, child: [] },
+    {
+      name: "Students",
+      icon: FaUser,
+      child: [
+        { name: "Student Attendance", route: "/teacher/student/attendance" },
+        { name: "Student Profile", route: "/teacher/student/profile" },
+        { name: "Extra Class", route: "/teacher" },
+      ],
+    },
+    {
+      name: "Assignments",
+      icon: MdAssignment,
+      child: [
+        { name: "Add Assignment", route: "/teacher/add-assignment" },
+        { name: "Add Homework", route: "/teacher/add-homework" },
+      ],
+    },
+    {
+      name: "Exam",
+      icon: FaBook,
+      child: [
+        { name: "Exam Marks", route: "/teacher/exam/marks" },
+        { name: "Class Test Marks", route: "/teacher/class-test-marks" },
+        { name: "Upload Question Paper", route: "/teacher/upload-paper" },
+      ],
+    },
+    { name: "Subjects", route: "/teacher/subject", icon: FaBook, child: [] },
+    { name: "Mail", route: "/teacher/mail", icon: FaEnvelope, child: [] },
+    { name: "Notice", route: "/teacher/notice", icon: FaBell, child: [] },
+  ],
+  Student: [
+    { name: "Home", route: "/student/home", icon: FaHome, child: [] },
+    { name: "Subjects", route: "/student/subject", icon: FaBook, child: [] },
+    { name: "Assignments", route: "/student/assignment", icon: FaBook, child: [] },
+    { name: "Teachers", route: "/student/teacher", icon: FaUser, child: [] },
+    { name: "Fees", route: "/student/fee", icon: FaMoneyBill, child: [] },
+    { name: "Exam", route: "/student/exam", icon: FaBook, child: [] },
+    { name: "Notice", route: "/student/notice", icon: FaBell, child: [] },
+  ],
+};
+
+
+const MailItems = [
+  { name: "Inbox", route: "/mail/inbox" },
+  { name: "Sent", route: "/mail/sent" },
+  { name: "Draft", route: "/mail/draft" },
+  { name: "Trash", route: "/mail/trash" },
+];
+
+
 
 
 function SideBar(props) {
   const mycontext = useContext(MenuContext);
-  const location = useLocation();
   const lastActiveIndexString = localStorage.getItem("lastActiveIndex");
   const lastActiveIndex = Number(lastActiveIndexString);
   const [activeIndex, setActiveIndex] = useState(lastActiveIndex || 0);
@@ -42,15 +143,15 @@ function SideBar(props) {
       return;
     } 
     if (userType === "Admin") {
-      setItems(AdminSidebarItems);
+      setItems(sidebarItems.Admin);
     } else if (userType === "Principal") {
-      setItems(PrincipalSideBarItem);
+      setItems(sidebarItems.Principal);
     }
     else if (userType === "Teacher") {
-      setItems(TeacherSideBarItem);
+      setItems(sidebarItems.Teacher);
     }
     else if (userType === "Student") {
-      setItems(StudentSidebarItems);
+      setItems( sidebarItems.Student);
     }
   }, [user]);
 
@@ -119,19 +220,6 @@ function SideBar(props) {
 
   }, []);
 
-
-  const icons = [
-    FaHome,
-    FaUser,
-    FaCalendarAlt,
-    FaEnvelope,
-    FaBook,
-    FaBus,
-    FaMoneyBill,
-    FaSchool,
-    FaBell,
-    FaBell,
-  ];
 
   function changeActiveIndex(newIndex) {
     localStorage.setItem("lastActiveIndex", newIndex);
@@ -229,7 +317,7 @@ function SideBar(props) {
       </div>
       <div className="Sidebarlist overflow-y-auto flex-grow select-none" >
         {Items.map((item, index) => {
-          const Icon = icons[index];
+          const Icon = item.icon;
           return (
             <div key={item.name} className={` sideBarItems `}>
               {item.child.length === 0 ? (

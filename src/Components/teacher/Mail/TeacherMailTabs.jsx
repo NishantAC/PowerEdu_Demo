@@ -1,4 +1,3 @@
-
 import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -10,9 +9,7 @@ import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
 import SaveAsOutlinedIcon from "@mui/icons-material/SaveAsOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import StarIcon from "@mui/icons-material/Star";
-import ListIcon from "@mui/icons-material/List";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import LogoutIcon from "../../../icons/LogoutIcon";
+import {FaSignOutAlt} from "react-icons/fa";
 
 function a11yProps(index) {
   return {
@@ -24,24 +21,14 @@ function a11yProps(index) {
 const TeacherMailTabs = ({
   value,
   handleChange,
-  toggleMenu,
   toggleItem,
   newInboxEmail,
-  isAuthorised,
   logout,
-  screenWidth,
+  themeProperties,
 }) => {
   return (
-    <div className="w-full lg:w-1/5 min-w-[150px] h-full text-left pr-4 pt-5 bg-white">
-      <Box className="w-full mx-auto min-w-[200px]">
-        <button className="hidden lg:block bg-white text-2xl z-3 border-none">
-          {toggleMenu ? (
-            <CloseRoundedIcon onClick={toggleItem} />
-          ) : (
-            <ListIcon onClick={toggleItem} />
-          )}
-        </button>
-        {(toggleMenu || screenWidth > 600) && (
+    <div className=" h-full ">
+      <Box className="">
           <Tabs
             orientation="vertical"
             value={value}
@@ -49,13 +36,14 @@ const TeacherMailTabs = ({
             onChange={handleChange}
             aria-label="Vertical tabs example"
             className="mx-auto min-w-[200px]"
+            TabIndicatorProps={{ style: { backgroundColor: "#3b82f6" } }}
           >
             <Tab
               icon={<EmailOutlinedIcon className="text-xl align-middle" />}
               iconPosition="start"
               label="Compose Mail"
               {...a11yProps(0)}
-              className="bg-blue-600 text-white justify-start min-h-[45px] px-7 text-lg font-semibold rounded-lg mb-4 capitalize"
+              className="bg-blue-600 text-white justify-start min-h-[45px] px-7 text-lg font-semibold rounded-lg mb-4 capitalize hover:bg-blue-700"
             />
             <Tab
               icon={<InboxIcon className="text-xl align-middle" />}
@@ -73,7 +61,7 @@ const TeacherMailTabs = ({
                 </span>
               }
               {...a11yProps(1)}
-              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize ${
+              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize hover:text-blue-600 ${
                 value === 1 ? "text-blue-600" : ""
               }`}
             />
@@ -93,7 +81,7 @@ const TeacherMailTabs = ({
                 </span>
               }
               {...a11yProps(2)}
-              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize ${
+              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize hover:text-blue-600 ${
                 value === 2 ? "text-blue-600" : ""
               }`}
             />
@@ -102,7 +90,7 @@ const TeacherMailTabs = ({
               iconPosition="start"
               label="Sent"
               {...a11yProps(3)}
-              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize ${
+              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize hover:text-blue-600 ${
                 value === 3 ? "text-blue-600" : ""
               }`}
             />
@@ -111,7 +99,7 @@ const TeacherMailTabs = ({
               iconPosition="start"
               label="Drafts"
               {...a11yProps(4)}
-              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize ${
+              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize hover:text-blue-600 ${
                 value === 4 ? "text-blue-600" : ""
               }`}
             />
@@ -120,7 +108,7 @@ const TeacherMailTabs = ({
               iconPosition="start"
               label="Deleted"
               {...a11yProps(5)}
-              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize ${
+              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize hover:text-blue-600 ${
                 value === 5 ? "text-blue-600" : ""
               }`}
             />
@@ -129,25 +117,28 @@ const TeacherMailTabs = ({
               iconPosition="start"
               label="Favourites"
               {...a11yProps(6)}
-              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize ${
+              className={`text-gray-400 justify-start min-h-[45px] px-7 text-lg font-semibold mb-2 capitalize hover:text-blue-600 ${
                 value === 6 ? "text-blue-600" : ""
               }`}
             />
           </Tabs>
-        )}
-        {isAuthorised && (
           <button
-            className="bg-red-600 h-12 w-36 flex items-center"
+            className="flex p-2 w-full justify-center items-center"
             onClick={logout}
           >
-            <p className="text-white m-auto">
-              <LogoutIcon />
-            </p>
-            <span className="text-white font-normal text-sm mr-8">
+            <div className=" flex items-center justify-center w-2/3 p-2 rounded-lg"
+            style={{color: themeProperties.text, 
+              background : themeProperties.logoutColor
+            }}
+            >
+              <FaSignOutAlt />
+              <p className="ml-2"
+              >
               Logout Google
-            </span>
+
+              </p>
+            </div>
           </button>
-        )}
       </Box>
     </div>
   );

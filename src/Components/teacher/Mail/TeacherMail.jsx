@@ -21,6 +21,14 @@ import { selectThemeProperties } from "@/slices/theme";
 import { useSelector, useDispatch} from "react-redux";
 import { CircularProgress } from '@mui/material';
 import debounce from 'lodash.debounce';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable"
+import { Toaster } from "sonner";
+import { Button } from "@/components/ui/button"
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -240,6 +248,13 @@ function TeacherMail() {
 
 }, []) 
 
+
+useEffect(() => {
+  if (status === 'idle') {
+    dispatch(fetchMails(user.id));
+  }
+}, [status, user.id, dispatch]);
+
   
 
 
@@ -257,6 +272,17 @@ function TeacherMail() {
     });
     setIsAuthorised(false);
   };
+
+
+  useEffect(() => {
+    socket.on('sendmail', (emailData) => {
+      dispatch(addMail(emailData));
+      toast(`Received new ✉️ from ${emailData.name}`, { autoClose: 1000 });
+    });
+  
+    return () => socket.disconnect();
+  }, [dispatch]);
+  
 
 
   if (!isAuthorised) {
@@ -293,7 +319,9 @@ function TeacherMail() {
         </div>
       ) : (
     <div className={`ml-12 ${!isAuthorised && 'hidden' }`}>
-      <div className="flex flex-col lg:flex-row">
+      <ResizablePanelGroup direction="horizontal">
+      <ResizablePanel minSize={10} maxSize={40} defaultSize={20}>
+        <div className=" border-2">
         <TeacherMailTabs
           value={value}
           handleChange={handleChange}
@@ -303,9 +331,13 @@ function TeacherMail() {
           isAuthorised={isAuthorised}
           logout={logout}
           screenWidth={screenWidth}
+          themeProperties={themeProperties}
         />
+        </div>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
         {/*tab component*/}
-        <div className="w-full">
+        <ResizablePanel>
           <TabPanel value={value} index={0}>
             <ComposeMail fltMails={fltMails} setFltMails={setFltMails} />
           </TabPanel>
@@ -329,9 +361,8 @@ function TeacherMail() {
           <TabPanel value={value} index={6}>
             <FavouriteMail fltMails={fltMails} setFltMails={setFltMails} />
           </TabPanel>
-        </div>
-
-      </div>
+        </ResizablePanel>
+        </ResizablePanelGroup>
     </div> )}
   </>
   );

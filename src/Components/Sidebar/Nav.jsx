@@ -1,17 +1,12 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { ClickAwayListener, Badge, Box } from "@mui/material";
-import BurgerMenuIcon from "@/icons/BurgerMenuIcon";
-import Logout from "../Student/Sidebar/Logout";
 import { getImageUrl } from "@/slices/image";
 import schoolService from "@/services/school.service";
 import { MenuContext } from "@/context/Menu/MenuContext";
 import checkUserType from "@/common/checkUserType";
 import NotificationModal from "./NotificationModal";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { IoMailOutline } from "react-icons/io5";
-import { IoMailUnreadOutline } from "react-icons/io5";
 import SelectTheme from "./SelectTheme";
 import { selectThemeProperties } from "@/slices/theme";
 import gsap from "gsap";
@@ -93,26 +88,9 @@ function Navbar() {
     setToggleMenu((prevState) => !prevState);
   };
 
-  const toggleNavbar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
 
   const handleAvatarClick = () => {
     setShowModal(!showModal);
-  };
-
-  const handleSchoolClick = () => {
-    setShowModal(false);
-    navigate('/admin/school');
-  };
-
-  const handleLogoutClick = () => {
-    setShowModal(false);
-    console.log('Logout Clicked');
-  };
-
-  const handleOutsideClick = () => {
-    setShowModal(false);
   };
 
 
@@ -126,23 +104,6 @@ function Navbar() {
   return (
 
     <>
-
-{/* 
-  <div className="cursor-pointer absolute -translate-x-9 translate-y-10"  onClick={toggleNavbar}>
-        <div className="scale-75 rotate-90">
-            <div className=" w-7 h-7 border-4 rounded-[5px] flex items-center"
-              style={{ borderColor: themeProperties.primaryColor }}
-            >
-              <div className=" w-[3px] h-7 navbarIcon ml-[4px] "
-              
-              style={{ background: themeProperties.primaryColor }}
-              ></div>
-
-            </div>
-          </div>
-      </div>    
-
-    */}
 
     <div
       ref={navbarRef}

@@ -30,7 +30,7 @@ import student from "./slices/student";
 import admin from "./slices/admin";
 import calendarSlice from "./slices/calendar";
 import theme from "./slices/theme";
-
+import mailReducer from "./slices/mailSlice";
 
 const reducer = {
   auth,
@@ -64,6 +64,7 @@ const reducer = {
   admin,
   calendarSlice,
   theme,
+  mail : mailReducer,
 
 };
 

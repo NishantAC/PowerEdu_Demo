@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import "./Login.css";
 import bannerOne from "./bannerOne.svg";
 import bannerTwo from "./bannerTwo.svg";
@@ -11,39 +13,16 @@ import { login, handleTokenExpiry } from "../../slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { schooldata } from "../../slices/school";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay";
-
-
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    rememberMe: false,
-    errors: {},
-  });
-  const [bannerIndex, setBannerIndex] = useState(0); // added state for banner index
-
+  const [showPassword, setShowPassword] = React.useState(false);
   const { message } = useSelector((state) => state.message);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    console.log("Current User:", user); // Add this line to check if the user is updated
-
     if (user) {
       const user_id = user?.id?.toString();
       if (user_id?.startsWith("17")) {
@@ -57,7 +36,6 @@ const Login = () => {
       } else if (user_id?.startsWith("16")) {
         navigate("/accounts");
       } else if (user_id?.startsWith("12")) {
-        console.log("User ID starts with 12:", user_id);
         navigate("/admin/home");
       } else if (user_id?.startsWith("10")) {
         navigate("/master");
@@ -68,51 +46,28 @@ const Login = () => {
       }
       dispatch(handleTokenExpiry());
     }
+
     const loginData = JSON.parse(localStorage.getItem("loginData"));
     if (loginData && loginData.rememberMe) {
-      setFormData({ ...formData, email: loginData.email, rememberMe: true });
+      formik.setValues({ email: loginData.email, rememberMe: true });
     }
-    const bannerInterval = setInterval(() => {
-      setBannerIndex((bannerIndex) => (bannerIndex + 1) % bannerSources.length);
-    }, 3000);
   }, [user]);
 
-  const handlePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleChange = (event) => {
-    const value =
-      event.target.type === "checkbox"
-        ? event.target.checked
-        : event.target.value;
-    setFormData({
-      ...formData,
-      [event.target.name]: value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    console.log("login hua ");
-
-    event.preventDefault();
-
-    // validation code
-    const errors = {};
-    if (!formData.email) {
-      errors.email = "PowerEdu Id is required";
-    }
-    if (!formData.password) {
-      errors.password = "Password is required";
-    } else if (formData.password.length < 8) {
-      errors.password = "Password must be at least 8 characters long";
-    }
-
-    if (Object.keys(errors).length === 0) {
-      const password = formData.password;
-      const userid = formData.email;
-      const rememberMe = formData.rememberMe;
-      const response = await dispatch(login({ userid, password, rememberMe }));
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().required("PowerEdu Id is required"),
+      password: Yup.string()
+        .required("Password is required")
+        .min(8, "Password must be at least 8 characters long"),
+    }),
+    onSubmit: async (values) => {
+      const { email, password, rememberMe } = values;
+      const response = await dispatch(login({ userid: email, password, rememberMe }));
       const schoolCode = response?.payload?.response?.schoolcode;
       const user_id = response?.payload?.response?.id.toString();
       if (user_id?.startsWith("17")) {
@@ -134,13 +89,15 @@ const Login = () => {
       } else {
         navigate("/");
       }
-      dispatch(handleTokenExpiry()); // start checking token expiry
+      dispatch(handleTokenExpiry());
       if (schoolCode) {
         dispatch(schooldata({ code: schoolCode }));
       }
-    } else {
-      setFormData({ ...formData, errors });
-    }
+    },
+  });
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const bannerSources = [
@@ -156,19 +113,11 @@ const Login = () => {
       <div className="flex justify-center items-center h-full bg-[#EDE8F5] rounded-2xl shadow-2xl shadow-slate-700 max-sm:rounded-none">
         <div className="flex flex-col md:flex-row rounded-2xl overflow-hidden glass-effect max-sm:h-full max-sm:border-0 max-sm:shadow-none">
           <div className="hidden md:flex flex-1 items-center">
-            <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: 10000 })]}>
-              <CarouselContent>
-                {bannerSources.map((source, index) => (
-                  <CarouselItem key={index}>
-                    <img className="w-full h-full object-cover" alt="banner" src={source} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+              <img src={bannerFour} alt="" />
           </div>
 
           <div className="flex-1 p-6 sm:p-0 flex flex-col justify-center bg-[#ffffff64] backdrop-blur-lg">
-            <form className="w-full max-w-96 mx-auto" onSubmit={handleSubmit}>
+            <form className="w-full max-w-96 mx-auto" onSubmit={formik.handleSubmit}>
               <div className="mb-10 max-sm:mb-40">
                 <h2 className="text-4xl font-semibold text-center text-[black] ">Sign In</h2>
               </div>
@@ -178,39 +127,40 @@ const Login = () => {
                   type="text"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder=" "
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   className="w-full p-3 border border-white rounded-lg text-black focus:outline-none focus:ring-[#FFF] peer"
                 />
                 <label
                   htmlFor="email"
                   className={`absolute left-3 top-3 transition-all duration-200 transform ${
-                    formData.email ? '-translate-y-8 -translate-x-2 text-sm text-[#000]' : 'peer-focus:-translate-y-8 peer-focus:text-sm peer-focus:text-black peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-[16px]'
+                    formik.values.email ? '-translate-y-8 -translate-x-2 text-sm text-[#000]' : 'peer-focus:-translate-y-8 peer-focus:text-sm peer-focus:text-black peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-[16px] text-gray-500'
                   }`}
                 >
                   Login Id
                 </label>
-                {formData.errors.email && (
-                  <div className="text-red-500 text-sm mt-1">{formData.errors.email}</div>
+                {formik.touched.email && formik.errors.email && (
+                  <div className="text-red-500 text-sm mt-1 absolute">{formik.errors.email}</div>
                 )}
               </div>
 
-              <div className="mt-10">
+              <div className="mt-12">
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     placeholder=" "
                     className="w-full p-3 border border-white rounded-lg text-gray-700 focus:outline-none focus:ring-[#FFF] peer"
                   />
                   <label
                     htmlFor="password"
                     className={`absolute left-3 top-3 transition-all duration-200 transform ${
-                      formData.password ? '-translate-y-8 -translate-x-2 text-sm text-black' : 'peer-focus:-translate-y-8 peer-focus:-translate-x-2 peer-focus:text-sm peer-focus:text-black peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-[16px]'
+                      formik.values.password ? '-translate-y-8 -translate-x-2 text-sm text-[#000]' : 'peer-focus:-translate-y-8 peer-focus:text-sm peer-focus:text-black peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-[16px] text-gray-500'
                     }`}
                   >
                     Password
@@ -223,19 +173,19 @@ const Login = () => {
                     <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
                   </button>
                 </div>
-                {formData.errors.password && (
-                  <div className="text-red-500 text-sm mt-1">{formData.errors.password}</div>
+                {formik.touched.password && formik.errors.password && (
+                  <div className="text-red-500 text-sm mt-1 absolute">{formik.errors.password}</div>
                 )}
               </div>
 
-              <div className="flex items-center justify-between mt-2 gap-2">
+              <div className="flex items-center justify-between mt-10 gap-2">
                 <label className="flex items-center justify-center text-white text-nowrap text-sm">
                   <input
                     type="checkbox"
                     id="rememberMe"
                     name="rememberMe"
-                    checked={formData.rememberMe}
-                    onChange={handleChange}
+                    checked={formik.values.rememberMe}
+                    onChange={formik.handleChange}
                     className="mr-2 filter login-input-checkbox w-4 h-4 checked:invert checked:hue-rotate-[305deg] text-white"
                   />
                   <div className="text-black">Keep me signed in</div>
@@ -262,6 +212,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-// ! Copyright (c) 2024 Aquaria Core Pvt. Ltd.

@@ -7,11 +7,10 @@ const API_URL = API_BASE_URL+"mail/";
 export const googleAuth = async (body) => {
   try {
     const response = await axios.post(`${API_URL}auth/google`, body, {
-      // 'X-Access-Token': token // or sessionStorage.getItem('access_token')
-       // Replace with your actual token
-
+      
       withCredentials: true,
     });
+    console.log("Google Auth Response", response);
     return response;
   } catch (error) {
     console.log(error);
