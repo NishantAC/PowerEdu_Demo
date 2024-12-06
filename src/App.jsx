@@ -149,7 +149,7 @@ function App() {
           <Route path="/admin/addUser" element={<FillUserInfo />} />
           <Route path="/admin/Subjects" element={<Subjects />} />
           <Route path="/admin/Transport" element={<Transport />} />
-          <Route path="/admin/mail" element={<AdminTeacherMail />} />
+          <Route path="/admin/mail/:mode" element={<AdminTeacherMail />} />
           <Route path="/admin/calendar" element={<AdminCalendar />} />
           <Route path="/admin/notice" element={<AdminNotice />} />
           <Route path="/admin/academic-fees" element={<AcademicFees />} />
@@ -165,7 +165,7 @@ function App() {
           <Route path="/teacher/add-homework" element={<TeacherHomework />} />
           <Route path="/teacher/student/attendance" element={<StudentAttendance />} />
           <Route path="/teacher/student/profile" element={<TeacherStudent />} />
-          <Route path="/teacher/mail" element={<TeacherMail />} />
+          <Route path="/teacher/mail/:mode" element={<TeacherMail />} />
           <Route path="/teacher/notice" element={<TeacherNotice />} />
           <Route path="/teacher/exam-marks" element={<ExamMarks />} />
           <Route path="/teacher/class-test-marks" element={<ClassTestMarks />} />
@@ -198,7 +198,7 @@ function App() {
             <Route path="/principal/student/progress" element={<StudentProgress />} />
             <Route path="/principal/calendar" element={<PrincipalCalendar />} />
             <Route path="/principal/fees" element={<PrincipalFees />} />
-            <Route path="/principal/mail" element={<TeacherMail />} />
+            <Route path="/principal/mail/:mode" element={<TeacherMail />} />
             <Route path="/principal/notice" element={<PrincipalNotice />} />
             <Route path="/Principal/home/profile" element={<PrincipalProfile />} />
             <Route path="/principal/view-profile" element={<PrincipalStudentsTabs />} />

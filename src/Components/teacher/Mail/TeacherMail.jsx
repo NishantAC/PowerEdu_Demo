@@ -11,24 +11,30 @@ import FavouriteMail from "./Favourites/FavouriteMail";
 import io from "socket.io-client";
 import axios from "axios";
 import GoogleImage from "../../../assets/images/Google.png";
-import {checkAuth, fetchAllMails, googleAuth, getInbox, logoutGoogle,} from "../../../services/mail.service";
+import {
+  checkAuth,
+  fetchAllMails,
+  googleAuth,
+  getInbox,
+  logoutGoogle,
+} from "../../../services/mail.service";
 import { socketUrl } from "../../../common/socketLink";
 import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import MailPromotion from "./Promotion/MailPromotion";
 import TeacherMailTabs from "./TeacherMailTabs";
 import { selectThemeProperties } from "@/slices/theme";
-import { useSelector, useDispatch} from "react-redux";
-import { CircularProgress } from '@mui/material';
-import debounce from 'lodash.debounce';
+import { useSelector, useDispatch } from "react-redux";
+import { LinearProgress } from "@mui/material";
+import debounce from "lodash.debounce";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable"
+} from "@/components/ui/resizable";
 import { Toaster } from "sonner";
-import { Button } from "@/components/ui/button"
-
+import { Button } from "@/components/ui/button";
+import { useParams } from "react-router-dom";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,10 +72,9 @@ export const socket = io(socketUrl, {
   forceBase64: false,
 });
 
-
 function TeacherMail() {
   const { user } = useSelector((state) => state.user);
-  const themeProperties = useSelector(selectThemeProperties); 
+  const themeProperties = useSelector(selectThemeProperties);
   const [AllMails, setAllMails] = useState([]);
   const [fltMails, setFltMails] = useState([]);
   const [mails, setMails] = useState([]);
@@ -82,8 +87,9 @@ function TeacherMail() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(true);
   const dispatch = useDispatch();
-  const inboxMails =mails;
-
+  const inboxMails = mails;
+  const {mode} = useParams();
+  console.log(mode);
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     scope:
@@ -139,7 +145,6 @@ function TeacherMail() {
         progress: undefined,
         theme: "light",
       });
-      
     });
 
     return () => {
@@ -169,8 +174,6 @@ function TeacherMail() {
     getinboxMail();
   }, []);
 
-
-
   useEffect(() => {
     if (isAuthorised) {
       setGoogleLoading(true);
@@ -181,7 +184,7 @@ function TeacherMail() {
   }, [isAuthorised]);
 
   const fetchInbox = async () => {
-    if (loading) return; 
+    if (loading) return;
     setLoading(true);
     try {
       const inbox = await getInbox({ pageToken: nextPageToken });
@@ -190,7 +193,7 @@ function TeacherMail() {
       if (mailItems) {
         setMails((prevMails) => [...prevMails, ...mailItems]);
         setNextPageToken(newNextPageToken || null);
-        setHasMore(!!newNextPageToken); 
+        setHasMore(!!newNextPageToken);
         setGoogleLoading(false);
       } else {
         setHasMore(false);
@@ -203,7 +206,6 @@ function TeacherMail() {
       setHasMore(false);
     } finally {
       setLoading(false);
-
     }
   };
 
@@ -214,7 +216,7 @@ function TeacherMail() {
       const response = await getInbox({ pageToken: nextPageToken });
       const mailItems = response?.response?.data?.mails;
       const newNextPageToken = response?.response?.data?.nextPageToken;
-  
+
       if (mailItems) {
         setMails((prevMails) => [...prevMails, ...mailItems]);
         setNextPageToken(newNextPageToken || null);
@@ -229,34 +231,18 @@ function TeacherMail() {
       setLoading(false);
     }
   }, 300); // Adjust the debounce delay as needed
-  
- 
+
   useEffect(() => {
- 
-  const checkUserAuthorization = async () => {
-
-    try {
-      const response = await checkAuth();
-      setIsAuthorised(response?.data?.isAuthorised);
-    }
-    catch ( error){
-      setIsAuthorised(false);
-    }
-    
-  };
-  checkUserAuthorization();
-
-}, []) 
-
-
-useEffect(() => {
-  if (status === 'idle') {
-    dispatch(fetchMails(user.id));
-  }
-}, [status, user.id, dispatch]);
-
-  
-
+    const checkUserAuthorization = async () => {
+      try {
+        const response = await checkAuth();
+        setIsAuthorised(response?.data?.isAuthorised);
+      } catch (error) {
+        setIsAuthorised(false);
+      }
+    };
+    checkUserAuthorization();
+  }, []);
 
   const logout = async () => {
     const response = await logoutGoogle();
@@ -273,98 +259,105 @@ useEffect(() => {
     setIsAuthorised(false);
   };
 
-
   useEffect(() => {
-    socket.on('sendmail', (emailData) => {
+    socket.on("sendmail", (emailData) => {
       dispatch(addMail(emailData));
       toast(`Received new ✉️ from ${emailData.name}`, { autoClose: 1000 });
     });
-  
+
     return () => socket.disconnect();
   }, [dispatch]);
-  
-
 
   if (!isAuthorised) {
-    return(
-    <>
-    
-    <div className="flex items-center justify-center h-screen">
-            <div className=" p-[2px] rounded-[10px] w-fit"
-      style={{ color: themeProperties.textColorAlt, 
-        background: 'linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335)', 
-
-       }}   >
-        <button onClick={googleLogin} className=" p-2 flex rounded-[10px] bg-white hover:bg-white  "
-         
-        > 
-          <img src={GoogleImage} width={20} alt="Sign in with Google" />
-          <span className="ml-2"
-          style={{ color: themeProperties.textColorAlt }}
-          >Sign in with Google</span>
-          </button>
-      </div>
-    </div>
-    
-    </>)
+    return (
+      <>
+        <div className="flex items-center justify-center h-screen">
+          <div
+            className=" p-[2px] rounded-[10px] w-fit"
+            style={{
+              color: themeProperties.textColorAlt,
+              background:
+                "linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335)",
+            }}
+          >
+            <button
+              onClick={googleLogin}
+              className=" p-2 flex rounded-[10px] bg-white hover:bg-white  "
+            >
+              <img src={GoogleImage} width={20} alt="Sign in with Google" />
+              <span
+                className="ml-2"
+                style={{ color: themeProperties.textColorAlt }}
+              >
+                Sign in with Google
+              </span>
+            </button>
+          </div>
+        </div>
+      </>
+    );
   }
-
 
   return (
     <>
-    {
-      googleLoading ? (
-        <div className={`flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px] ${!isAuthorised && 'hidden' }`}>
-          <CircularProgress />
+      {googleLoading ? (
+        <div
+          className={`flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px] ${
+            !isAuthorised && "hidden"
+          }`}
+        >
+          <p
+            className="text-center text-sm mt-2"
+            style={{ color: themeProperties.primaryColor }}
+          >
+            <LinearProgress color="inherit"/>   
+            <p
+            style={{ color: themeProperties.textColorAlt   }}
+            >
+            Starting your Google Space
+            </p>      
+          </p>
         </div>
       ) : (
-    <div className={`ml-12 ${!isAuthorised && 'hidden' }`}>
-      <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel minSize={10} maxSize={40} defaultSize={20}>
-        <div className=" border-2">
-        <TeacherMailTabs
-          value={value}
-          handleChange={handleChange}
-          toggleMenu={toggleMenu}
-          toggleItem={toggleItem}
-          newInboxEmail={newInboxEmail}
-          isAuthorised={isAuthorised}
-          logout={logout}
-          screenWidth={screenWidth}
-          themeProperties={themeProperties}
-        />
+        <div className={`ml-12 ${!isAuthorised && "hidden"}`}>
+          <ResizablePanelGroup direction="horizontal">
+            <ResizableHandle withHandle />
+            {/*tab component*/}
+            <ResizablePanel>
+              {/* <ComposeMail fltMails={fltMails} setFltMails={setFltMails} /> */}
+
+              {mode === "inbox" && (
+                <MailInbox
+                  inboxMails={inboxMails}
+                  fetchMoreMails={fetchMoreMails}
+                  themeProperties={themeProperties}
+                  loading={loading}
+                  setLoading={setLoading}
+                />
+              )}
+
+              {mode === "promotion" && (
+                <MailPromotion promotionMails={promotionMails} />
+              )}
+              {mode === "sent" && (
+                <SentMail fltMails={fltMails} setFltMails={setFltMails} />
+              )}
+
+              {mode === "draft" && (
+                <DraftMail fltMails={fltMails} setFltMails={setFltMails} />
+              )}
+
+              {mode === "deleted" && (
+                <DeletedMail fltMails={fltMails} setFltMails={setFltMails} />
+              )}
+              {mode === "favourite" && (
+                <FavouriteMail fltMails={fltMails} setFltMails={setFltMails} />
+              )}
+            </ResizablePanel>
+          </ResizablePanelGroup>
         </div>
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-        {/*tab component*/}
-        <ResizablePanel>
-          <TabPanel value={value} index={0}>
-            <ComposeMail fltMails={fltMails} setFltMails={setFltMails} />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-
-            <MailInbox inboxMails={inboxMails} fetchMoreMails={fetchMoreMails} themeProperties={themeProperties} loading ={loading} setLoading = {setLoading}/>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <MailPromotion promotionMails={promotionMails} />
-          </TabPanel>
-
-          <TabPanel value={value} index={3}>
-            <SentMail fltMails={fltMails} setFltMails={setFltMails} />
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            <DraftMail fltMails={fltMails} setFltMails={setFltMails} />
-          </TabPanel>
-          <TabPanel value={value} index={5}>
-            <DeletedMail fltMails={fltMails} setFltMails={setFltMails} />
-          </TabPanel>
-          <TabPanel value={value} index={6}>
-            <FavouriteMail fltMails={fltMails} setFltMails={setFltMails} />
-          </TabPanel>
-        </ResizablePanel>
-        </ResizablePanelGroup>
-    </div> )}
-  </>
+      )}
+    </>
   );
 }
 

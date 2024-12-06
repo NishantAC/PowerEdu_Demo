@@ -51,7 +51,7 @@ const themes = {
     },
     OceanoGreen: {
         primaryColor: "#00bf72",
-        secondaryColor: "#143e7ccd",
+        secondaryColor: "#143e7c",
         normal1: "#051937",
         normal2: "#00bf72",
         normal3: "#00bf72",
@@ -75,12 +75,33 @@ const themes = {
       textColor: "#FFFFFF",
       textColorAlt: "#000000",
       sideBarColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
+      sideBarButton : "#ae1dc4",
       googleMeetButton : "#9694FF",
       inputBackground: "#FFF",
       inputTextColor: "#000000",
       logoutColor: "red",
       boxBackground:"#FFF",
-    } 
+      boxTextColor:"#000000",
+    } , 
+
+
+    PurpleKink : {
+      primaryColor: "#6A0DAD",
+      secondaryColor: "linear-gradient(135deg, #a855f7 0%, #6366f1 150%)",
+      normal1: "#6A0DAD",
+      normal2: "#6A0DAD",
+      normal3: "#6A0DAD",
+      background: "#F8F8FF",
+      textColor: "#FFF",
+      textColorAlt: "#000000",
+      sideBarColor: "#D8BFD8",
+      googleMeetButton: "#6A0DAD",
+      inputBackground: "#FFF",
+      inputTextColor: "#000000",
+      logoutColor: "red",
+      sideBarColor: "linear-gradient(135deg, #a855f7 0%, #6366f1 150%)",
+      sideBarButton : "#6A0DAD",
+    },
 
 
    };

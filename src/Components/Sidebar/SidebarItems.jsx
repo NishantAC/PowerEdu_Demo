@@ -1,81 +1,102 @@
-const SidebarItems = [
-  {
-    name: "Home",
-    route: "/admin/home",
-    child: [],
-  },
-  {
-    name: "Profiles",
-    child: [
-      {
-        name: "Students",
-        route: "/admin/profile/students",
-      },
-      {
-        name: "Teachers",
-        route: "/admin/profile/teachers",
-      },
-      {
-        name: "Principal",
-        route: "/admin/profile/principal",
-      },
-      {
-        name: "Accountant",
-        route: "/admin/profile/accountant",
-      },
-      {
-        name: "Staff",
-        route: "/admin/profile/staff",
-      },
-    ],
-  },
-  {
-    name: "Calendar",
-    route: "/admin/calendar",
-    child: [],
-  },
-  {
-    name: "Mail",
-    route: "/admin/mail",
-    child: [],
-  },
-  {
-    name: "Subjects",
-    route: "/admin/subjects",
-    child: [],
-  },
-  {
-    name: "Transport",
-    route: "/admin/transport",
-    child: [],
-  },
-  {
-    name: "Expenses",
-    child: [
-      {
-        name: "Academic Fees",
-        route: "/admin/academic-fees",
-      },
-      {
-        name: "Transport Fees",
-        route: "/admin/transport-fees",
-      },
-      {
-        name: "Extracurricular",
-        route: "/admin/extracurricular",
-      },
-    ],
-  },
-  {
-    name: "School",
-    route: "/admin/school",
-    child: [],
-  },
-  {
-    name: "Notice",
-    route: "/admin/notice",
-    child: [],
-  },
-];
+import { FaSignOutAlt, FaHome, FaUser, FaEnvelope, FaBook, FaBus, FaSchool, FaMoneyBill, FaBell, FaCalendarAlt , FaAngleDown,} from "react-icons/fa";
+import { MdAssignment } from "react-icons/md"; 
+ 
+ const sidebarItems = {
+  Admin: [
+    { name: "Home", route: "/admin/home", icon: FaHome, child: [] },
+    {
+      name: "Profiles",
+      icon: FaUser,
+      child: [
+        { name: "Students", route: "/admin/profile/students" },
+        { name: "Teachers", route: "/admin/profile/teachers" },
+        { name: "Principal", route: "/admin/profile/principal" },
+        { name: "Accountant", route: "/admin/profile/accountant" },
+        { name: "Staff", route: "/admin/profile/staff" },
+      ],
+    },
+    { name: "Calendar", route: "/admin/calendar", icon: FaCalendarAlt, child: [] },
+    { name: "Mail", route: "/admin/mail/inbox", icon: FaEnvelope, child: [] },
+    { name: "Subjects", route: "/admin/subjects", icon: FaBook, child: [] },
+    { name: "Transport", route: "/admin/transport", icon: FaBus, child: [] },
+    {
+      name: "Expenses",
+      icon: FaMoneyBill,
+      child: [
+        { name: "Academic Fees", route: "/admin/academic-fees" },
+        { name: "Transport Fees", route: "/admin/transport-fees" },
+        { name: "Extracurricular", route: "/admin/extracurricular" },
+      ],
+    },
+    { name: "School", route: "/admin/school", icon: FaSchool, child: [] },
+    { name: "Notice", route: "/admin/notice", icon: FaBell, child: [] },
+  ],
+  Principal: [
+    { name: "Home", route: "/principal/home", icon: FaHome, child: [] },
+    {
+      name: "Students",
+      icon: FaUser,
+      child: [
+        { name: "Student", route: "/principal/student/profile" },
+        { name: "Student Timetable", route: "/principal/student/timetable" },
+      ],
+    },
+    { name: "Teachers", route: "/principal/teacher/attendance", icon: FaUser, child: [] },
+    {
+      name: "Exam",
+      icon: FaBook,
+      child: [
+        { name: "Exam Schedule", route: "/principal/exam" },
+        { name: "Student's Progress", route: "/principal/student/progress" },
+      ],
+    },
+    { name: "Calendar", route: "/principal/calendar", icon: FaCalendarAlt, child: [] },
+    { name: "Fees", route: "/principal/fees", icon: FaMoneyBill, child: [] },
+    { name: "Mail", route: "/principal/mail/inbox", icon: FaEnvelope, child: [] },
+    { name: "Notice", route: "/principal/notice", icon: FaBell, child: [] },
+  ],
+  Teacher: [
+    { name: "Home", route: "/teacher/home", icon: FaHome, child: [] },
+    {
+      name: "Students",
+      icon: FaUser,
+      child: [
+        { name: "Student Attendance", route: "/teacher/student/attendance" },
+        { name: "Student Profile", route: "/teacher/student/profile" },
+        { name: "Extra Class", route: "/teacher" },
+      ],
+    },
+    {
+      name: "Assignments",
+      icon: MdAssignment,
+      child: [
+        { name: "Add Assignment", route: "/teacher/add-assignment" },
+        { name: "Add Homework", route: "/teacher/add-homework" },
+      ],
+    },
+    {
+      name: "Exam",
+      icon: FaBook,
+      child: [
+        { name: "Exam Marks", route: "/teacher/exam/marks" },
+        { name: "Class Test Marks", route: "/teacher/class-test-marks" },
+        { name: "Upload Question Paper", route: "/teacher/upload-paper" },
+      ],
+    },
+    { name: "Subjects", route: "/teacher/subject", icon: FaBook, child: [] },
+    { name: "Mail", route: "/teacher/mail/inbox", icon: FaEnvelope, child: [] },
+    { name: "Notice", route: "/teacher/notice", icon: FaBell, child: [] },
+  ],
+  Student: [
+    { name: "Home", route: "/student/home", icon: FaHome, child: [] },
+    { name: "Subjects", route: "/student/subject", icon: FaBook, child: [] },
+    { name: "Assignments", route: "/student/assignment", icon: FaBook, child: [] },
+    { name: "Teachers", route: "/student/teacher", icon: FaUser, child: [] },
+    { name: "Fees", route: "/student/fee", icon: FaMoneyBill, child: [] },
+    { name: "Exam", route: "/student/exam", icon: FaBook, child: [] },
+    { name: "Notice", route: "/student/notice", icon: FaBell, child: [] },
+  ],
+};
 
-export default SidebarItems;
+
+export default sidebarItems;
