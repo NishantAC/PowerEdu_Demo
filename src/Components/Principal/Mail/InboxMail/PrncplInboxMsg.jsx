@@ -6,7 +6,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Avatar from '@mui/material/Avatar';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import styles from '../../../teacher/Mail/Inbox/InboxMessage.module.css';
+;
 import DeleteModal from '../../../teacher/Mail/Deleted/DeleteModal';
 import { List, ListItem, Collapse, ListItemButton } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';

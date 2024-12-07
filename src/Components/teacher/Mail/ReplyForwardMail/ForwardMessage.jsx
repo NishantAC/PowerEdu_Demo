@@ -1,6 +1,6 @@
 import { DeleteOutline } from "@mui/icons-material";
 import { Avatar, IconButton } from "@mui/material";
-import styles from "../Inbox/InboxMessage.module.css";
+;
 import SendIcon from "@mui/icons-material/Send";
 import {
   fetchAllUsername,

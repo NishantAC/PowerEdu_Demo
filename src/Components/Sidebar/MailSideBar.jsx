@@ -26,11 +26,9 @@ const MailItems = [
   { name: "Promotion", route: "/mail/promotion", icon: RiSpam2Fill },
 ];
 
-function MailSideBar({ setShowMailItems, userType }) {
+function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}) {
   const themeProperties = useSelector(selectThemeProperties);
   const {mode } = useParams();
-
-
 
   return (
     <div className="Sidebarlist overflow-y-auto flex-grow select-none mail-item ">
@@ -39,8 +37,8 @@ function MailSideBar({ setShowMailItems, userType }) {
         <div>
         <Popover>
         <PopoverTrigger asChild className=" ">
-        <div className="flex items-center gap-4 cursor-pointer ">
-          <div className=" h-10 p-1 rounded-full relative border-2 w-10"
+        <div className="flex items-center gap-4 cursor-pointer flex-col ">
+          <div className=" h-10 p-1 rounded-full relative border-2 w-10  "
           style={{ background: themeProperties.primaryColor, borderColor: themeProperties.textColor
 
            }}
@@ -49,7 +47,7 @@ function MailSideBar({ setShowMailItems, userType }) {
           </div>
 
           <div
-          className="text-lg text-white header"
+          className="text-lg text-white header w-full text-center"
           style={{ color: themeProperties.textColor }}
         >Nishant</div>
       </div>
@@ -134,12 +132,20 @@ function MailSideBar({ setShowMailItems, userType }) {
         </Link>
       ))}
       <button
-        className={`flex items-center p-3 rounded-lg transition-colors duration-200 my-3 w-28 absolute bottom-3`}
+        className={`flex items-center p-3 rounded-lg transition-colors duration-200 my-3 w-full`}
         style={{
           background: themeProperties.normal2,
         }}
         onClick={() => {
-          setShowMailItems(false);
+          setIsCollapsed(false);
+          if (isCollapsed) {
+            setTimeout(() => {
+              setShowMailItems(false);
+                
+              }, 250);
+          } else {
+            setShowMailItems(false);
+          }
         }}
       >
         <FaAngleDown className="icon rotate-90 mr-3 " />

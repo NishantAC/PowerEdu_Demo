@@ -27,11 +27,6 @@ import { selectThemeProperties } from "@/slices/theme";
 import { useSelector, useDispatch } from "react-redux";
 import { LinearProgress } from "@mui/material";
 import debounce from "lodash.debounce";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
 import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
@@ -89,7 +84,6 @@ function TeacherMail() {
   const dispatch = useDispatch();
   const inboxMails = mails;
   const {mode} = useParams();
-  console.log(mode);
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     scope:
@@ -115,16 +109,7 @@ function TeacherMail() {
     [mails]
   );
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    if (newValue === 1 && isAuthorised) {
-    }
-  };
-  const toggleItem = () => {
-    setToggleMenu(!toggleMenu);
-  };
 
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     socket.emit("connected", user.id);
@@ -299,12 +284,21 @@ function TeacherMail() {
   }
 
   return (
-    <>
+    < div className=" p-2 h-full rounded-[27px] "
+      style={{ background: themeProperties?.borderColor }}
+
+    >
+
+      <div  className="h-full rounded-[20px] overflow-hidden "
+        style={{ background: themeProperties?.background }}
+      
+      >
       {googleLoading ? (
         <div
-          className={`flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px] ${
+          className={`flex justify-center items-center h-full ${
             !isAuthorised && "hidden"
-          }`}
+          }`
+        }
         >
           <p
             className="text-center text-sm mt-2"
@@ -319,13 +313,9 @@ function TeacherMail() {
           </p>
         </div>
       ) : (
-        <div className={`ml-12 ${!isAuthorised && "hidden"}`}>
-          <ResizablePanelGroup direction="horizontal">
-            <ResizableHandle withHandle />
-            {/*tab component*/}
-            <ResizablePanel>
+        <div className={` ${!isAuthorised && "hidden"} overflow-hidden `}>
+          
               {/* <ComposeMail fltMails={fltMails} setFltMails={setFltMails} /> */}
-
               {mode === "inbox" && (
                 <MailInbox
                   inboxMails={inboxMails}
@@ -353,11 +343,10 @@ function TeacherMail() {
               {mode === "favourite" && (
                 <FavouriteMail fltMails={fltMails} setFltMails={setFltMails} />
               )}
-            </ResizablePanel>
-          </ResizablePanelGroup>
         </div>
       )}
-    </>
+      </div>
+    </div>
   );
 }
 

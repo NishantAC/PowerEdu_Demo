@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../Inbox/InboxMessage.module.css';
+;
 import { getCurrentTime } from '../../../../common/Time';
 import DOMPurify from 'dompurify';
 import AttachmentLink from '../Sent/AttachmentLink';

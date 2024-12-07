@@ -5,7 +5,7 @@ import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import styles from '../../../teacher/Mail/Inbox/InboxMessage.module.css';
+;
 import DeleteModal from '../../../teacher/Mail/Deleted/DeleteModal';
 import { undoDeletedMail } from '../../../../services/mail.service';
 import { toast } from 'react-toastify';

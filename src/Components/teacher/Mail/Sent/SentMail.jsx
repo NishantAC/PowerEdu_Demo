@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-// import '../Inbox/InboxMessage.css'
+// 
 import { Avatar } from "@mui/material";
 import SentMessage from "./SentMessage";
-import styles from "../Inbox/InboxMessage.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { getTime } from "../../../../common/Time";
 import { getSentMails } from "../../../../services/mail.service";

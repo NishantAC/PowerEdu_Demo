@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FavouriteMessage from "./FavouriteMessage";
-import styles from "../Inbox/InboxMessage.module.css";
+;
 import SearchIcon from "@mui/icons-material/Search";
 import { getTime } from "../../../../common/Time";
 import { getStarred, getThread } from "../../../../services/mail.service";

@@ -7,7 +7,6 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import { useMemo, useState } from "react";
-import styles from "../Inbox/InboxMessage.module.css";
 import { DeleteOutline, ReplyOutlined } from "@mui/icons-material";
 import ClearIcon from "@mui/icons-material/Clear";
 import ForwardMessage from "./ForwardMessage";
@@ -37,33 +36,18 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
 
   const handleReplyClick = () => {
     setReply(!reply);
-    // const subject = `Re: ${email.subject}`;
-    // const body = `\n\nOn ${email.date}, ${email.sender} wrote:\n${email.body}`;
-    // const newEmail = { to: email.sender, subject, body };
   };
 
   const handleReplyAllClick = () => {
     setReply(!reply);
-    // const subject = `Re: ${email.subject}`;
-    // const body = `\n\nOn ${email.date}, ${email.sender} wrote:\n${email.body}`;
-    // const recipients = email.recipients.filter((recipient) => recipient !== currentUser.email);
-    // const newEmail = { to: recipients.join(','), subject, body };
   };
 
   const handleForwardClick = () => {
     setForward(!forward);
-    // const subject = `Fwd: ${email.subject}`;
-    // const body = `\n\n---------- Forwarded message ----------\nFrom: ${email.sender}\nDate: ${email.date}\nSubject: ${email.subject}\n\n${email.body}`;
-    // const newEmail = { subject, body };
   };
 
-  /**
-   * * File
-   */
   const handleFileChange = (event) => {
-    //convert to array
     const files = Array.from(event.target.files);
-    //check file size
     const validFiles = files.filter((file) => {
       if (file.type.startsWith("image/") && file.size > 3 * 1024 * 1024) {
         toast.error("Image files must be less than 3MB");
@@ -78,49 +62,40 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
     setAttachments([...attachments, ...validFiles]);
   };
 
-  //handel attached files
   const handleAttachmentClick = (file) => {
-    // Open PDF in a new tab
     if (file.type === "application/pdf") {
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL);
     } else {
-      // Alert not supported format
       alert("File format not supported");
     }
   };
 
-  //remove file from attachements
   const handleAttachmentRemove = (index) => {
     setAttachments(attachments.filter((_, i) => i !== index));
   };
 
   function extractEmailFromString(emailString) {
-    const regex = /<([^>]+)>/; // Regular expression to extract text inside '<' and '>'
+    const regex = /<([^>]+)>/;
     const match = emailString.match(regex);
 
     if (match && match[1]) {
       return match[1];
     }
 
-    return null; // Return null if no match or extracted email is not found
+    return null;
   }
 
   const submitReply = async () => {
-    //get text
     const contentState = editorState.getCurrentContent();
     const text = contentState.getPlainText();
-    console.log("Text content:", text);
 
-    //body is empty return
     if (text == "") {
       setErr(true);
       return;
     }
-    console.log(email, "this is email");
-    // const recipient = extractEmailFromString(email[0].from);
+
     const recipient = email[0]?.from;
-    console.log(recipient, "this is recipient");
 
     const res = await replyToMail({
       recipient,
@@ -130,11 +105,10 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
     const thread = await getThread({
       pageToken: email[0].nextPageToken ? email[0].nextPageToken : null,
       id: email[0].threadId,
-    }); // get all thread for the email
+    });
     setValue(thread.response.data);
-    // console.table(res.data.data[0]);
+
     if (res.status === 200) {
-      /*            setFltMails(prevData => [...prevData, res.data.data[0]]); */
       toast.success(res.data.message, { autoClose: 500 });
       setEditorState(EditorState.createEmpty());
     } else {
@@ -143,30 +117,33 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="flex justify-center">
       {!reply && !forward && (
         <>
-          <Button onClick={() => handleReplyClick(email)}>
+          <button onClick={() => handleReplyClick(email)}>
             <ReplyOutlined />
             Reply
-          </Button>
-          {/* <Button onClick={() => handleReplyAllClick(email)}><ReplyAllOutlined />Reply All</Button> */}
-          <Button onClick={() => handleForwardClick(email)}>
+          </button>
+          <button onClick={() => handleForwardClick(email)}>
             Forward
             <ReplyOutlined style={{ transform: "rotateY(180deg)" }} />
-          </Button>
+          </button>
         </>
       )}
 
       {reply && (
-        <div style={{ width: "95%" }}>
-          <ul className={styles.attachments}>
+        <div className="w-11/12">
+          <ul className="flex flex-wrap">
             {attachments.map((file, index) => (
-              <div className={styles.attachchild} title="Tap to view">
+              <div
+                className="flex items-center m-2 p-2 border rounded cursor-pointer"
+                title="Tap to view"
+                key={index}
+              >
                 {file.type.startsWith("image/") ? (
                   <ImageModal file={file} index={index} />
                 ) : (
-                  <li key={index} onClick={() => handleAttachmentClick(file)}>
+                  <li onClick={() => handleAttachmentClick(file)}>
                     {file.name}
                   </li>
                 )}
@@ -175,12 +152,7 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
                     event.stopPropagation();
                     handleAttachmentRemove(index);
                   }}
-                  sx={{
-                    color: "red",
-                    height: "20px",
-                    width: "20px",
-                    cursor: "pointer",
-                  }}
+                  className="text-red-500 h-5 w-5 cursor-pointer"
                 />
               </div>
             ))}
@@ -213,16 +185,16 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
             }}
           />
           {err && (
-            <p style={{ color: "red", margin: 0 }}>Body can not be empty</p>
+            <p className="text-red-500 m-0">Body can not be empty</p>
           )}
-          <div className={styles.Div3}>
+          <div className="flex items-center mt-4">
             <IconButton
               color="primary"
               aria-label="upload picture"
               component="label"
             >
               <input hidden type="file" onChange={handleFileChange} />
-              <AttachFileIcon className={styles.AtFile} />
+              <AttachFileIcon />
             </IconButton>
             <IconButton
               color="primary"
@@ -235,7 +207,7 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
                 type="file"
                 onChange={handleFileChange}
               />
-              <ImageOutlinedIcon className={styles.ImgIcon} />
+              <ImageOutlinedIcon />
             </IconButton>
             <IconButton
               color="primary"
@@ -243,14 +215,16 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
               component="label"
             >
               <DeleteOutline
-                className={styles.ImgIcon}
                 onClick={() => setReply(!reply)}
               />
             </IconButton>
 
-            <button className={styles.Mailsendbtn} onClick={submitReply}>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded ml-4 flex items-center"
+              onClick={submitReply}
+            >
               Send
-              <SendIcon className={styles.SendIcon} />
+              <SendIcon className="ml-2" />
             </button>
           </div>
         </div>

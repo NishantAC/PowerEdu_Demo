@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from 'draftjs-to-html';
 import { EditorState, convertToRaw } from 'draft-js';
-import '../Inbox/InboxMessage.css'
+
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import styles from '../Inbox/InboxMessage.module.css';
+;
 import SendIcon from '@mui/icons-material/Send';
 import ImageModal from './ImageModal';
 import { sendMail, createDraft } from '../../../../services/mail.service';

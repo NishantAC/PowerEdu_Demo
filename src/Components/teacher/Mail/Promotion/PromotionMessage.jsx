@@ -1,12 +1,10 @@
 import React, { useState, useRef, useMemo } from 'react';
-import '../Inbox/InboxMessage.css';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Avatar from '@mui/material/Avatar';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import styles from '../Inbox/InboxMessage.module.css';
 import DeleteModal from '../Deleted/DeleteModal';
 import { List, ListItem, Collapse, ListItemButton } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';

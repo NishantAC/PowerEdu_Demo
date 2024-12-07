@@ -41,10 +41,8 @@ const memoizedItems = useMemo(() => {
 
 useEffect(() => {
   const userType = checkUserType(user?.id);
-  console.log(themeProperties);
 
   if (userType === "No ID provided") {
-    console.log("No ID provided");
     navigate("/");
     return;
   }
@@ -62,7 +60,6 @@ useEffect(() => {
       dispatch(logout());
       navigate("/");
     } catch (e) {
-      console.log(e, "error");
     }
   }, [dispatch]);
 
@@ -135,7 +132,7 @@ useEffect(() => {
     const sidebarAnimation = gsap.timeline();
     sidebarAnimation.to(".sidebar", {
       width: isCollapsed ? "4rem" : "12rem",
-      duration: 0.15,
+      duration: 0.1,
       ease: "none",
     });
     sidebarAnimation.to(
@@ -169,7 +166,12 @@ useEffect(() => {
       },
       ">"
     );
-  }, [isCollapsed]);
+
+
+  
+
+
+  }, [isCollapsed, showMailItems]);
 
 
   return (
@@ -187,7 +189,7 @@ useEffect(() => {
         }}
       >
         <div
-          className="cursor-pointer absolute -right-7 top-5"
+          className="cursor-pointer absolute -right-7 top-3"
           onClick={toggleSidebar}
         >
           <div className="scale-75">
@@ -240,7 +242,15 @@ useEffect(() => {
                         onClick={() => {
                           changeActiveIndex(index);
                           if (item.route.includes("mail")) {
-                            setShowMailItems(true);
+                            if (isCollapsed){
+                              setIsCollapsed(false);
+                              setTimeout(() => {
+                                setShowMailItems(true);
+                              }, 250);
+                            }
+                            else{
+                              setShowMailItems(true);
+                            }
                           } else {
                             setShowMailItems(false);
                           }
@@ -270,9 +280,9 @@ useEffect(() => {
                           style={{
                             background:
                               activeIndex === index
-                                ? themeProperties.primaryColor
+                                ? themeProperties.sideBarButton
                                 : "",
-                            "--hover-color": themeProperties.primaryColor,
+                            "--hover-color": themeProperties.sideBarButton,
                             border:
                               activeIndex === index
                                 ? `2px solid ${themeProperties.textColor}`
@@ -358,9 +368,9 @@ useEffect(() => {
                                     style={{
                                       background:
                                         location.pathname === childItem.route
-                                          ? themeProperties.primaryColor
+                                          ? themeProperties.sideBarButton
                                           : "",
-                                      "--hover-color": themeProperties.primaryColor,
+                                      "--hover-color": themeProperties.sideBarButton,
                                       border:
                                         location.pathname === childItem.route
                                           ? `2px solid ${themeProperties.textColor}`
@@ -410,7 +420,7 @@ useEffect(() => {
             </div>
           </div>
         ) : (
-          <MailSideBar setShowMailItems={setShowMailItems} userType={userType} />
+          <MailSideBar setShowMailItems={setShowMailItems} userType={userType} setIsCollapsed = {setIsCollapsed} isCollapsed = {isCollapsed} />
         )}
       </div>
     </div>

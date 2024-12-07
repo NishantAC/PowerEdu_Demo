@@ -2,7 +2,7 @@ import '../InboxMail/PrncplInboxMsg.css'
 import PrncplComposeMsg from './PrncplComposeMsg';
 import React, { useEffect, useRef, useState } from 'react';
 import { Avatar } from '@mui/material';
-import styles from '../../../teacher/Mail/Inbox/InboxMessage.module.css';
+
 import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
 

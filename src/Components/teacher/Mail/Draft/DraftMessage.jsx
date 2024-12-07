@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import '../Inbox/InboxMessage.css'
+
 import { Editor } from "react-draft-wysiwyg";
 import { convertFromHTML, EditorState, ContentState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import SendIcon from '@mui/icons-material/Send';
-import styles from '../Inbox/InboxMessage.module.css';
 import ImageModal from '../ComposeMail/ImageModal';
 import ClearIcon from '@mui/icons-material/Clear';
 import { sendMail } from '../../../../services/mail.service';

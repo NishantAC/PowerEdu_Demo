@@ -1,6 +1,6 @@
 import '../InboxMail/PrncplInboxMsg.css'
 import React from 'react';
-import styles from '../../../teacher/Mail/Inbox/InboxMessage.module.css';
+;
 import { getCurrentTime } from '../../../../common/Time';
 
 function PrncplSentMessage({ messageData }) {

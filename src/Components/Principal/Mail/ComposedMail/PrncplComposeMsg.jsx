@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import styles from "../../../teacher/Mail/Inbox/InboxMessage.module.css"
+
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import SendIcon from '@mui/icons-material/Send';

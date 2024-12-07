@@ -1,5 +1,5 @@
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import styles from '../Inbox/InboxMessage.module.css';
+;
 
 const AttachmentLink = ({ mimeType, base64Data, fileName }) => {
   const downloadFile = () => {

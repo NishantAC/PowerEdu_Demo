@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../Inbox/InboxMessage.css'
+
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
 import { convertToRaw } from 'draft-js';
@@ -9,7 +9,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import styles from '../Inbox/InboxMessage.module.css';
+;
 import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 

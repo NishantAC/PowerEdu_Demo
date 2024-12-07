@@ -11,7 +11,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import styles from '../../../teacher/Mail/Inbox/InboxMessage.module.css';
+;
 import { Avatar, IconButton } from '@mui/material';
 import DeleteModal from '../../../teacher/Mail/Deleted/DeleteModal';
 import ImageModal from '../../../teacher/Mail/ComposeMail/ImageModal';

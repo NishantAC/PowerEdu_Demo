@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Avatar } from '@mui/material';
-import styles from '../Inbox/InboxMessage.module.css';
+;
 import SearchIcon from '@mui/icons-material/Search';
 import { toast } from 'react-toastify';
 import { getTime } from '../../../../common/Time';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DraftMessage from './DraftMessage';
-import styles from '../Inbox/InboxMessage.module.css';
+;
 import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
 import { getDraftMails } from '../../../../services/mail.service';
