@@ -76,12 +76,14 @@ const themes = {
       textColorAlt: "#000000",
       sideBarColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
       sideBarButton : "#ae1dc4",
+      borderColor : "#b2b8ff",
       googleMeetButton : "#9694FF",
       inputBackground: "#FFF",
       inputTextColor: "#000000",
       logoutColor: "red",
       boxBackground:"#FFF",
       boxTextColor:"#000000",
+
     } , 
 
 
@@ -94,6 +96,8 @@ const themes = {
       background: "#FFF",
       textColor: "#FFF",
       textColorAlt: "#000000",
+      textColorLight: "rgb(107 114 128)",
+      hoverColor : "#ececec",
       googleMeetButton: "#6A0DAD",
       inputBackground: "#FFF",
       inputTextColor: "#000000",
@@ -103,6 +107,8 @@ const themes = {
       borderColor : "#eed7ff",
       boxBackground:"#FFF",
       boxTextColor:"#000000",
+
+      
     },
 
 

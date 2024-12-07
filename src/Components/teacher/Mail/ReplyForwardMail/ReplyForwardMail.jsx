@@ -18,6 +18,11 @@ import {
 } from "../../../../services/mail.service";
 import ImageModal from "../ComposeMail/ImageModal";
 import { useSelector } from "react-redux";
+import { selectThemeProperties } from "@/slices/theme";
+import { LuForward } from "react-icons/lu";
+import { LuReply } from "react-icons/lu";
+
+
 
 function ReplyForwardMail({ email, setFltMails, setValue }) {
   const user = useSelector((state) => state.auth.user);
@@ -29,7 +34,7 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-
+  const themeProperties = useSelector(selectThemeProperties);
   const onSetEditorState = (newState) => {
     setEditorState(newState);
   };
@@ -117,16 +122,49 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-start pl-20 gap-6 mb-10"
+      style={{ background: themeProperties?.background ,
+        color: themeProperties?.textColorAlt,
+      }}>
       {!reply && !forward && (
         <>
-          <button onClick={() => handleReplyClick(email)}>
-            <ReplyOutlined />
+          <button 
+            className=" px-4 py-2 flex items-center gap-4  rounded-[20px]"
+            style={{ border: `2px solid ${themeProperties?.textColorLight}`, 
+            "--hover-color": themeProperties?.hoverColor,
+          }}
+
+          onClick={() => handleReplyClick(email)}>
+
+              <style>
+                    {`
+                      button:hover {
+                        background-color: var(--hover-color);
+                      }
+                    `}
+                </style>
+
+
+            <LuReply className="" size={20} />
             Reply
           </button>
-          <button onClick={() => handleForwardClick(email)}>
+          <button   
+            className=" px-4 py-2  flex items-center gap-4 rounded-[20px] "
+            style={{ 
+              border: `2px solid ${themeProperties?.textColorLight}`,
+              "--hover-color": themeProperties?.hoverColor,}}
+              
+          onClick={() => handleForwardClick(email)}>
+
+                  <style>
+                    {`
+                      button:hover {
+                        background-color: var(--hover-color);
+                      }
+                    `}
+                </style>
             Forward
-            <ReplyOutlined style={{ transform: "rotateY(180deg)" }} />
+            <LuForward size={20} />
           </button>
         </>
       )}

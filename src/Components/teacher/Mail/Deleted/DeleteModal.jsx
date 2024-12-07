@@ -1,28 +1,14 @@
-
-import { Box, Modal } from '@mui/material';
+import { Modal } from '@mui/material';
 import { deleteMail } from '../../../../services/mail.service';
 import { toast } from 'react-toastify';
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 360,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
-
 
 function DeleteModal({ open, handleClose, messageData, setFltMails }) {
 
     const handleDelete = async () => {
-        const res = await deleteMail(messageData.emailid);
+        console.log(messageData);
+        const res = await deleteMail(messageData.threadId);
         console.log(res.data.message);
         if (res.status === 200) {
-            //assign today date to that field
             setFltMails(prevData => prevData.map(m => {
                 if (m.emailid === messageData.emailid) {
                     return { ...m, is_deleted: new Date() };
@@ -45,20 +31,28 @@ function DeleteModal({ open, handleClose, messageData, setFltMails }) {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
-                <div style={{ display: 'flex' }}>
-                    <h5 style={{ marginTop: '0px' }}>Delete Confirmation</h5>
-                    <button onClick={handleClose} className="crossbtn">X</button>
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" onClick={handleClose}>
+                <div className="bg-white rounded-lg shadow-lg p-6 w-80" onClick={(e) => e.stopPropagation()}>
+                    <h5 className="text-lg font-semibold mb-4">Delete Confirmation</h5>
+                    <p className="text-gray-700 text-center mb-6">
+                        Are you sure you want to delete this?
+                    </p>
+                    <div className="flex justify-evenly">
+                        <button 
+                            onClick={handleClose} 
+                            className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition"
+                        >
+                            Cancel
+                        </button>
+                        <button 
+                            onClick={handleDelete} 
+                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
-                <p style={{ fontFamily: 'Poppins', fontWeight: '500', fontSize: '18px', color: '#494949', textAlign: 'center', marginTop: '20px' }}>
-                    Are you sure you want to delete this?
-                </p>
-                <br />
-                <Box display={'flex'} justifyContent='space-evenly' >
-                    <button onClick={handleClose} style={{ background: 'rgba(216, 97, 103, 0.1)', padding: '8px 40px', color: ' #494949', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Cancel</button>
-                    <button onClick={handleDelete} style={{ background: '#D86167', padding: '8px 40px', color: 'white', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>Delete</button>
-                </Box>
-            </Box>
+            </div>
         </Modal>
     )
 }

@@ -51,14 +51,15 @@ function SentMail() {
   };
 
   return (
-    <div className={styles.Mail}>
-      <div className={styles.Maild1}>
-        <div className={styles.searchBox}>
-          <SearchIcon className={styles.SearchIcon} />
+    <div className="flex flex-col">
+      <div className="flex flex-col">
+        <div className="flex items-center mb-4">
+          <SearchIcon className="mr-2" />
           <input
             type="search"
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search Contact"
+            className="border p-2 rounded"
           />
         </div>
         {sentMails?.mails?.map((m, i) => {
@@ -68,16 +69,14 @@ function SentMail() {
                 key={m.id}
                 value={value}
                 onClick={() => openMsg(m)}
-                className={`${styles.selectmsgtype} ${
-                  value === 0 ? styles.activecontact : ""
-                }`}
+                className={`p-4 border rounded mb-2 ${value === 0 ? "bg-blue-100" : ""}`}
               >
-                <div className={styles.Avatard1}>
-                  <div className={styles.Avatard2}>
-                    <h4 className={styles.d1h4}>{m.from.split("<")[0]}</h4>
-                    <span className={styles.d1h4Span}>{getTime(m.date)}</span>
+                <div className="flex items-center">
+                  <div className="flex flex-col">
+                    <h4 className="font-bold">{m.from.split("<")[0]}</h4>
+                    <span className="text-gray-500">{getTime(m.date)}</span>
                   </div>
-                  <p className={styles.Maild1P}>{m.subject}</p>
+                  <p className="ml-4">{m.subject}</p>
                 </div>
               </button>
             );
@@ -85,18 +84,18 @@ function SentMail() {
         })}
         {sentMails?.nextPageToken && (
           <div
-            className={styles.nextPageBtn}
+            className="p-4 border rounded mt-4 cursor-pointer"
             onClick={() => setNextPageToken(sentMails?.nextPageToken)}
           >
             Next Page
           </div>
         )}
       </div>
-      <div className={styles.Maild2}>
+      <div className="flex flex-col mt-4">
         {Object.keys(value).length > 0 && <SentMessage messageData={value} />}
       </div>
     </div>
-  );
+  );  
 }
 
 export default SentMail;
