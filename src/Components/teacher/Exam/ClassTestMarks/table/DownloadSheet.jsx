@@ -1,6 +1,5 @@
-
 import { Box, Modal } from '@mui/material';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 
 const style = {
     position: 'absolute',
@@ -18,31 +17,43 @@ const style = {
 
 function DownloadSheet({open, handleClose, tableData}) {
 
-    const downloadExcel = () => {
-        const workbook = XLSX.utils.book_new();
+    const downloadExcel = async () => {
+        const workbook = new ExcelJS.Workbook();
+        const sheet = workbook.addWorksheet('Sheet1');
         let sheetData = tableData;
         let includeHeaders = false;
-      
+    
         // Check if the tableData is empty
         if (tableData.length === 0) {
-          // Set the headers manually when tableData is empty
-          sheetData = [
-            { user_id: "", rollno: "", studentname: "", marks_obtained: "", grade: "" }
-          ];
-          includeHeaders = true;
+            // Set the headers manually when tableData is empty
+            sheetData = [
+                { user_id: "", rollno: "", studentname: "", marks_obtained: "", grade: "" }
+            ];
+            includeHeaders = true;
         }
-      
-        const sheet = XLSX.utils.json_to_sheet(sheetData);
-      
-        // Include headers only if it is required
+    
+        // Add headers if required
         if (includeHeaders) {
-          XLSX.utils.sheet_add_json(sheet, sheetData, { skipHeader: true, origin: "A2" });
+            sheet.columns = [
+                { header: 'User ID', key: 'user_id' },
+                { header: 'Roll No', key: 'rollno' },
+                { header: 'Student Name', key: 'studentname' },
+                { header: 'Marks Obtained', key: 'marks_obtained' },
+                { header: 'Grade', key: 'grade' }
+            ];
         }
-      
-        XLSX.utils.book_append_sheet(workbook, sheet, 'Sheet1');
-        XLSX.writeFile(workbook, 'marks.xlsx');
+    
+        sheet.addRows(sheetData);
+    
+        const buffer = await workbook.xlsx.writeBuffer();
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'marks.xlsx';
+        link.click();
         handleClose();
-      };
+    };
       
       const downloadCSV = () => {
         const data = tableData.length === 0 ? [{ rollno: "", studentname: "", totalmarks: "", marks_obtained: "", grade: "" }] : tableData;

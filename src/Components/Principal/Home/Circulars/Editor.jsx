@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 import './Editor.css'
 
 function Editor({editorHtml, setEditorHtml}) {
@@ -29,14 +29,13 @@ function Editor({editorHtml, setEditorHtml}) {
 
   return (
     <div style={{height: "100%"}}>
-      <ReactQuill
+      {/* <ReactQuill
         value={editorHtml}
         onChange={handleEditorChange}
         className="quill-wrapper"
         placeholder="Write your message..."
-        // formats={formats}
-        // modules={modules}
-      />
+ 
+      /> */}
       {/* Other components or actions */}
     </div>
   );

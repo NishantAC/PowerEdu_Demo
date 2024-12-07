@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse"; // Import PapaParse library for CSV parsing
-import * as XLSX from "xlsx"; // Import XLSX library for Excel file parsing
+import ExcelJS from "exceljs"; // Import ExcelJS library for Excel file parsing
 import { toast } from "react-toastify";
 
 function UploadMarks({
@@ -40,22 +40,28 @@ function UploadMarks({
     }
   };
 
-  const parseFileData = (file) => {
+  const parseFileData = async (file) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
-      const data = e.target.result;
-      const workbook = XLSX.read(data, { type: "binary" });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    reader.onload = async (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.load(data);
+      const sheet = workbook.worksheets[0];
+      const jsonData = [];
+
+      sheet.eachRow((row, rowNumber) => {
+        if (rowNumber > 1) {
+          jsonData.push(row.values);
+        }
+      });
 
       const parsedData = [];
       let isError = false;
-      for (let i = 1; i < jsonData.length; i++) {
+      for (let i = 0; i < jsonData.length; i++) {
         const row = jsonData[i];
-        const userId = row[0]
-        const rollno = row[1];
-        const studentname = row[2];
+        const userId = row[1];
+        const rollno = row[2];
+        const studentname = row[3];
 
         // Check if studentname, and rollno are present and non-empty
         if (
@@ -66,8 +72,8 @@ function UploadMarks({
           rollno !== "" &&
           studentname !== ""
         ) {
-          const obtainedmarks = row[3];
-          const grade = row[4];
+          const obtainedmarks = row[4];
+          const grade = row[5];
           parsedData.push({
             user_id: userId,
             rollno: Number(rollno),
@@ -89,8 +95,8 @@ function UploadMarks({
       saveUploadedMarks([...parsedData]);
     };
 
-    // Read the file as binary data
-    reader.readAsBinaryString(file);
+    // Read the file as array buffer
+    reader.readAsArrayBuffer(file);
   };
 
   const handleFileUpload = (event) => {

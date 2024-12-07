@@ -300,7 +300,7 @@ function TeacherMail() {
           }`
         }
         >
-          <p
+          <div
             className="text-center text-sm mt-2"
             style={{ color: themeProperties.primaryColor }}
           >
@@ -310,7 +310,7 @@ function TeacherMail() {
             >
             Starting your Google Space
             </p>      
-          </p>
+          </div>
         </div>
       ) : (
         <div className={` ${!isAuthorised && "hidden"} overflow-hidden `}>

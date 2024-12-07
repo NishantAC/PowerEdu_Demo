@@ -13,39 +13,36 @@ function IframeContent({ content, messageData, setValue }) {
     const iframeDoc =
       iframeRef.current.contentDocument ||
       iframeRef.current.contentWindow.document;
-  
+
     iframeDoc.open();
     iframeDoc.write(content);
     iframeDoc.close();
-  
+
     console.log(messageData);
-  
+
     const updateHeight = () => {
       if (iframeRef.current) {
         const iframeBody = iframeDoc.body || iframeDoc.documentElement;
         // Reset height to prevent retaining the previous height
         iframeRef.current.style.height = "0px";
-          const calculatedHeight = iframeBody.scrollHeight + "px";
-          setHeight(calculatedHeight);
-          iframeRef.current.style.height = calculatedHeight;
+        const calculatedHeight = iframeBody.scrollHeight + "px";
+        setHeight(calculatedHeight);
+        iframeRef.current.style.height = calculatedHeight;
       }
     };
-  
+
     const handleLinkClick = (event) => {
       if (event.target.tagName === "A") {
         event.preventDefault();
         window.open(event.target.href, "_blank");
       }
     };
-  
-    // Update height afte content is loaded
+
+    // Update height after content is loaded
     iframeRef.current.addEventListener("load", updateHeight);
     iframeDoc.addEventListener("click", handleLinkClick);
     updateHeight();
-  
-
   }, [content, messageData]);
-  
 
   const getCurrentTime = (date) => {
     const currentDate = new Date();
@@ -74,6 +71,9 @@ function IframeContent({ content, messageData, setValue }) {
   };
 
   const extractNameAndEmail = (from) => {
+    if (!from) {
+      return { name: "", email: "" };
+    }
     const match = from.match(/(.*) <(.*)>/);
     if (match) {
       return { name: match[1], email: match[2] };
@@ -81,7 +81,7 @@ function IframeContent({ content, messageData, setValue }) {
     return { name: from, email: "" };
   };
 
-  const { name, email } = extractNameAndEmail(messageData.from);
+  const { name, email } = extractNameAndEmail(messageData?.from || "");
 
   return (
     <div
@@ -92,12 +92,11 @@ function IframeContent({ content, messageData, setValue }) {
       }}
     >
       {/* Message Metadata */}
-
       <div
         className="border-b py-6 px-4 pb-4 flex
        justify-between flex-col gap-4"
       >
-        <h2 className=" text-[20px]">{messageData.subject}</h2>
+        <h2 className=" text-[20px]">{messageData?.subject || ""}</h2>
 
         <div className="flex gap-4 items-center justify-between">
           <div className=" flex gap-2 items-center ">
@@ -126,8 +125,9 @@ function IframeContent({ content, messageData, setValue }) {
           </div>
 
           <p className="text-[12px]">
-               {getTime(messageData.date)} {" • "}
-               {getCurrentTime(messageData.date)}</p>
+            {getTime(messageData?.date)} {" • "}
+            {getCurrentTime(messageData?.date)}
+          </p>
         </div>
       </div>
 
@@ -138,6 +138,7 @@ function IframeContent({ content, messageData, setValue }) {
           className="w-full "
           style={{
             height: height,
+            minHeight: "400px",
             border: "none",
             backgroundColor: themeProperties?.backgroundColor,
           }}

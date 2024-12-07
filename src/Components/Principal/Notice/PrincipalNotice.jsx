@@ -13,8 +13,8 @@ import PrincipalAddNotice from "./PrincipalAddNotice";
 import { Box } from "@mui/material";
 import { getDropdownClasses } from "../../../slices/principal";
 import { saveAs } from "file-saver"; // Importing the FileSaver.js library
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 import { styled } from "@mui/material/styles";
 import { API_BASE_URL } from "@/common/constant";
 
@@ -317,16 +317,16 @@ export default function PrincipalNotice() {
                   />
 
                   {/* ReactQuill editor for rich text editing */}
-                  <ReactQuill
-                    value={description} // Use description as the editor value
-                    onChange={(value) => setDescription(value)} // Update the description state with the editor content
+                  {/* <ReactQuill
+                    value={description} 
+                    onChange={(value) => setDescription(value)} 
                     placeholder="Edit Message"
                     style={{
                       width: "100%",
                       marginBottom: "10px",
                       height: "150px",
                     }}
-                  />
+                  /> */}
                 </div>
                 <button onClick={handleSaveEdit}>Save</button>
               </div>

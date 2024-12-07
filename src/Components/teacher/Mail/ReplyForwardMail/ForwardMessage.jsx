@@ -71,11 +71,10 @@ function ForwardMessage({ email, setForward, forward, attachments }) {
   };
 
   return (
-    <div style={{ width: "95%" }} className={styles.Messagediv2}>
-      <div className={styles.Div2P}>
+    <div style={{ width: "95%" }}>
+      <div >
         <p>To:-</p>
         <input
-          className={styles.Input2}
           type="text"
           value={recipient}
           id="to"
@@ -84,7 +83,7 @@ function ForwardMessage({ email, setForward, forward, attachments }) {
       </div>
       {err && <p style={{ color: "red", margin: 0 }}>To can not be empty</p>}
       {showPopup && (
-        <ul className={styles.ContactSuggestion}>
+        <ul >
           {userNames.length > 0 &&
             userNames.map((user) => (
               <li key={user.id} onClick={() => handleSelectUser(user)}>
@@ -98,7 +97,7 @@ function ForwardMessage({ email, setForward, forward, attachments }) {
         </ul>
       )}
       <br />
-      <p className={styles.message}>{email.body}</p>
+      <p >{email.body}</p>
       <div>
         <IconButton
           color="primary"
@@ -106,14 +105,13 @@ function ForwardMessage({ email, setForward, forward, attachments }) {
           component="label"
         >
           <DeleteOutline
-            className={styles.ImgIcon}
             onClick={() => setForward(!forward)}
           />
         </IconButton>
 
-        <button className={styles.Mailsendbtn} onClick={submitForward}>
+        <button onClick={submitForward}>
           Send
-          <SendIcon className={styles.SendIcon} />
+          <SendIcon  />
         </button>
       </div>
     </div>

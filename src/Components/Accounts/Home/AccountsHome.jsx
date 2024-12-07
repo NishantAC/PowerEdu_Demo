@@ -8,7 +8,7 @@ import classService from "../../../services/class.service";
 import { getAcademicYearsDropdown } from "../../../slices/admin";
 import AcademicFeesService from "../../../services/academicfees.service";
 import AcademicFeePaidService from "../../../services/academicfeepaid.service";
-import * as XLSX from "xlsx";
+import * as ExcelJS from "exceljs";
 import UserFeeDetailsModal from "./UserFeeDetailsModal";
 import TransportFeePaidService from "../../../services/transportfeepaid.service";
 import ExtracurricularFeePaidService from "../../../services/extracurricularfeepaid.service";
@@ -193,20 +193,39 @@ function AccountsHome() {
         (fee) => fee.total_amount - fee.paid_amount > 0
       );
     }
-    const workbook = XLSX.utils.book_new();
-    const worksheetData = filteredFeeList.map((fee) => ({
-      "Student Name": `${fee.users_student.firstname} ${fee.users_student.middlename} ${fee.users_student.lastname}`,
-      "School Code": fee.school_code,
-      "Class Code": fee.class_code,
-      "Academic Year": fee.academic_year,
-      "Frequency Time": fee.frequency,
-      "Total Amount": fee.total_amount,
-      "Paid Amount": fee.paid_amount,
-    }));
 
-    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Fees");
-    XLSX.writeFile(workbook, `${exportOption}_fee_data.xlsx`);
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Fees");
+
+    worksheet.columns = [
+      { header: "Student Name", key: "student_name", width: 30 },
+      { header: "School Code", key: "school_code", width: 15 },
+      { header: "Class Code", key: "class_code", width: 15 },
+      { header: "Academic Year", key: "academic_year", width: 15 },
+      { header: "Frequency Time", key: "frequency", width: 15 },
+      { header: "Total Amount", key: "total_amount", width: 15 },
+      { header: "Paid Amount", key: "paid_amount", width: 15 },
+    ];
+
+    filteredFeeList.forEach((fee) => {
+      worksheet.addRow({
+        student_name: `${fee.users_student.firstname} ${fee.users_student.middlename} ${fee.users_student.lastname}`,
+        school_code: fee.school_code,
+        class_code: fee.class_code,
+        academic_year: fee.academic_year,
+        frequency: fee.frequency,
+        total_amount: fee.total_amount,
+        paid_amount: fee.paid_amount,
+      });
+    });
+
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${exportOption}_fee_data.xlsx`;
+      link.click();
+    });
   };
 
   return (
