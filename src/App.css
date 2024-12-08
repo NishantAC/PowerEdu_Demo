@@ -75,9 +75,16 @@ body{
   -moz-appearance: textfield;
 }
 
-#test{
-  color: #f6f6f6;
+.scroller::-webkit-scrollbar {
+  width: 0px;
 }
 
+.scroller::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scroller::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 /* ! Copyright (c) 2024 Aquaria Core Pvt. Ltd. */

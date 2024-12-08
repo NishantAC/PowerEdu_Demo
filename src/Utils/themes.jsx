@@ -83,6 +83,8 @@ const themes = {
       logoutColor: "red",
       boxBackground:"#FFF",
       boxTextColor:"#000000",
+      toastColor : "#e9cffb",
+
 
     } , 
 

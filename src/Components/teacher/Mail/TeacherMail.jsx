@@ -323,6 +323,7 @@ function TeacherMail() {
                   themeProperties={themeProperties}
                   loading={loading}
                   setLoading={setLoading}
+                  fetchInbox={fetchInbox}
                 />
               )}
 

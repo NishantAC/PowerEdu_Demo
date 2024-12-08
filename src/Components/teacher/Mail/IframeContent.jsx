@@ -3,11 +3,16 @@ import ReplyForwardMail from "./ReplyForwardMail/ReplyForwardMail";
 import { useSelector } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
 import { getTime } from "@/common/Time";
+import { FaRegFilePdf } from "react-icons/fa";
+import { Document, Page } from "react-pdf";
 
-function IframeContent({ content, messageData, setValue }) {
+
+function IframeContent({ content, messageData, setValue, showReplyForward }) {
   const iframeRef = useRef(null);
   const [height, setHeight] = useState("100%");
   const themeProperties = useSelector(selectThemeProperties);
+  const [numPages, setNumPages] = useState(null);
+
 
   useEffect(() => {
     const iframeDoc =
@@ -18,12 +23,11 @@ function IframeContent({ content, messageData, setValue }) {
     iframeDoc.write(content);
     iframeDoc.close();
 
-    console.log(messageData);
-
     const updateHeight = () => {
       if (iframeRef.current) {
         const iframeBody = iframeDoc.body || iframeDoc.documentElement;
-        // Reset height to prevent retaining the previous height
+        // add scroller class to iframe body
+        iframeBody.classList.add("scroller");
         iframeRef.current.style.height = "0px";
         const calculatedHeight = iframeBody.scrollHeight + "px";
         setHeight(calculatedHeight);
@@ -38,11 +42,10 @@ function IframeContent({ content, messageData, setValue }) {
       }
     };
 
-    // Update height after content is loaded
     iframeRef.current.addEventListener("load", updateHeight);
     iframeDoc.addEventListener("click", handleLinkClick);
     updateHeight();
-  }, [content, messageData]);
+  }, [content]);
 
   const getCurrentTime = (date) => {
     const currentDate = new Date();
@@ -81,74 +84,160 @@ function IframeContent({ content, messageData, setValue }) {
     return { name: from, email: "" };
   };
 
-  const { name, email } = extractNameAndEmail(messageData?.from || "");
+  const renderAttachments = (attachments) => {
+    const decodeBase64ToBlob = (base64Data, dataType) => {
+      const byteCharacters = atob(base64Data);
+      const byteArrays = [];
 
-  return (
-    <div
-      className="w-full rounded-lg shadow-lg"
-      style={{
-        color: themeProperties?.textColorAlt,
-        backgroundColor: themeProperties?.background,
-      }}
-    >
-      {/* Message Metadata */}
-      <div
-        className="border-b py-6 px-4 pb-4 flex
-       justify-between flex-col gap-4"
-      >
-        <h2 className=" text-[20px]">{messageData?.subject || ""}</h2>
+      for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
 
-        <div className="flex gap-4 items-center justify-between">
-          <div className=" flex gap-2 items-center ">
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
+
+      return new Blob(byteArrays, { type: dataType });
+    };
+
+    return (
+      <div className="flex flex-wrap gap-3 p-4">
+        {attachments.map((attachment, index) => {
+          const blob = decodeBase64ToBlob(attachment.data, attachment.dataType);
+          const fileUrl = URL.createObjectURL(blob);
+          return (
             <div
-              className="w-10 h-10 rounded-full  flex items-center justify-center"
-              style={{ backgroundColor: themeProperties?.normal3 }}
+              key={index}
+              className="flex flex-col items-center border rounded-lg cursor-pointer bg-white shadow-md transition-transform hover:scale-105 p-2 w-48 h-fit gap-4"
             >
-              <p
-                className="text-lg font-semibold"
-                style={{ color: themeProperties?.textColor }}
+              {attachment.dataType.startsWith("image/") ? (
+                <img
+                  src={fileUrl}
+                  alt={attachment.filename || `Attachment ${index}`}
+                  className="w-full h-20 object-cover mb-4 rounded"
+                />
+              ) : attachment.dataType === "application/pdf" ? (
+                <div className="flex items-center justify-center w-full h-20 mb-4">
+                  <FaRegFilePdf size={48} className="text-red-500" />
+                </div>
+              ) : (
+                <div className="flex items-center justify-center w-full h-32 bg-gray-200 mb-4 rounded">
+                  <span className="text-sm font-medium">File Preview</span>
+                </div>
+              )}
+              <a href={fileUrl} download={attachment.filename || `attachment_${index}`} className="mt-auto">
+                <span className="text-sm font-medium  hover:underline ">
+                  {attachment.filename || "Download File"}
+                </span>
+              </a>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderPdfPages = () => {
+    const pages = [];
+    for (let i = 1; i <= numPages; i++) {
+      pages.push(<Page key={i} pageNumber={i} width={128} />);
+    }
+    return pages;
+  };
+
+  const renderMessage = (message) => {
+    const { name, email } = extractNameAndEmail(message?.from || "");
+
+    return (
+      <div
+        className="w-full rounded-lg "
+        style={{
+          color: themeProperties?.textColorAlt,
+          backgroundColor: themeProperties?.background,
+        }}
+      >
+        {/* Message Metadata */}
+        <div
+          className="border-b py-6 px-4 pb-4 flex
+           justify-between flex-col gap-4"
+        >
+          <h2 className=" text-[20px]">{message?.subject || ""}</h2>
+
+          <div className="flex gap-4 items-center justify-between">
+            <div className=" flex gap-2 items-center ">
+              <div
+                className="w-10 h-10 rounded-full  flex items-center justify-center"
+                style={{ backgroundColor: themeProperties?.normal3 }}
               >
-                {name.charAt(0)}
-              </p>
+                <p
+                  className="text-lg font-semibold"
+                  style={{ color: themeProperties?.textColor }}
+                >
+                  {name.charAt(0)}
+                </p>
+              </div>
+
+              <h1 className="text-[14px] ">{name}</h1>
+              <h2
+                className="text-[12px] font-light "
+                style={{
+                  color: themeProperties?.textColorLight,
+                }}
+              >
+                {"< " + email + " >"}
+              </h2>
             </div>
 
-            <h1 className="text-[14px] ">{name}</h1>
-            <h2
-              className="text-[12px] font-light "
-              style={{
-                color: themeProperties?.textColorLight,
-              }}
-            >
-              {" "}
-              {"< " + email + " >"}
-            </h2>
+            <p className="text-[12px]">
+              {getTime(message?.date)} {" • "}
+              {getCurrentTime(message?.date)}
+            </p>
           </div>
-
-          <p className="text-[12px]">
-            {getTime(messageData?.date)} {" • "}
-            {getCurrentTime(messageData?.date)}
-          </p>
         </div>
-      </div>
 
-      {/* Iframe Section */}
-      <div className="w-full overflow-hidden  ">
-        <iframe
-          ref={iframeRef}
-          className="w-full "
-          style={{
-            height: height,
-            minHeight: "400px",
-            border: "none",
-            backgroundColor: themeProperties?.backgroundColor,
-          }}
-        />
-      </div>
+        {/* Iframe Section */}
+        <div className="w-full overflow-hidden   ">
+          <iframe
+            ref={iframeRef}
+            className="w-full scroller"
+            style={{
+              height: height,
+              minHeight: "100px",
+              border: "none",
+              backgroundColor: themeProperties?.backgroundColor,
+            }}
+          />
+        </div>
 
-      {/* Reply/Forward Section */}
-      <div className="w-full  py-4 mt-4">
-        <ReplyForwardMail email={messageData} setValue={setValue} />
+        {/* Attachments Section */}
+        {message.attachments && message.attachments.length > 0 && (
+          <div className="w-full py-4">
+            <h3 className="px-4 text-lg">Attachments:</h3>
+            {renderAttachments(message.attachments)}
+          </div>
+        )}
+
+        {/* Reply/Forward Section */}
+        { showReplyForward &&
+          <div className="w-full  py-4 mt-4">
+          <ReplyForwardMail email={message} setValue={setValue} />
+        </div>
+        }
       </div>
+    );
+  };
+
+  return (
+    <div>
+      {Array.isArray(messageData)
+        ? messageData.map((message, index) => (
+            <div key={index}>{renderMessage(message)}</div>
+          ))
+        : renderMessage(messageData)}
     </div>
   );
 }

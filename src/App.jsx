@@ -103,7 +103,7 @@ function App() {
   return (
     <>
       <ToastContainer />
-      {/* <Toaster /> */}
+      <Toaster />
       <MenuState>
         <Router>
           <Routes>

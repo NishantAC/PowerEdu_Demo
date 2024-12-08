@@ -71,6 +71,7 @@ function InboxMessage({ messageData, setValue }) {
           content={DOMPurify.sanitize(messageData.body)}
           messageData={messageData}
           setValue={setValue}
+          showReplyForward = {true}
         />
       </div>
 

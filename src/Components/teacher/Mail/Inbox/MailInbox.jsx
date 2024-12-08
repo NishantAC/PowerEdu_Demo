@@ -15,6 +15,8 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import Spinner from "@/Components/Spinner/Spinner";
+import { IoMdRefresh } from "react-icons/io";
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLoading }) {
+function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLoading, fetchInbox }) {
   const [value, setValue] = useState({});
   const [selectedMail, setSelectedMail] = useState(null); // State for selected mail
   const scrollRef = useRef(null);
@@ -69,6 +71,10 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
   const openMsg = (mail) => {
     setSelectedMail(mail.threadId);
     setValue(mail);
+  };
+
+  const refreshMail = () => {
+    fetchInbox();
   };
 
   useEffect(() => {
@@ -98,13 +104,7 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
     };
   }, [fetchMoreMails, loading, inboxMails]);
 
-  useEffect(() => {
-    const renderStartTime = performance.now();
-    return () => {
-      const renderEndTime = performance.now();
-      console.log(`Rendering time: ${renderEndTime - renderStartTime} ms`);
-    };
-  }, [value]);
+
 
   const extractName = (from) => {
     const match = from.match(/^(.*?)\s*</);
@@ -141,6 +141,23 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
                   />
                 </Search>
               </Toolbar>
+
+
+            {/* Refresh button  */}
+
+            <div className=" ">
+              <IoMdRefresh
+                size = {20}
+                className="cursor-pointer absolute top-10 left-2"
+                onClick={() => {
+                  refreshMail();
+                }}
+                style={{
+                  color: themeProperties.textColorAlt,
+                }}
+              />
+              </div>
+
             </Box>
           </div>
 
@@ -149,7 +166,7 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
               <button
                 key={index}
                 onClick={() => openMsg(mail)}
-                className={`flex w-full h-20 mb-2 rounded-[10px] outline-none border transition-all duration-300 ease-in-out`} // Added transition
+                className={`flex w-full h-20 mb-2 mt-6 rounded-[10px] outline-none border transition-all duration-300 ease-in-out`} // Added transition
                 style={{
                   backgroundColor: selectedMail === mail.threadId ? themeProperties?.normal1 : "#fff",
                   color: selectedMail === mail.threadId ? themeProperties?.textColor : themeProperties?.textColorAlt,
