@@ -129,7 +129,7 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel minSize={20} defaultSize={30} maxSize={40}>
         <div className="h-[90vh] overflow-y-scroll px-2" ref={scrollRef}>
-          <div className="flex items-center justify-center sticky mt-4 top-0"
+          <div className="flex items-center justify-center sticky mt-4 top-0 z-20"
             style = {{ backgroundColor: themeProperties?.background }}
           >
             <Box sx={{}}>
@@ -234,7 +234,7 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
           {loading && (
             <div>
               {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-                <div key={item} className="w-full h-20 mb-0 mt-4 rounded-[10px] outline-none transition-all duration-300 ease-in-out">
+                <div key={item} className="w-full h-20 mb-0 mt-4 rounded-[10px] outline-none transition-all duration-300 ease-in-out -z-20">
                   <Skeleton animation="wave" sx={{ bgcolor: 'grey.100', height: '120px', width: '100%', borderRadius: '10px', margin: "0 !important", padding: "0 !important", position: "relative", 
                     transformOrigin: "0 0"
                    }} />
@@ -248,7 +248,7 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
       <ResizableHandle withHandle />
 
       <ResizablePanel>
-        <div className="h-[600px] overflow-y-auto">
+        <div className="h-[90vh] overflow-y-auto">
           {value && Object.keys(value).length > 0 && (
             <InboxMessage messageData={value} setValue={setValue} refreshLoading={refreshLoading} disableRefresh = {disableRefresh} />
           )}

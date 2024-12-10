@@ -35,14 +35,12 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 import "./App.css";
 import ViewProfile from "./components/Principal/Students/ViewProfile";
 // Importing Admin Layout Components
-
 import Profiles from "./components/Admin/Profiles/Profile/Profiles";
 import EditProfile from "./components/Admin/Profiles/EditProfile/EditProfile";
 import Home from "./components/Admin/Home/Home";
 import FillUserInfo from "./components/Admin/AddUser/FillUserInfo";
 import Subjects from "./components/Admin/Subjects/Subjects";
 import Transport from "./components/Admin/Transport/Transport";
-import AdminTeacherMail from "./components/Teacher/Mail/TeacherMail";
 import AdminCalendar from "./components/Admin/Calendar/AdminCalendar";
 import AdminNotice from "./components/Admin/Notice/AdminNotice";
 import AcademicFees from "./components/Admin/Expense/AcademicFees/AcademicFees";
@@ -86,7 +84,6 @@ import PrincipalTeachers from "./components/Principal/Teachers/PrincipalTeacher"
 import PrincipalExam from "./components/Principal/Exam/PrincipalExam";
 import PrincipalCalendar from "./components/Principal/Calendar/PrincipalCalendar";
 import PrincipalFees from "./components/Principal/Fees/PrincipalFees";
-import PrincipalMail from "./components/Principal/Mail/PrincipalMail";
 import PrincipalNotice from "./components/Principal/Notice/PrincipalNotice";
 import TeachersAttendance from "./components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
 import TeacherProfile from "./components/Principal/Teachers/TeacherProfile/TeacherProfile";

@@ -216,7 +216,7 @@ function IframeContent({ content, messageData, setValue, showReplyForward ,refre
 
 
             {
-              refreshLoading && <Skeleton variant="rectangular" sx={{ bgcolor: 'grey.100' }} className=' mx-4 mt-10 min-h-[400px]' />
+              refreshLoading && <Skeleton variant="rectangular" sx={{ bgcolor: 'grey.100' }} className=' mx-4 mt-10 h-full' />
             }
           <iframe
             ref={iframeRef}

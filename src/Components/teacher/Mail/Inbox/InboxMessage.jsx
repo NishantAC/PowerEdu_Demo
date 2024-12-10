@@ -70,7 +70,7 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
         )}
       </div>
 
-      <div className="printme">
+      <div className=" h-full">
         <IframeContent
           content={DOMPurify.sanitize(messageData.body)}
           messageData={messageData}
