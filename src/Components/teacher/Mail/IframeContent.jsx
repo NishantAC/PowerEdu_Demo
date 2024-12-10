@@ -4,29 +4,28 @@ import { useSelector } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
 import { getTime } from "@/common/Time";
 import { FaRegFilePdf } from "react-icons/fa";
-import { Document, Page } from "react-pdf";
+import { Skeleton } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 
-
-function IframeContent({ content, messageData, setValue, showReplyForward }) {
+function IframeContent({ content, messageData, setValue, showReplyForward ,refreshLoading}) {
   const iframeRef = useRef(null);
   const [height, setHeight] = useState("100%");
   const themeProperties = useSelector(selectThemeProperties);
   const [numPages, setNumPages] = useState(null);
-
-
-  useEffect(() => {
+  
+   useEffect(() => {
     const iframeDoc =
       iframeRef.current.contentDocument ||
       iframeRef.current.contentWindow.document;
-
+  
     iframeDoc.open();
     iframeDoc.write(content);
     iframeDoc.close();
-
+  
     const updateHeight = () => {
       if (iframeRef.current) {
         const iframeBody = iframeDoc.body || iframeDoc.documentElement;
-        // add scroller class to iframe body
         iframeBody.classList.add("scroller");
         iframeRef.current.style.height = "0px";
         const calculatedHeight = iframeBody.scrollHeight + "px";
@@ -34,18 +33,25 @@ function IframeContent({ content, messageData, setValue, showReplyForward }) {
         iframeRef.current.style.height = calculatedHeight;
       }
     };
-
+  
     const handleLinkClick = (event) => {
-      if (event.target.tagName === "A") {
+      const anchor = event.composedPath().find((el) => el.tagName === "A");
+      if (anchor) {
         event.preventDefault();
-        window.open(event.target.href, "_blank");
+        anchor.setAttribute("target", "_blank");
+        window.open(anchor.href, "_blank");
       }
     };
-
+  
     iframeRef.current.addEventListener("load", updateHeight);
     iframeDoc.addEventListener("click", handleLinkClick);
+  
+    // Apply theme properties to the iframe body
+    iframeDoc.body.style.color = themeProperties?.textColorAlt || "initial";
+    iframeDoc.body.style.backgroundColor = themeProperties?.background || "initial";
+  
     updateHeight();
-  }, [content]);
+  }, [content, themeProperties]);
 
   const getCurrentTime = (date) => {
     const currentDate = new Date();
@@ -141,13 +147,7 @@ function IframeContent({ content, messageData, setValue, showReplyForward }) {
     );
   };
 
-  const renderPdfPages = () => {
-    const pages = [];
-    for (let i = 1; i <= numPages; i++) {
-      pages.push(<Page key={i} pageNumber={i} width={128} />);
-    }
-    return pages;
-  };
+
 
   const renderMessage = (message) => {
     const { name, email } = extractNameAndEmail(message?.from || "");
@@ -160,55 +160,74 @@ function IframeContent({ content, messageData, setValue, showReplyForward }) {
           backgroundColor: themeProperties?.background,
         }}
       >
-        {/* Message Metadata */}
+        
         <div
           className="border-b py-6 px-4 pb-4 flex
            justify-between flex-col gap-4"
         >
-          <h2 className=" text-[20px]">{message?.subject || ""}</h2>
+          <h2 className=" text-[20px]">
+          { refreshLoading ? <Skeleton variant="rectangular" width="100%" className=' h-[20px]' /> : message?.subject }
+          </h2>
 
           <div className="flex gap-4 items-center justify-between">
+          {
+            refreshLoading ? 
+            <Skeleton variant="rectangular" width="100%" className=' h-[20px]' /> 
+            :
             <div className=" flex gap-2 items-center ">
-              <div
-                className="w-10 h-10 rounded-full  flex items-center justify-center"
-                style={{ backgroundColor: themeProperties?.normal3 }}
+            <div
+              className="w-10 h-10 rounded-full  flex items-center justify-center"
+              style={{ backgroundColor: themeProperties?.normal3 }}
+            >
+              <p
+                className="text-lg font-semibold"
+                style={{ color: themeProperties?.textColor }}
               >
-                <p
-                  className="text-lg font-semibold"
-                  style={{ color: themeProperties?.textColor }}
-                >
-                  {name.charAt(0)}
-                </p>
-              </div>
-
-              <h1 className="text-[14px] ">{name}</h1>
-              <h2
-                className="text-[12px] font-light "
-                style={{
-                  color: themeProperties?.textColorLight,
-                }}
-              >
-                {"< " + email + " >"}
-              </h2>
+                {refreshLoading ? "" : name.charAt(0) }
+              </p>
             </div>
 
-            <p className="text-[12px]">
+            <h1 className="text-[14px] ">
+              {name}
+              </h1>
+            <h2
+              className="text-[12px] font-light "
+              style={{
+                color: themeProperties?.textColorLight,
+              }}
+            >
+              { !refreshLoading && "< " + email + " >"}
+            </h2>
+          </div>
+          }
+
+            {
+              !refreshLoading &&
+              <p className="text-[12px]">
               {getTime(message?.date)} {" • "}
               {getCurrentTime(message?.date)}
             </p>
+            }
           </div>
         </div>
 
         {/* Iframe Section */}
-        <div className="w-full overflow-hidden   ">
+        <div className="w-full h-full overflow-hidden   ">
+
+
+            {
+              refreshLoading && <Skeleton variant="rectangular" sx={{ bgcolor: 'grey.100' }} className=' mx-4 mt-10 min-h-[400px]' />
+            }
           <iframe
             ref={iframeRef}
             className="w-full scroller"
             style={{
-              height: height,
+              height: refreshLoading ? "0px" : height,
               minHeight: "100px",
               border: "none",
               backgroundColor: themeProperties?.backgroundColor,
+              visibility: refreshLoading ? "hidden" : "visible",
+              color: themeProperties?.textColor,
             }}
           />
         </div>
@@ -222,7 +241,7 @@ function IframeContent({ content, messageData, setValue, showReplyForward }) {
         )}
 
         {/* Reply/Forward Section */}
-        { showReplyForward &&
+        { showReplyForward && !refreshLoading &&
           <div className="w-full  py-4 mt-4">
           <ReplyForwardMail email={message} setValue={setValue} />
         </div>

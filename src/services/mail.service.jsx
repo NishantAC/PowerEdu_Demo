@@ -31,7 +31,7 @@ export const logoutGoogle = async () => {
   }
 };
 
-export const checkAuth = async (user_id) => {
+export const checkAuth = async () => {
   try {
     const response = await axios.get(`${API_URL}check-auth`, {
       headers: authHeader(),

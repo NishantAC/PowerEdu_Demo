@@ -149,7 +149,7 @@ function App() {
           <Route path="/admin/addUser" element={<FillUserInfo />} />
           <Route path="/admin/Subjects" element={<Subjects />} />
           <Route path="/admin/Transport" element={<Transport />} />
-          <Route path="/admin/mail/:mode" element={<AdminTeacherMail />} />
+          <Route path="/admin/mail/:mode" element={<TeacherMail />} />
           <Route path="/admin/calendar" element={<AdminCalendar />} />
           <Route path="/admin/notice" element={<AdminNotice />} />
           <Route path="/admin/academic-fees" element={<AcademicFees />} />

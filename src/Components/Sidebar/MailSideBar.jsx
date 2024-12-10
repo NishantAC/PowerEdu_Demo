@@ -1,4 +1,4 @@
-import React, { useContext , useState} from "react";
+import React, { useEffect , useState} from "react";
 import { Link } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { MenuContext } from "@/context/Menu/MenuContext";
@@ -10,12 +10,17 @@ import { MdDelete } from "react-icons/md";
 import { IoDocument,IoPencil } from "react-icons/io5";
 import { RiSpam2Fill } from "react-icons/ri";
 import {  FaAngleDown } from "react-icons/fa";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { logoutGoogle } from "@/services/mail.service";
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { checkAuth } from "@/services/mail.service";
+import {toast } from "sonner";
+import { Skeleton } from "@mui/material";
 
 const MailItems = [
   { name: "Inbox", route: "/mail/inbox", icon: FaEnvelope },
@@ -26,58 +31,103 @@ const MailItems = [
   { name: "Promotion", route: "/mail/promotion", icon: RiSpam2Fill },
 ];
 
+const logout = async () => {
+  const response = await logoutGoogle();
+  if (response?.data?.message === "Google token removed successfully"){
+    toast.success("Logout", { description: "Logged out successfully" });
+  }
+  setIsAuthorised(false);
+};
+
+
+
 function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}) {
   const themeProperties = useSelector(selectThemeProperties);
   const {mode } = useParams();
+  const [user, setUser ] = useState({});
+
+  useEffect(() => {
+    const checkUserAuthorization = async () => {
+      try {
+        const response = await checkAuth();
+        setUser(response?.data?.userDetails);
+        console.log(response?.data?.userDetails);
+
+      } catch (error) {
+        console.error(error);
+        toast.error("Login", { description: "Login using your Google Account" });
+      }
+    };
+    checkUserAuthorization();
+  }, []);
 
   return (
     <div className="Sidebarlist overflow-y-auto flex-grow select-none mail-item ">
 
       <div className="flex pb-4 mb-4 mt-10 items-center justify-center gap-4 border-b-2">
         <div>
+
+
         <Popover>
         <PopoverTrigger asChild className=" ">
         <div className="flex items-center gap-4 cursor-pointer flex-col ">
-          <div className=" h-10 p-1 rounded-full relative border-2 w-10  "
-          style={{ background: themeProperties.primaryColor, borderColor: themeProperties.textColor
-
-           }}
-          >
-
-          </div>
+            <Avatar>
+              <AvatarImage src = {user?.picture} />
+              <AvatarFallback
+              style={{ backgroundColor: themeProperties.sideBarColor}}
+              ></AvatarFallback>
+            </Avatar>
 
           <div
           className="text-lg text-white header w-full text-center"
           style={{ color: themeProperties.textColor }}
-        >Nishant</div>
+         >
+
+            {user?.name?.split(" ")[0] || ""}
+
+         </div>
       </div>
         </PopoverTrigger>
 
-        <PopoverContent className="shadow-2xl p-0 rounded-lg bg-white w-44 relative left-4">
-          <div className="shadow-lg rounded-xl overflow-hidden outline-none w-96 bg-white">
-            <div className="flex flex-col items-center p-6 bg-gradient-to-r from-purple-500 to-indigo-500 border-b">
+        <PopoverContent className="shadow-2xl p-0 w-full relative left-10 rounded-[20px] overflow-hidden">
+          <div className="shadow-lg rounded- overflow-hidden outline-none w-96 bg-white">
+            <div className="flex flex-col items-center p-6 border-b"
+              style={{ backgroundColor: themeProperties.primaryColor , 
+                color: themeProperties.textColor
+              }}
+            >
               <div className="relative">
-                <div className="w-16 h-16 rounded-full bg-purple-200 flex items-center justify-center">
-                  {/* Placeholder for avatar */}
-                  <span className="text-lg font-bold text-white">N</span>
+                <div className="">
+                    <Avatar>
+                      <AvatarImage src = {user?.picture} />
+                      <AvatarFallback
+                      style={{ backgroundColor: themeProperties.sideBarColor}}
+                      ></AvatarFallback>
+                    </Avatar>
                 </div>
               </div>
-              <h3 className="mt-4 text-lg font-medium text-white">{ "Hi, Nishant!"}</h3>
+              <h3 className="mt-4 text-lg font-medium">{`Hi ${user?.name} !`}
+                
+              </h3>
               <a href="https://myaccount.google.com/" target="_blank" rel="noreferrer"
-                className="text-blue-200 text-sm mt-2 hover:underline"
+                className=" text-sm mt-2 hover:underline"
+                style = {{ color: themeProperties.textColor }}
               >
                 Manage your Google Account
               </a>
             </div>
-            <div className="p-6 text-sm">
-              <p className="text-gray-700">Signed in as:</p>
-              <p className="font-medium">demo@gmail.com</p>
+            <div className="p-6 text-sm" style={{ color: themeProperties.textColorAlt }}>  
+              <p className="">Signed in as:</p>
+              <p className="font-medium">{user?.email}</p>
               <div className="mt-4 flex flex-col gap-3">
                 <button className="py-2 px-4 bg-gray-200 rounded-lg hover:bg-gray-300 transition duration-200">
-                  Add another account
+                  Login into another account
                 </button>
-                <button className="py-2 px-4 bg-gray-200 rounded-lg hover:bg-gray-300 transition duration-200">
-                  Sign out of all accounts
+                <button className="py-2 px-4 rounded-lg"
+                  style={{ backgroundColor: themeProperties.logoutColor, color: themeProperties.textColor }}
+                  onClick={logout}
+                >
+                  Sign out of Google Account
                 </button>
               </div>
               <div className="mt-6">
@@ -118,6 +168,9 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
             background: mode == item.name.toLowerCase() ? themeProperties.sideBarButton : "",
             border : mode == item.name.toLowerCase() ? `2px solid ${themeProperties.textColor}` : ``,
             "--hover-color": themeProperties.sideBarButton,
+          }}
+          onClick={() => {
+            localStorage.setItem("mailPath", item.route);
           }}
         >
               <style>

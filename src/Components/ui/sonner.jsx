@@ -14,7 +14,7 @@ const Toaster = ({
       toastOptions={{
         style: {
           background: themeProperties.toastColor ,
-          color: themeProperties.textColorLight,
+          color: themeProperties.toastTextColor,
         },
       }}
 

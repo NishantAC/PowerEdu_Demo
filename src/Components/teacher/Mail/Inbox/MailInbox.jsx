@@ -14,10 +14,9 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import Spinner from "@/Components/Spinner/Spinner";
 import { IoMdRefresh } from "react-icons/io";
-
-
+import { Button, Skeleton } from "@mui/material";
+import { toast } from "sonner";
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: '20px',
@@ -63,29 +62,46 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLoading, fetchInbox }) {
+function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,loading}) {
   const [value, setValue] = useState({});
   const [selectedMail, setSelectedMail] = useState(null); // State for selected mail
   const scrollRef = useRef(null);
-
+  const [refreshLoading, setRefreshLoading] = useState(false);
   const openMsg = (mail) => {
-    setSelectedMail(mail.threadId);
+    setSelectedMail(mail?.id);
     setValue(mail);
   };
+  const [disableRefresh, setDisableRefresh] = useState(false);
 
-  const refreshMail = () => {
-    fetchInbox();
+  const refresh = () => {
+    setDisableRefresh(true);
+    toast.info("Refreshing", { description: "Refreshing your inbox" });
+    setRefreshLoading(true);
+    setSelectedMail(null);
+    setValue({});
+    refreshMail().then(() => {
+      console.log("Refreshed");
+      setRefreshLoading(false);
+      toast.success("Refreshed", { description: "Your inbox has been refreshed" });
+      setDisableRefresh(false);
+    }).catch(() => { 
+      setRefreshLoading(false);
+      toast.error("Failed to refresh", { description: "Please try again" });
+      setDisableRefresh(false);
+    });
   };
 
   useEffect(() => {
-    if (inboxMails && inboxMails.length > 0) {
-      openMsg(inboxMails[0]); 
+    if (mails && mails.length > 0) {
+      openMsg(mails[0]); 
     }
     const handleScroll = debounce(() => {
       if (scrollRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
         if (scrollHeight - scrollTop <= clientHeight + 400) {
+          console.log("Reached bottom");
           if (loading) { return; }
+          
           fetchMoreMails();
           setLoading(true);
         }
@@ -102,9 +118,7 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
         scrollElement.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [fetchMoreMails, loading, inboxMails]);
-
-
+  }, [fetchMoreMails, loading, mails, setLoading]);
 
   const extractName = (from) => {
     const match = from.match(/^(.*?)\s*</);
@@ -114,8 +128,10 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel minSize={20} defaultSize={30} maxSize={40}>
-        <div className="h-[600px] overflow-y-auto px-2" ref={scrollRef}>
-          <div className="flex items-center justify-center sticky mt-4 top-0 bg-white">
+        <div className="h-[90vh] overflow-y-scroll px-2" ref={scrollRef}>
+          <div className="flex items-center justify-center sticky mt-4 top-0"
+            style = {{ backgroundColor: themeProperties?.background }}
+          >
             <Box sx={{}}>
               <Toolbar>
                 <Search
@@ -142,67 +158,99 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
                 </Search>
               </Toolbar>
 
-
-            {/* Refresh button  */}
-
-            <div className=" ">
-              <IoMdRefresh
-                size = {20}
-                className="cursor-pointer absolute top-10 left-2"
-                onClick={() => {
-                  refreshMail();
-                }}
-                style={{
-                  color: themeProperties.textColorAlt,
-                }}
-              />
+              {/* Refresh button */}
+              <div className="">
+                <IoMdRefresh
+                  size={20}
+                  className={`cursor-pointer absolute top-10 left-2 ${refreshLoading ? "animate-spin" : ""}`}
+                  onClick={() => {
+                    if (disableRefresh) { return; }
+                    refresh();
+                  }}
+                  style={{
+                    color: themeProperties.textColorAlt,
+                  }}
+                />
               </div>
-
             </Box>
           </div>
 
-          {inboxMails &&
-            Object.values(inboxMails).map((mail, index) => (
-              <button
-                key={index}
-                onClick={() => openMsg(mail)}
-                className={`flex w-full h-20 mb-2 mt-6 rounded-[10px] outline-none border transition-all duration-300 ease-in-out`} // Added transition
-                style={{
-                  backgroundColor: selectedMail === mail.threadId ? themeProperties?.normal1 : "#fff",
-                  color: selectedMail === mail.threadId ? themeProperties?.textColor : themeProperties?.textColorAlt,
-                  boxShadow: selectedMail === mail.threadId ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none', // Hover effect
-                }}
-              >
-                <div className="w-full text-left p-3">
-                  <div className="flex mb-1 mt-2 overflow-hidden whitespace-nowrap text-ellipsis">
-                    <h4 className="font-semibold text-sm mt-1">
-                      {extractName(mail.from)}
-                    </h4>
-                    <span className="text-xs ml-auto self-center font-light">
-                      {getTime(mail.date)}
-                    </span>
+          {refreshLoading ? (
+            <>
+            </>
+          ) : (
+            <div className="">
+              {mails && Object.values(mails).map((mail, index) => (
+                
+                <button
+                  key={index}
+                  onClick={() => openMsg(mail)}
+                  className={`mail flex w-full h-20 mb-2 mt-4 rounded-[10px] outline-none border transition-all duration-300 ease-in-out`}
+                  disableRipple
+                  disableElevation
+                  style={{
+                    backgroundColor: selectedMail === mail?.id ? themeProperties?.normal1 : "",
+                    color: selectedMail === mail?.id ? themeProperties?.textColor : "",
+                    boxShadow: selectedMail === mail?.id ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none', 
+                    display: extractName(mail.from) === "Mail Delivery Subsystem" ? "none" : "block",
+                    marginTop : "10px !important",
+                    marginBottom : "10px !important",
+                    borderRadius: "10px",
+                    border: "1px solid #e5e5e5",
+                    "--hover-color": themeProperties?.textColor,
+                    "--hover-bg": themeProperties?.normal2,
+                  }}
+                >
+                  <style> 
+                    {`
+                    .mail{
+                      color : ${themeProperties?.textColorAlt};
+                    }
+                    
+                    .mail:hover 
+                    { color: var(--hover-color); 
+                    background-color: var(--hover-bg); }`} 
+                    
+                    </style>
+
+                  <div className="w-full text-left p-3">
+                    <div className="flex overflow-hidden whitespace-nowrap text-ellipsis">
+                      <h4 className="font-medium text-sm mt-1">
+                        {extractName(mail.from)}
+                      </h4>
+                      <span className="text-xs ml-auto self-center font-light">
+                        {getTime(mail.date)}
+                      </span>
+                    </div>
+                    <p className="font-light text-[10px] overflow-hidden whitespace-nowrap text-ellipsis">
+                      {mail.subject}
+                    </p>
                   </div>
-                  <p className="font-medium text-xs overflow-hidden whitespace-nowrap text-ellipsis">
-                    {mail.subject}
-                  </p>
-                </div>
-              </button>
-            ))}
+                </button>
+              ))}
+            </div>
+          )}
 
           {loading && (
-            <div className="flex justify-center items-center h-20">
-              <Spinner width="40px" borderRightColor={themeProperties?.normal3} />
+            <div>
+              {[1, 2, 3, 4, 5, 6, 7].map((item) => (
+                <div key={item} className="w-full h-20 mb-0 mt-4 rounded-[10px] outline-none transition-all duration-300 ease-in-out">
+                  <Skeleton animation="wave" sx={{ bgcolor: 'grey.100', height: '120px', width: '100%', borderRadius: '10px', margin: "0 !important", padding: "0 !important", position: "relative", 
+                    transformOrigin: "0 0"
+                   }} />
+                </div>
+              ))}
             </div>
           )}
         </div>
       </ResizablePanel>
 
       <ResizableHandle withHandle />
-      
+
       <ResizablePanel>
-        <div className="h-[600px] overflow-y-auto bg-white">
+        <div className="h-[600px] overflow-y-auto">
           {value && Object.keys(value).length > 0 && (
-            <InboxMessage messageData={value} setValue={setValue} />
+            <InboxMessage messageData={value} setValue={setValue} refreshLoading={refreshLoading} disableRefresh = {disableRefresh} />
           )}
         </div>
       </ResizablePanel>
@@ -210,4 +258,4 @@ function MailInbox({ inboxMails, fetchMoreMails, themeProperties, loading, setLo
   );
 }
 
-export default MailInbox;
+export default Mail;

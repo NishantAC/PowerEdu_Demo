@@ -1,11 +1,10 @@
 import { DeleteOutline } from "@mui/icons-material";
 import { Avatar, IconButton } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
+import { IoMdSend } from "react-icons/io";
 import {
   fetchAllUsername,
   forwardMail,
 } from "../../../../services/mail.service";
-import { toast } from "react-toastify";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { IoIosAttach } from "react-icons/io";
@@ -15,10 +14,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import IframeContent from "../IframeContent";
 import DOMPurify from 'dompurify';
-
+import { toast } from "sonner";
 
 const validationSchema = Yup.object().shape({
-  recipient: Yup.string().required("Recipient is required"),
+  recipient: Yup.string().email("Must be a valid email").required("Recipient is required"),
 });
 
 function ForwardMessage({ email, attachments, setAttachments, themeProperties , setValue}) {
@@ -78,11 +77,12 @@ function ForwardMessage({ email, attachments, setAttachments, themeProperties , 
   };
 
   const submitForward = async (values) => {
-    const res = await forwardMail({ threadId: email[0].threadId, recipient: values.recipient });
+    // send the body of the mail
+    const res = await forwardMail({ ...email, recipient: selectedId, attachments, body: email.body , threadId : email.threadId, subject: email.subject, recipient: values.recipient });
     if (res.response.status === 200) {
-      toast.success(res.response.data.data, { autoClose: 500 });
+      toast("Mail forwarded successfully", {description: "Mail has been forwarded to the recipient", type: "success"});
     } else {
-      toast.error(res.response.data.data, { autoClose: 500 });
+      toast("Failed to forward mail", { description: "Please try again", type: "error" });
     }
   };
 
@@ -183,7 +183,7 @@ function ForwardMessage({ email, attachments, setAttachments, themeProperties , 
                   </div>
                 ))}
               </div>
-              <div className="flex items-center gap-4 mt-4">
+              <div className="flex items-center gap-4 mt-4 justify-end">
                 <div
                   className="transition-transform hover:scale-110 py-2 cursor-pointer"
                   onClick={() => document.querySelector("input[type='file']").click()}
@@ -198,12 +198,20 @@ function ForwardMessage({ email, attachments, setAttachments, themeProperties , 
                   <input hidden accept="image/*" type="file" onChange={handleFileChange} />
                   <FaRegFileImage className="text-gray-500 h-6 w-6" />
                 </div>
+
                 <button
+                  className="px-6 py-2 flex items-center gap-2 rounded-full cursor-pointer hover:scale-105 transition-transform duration-200 "
                   type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+                  style={{
+                    background: themeProperties.normal3,
+                    color: themeProperties.textColor,
+                    opacity: values.recipient !== "" ? 1 : 0.5,
+                    cursor: values.recipient !== "" ? "pointer" : "not-allowed"
+                  }}
+                  disabled={values.recipient === 0}
                 >
                   Send
-                  <SendIcon className="ml-2" />
+                  <IoMdSend size={20} />
                 </button>
               </div>
             </Form>

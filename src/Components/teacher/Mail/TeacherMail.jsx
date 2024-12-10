@@ -2,14 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import MailInbox from "./Inbox/MailInbox";
+import Mail from "./Inbox/MailInbox";
 import ComposeMail from "./ComposeMail/ComposeMail";
-import SentMail from "./Sent/SentMail";
 import DraftMail from "./Draft/DraftMail";
 import DeletedMail from "./Deleted/DeletedMail";
 import FavouriteMail from "./Favourites/FavouriteMail";
 import io from "socket.io-client";
-import axios from "axios";
 import GoogleImage from "../../../assets/images/Google.png";
 import {
   checkAuth,
@@ -19,43 +17,16 @@ import {
   logoutGoogle,
 } from "../../../services/mail.service";
 import { socketUrl } from "../../../common/socketLink";
-import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import MailPromotion from "./Promotion/MailPromotion";
-import TeacherMailTabs from "./TeacherMailTabs";
 import { selectThemeProperties } from "@/slices/theme";
 import { useSelector, useDispatch } from "react-redux";
 import { LinearProgress } from "@mui/material";
 import debounce from "lodash.debounce";
-import { Toaster } from "sonner";
-import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import { useParams } from "react-router-dom";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
+import { throttle } from "lodash";
+import { getSentMails } from "../../../services/mail.service";
 
 export const socket = io(socketUrl, {
   transports: ["websocket"],
@@ -72,18 +43,20 @@ function TeacherMail() {
   const themeProperties = useSelector(selectThemeProperties);
   const [AllMails, setAllMails] = useState([]);
   const [fltMails, setFltMails] = useState([]);
-  const [mails, setMails] = useState([]);
-  const [value, setValue] = useState(0);
   const [newInboxEmail, setNewInboxEmail] = useState();
   const [isAuthorised, setIsAuthorised] = useState(true);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [nextPageToken, setNextPageToken] = useState(null);
-  const [toggleMenu, setToggleMenu] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(true);
   const dispatch = useDispatch();
-  const inboxMails = mails;
+  const [inboxMails, setInboxMails] = useState([]);
+  const [promotionMails, setPromotionMails] = useState([]);
+  const [sentMails, setSentMails] = useState([]);
   const {mode} = useParams();
+  const [sentMailNextPageToken, setSentMailNextPageToken] = useState(null);
+  
+
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     scope:
@@ -93,6 +66,7 @@ function TeacherMail() {
       try {
         await googleAuth({ code: codeResponse.code, userId: user?.id });
         setIsAuthorised(true);
+        toast.success("Login successful!", { description: "Login successful!" });
       } catch (error) {
         console.error("Authentication error:", error);
         toast.error("Authentication failed!", { autoClose: 500 });
@@ -103,13 +77,6 @@ function TeacherMail() {
       toast.error("Authentication failed!", { autoClose: 500 });
     },
   });
-
-  const promotionMails = useMemo(
-    () => mails.filter((mail) => mail?.body?.trim().startsWith("<!DOCTYPE")),
-    [mails]
-  );
-
-
 
   useEffect(() => {
     socket.emit("connected", user.id);
@@ -135,48 +102,38 @@ function TeacherMail() {
     return () => {
       socket.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    const unread = fltMails.reduce((count, M) => {
-      if (M.read === false && M.sender_id !== user?.id && M.draft !== true) {
-        count++;
-      }
-      return count;
-    }, 0);
-    console.warn(unread);
-    setNewInboxEmail(unread);
-  }, [fltMails]);
-
-  useEffect(() => {
-    async function getinboxMail() {
-      const data = await fetchAllMails(user.id);
-      if (data.status === 200) {
-        setAllMails(data.data);
-        setFltMails(data.data);
-      }
-    }
-    getinboxMail();
-  }, []);
+  }, [user.id]);
 
   useEffect(() => {
     if (isAuthorised) {
-      setGoogleLoading(true);
-      fetchInbox();
+      switch (mode) {
+        case "inbox":
+          fetchInbox();
+          break;
+        case "promotion":
+          fetchPromotion();
+          break;
+        case "sent":
+          fetchSentMail();
+          break;
+        default:
+          console.log("Unknown mode:", mode);
+      }
     } else {
       setGoogleLoading(false);
     }
-  }, [isAuthorised]);
+  }, [mode, isAuthorised]);
 
   const fetchInbox = async () => {
     if (loading) return;
+    if (mode != "inbox") return;
     setLoading(true);
     try {
-      const inbox = await getInbox({ pageToken: nextPageToken });
+      const inbox = await getInbox();
       const mailItems = inbox?.response?.data?.mails;
       const newNextPageToken = inbox?.response?.data?.nextPageToken;
       if (mailItems) {
-        setMails((prevMails) => [...prevMails, ...mailItems]);
+        setInboxMails(mailItems);
         setNextPageToken(newNextPageToken || null);
         setHasMore(!!newNextPageToken);
         setGoogleLoading(false);
@@ -194,16 +151,21 @@ function TeacherMail() {
     }
   };
 
-  const fetchMoreMails = debounce(async () => {
+  const fetchMoreMails = throttle(async () => {
     if (!hasMore || loading) return;
     setLoading(true);
     try {
       const response = await getInbox({ pageToken: nextPageToken });
       const mailItems = response?.response?.data?.mails;
       const newNextPageToken = response?.response?.data?.nextPageToken;
-
+      
       if (mailItems) {
-        setMails((prevMails) => [...prevMails, ...mailItems]);
+        setInboxMails((prevMails) => {
+          const uniqueMails = [...prevMails, ...mailItems].filter(
+            (mail, index, self) => self.findIndex((m) => m.id === mail.id) === index
+          );
+          return uniqueMails;
+        });
         setNextPageToken(newNextPageToken || null);
         setHasMore(!!newNextPageToken);
       } else {
@@ -215,7 +177,29 @@ function TeacherMail() {
     } finally {
       setLoading(false);
     }
-  }, 300); // Adjust the debounce delay as needed
+  }, 300); 
+
+  const fetchSentMail = async () => {
+
+    if (loading) return;
+    if (mode != "sent") return;
+
+    setLoading(true);
+    const { response, error } = await getSentMails({
+      pageToken: sentMailNextPageToken,
+    });
+    if (error) {
+      toast.error("Failed to get sent mails",  { description: "Failed to get sent mails"});
+    } else {
+      setSentMails && setSentMails((prevMails) => [...prevMails, ...response?.data?.mails]);
+      console.log(response?.data?.mails);
+      console.log(response?.data?.nextPageToken);
+      setSentMailNextPageToken(response?.data?.nextPageToken);
+      
+    }
+    setLoading(false);
+    setGoogleLoading(false);
+  };
 
   useEffect(() => {
     const checkUserAuthorization = async () => {
@@ -229,20 +213,6 @@ function TeacherMail() {
     checkUserAuthorization();
   }, []);
 
-  const logout = async () => {
-    const response = await logoutGoogle();
-    toast.success(response?.data.message, {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setIsAuthorised(false);
-  };
 
   useEffect(() => {
     socket.on("sendmail", (emailData) => {
@@ -258,11 +228,10 @@ function TeacherMail() {
       <>
         <div className="flex items-center justify-center h-screen">
           <div
-            className=" p-[2px] rounded-[10px] w-fit"
+            className=" p-[2px] rounded-[10px] w-fit shadow-xl  border-2 "
             style={{
               color: themeProperties.textColorAlt,
-              background:
-                "linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335)",
+              borderColor: themeProperties.googleMeetButton,
             }}
           >
             <button
@@ -284,12 +253,12 @@ function TeacherMail() {
   }
 
   return (
-    < div className=" p-2 h-full rounded-[27px] "
+    < div className=" p-1 h-full rounded-[10px] "
       style={{ background: themeProperties?.borderColor }}
 
     >
 
-      <div  className="h-full rounded-[20px] overflow-hidden "
+      <div  className="h-full rounded-[9px] overflow-hidden "
         style={{ background: themeProperties?.background }}
       
       >
@@ -317,13 +286,14 @@ function TeacherMail() {
           
               {/* <ComposeMail fltMails={fltMails} setFltMails={setFltMails} /> */}
               {mode === "inbox" && (
-                <MailInbox
-                  inboxMails={inboxMails}
+                <Mail
+                  mails={inboxMails}
                   fetchMoreMails={fetchMoreMails}
                   themeProperties={themeProperties}
                   loading={loading}
                   setLoading={setLoading}
                   fetchInbox={fetchInbox}
+                  refreshMail={fetchInbox}
                 />
               )}
 
@@ -331,7 +301,17 @@ function TeacherMail() {
                 <MailPromotion promotionMails={promotionMails} />
               )}
               {mode === "sent" && (
-                <SentMail fltMails={fltMails} setFltMails={setFltMails} />
+                
+                <Mail
+                mails={sentMails}
+                fetchMoreMails={fetchSentMail}
+                themeProperties={themeProperties}
+                loading={loading}
+                setLoading={setLoading}
+                fetchInbox={fetchSentMail}
+                refreshMail={fetchSentMail}
+              />
+
               )}
 
               {mode === "draft" && (

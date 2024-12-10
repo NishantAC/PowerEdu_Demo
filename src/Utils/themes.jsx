@@ -49,20 +49,29 @@ const themes = {
         inputTextColor: "#000000",
         logoutColor: "red",
     },
-    OceanoGreen: {
-        primaryColor: "#00bf72",
-        secondaryColor: "#143e7c",
-        normal1: "#051937",
-        normal2: "#00bf72",
-        normal3: "#00bf72",
-        background: "#FFF",
-        textColor: "#FFFFFF",
-        textColorAlt: "#000000",
-        sideBarColor: "#051937",
-        googleMeetButton : "#00bf72",
-        inputBackground: "#F8F8FF",
-        inputTextColor: "#000000",
-        logoutColor: "red",
+    Ocean: {
+      primaryColor: "#143e7c",
+      secondaryColor: "#143e7c",
+      normal1: "#051937",
+      normal2: "#143e7c",
+      normal3: "#143e7c",
+      background: "#FFF",
+      textColor: "#FFFFFF",
+      textColorAlt: "#000000",
+      sideBarColor: "#051937",
+      googleMeetButton: "#143e7c",
+      inputBackground: "#F8F8FF",
+      inputTextColor: "#000000",
+      logoutColor: "red",
+      sideBarButton: "#143e7c",
+      borderColor: "#143e7c",
+      boxBackground: "#FFF",
+      boxTextColor: "#000000",
+      toastColor: "#143e7c",
+      toastTextColor: "#FFFFFF",
+      boxHoverColor: "#e9edff",
+      boxHoverTextColor: "#000000",
+      
     },
 
     OceanBreeze: {
@@ -74,6 +83,7 @@ const themes = {
       background: "#FFF",
       textColor: "#FFFFFF",
       textColorAlt: "#000000",
+      textColorLight: "#000000",
       sideBarColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
       sideBarButton : "#ae1dc4",
       borderColor : "#b2b8ff",
@@ -84,7 +94,8 @@ const themes = {
       boxBackground:"#FFF",
       boxTextColor:"#000000",
       toastColor : "#e9cffb",
-
+      boxHoverColor : "#e9cffb",
+      boxHoverTextColor : "#000000",
 
     } , 
 
@@ -98,7 +109,7 @@ const themes = {
       background: "#FFF",
       textColor: "#FFF",
       textColorAlt: "#000000",
-      textColorLight: "rgb(107 114 128)",
+      textColorLight: "#000000",
       hoverColor : "#ececec",
       googleMeetButton: "#6A0DAD",
       inputBackground: "#FFF",
@@ -109,8 +120,10 @@ const themes = {
       borderColor : "#eed7ff",
       boxBackground:"#FFF",
       boxTextColor:"#000000",
+      toastColor : "#f0e1ff",
+      boxHoverColor : "#f0e1ff",
+      boxHoverTextColor : "#000000",
 
-      
     },
 
 

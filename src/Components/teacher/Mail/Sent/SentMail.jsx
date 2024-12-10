@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 function SentMail() {
   const [value, setValue] = useState({});
   const [sentMails, setSentMails] = useState([]);
-  console.log(sentMails,"285183562158351625352153521735215385185382157")
   const [nextPageToken, setNextPageToken] = useState("");
 
   useEffect(() => {

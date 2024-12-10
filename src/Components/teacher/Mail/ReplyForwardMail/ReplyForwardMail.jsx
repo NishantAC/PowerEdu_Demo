@@ -81,14 +81,13 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
     });
 
     if (res.status === 200) {
-      toast.success(res.data.message, { autoClose: 500 });
+      toast.success("Mail sent successfully", { description: "Your reply has been sent successfully" });
       values.content = "";
       setAttachments([]); 
       setReply(false);
-      toast("Mail sent successfully", { description: "Your reply has been sent successfully" });
       
     } else {
-      toast.error(res.data.message, { autoClose: 500 });
+      toast.error("Mail not sent", { description: "There was an error sending the mail" });
     }
     setLoading(false);
     setSubmitting(false);

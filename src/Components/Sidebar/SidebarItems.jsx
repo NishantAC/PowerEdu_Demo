@@ -1,6 +1,15 @@
 import { FaSignOutAlt, FaHome, FaUser, FaEnvelope, FaBook, FaBus, FaSchool, FaMoneyBill, FaBell, FaCalendarAlt , FaAngleDown,} from "react-icons/fa";
 import { MdAssignment } from "react-icons/md"; 
- 
+
+const getLastMailPath = () => {
+  const mailPath = localStorage.getItem("mailPath");
+  if (!mailPath) {
+    localStorage.setItem("mailPath", "/mail/inbox");
+  }
+  return mailPath;
+}
+
+
  const sidebarItems = {
   Admin: [
     { name: "Home", route: "/admin/home", icon: FaHome, child: [] },
@@ -16,7 +25,7 @@ import { MdAssignment } from "react-icons/md";
       ],
     },
     { name: "Calendar", route: "/admin/calendar", icon: FaCalendarAlt, child: [] },
-    { name: "Mail", route: "/admin/mail/inbox", icon: FaEnvelope, child: [] },
+    { name: "Mail", route: `/admin${getLastMailPath()}`, icon: FaEnvelope, child: [] },
     { name: "Subjects", route: "/admin/subjects", icon: FaBook, child: [] },
     { name: "Transport", route: "/admin/transport", icon: FaBus, child: [] },
     {

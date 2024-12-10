@@ -107,7 +107,7 @@ function Navbar() {
 
     <div
       ref={navbarRef}
-      className="rounded-[20px] mt-2 p-1 max-md:py-2 shadow-lg mb-4 relative overflow-hidden"
+      className="rounded-[14px] shadow-lg relative overflow-hidden h-full"
       style={{
         background: themeProperties?.secondaryColor,
         color: themeProperties?.textColor,
