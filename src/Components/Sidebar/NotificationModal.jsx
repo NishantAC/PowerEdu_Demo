@@ -141,7 +141,7 @@ const NotificationModal = () => {
 
            }}
           >
-            <LuBell size={25}  />
+            <LuBell size={20}  />
             {newNotification && <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full" />}
           </div>
         </PopoverTrigger>

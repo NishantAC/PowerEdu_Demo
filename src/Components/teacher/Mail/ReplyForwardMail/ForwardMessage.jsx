@@ -77,8 +77,7 @@ function ForwardMessage({ email, attachments, setAttachments, themeProperties , 
   };
 
   const submitForward = async (values) => {
-    // send the body of the mail
-    const res = await forwardMail({ ...email, recipient: selectedId, attachments, body: email.body , threadId : email.threadId, subject: email.subject, recipient: values.recipient });
+    const res = await forwardMail({ ...email,  attachments, body: email.body , threadId : email.threadId, subject: email.subject, recipient: values.recipient });
     if (res.response.status === 200) {
       toast("Mail forwarded successfully", {description: "Mail has been forwarded to the recipient", type: "success"});
     } else {

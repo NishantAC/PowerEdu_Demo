@@ -15,7 +15,14 @@ const themes = {
         inputBackground: "#FFF",
         inputTextColor: "#000000",
         logoutColor: "red",
-
+        sideBarButton: "#6A0DAD",
+        borderColor: "#D8BFD8",
+        boxBackground: "#F8F8FF",
+        boxTextColor: "#000000",
+        toastColor: "#6A0DAD",
+        toastTextColor: "#FFFFFF",
+        boxHoverColor: "#E6E6FA",
+        boxHoverTextColor: "#000000",
      },
      ColdCrust: {
        primaryColor: "#457B9D",
@@ -23,16 +30,22 @@ const themes = {
        normal1: "#457B9D",
        normal2: "#1D3557",
        normal3: "#457B9D",
-        background: "#FFF",
-        textColor: "#FFF",
-        textColorAlt: "#000000",
-        sideBarColor: "#A8DADC",
-        googleMeetButton: "#457B9D",
-        inputBackground: "#FFF",
-        inputTextColor: "#000000",
-        logoutColor: "red",
-
-
+      background: "#FFF",
+      textColor: "#FFF",
+      textColorAlt: "#000000",
+      sideBarColor: "#A8DADC",
+      googleMeetButton: "#457B9D",
+      inputBackground: "#FFF",
+      inputTextColor: "#000000",
+      logoutColor: "red",
+      sideBarButton: "#457B9D",
+      borderColor: "#A8DADC",
+      boxBackground: "#FFF",
+      boxTextColor: "#000000",
+      toastColor: "#457B9D",
+      toastTextColor: "#FFFFFF",
+      boxHoverColor: "#E0F7FA",
+      boxHoverTextColor: "#000000",
      },
     FunkyYellow: {
         primaryColor: "#FFD700",
@@ -48,6 +61,14 @@ const themes = {
         inputBackground: "#FFF8DC",
         inputTextColor: "#000000",
         logoutColor: "red",
+        sideBarButton: "#FFD700",
+        borderColor: "#FFA500",
+        boxBackground: "#FFF8DC",
+        boxTextColor: "#000000",
+        toastColor: "#FFD700",
+        toastTextColor: "#FFFFFF",
+        boxHoverColor: "#FFFACD",
+        boxHoverTextColor: "#000000",
     },
     Ocean: {
       primaryColor: "#143e7c",
@@ -130,4 +151,3 @@ const themes = {
    };
    
    export default themes;
-   

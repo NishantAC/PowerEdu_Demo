@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 import { IoPrint } from "react-icons/io5";
 import DeleteModal from "../Deleted/DeleteModal";
 import ReplyForwardMail from "../ReplyForwardMail/ReplyForwardMail";
@@ -24,13 +25,11 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
     <div className="h-full">
       <div className="flex items-center space-x-8 justify-end pr-10 py-2">
         <div className="relative group cursor-pointer">
-          <CiStar
-            size={25}
-            className="cursor-pointer"
-            color={messageData.isFavourite ? "yellow" : "black"}
-          />
+          {
+            messageData.isStarred ? ( <FaStar size={25} className="cursor-pointer" color="#ff7803" />) : ( <CiStar size={25} className=" cursor-pointer" color="black" />)
+          }
           <div className="absolute left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-gray-700 text-white text-xs p-1 rounded-md transition-opacity">
-            Favourites
+            Starred
           </div>
         </div>
 

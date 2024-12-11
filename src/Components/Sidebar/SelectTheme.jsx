@@ -30,17 +30,17 @@ const SelectTheme = () => {
     <div className="p-4">
       <Drawer>
         <DrawerTrigger
-          className="w-10 h-10 rounded-full border-2 shadow-lg transition-transform transform hover:scale-110 flex items-center justify-center"
+          className=" p-2 rounded-full flex items-center justify-center"
           style={{
-            background: `linear-gradient(145deg, ${themes[currentTheme].primaryColor}, ${themes[currentTheme].secondaryColor})`,
+            background: themes[currentTheme].primaryColor,  
           }}
         >
-          <SunIcon size={28} className="text-white" />
+          <SunIcon size={20} className="text-white" />
         </DrawerTrigger>
         <DrawerContent
           className="min-h-[80vh] min-w-[60vw] rounded-lg p-6 "
           style={{
-            background: themes[currentTheme].secondaryColor
+            background: themes[currentTheme].secondaryColor,
           }}
         >
           <DrawerHeader className="text-center mb-6">
