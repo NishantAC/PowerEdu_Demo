@@ -62,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,loading}) {
+function Mail({ mails, fetchMails, themeProperties, setLoading,loading, type}) {
   const [value, setValue] = useState({});
   const [selectedMail, setSelectedMail] = useState(null); // State for selected mail
   const scrollRef = useRef(null);
@@ -75,15 +75,16 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
 
   const refresh = () => {
     setDisableRefresh(true);
-    toast.info("Refreshing", { description: "Refreshing your inbox" });
+    toast.info("Refreshing", { description: "Refreshing your "  + type +" mails"});
     setRefreshLoading(true);
-    setSelectedMail(null);
+    setSelectedMail();
     setValue({});
-    refreshMail().then(() => {
+    fetchMails(true).then(() => {
       console.log("Refreshed");
       setRefreshLoading(false);
-      toast.success("Refreshed", { description: "Your inbox has been refreshed" });
+      toast.success("Refreshed", { description:` Your ${type} mails has been refreshed"` });
       setDisableRefresh(false);
+      openMsg(mails[0]);
     }).catch(() => { 
       setRefreshLoading(false);
       toast.error("Failed to refresh", { description: "Please try again" });
@@ -102,7 +103,7 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
           console.log("Reached bottom");
           if (loading) { return; }
           
-          fetchMoreMails();
+          fetchMails(false);
           setLoading(true);
         }
       }
@@ -118,12 +119,15 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
         scrollElement.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [fetchMoreMails, loading, mails, setLoading]);
+  }, []);
 
   const extractName = (from) => {
     const match = from.match(/^(.*?)\s*</);
     return match ? match[1] : from;
   };
+
+  const uniqueMails = Array.from(new Set(mails.map(mail => mail.id)))
+    .map(id => mails.find(mail => mail.id === id));
 
   return (
     <ResizablePanelGroup direction="horizontal">
@@ -180,7 +184,7 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
             </>
           ) : (
             <div className="">
-              {mails && Object.values(mails).map((mail, index) => (
+              {uniqueMails && Object.values(uniqueMails).map((mail, index) => (
                 
                 <button
                   key={index}
@@ -198,7 +202,7 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
                     borderRadius: "10px",
                     border: "1px solid #e5e5e5",
                     "--hover-color": themeProperties?.textColor,
-                    "--hover-bg": themeProperties?.normal2,
+                    "--hover-bg": themeProperties?.normal1,
                   }}
                 >
                   <style> 
@@ -216,14 +220,14 @@ function Mail({ mails, fetchMoreMails, themeProperties, setLoading ,refreshMail,
                   <div className="w-full text-left p-3">
                     <div className="flex overflow-hidden whitespace-nowrap text-ellipsis">
                       <h4 className="font-medium text-sm mt-1">
-                        {extractName(mail.from)}
+                        {extractName(mail?.from)}
                       </h4>
                       <span className="text-xs ml-auto self-center font-light">
-                        {getTime(mail.date)}
+                        {getTime(mail?.date)}
                       </span>
                     </div>
                     <p className="font-light text-[10px] overflow-hidden whitespace-nowrap text-ellipsis">
-                      {mail.subject}
+                      {mail?.subject} - {mail?.snippet}
                     </p>
                   </div>
                 </button>

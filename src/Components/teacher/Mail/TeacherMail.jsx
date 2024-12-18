@@ -3,10 +3,8 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Mail from "./Inbox/MailInbox";
-import ComposeMail from "./ComposeMail/ComposeMail";
-import DraftMail from "./Draft/DraftMail";
-import DeletedMail from "./Deleted/DeletedMail";
-import FavouriteMail from "./Favourites/FavouriteMail";
+// import ComposeMail from "./ComposeMail/ComposeMail";
+// import FavouriteMail from "./Favourites/FavouriteMail";
 import io from "socket.io-client";
 import GoogleImage from "../../../assets/images/Google.png";
 import {
@@ -15,6 +13,10 @@ import {
   googleAuth,
   getInbox,
   logoutGoogle,
+  getDraftMails,
+  getTrashMails,
+  getStarred,
+  getSentMails
 } from "../../../services/mail.service";
 import { socketUrl } from "../../../common/socketLink";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -26,7 +28,7 @@ import debounce from "lodash.debounce";
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import { throttle } from "lodash";
-import { getSentMails } from "../../../services/mail.service";
+import "./TeacherMail.css"
 
 export const socket = io(socketUrl, {
   transports: ["websocket"],
@@ -53,8 +55,19 @@ function TeacherMail() {
   const [inboxMails, setInboxMails] = useState([]);
   const [promotionMails, setPromotionMails] = useState([]);
   const [sentMails, setSentMails] = useState([]);
+  const [draftMails, setDraftMails] = useState([]);
+  const [deletedMails, setDeletedMails] = useState([]);
+  const [starredMails, setStarredMails] = useState([]);
   const {mode} = useParams();
   const [sentMailNextPageToken, setSentMailNextPageToken] = useState(null);
+  const [hasMoreSent, setHasMoreSent] = useState(true);
+  const [draftMailNextPageToken, setDraftMailNextPageToken] = useState(null);
+  const [hasMoreDraft, setHasMoreDraft] = useState(true);
+  const [deletedMailNextPageToken, setDeletedMailNextPageToken] = useState(null);
+  const [hasMoreDeleted, setHasMoreDeleted] = useState(true);
+  const [starredMailNextPageToken, setStarredMailNextPageToken] = useState(null);
+  const [hasMoreStarred, setHasMoreStarred] = useState(true);
+  // const [refresh, setRefresh] = useState(false)
   
 
   const googleLogin = useGoogleLogin({
@@ -116,58 +129,44 @@ function TeacherMail() {
         case "sent":
           fetchSentMail();
           break;
+        case "draft":
+          fetchDraftMail();
+          break;
+        case "trash":
+          fetchDeletedMail();
+          break;
+        case "starred":
+          fetchStarred();
+          break;
+        
         default:
           console.log("Unknown mode:", mode);
       }
     } else {
-      setGoogleLoading(false);
+      setGoogleLoading(false);3
     }
   }, [mode, isAuthorised]);
 
-  const fetchInbox = async () => {
-    if (loading) return;
+
+  const fetchInbox = async (refresh) => {
+    if (!hasMore || loading) return;
     if (mode != "inbox") return;
     setLoading(true);
     try {
-      const inbox = await getInbox();
-      const mailItems = inbox?.response?.data?.mails;
-      const newNextPageToken = inbox?.response?.data?.nextPageToken;
-      if (mailItems) {
-        setInboxMails(mailItems);
-        setNextPageToken(newNextPageToken || null);
-        setHasMore(!!newNextPageToken);
-        setGoogleLoading(false);
-      } else {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error("Error fetching emails:", error);
-      toast.error("Failed to fetch emails. Please try again.", {
-        autoClose: 500,
-      });
-      setHasMore(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchMoreMails = throttle(async () => {
-    if (!hasMore || loading) return;
-    setLoading(true);
-    try {
-      const response = await getInbox({ pageToken: nextPageToken });
+      const response = await getInbox({ pageToken: refresh ? null : nextPageToken });
       const mailItems = response?.response?.data?.mails;
       const newNextPageToken = response?.response?.data?.nextPageToken;
-      
-      if (mailItems) {
-        setInboxMails((prevMails) => {
-          const uniqueMails = [...prevMails, ...mailItems].filter(
-            (mail, index, self) => self.findIndex((m) => m.id === mail.id) === index
-          );
-          return uniqueMails;
-        });
+
+      if (response?.response?.status === 200) {
+        if (refresh ){
+          setInboxMails(mailItems); 
+        }
+        else {3
+        setInboxMails && setInboxMails((prevMails) => [...prevMails, ...mailItems]);
+        }
         setNextPageToken(newNextPageToken || null);
         setHasMore(!!newNextPageToken);
+
       } else {
         setHasMore(false);
       }
@@ -176,30 +175,124 @@ function TeacherMail() {
       setHasMore(false);
     } finally {
       setLoading(false);
+      setGoogleLoading(false);
     }
-  }, 300); 
+  }
 
-  const fetchSentMail = async () => {
-
+  const fetchSentMail = async (refresh) => {
     if (loading) return;
     if (mode != "sent") return;
-
+    if (!hasMoreSent ) return;
     setLoading(true);
     const { response, error } = await getSentMails({
-      pageToken: sentMailNextPageToken,
+      pageToken: refresh ? null : sentMailNextPageToken,
     });
     if (error) {
       toast.error("Failed to get sent mails",  { description: "Failed to get sent mails"});
     } else {
+      if ( response.message == "No messages in sent"){
+        toast.info("No messages in sent",  { description: "You have not sended any messages yet"});
+        setLoading(false);
+        setGoogleLoading(false);
+        setDeletedMails([]);
+        return;
+      }
+      if ( refresh ){
+        setSentMails(response?.data?.mails);
+      }
+      else {
       setSentMails && setSentMails((prevMails) => [...prevMails, ...response?.data?.mails]);
-      console.log(response?.data?.mails);
-      console.log(response?.data?.nextPageToken);
+      }
       setSentMailNextPageToken(response?.data?.nextPageToken);
+      setHasMoreSent(!!response?.data?.nextPageToken);
       
     }
     setLoading(false);
     setGoogleLoading(false);
   };
+
+  const fetchDraftMail = async (refresh) => {
+    if (loading) return;
+    if (mode != "draft") return;
+    if (!hasMoreDraft) return;
+    setLoading(true);
+    const { response, error } = await getDraftMails({ pageToken: refresh ? null : draftMailNextPageToken });
+    if (error) {
+      toast.error("Failed to get draft mails",  { description: "Failed to get draft mails"});
+    }
+    if ( response.message == "No messages in draft"){
+      toast.info("No messages in draft",  { description: "You have no messages in your draft"});
+      setLoading(false);
+      setGoogleLoading(false);
+      setDeletedMails([]);
+      return;
+    }
+    if( refresh ){
+      setDraftMails(response?.data?.mails);
+    }else{
+    setDraftMails && setDraftMails((prevMails) => [...prevMails, ...response?.data?.mails]);
+    }
+    setDraftMailNextPageToken(response?.data?.nextPageToken);
+    setHasMoreDraft(!!response?.data?.nextPageToken);
+    setLoading(false);
+    setGoogleLoading(false);
+  };
+
+  const fetchStarred = async (refresh) => {
+    if (loading) return;
+    if (mode != "starred") return;
+    if (!hasMoreStarred) return;
+    setLoading(true);
+    const { response, error } = await getStarred ({ pageToken: refresh ? null : starredMailNextPageToken });
+    if (error) {
+      toast.error("Failed to get starred mails",  { description: "Failed to get starred mails"});
+    }
+    if ( response.message == "No messages in starred"){
+      toast.info("No messages in starred",  { description: "You have no starred messages"});
+      setLoading(false);
+      setGoogleLoading(false);
+      setDeletedMails([]);
+      return;
+    }
+    if (refresh){
+      setStarredMails(response?.data?.mails);
+    }else{
+    setStarredMails && setStarredMails((prevMails) => [...prevMails, ...response?.data?.mails]);
+    } 
+    setStarredMailNextPageToken(response?.data?.nextPageToken);
+    setHasMoreStarred(!!response?.data?.nextPageToken);
+    setLoading(false);
+    setGoogleLoading(false);
+  };
+const fetchDeletedMail = async (refresh) => {
+
+  if (loading) return;
+  if (mode != "trash") return;
+  if (!hasMoreDeleted) return;
+  setLoading(true);
+  const { response, error } = await getTrashMails({ pageToken: refresh ? null : deletedMailNextPageToken });
+  if (error) {
+    toast.error("Failed to get deleted mails",  { description: "Failed to get deleted mails"});
+  }
+  if ( response.message == "No messages in trash"){
+    toast.info("No messages in trash",  { description: "You have no messages in your trash"});
+    setLoading(false);
+    setGoogleLoading(false);
+    setDeletedMails([]);
+    return;
+  }
+  if (refresh){
+    setDeletedMails(response?.data?.mails);
+  }else{
+  setDeletedMails && setDeletedMails((prevMails) => [...prevMails, ...response?.data?.mails]);
+  }
+  setDeletedMailNextPageToken(response?.data?.nextPageToken);
+  setHasMoreDeleted(!!response?.data?.nextPageToken);
+  setLoading(false);
+  setGoogleLoading(false);
+  
+      
+};
 
   useEffect(() => {
     const checkUserAuthorization = async () => {
@@ -288,12 +381,12 @@ function TeacherMail() {
               {mode === "inbox" && (
                 <Mail
                   mails={inboxMails}
-                  fetchMoreMails={fetchMoreMails}
+                  fetchMails={fetchInbox}
                   themeProperties={themeProperties}
                   loading={loading}
                   setLoading={setLoading}
-                  fetchInbox={fetchInbox}
-                  refreshMail={fetchInbox}
+                  type = "Inbox"
+
                 />
               )}
 
@@ -304,25 +397,47 @@ function TeacherMail() {
                 
                 <Mail
                 mails={sentMails}
-                fetchMoreMails={fetchSentMail}
+                fetchMails={fetchSentMail}
                 themeProperties={themeProperties}
                 loading={loading}
                 setLoading={setLoading}
-                fetchInbox={fetchSentMail}
-                refreshMail={fetchSentMail}
+                type = "Sent"
               />
 
               )}
 
               {mode === "draft" && (
-                <DraftMail fltMails={fltMails} setFltMails={setFltMails} />
+                <Mail 
+                mails={draftMails}
+                fetchMails={fetchDraftMail}
+                themeProperties={themeProperties}
+                loading={loading}
+                setLoading={setLoading}
+                type = "Draft"
+                />
               )}
 
-              {mode === "deleted" && (
-                <DeletedMail fltMails={fltMails} setFltMails={setFltMails} />
+              {  mode === "trash" &&  (
+                <>
+                <Mail 
+                mails={deletedMails}
+                fetchMails={fetchDeletedMail}
+                themeProperties={themeProperties}
+                loading={loading}
+                setLoading={setLoading}
+                type = "Deleted"
+                />
+                </>
               )}
-              {mode === "favourite" && (
-                <FavouriteMail fltMails={fltMails} setFltMails={setFltMails} />
+              {mode === "starred" && (
+                <Mail 
+                mails={starredMails}
+                fetchMails={fetchStarred}
+                themeProperties={themeProperties}
+                loading={loading}
+                setLoading={setLoading}
+                type = "Starred"
+                />
               )}
         </div>
       )}

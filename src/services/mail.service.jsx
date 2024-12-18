@@ -99,11 +99,15 @@ export const forwardMail = async (body) => {
   }
 };
 
-export const createStarred = async (body) => {
+export const addStarred = async (id) => {
   try {
-    const response = await axios.post(`${API_URL}add-starred`, body, {
+    const response = await axios.post(`${API_URL}add-starred`, 
+      
+      { id }
+      , {
       headers: authHeader(),
       withCredentials: true,
+      
     });
     return response;
   } catch (error) {
@@ -253,7 +257,7 @@ export const fetchAllFavMail = async (id) => {
 
 export const deleteMail = async (id) => {
   try {
-    const response = await axios.put(`${API_URL}deletemail/${id}`);
+    const response = await axios.put(`${API_URL}delete-mail/${id}`);
     return response;
   } catch (error) {
     console.error(error);

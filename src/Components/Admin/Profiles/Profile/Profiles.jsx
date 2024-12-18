@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Profiles.css";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WestIcon from "@mui/icons-material/West";
@@ -7,8 +6,6 @@ import { Link } from "react-router-dom";
 import ProfileTable from "./ProfileTable";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-
-
 import {
   fetchAllAccountant,
   fetchAllPrincipal,
@@ -21,6 +18,19 @@ import { getDropdownClasses } from "../../../../slices/principal";
 import useDebounce from "../../../../Utils/debounce";
 import StudentService from "../../../../services/student.service";
 import SchoolUsersService from "../../../../services/schoolusers.service";
+import { selectThemeProperties } from "@/slices/theme";
+import SearchBarComponent from "@/Components/SearcBar/SearchBar";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+ 
 
 function Profiles() {
   const [profileType, setProfileType] = useState("teachers");
@@ -29,6 +39,7 @@ function Profiles() {
   const [searchTerm, setSearchTerm] = useState(""); // Search term state
   const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce delay
   const { allStudents, total: totalStudents } = useSelector((state) => state.student);
+  const themeProperties = useSelector(selectThemeProperties);
 
   useEffect(() => {
     const pathParts = location.pathname.split("/");
@@ -268,34 +279,10 @@ function Profiles() {
 
   return (
     <div className="studentattendance p-4">
-      <nav className="flex justify-between items-center h-5">
-        {/* left area */}
-        <div className="flex items-center text-gray-700">
-          <div className="font-roboto text-lg font-normal">Home</div>
-          <KeyboardArrowRightIcon />
-          <div className="font-roboto text-lg font-bold underline">
-            {profileType === "students"
-              ? "Students"
-              : profileType === "teachers"
-              ? "Teachers"
-              : profileType === "principal"
-              ? "Principal"
-              : "Staff"}
-          </div>
-        </div>
-
-        {/* right area */}
-        <Link to="/home" className="no-underline">
-          <div className="flex items-center cursor-pointer">
-            <WestIcon className="text-gray-600" />
-            <div className="font-roboto font-medium text-2xl tracking-wider text-gray-700">
-              Back
-            </div>
-          </div>
-        </Link>
-      </nav>
       <div>
-        <h3 className="font-poppins font-semibold mt-8 text-2xl">
+        <h3 className="font-semibold mt-8 text-2xl"
+          style={{ color: themeProperties?.textColorAlt }}
+        >
           {`${
             profileType === "students"
               ? "Student"
@@ -308,55 +295,76 @@ function Profiles() {
         </h3>
       </div>
       <br />
-      <div className="flex justify-between items-center flex-wrap gap-2.5">
+      <div className="flex flex-row-reverse justify-between items-center flex-wrap gap-2.5">
         <div className="filtersContainer">
-          <p className="font-rubik font-medium text-xl text-black my-auto">
-            Filters:-
+          <p className=" font-medium text-xl text-black my-auto">
+            Filters:
           </p>
-          <div className="filters">
-            <select
+          <div className="flex gap-4">
+            <Select
               value={academicYearFilter}
-              onChange={(e) => {
-                setAcademicYearFilter(e.target.value);
-              }}
-              className="rounded-md text-lg p-1.5 text-gray-700"
+              onValueChange={setAcademicYearFilter}
+              style = {{color: themeProperties?.textColorAlt}}
             >
-              {academicYearsDropdown?.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger className="w-[140px]"
+              style = {{color: themeProperties?.textColorAlt}}
+              >
+                <SelectValue placeholder="Select an academic year">
+                  {academicYearFilter}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel className=" font-normal">Academic Year</SelectLabel>
+                  {academicYearsDropdown?.map((year) => (
+                    <SelectItem key={year} value={year}>
+                      {year}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
 
             {profileType === "students" && (
-              <select
-                value={classFilter}
-                onChange={(e) => setClassFilter(e.target.value)}
-                className="rounded-md text-lg p-1.5 text-gray-700"
+              <Select value={classFilter} onValueChange={setClassFilter}
+              style = {{color: themeProperties?.textColorAlt}}
               >
-                {classes?.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger className="w-[140px]" 
+                style ={{color: themeProperties?.textColorAlt}}
+                >
+                  <SelectValue placeholder="Select a class" >
+                    {classFilter}
+                  </SelectValue>
+
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel className= " font-normal">Classes</SelectLabel>
+                    {classes?.map((c) => (
+                      <SelectItem key={c} value={c}>
+                        {c}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             )}
             <button
-              className="stdntAttndnceApplyBtn"
+              className="rounded-md text-white p-1.5 text-lg"
+              style = {{background: themeProperties?.primaryColor}}
               onClick={handleApplyFilter}
             >
               Apply
             </button>
           </div>
         </div>
-        <div className="searchBar flex items-center">
-          <SearchRoundedIcon />
-          <input
-            type="text"
-            onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
-            placeholder="Search by Rekor Id"
-            className="ml-2 p-1.5 rounded-md border border-gray-300"
-          />
+        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative">
+            <SearchBarComponent
+              searchString={searchTerm}
+              setSearchString={setSearchTerm}
+              handleChange={(e) => setSearchTerm(e.target.value)}
+            />
         </div>
       </div>
 

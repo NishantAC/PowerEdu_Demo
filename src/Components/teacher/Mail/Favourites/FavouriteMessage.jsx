@@ -2,7 +2,7 @@ import React from 'react';
 ;
 import { getCurrentTime } from '../../../../common/Time';
 import DOMPurify from 'dompurify';
-import AttachmentLink from '../Sent/AttachmentLink';
+// import AttachmentLink from '../Sent/AttachmentLink';
 
 function FavouriteMessage({ messageData }) {
   const sanitizedHtml = DOMPurify.sanitize(messageData.body);
@@ -31,8 +31,7 @@ function FavouriteMessage({ messageData }) {
         }
       </div>
       <br />
-      <ul className={styles.attachments}>
-        {/* Attachments */}
+      {/* <ul className={styles.attachments}>
         {messageData.attachments.length > 0 && 
           messageData.attachments.map((file,i) => (
             <ul key={i} className={styles.attachments}>
@@ -40,7 +39,7 @@ function FavouriteMessage({ messageData }) {
             </ul>
           ))
         }
-      </ul>
+      </ul> */}
     </div>
   )
 }

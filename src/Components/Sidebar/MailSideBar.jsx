@@ -12,6 +12,8 @@ import { RiSpam2Fill } from "react-icons/ri";
 import {  FaAngleDown } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { logoutGoogle } from "@/services/mail.service";
+import { FaStar, FaInbox } from "react-icons/fa";
+import { LuMails } from "react-icons/lu";
 
 import {
   Popover,
@@ -23,12 +25,13 @@ import {toast } from "sonner";
 import { Skeleton } from "@mui/material";
 
 const MailItems = [
-  { name: "Inbox", route: "/mail/inbox", icon: FaEnvelope },
+  { name: "Inbox", route: "/mail/inbox", icon: FaInbox },
   { name: "Sent", route: "/mail/sent", icon: SiMinutemailer },
   { name: "Draft", route: "/mail/draft", icon: IoDocument },
   { name: "Trash", route: "/mail/trash", icon: MdDelete },
-  { name: "Compose", route: "/mail/compose", icon: IoPencil },
+  { name: "All Mails", route: "/mail/all-mails", icon: FaEnvelope },
   { name: "Promotion", route: "/mail/promotion", icon: RiSpam2Fill },
+  { name: "Starred", route: "/mail/starred", icon: FaStar },  
 ];
 
 const logout = async () => {
@@ -89,11 +92,14 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
       </div>
         </PopoverTrigger>
 
-        <PopoverContent className="shadow-2xl p-0 w-full relative left-10 rounded-[20px] overflow-hidden">
-          <div className="shadow-lg rounded- overflow-hidden outline-none w-96 bg-white">
+        <PopoverContent className="shadow-2xl w-full p-0  relative left-10 -top-9 rounded-[20px] overflow-hidden outline-none border-0"
+        >
+          <div className="shadow-lg overflow-hidden outline-none w-96 bg-white">
             <div className="flex flex-col items-center p-6 border-b"
               style={{ backgroundColor: themeProperties.primaryColor , 
-                color: themeProperties.textColor
+                color: themeProperties.textColor, 
+                outline: themeProperties.primaryColor 
+                
               }}
             >
               <div className="relative">
@@ -152,6 +158,7 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
             </div>
           </div>
         </PopoverContent>
+        
         </Popover>
 
 
