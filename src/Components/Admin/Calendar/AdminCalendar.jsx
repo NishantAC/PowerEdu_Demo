@@ -256,6 +256,7 @@ const renderCells = () => {
           <StyledDay
             isSelected={isSameDay(day, selectedDate)}
             isToday={isSameDay(day, new Date())}  
+
             isCurrentMonth={isSameMonth(day, monthStart)}
             hasEvents={dayEvents?.length > 0}
             onClick={() => setSelectedDate(currentDay)}
