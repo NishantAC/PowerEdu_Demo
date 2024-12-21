@@ -32,6 +32,7 @@ import { getGoogleEvents } from "../../../slices/calendar";
 import HolidayEvents from "./HolidayEvents";
 import AddEventModal from "./AddEventModal";
 import SchoolEvents from "./SchoolEvents";
+import { selectThemeProperties } from "@/slices/theme";
 import "./AdminCalendar.css";
 
 
@@ -113,6 +114,7 @@ function AdminCalendar() {
   const [open, setOpen] = useState(false);
   const [holiday, setHoliday] = useState(null);
   const [editData, setEditData] = useState(null);
+  const themeProperties = useSelector(selectThemeProperties);
 
   const dispatch = useDispatch();
   const { googleEvents } = useSelector((state) => state.calendarSlice);
@@ -253,7 +255,7 @@ const renderCells = () => {
         <Grid item xs key={day.toString()}>
           <StyledDay
             isSelected={isSameDay(day, selectedDate)}
-            isToday={isSameDay(day, new Date())}
+            isToday={isSameDay(day, new Date())}  
             isCurrentMonth={isSameMonth(day, monthStart)}
             hasEvents={dayEvents?.length > 0}
             onClick={() => setSelectedDate(currentDay)}
