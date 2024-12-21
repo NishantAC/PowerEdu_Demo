@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDropdownClasses } from "../../../slices/principal";
 import { Box, Modal } from "@mui/material";
-import "./AddEventModal.css";
 import CalendarServices from "../../../services/calendar.service";
 import { toast } from "react-toastify";
 
