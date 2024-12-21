@@ -108,7 +108,11 @@ function Navbar() {
         color: themeProperties?.textColor,
       }}
     >
-      <div className="flex items-center rounded-[10px] w-full justify-between px-4 bg-white">
+      <div className="flex items-center rounded-[10px] w-full justify-between px-4"
+        style={{
+          background: themeProperties?.sideBarColor
+        }}
+      >
         <div className="flex items-center gap-4 md:gap-10">
           <div className="flex items-center justify-center">
             <img src={logo} loading="lazy" alt="logo" className="object-cover w-10 h-10" />

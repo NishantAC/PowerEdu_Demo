@@ -215,10 +215,10 @@ function Information() {
   const themeProperties = useSelector(selectThemeProperties);
 
   return (
-    <div className=" max-xl:max-w-4/5 max-xl:mt-10 relative">
-      <div className={`flex max-xl:flex-col-reverse flex-row gap-10 justify-around items-center  max-xl:py-4 mb-2 rounded-[20px]`}
+    <div className=" max-xl:max-w-4/5 max-xl:mt-10 relative flex flex-col gap-2 h-full" >
+      <div className={`flex h-[10%] max-xl:flex-col-reverse flex-row gap-10 justify-around items-center max-xl:py-4 rounded-[20px]`}
         style={{
-          background: themeProperties.secondaryColor,
+          background: themeProperties.borderColor,
         }}
       >
         <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative" ref={searchRef}>
@@ -249,19 +249,43 @@ function Information() {
             </Toolbar>
           </Box>
           {showDropdown && options.length > 0 && (
-            <div className="p-[4px] absolute top-14 z-[100] w-full rounded-[20px] shadow-lg"
+            <div className="p-[4px] absolute scrolling top-14 z-[100] w-full rounded-[20px] shadow-2xl overflow-hidden"
               style={{
-                background: themeProperties.textColor,
+                background: themeProperties.boxBackground,
               }}
             >
-              <ul className="list-none p-0 m-0 bg-[white] w-full overflow-y-auto scrolling z-10 max-h-60 shadow-2xl rounded-[20px] backdrop-blur-lg">
+              <ul className="list-none p-0 m-0 w-full overflow-y-auto scrolling h-60 rounded-[18px] outline-none"
+              style={{
+                background: themeProperties?.borderColor
+
+              }}
+              >
                 {options.map((option, index) => (
                   <li
                     key={index}
                     onClick={() => handleOptionClick(option)}
-                    className="p-2 cursor-pointer hover:bg-gray-200 text-[14px] font-thin"
-                    style={{ color: themeProperties?.textColorAlt }}
+                    className="p-2 px-4 cursor-pointer text-[14px] font-thin "
+                    style={{ 
+                      "--hover-bg": themeProperties.boxHoverColor,
+                      "--hover-text": themeProperties.boxHoverTextColor,
+                     }}
                   >
+
+                    <style>
+                      {`
+                        .scrolling::-webkit-scrollbar-thumb {
+                          background: ${themeProperties.scrollColor};
+                        }
+                        li{
+                         color: ${themeProperties?.textColor},
+                        } 
+                        li:hover {
+                          background: var(--hover-bg);
+                          color: var(--hover-text);
+                        }
+                      `}
+                    </style>
+
                     {option.user_id}
                   </li>
                 ))}
@@ -287,7 +311,10 @@ function Information() {
           />
         </div>
       </div>
+      <div className=" h-[88.5%] ">
       <UserAndCirculars newlyAddedUsersArray={newlyAddedUsersArray} deviceSize={deviceSize} />
+
+      </div>
     </div>
   );
 }

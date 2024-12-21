@@ -46,8 +46,8 @@ const StatsAndCharts = ({
               onClick={() => handleOpenModal("stats")}
               className="flex items-center gap-2 text-nowrap px-4 py-3 rounded-[10px] w-full md:w-auto"
               style={{
-                background: themeProperties.textColor,
-                color: themeProperties.textColorAlt,
+                background: themeProperties.boxBackground,
+                color: themeProperties.textColor,
                 boxShadow: "0 0 10px rgba(0,0,0,0.2)",
               }}
             >
@@ -116,8 +116,8 @@ const StatsAndCharts = ({
               onClick={() => handleOpenModal("calendar")}
               className="flex items-center gap-2 text-nowrap px-4 py-3 rounded-[10px] w-full md:w-auto"
               style={{
-                background: themeProperties.textColor,
-                color: themeProperties.textColorAlt,
+                background: themeProperties.boxBackground,
+                color: themeProperties.textColor,
                 boxShadow: "0 0 10px rgba(0,0,0,0.2)",
               }}
             >

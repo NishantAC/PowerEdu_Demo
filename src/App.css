@@ -76,21 +76,32 @@ body{
 }
 
 .scroller::-webkit-scrollbar {
-  width: 0px;
+  width: 10px;
 }
 
 .scroller::-webkit-scrollbar-thumb {
-  background: transparent;
+  background: #2d53ff;
 }
 
 .scroller::-webkit-scrollbar-track {
-  background: transparent;
+  background: black;
 }
 
 .animate-spin {
   animation: spin 1s linear infinite;
-  
+}   
+
+.scrollBar::-webkit-scrollbar {
+  width: 10px;
 }
+.scrollBar::-webkit-scrollbar-thumb {
+  background: #2d53ff;
+}
+.scrollBar::-webkit-scrollbar-track {
+  background: black;
+}
+
+
 
 @keyframes spin {
   0% {

@@ -1,8 +1,3 @@
-/* .information-grid {
-  display: grid;
-  place-content: center;
-} */
-
 .custom-scrollbar::-webkit-scrollbar {
   width: 2px;
 }
@@ -15,21 +10,20 @@
   background: gray;
 }
 
-
 .scrolling::-webkit-scrollbar {
+  display: block;
   width: 5px;
   border-radius: 10px;
-  
+  cursor: alias
 }
 
 .scrolling::-webkit-scrollbar-track {
-  background: white;
+  background: transparent;
   margin: 20px 0;
 }
 
-
 .scrolling::-webkit-scrollbar-thumb {
-  background: rgb(255, 154, 154);
+
   border-radius: 10px;
 }
 

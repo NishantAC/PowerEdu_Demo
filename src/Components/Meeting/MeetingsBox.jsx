@@ -102,11 +102,14 @@ function MeetingsBox() {
 
   return (
     <div
-      className={`flex flex-col w-full h-full rounded-[20px] overflow-hidden relative transition-all duration-300 items-center`}
+      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center`}
     >
       <div
-        className={`w-full bg-white p-4 flex justify-between items-center`} 
-        style={{borderBottom: `2px solid ${themeProperties.primaryColor}`}}
+        className={`w-full py-2 px-4 flex justify-between items-center`} 
+        style={{borderBottom: `2px solid ${themeProperties.primaryColor}`,
+        background: themeProperties.boxBackground,
+
+      }}
       >
         <div
           className={` font-[10px]   `}
@@ -125,7 +128,8 @@ function MeetingsBox() {
 
       {/* bottom area */}
       <div
-        className={`bg-white w-full h-full overflow-y-scroll transition-all duration-300 px-4`}
+        className={` w-full h-full overflow-y-scroll transition-all duration-300 px-4`}
+        style={{ background: themeProperties.background }}
       >
         {loading ? (
           <div className="flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px]">
@@ -157,7 +161,8 @@ function MeetingsBox() {
               {meetings.length > 0 ? (
                 <MeetingsTable meetings={meetings} themeProperties={themeProperties} />
               ) : (
-                <div className="flex justify-center items-center text-gray-500 h-full">
+                <div className="flex justify-center items-center h-full"
+                  style={{ color: themeProperties.textColorLight }}>
                   No meetings scheduled today.
                 </div>
               )}

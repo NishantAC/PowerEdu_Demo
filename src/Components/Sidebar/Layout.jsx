@@ -28,15 +28,15 @@ function Layout(props) {
 
     return (
         <div>
-            <div className=' flex gap-7 pb-0 m-0 px-2 max-md:px-2 max-h-screen'>
-                <div className='z-50'>
+            <div className=' flex gap-2 pb-0 m-0 px-2 max-md:px-2 max-h-screen'>
+                <div className='z-50 h-screen py-2'>
                     <SideBar/>
                 </div>
-                <div className=' flex flex-col flex-1 overflow-x-hidden overflow-y- gap-4 py-2'>
+                <div className=' flex flex-col flex-1 overflow-x-hidden gap-3 py-2 max-h-screen'>
                     <div className='z-50 h-[10vh] '>
                         <Nav />
                     </div>
-                    <div className="h-[90vh] overflow-y-scroll">
+                    <div className="flex-1 overflow-y-scroll">
                         {props.children}
                     </div>
                 </div>

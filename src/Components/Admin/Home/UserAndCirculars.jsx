@@ -9,17 +9,19 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
 
   return (
     <div
-      className={`flex gap-2 p-2 rounded-[20px] max-lg:flex-col`}
+      className="flex gap-2 p-2 rounded-[20px] max-lg:flex-col h-full overflow-hidden"
       style={{
         color: themeProperties.textColor,
         background: themeProperties.secondaryColor,
       }}
     >
       {/* List of new users Box */}
-      <div className={`h-[72vh] overflow-y-scroll relative flex flex-col rounded-[20px] shadow-md w-full bg-white  `}>
-        <div
-          className="w-full bg-gray-50 rounded-t-[20px] flex items-center px-5 py-3 justify-center "
-        >
+      <div className="relative flex flex-col rounded-[20px] shadow-md w-full h-full"
+        style={{
+          background: themeProperties?.boxBackground
+        }}
+      >
+        <div className="w-full bg-gray-50 rounded-t-[20px] flex items-center px-5 py-3 justify-center">
           <div className="flex items-center gap-2 text-lg">
             <div
               style={{
@@ -30,24 +32,24 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col rounded-b-[20px] max-md:w-fit w-full h-full relative  ">
-          <table className="min-w-full  h-full border-collapse "> 
-            <thead className=" w-full sticky top-0  bg-gray-50 "
-
-            >
-              <tr className="" border = 'collapse'>
-                <th className="px-6 py-3 text-left text-[12px]  font-medium text-gray-500 uppercase tracking-wider">
+        <div
+          className="flex flex-col rounded-b-[20px] max-md:w-fit w-full overflow-auto h-[calc(100%-50px)]"
+        >
+          <table className="min-w-full border-collapse">
+            <thead className="w-full sticky top-0 bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-[12px] font-medium text-gray-500 uppercase tracking-wider">
                   Name
                 </th>
                 <th className="px-6 py-3 text-left text-[12px] font-medium text-gray-500 uppercase tracking-wider">
                   Designation
                 </th>
-                <th className="px-6 py-3 text-left text-[12px]  font-medium text-gray-500 uppercase tracking-wider text-nowrap">
+                <th className="px-6 py-3 text-left text-[12px] font-medium text-gray-500 uppercase tracking-wider text-nowrap">
                   Date of Joining
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white   divide-gray-200 " >
+            <tbody className="bg-white divide-gray-200">
               {newlyAddedUsersArray.map((user, index) => (
                 <tr key={index} className="hover:bg-gray-100">
                   <td

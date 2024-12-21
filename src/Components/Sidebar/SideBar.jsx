@@ -156,6 +156,11 @@ useEffect(() => {
       duration: 0.15,
       ease: "none",
     });
+    sidebarAnimation.to(".headerlogo", {
+          flex : isCollapsed ? "0" : "1",
+          duration: 0.1,
+          ease: "power4.inOut",
+        }, ">")  
 
     gsap.to(
       ".sideBarIcon",
@@ -167,17 +172,13 @@ useEffect(() => {
       ">"
     );
 
-
-  
-
-
   }, [isCollapsed, showMailItems]);
 
 
   return (
-    <div className="py-2">
+    <div className=" h-full">
       <div
-        className={`sidebar text-white h-[97.5vh] flex flex-col transition-width items-center duration-300 relative backdrop-blur-md rounded-[20px] max-h-screen overflow-scroll`}
+        className={`sidebar  text-white h-full flex flex-col transition-width items-center duration-300 static backdrop-blur-md rounded-[10px] max-h-screen overflow-scroll`}
         style={{
           background: themeProperties.sideBarColor,
           color: themeProperties?.textColor,
@@ -189,37 +190,38 @@ useEffect(() => {
         }}
       >
         <div
-          className="cursor-pointer absolute -right-7 top-3"
+          className="cursor-pointer fixed right-1 top-1 "
           onClick={toggleSidebar}
         >
           <div className="scale-75">
             <div
               className="w-7 h-7 border-4 rounded-[5px] flex items-center"
-              style={{ borderColor: themeProperties.normal1 }}
+              style={{ borderColor: themeProperties?.sideBarCollapseButton }}
             >
               <div
                 className="w-[3px] h-7 sideBarIcon ml-[4px]"
-                style={{ background: themeProperties.normal1 }}
+                style={{ background: themeProperties?.sideBarCollapseButton }}
               ></div>
             </div>
           </div>
         </div>
 
         {!showMailItems ? (
-          <div>
-            <div className="  ">
-            <div className="flex pb-4 mt-10 items-center justify-center gap-4 border-b-2">
+          <div className=" py-2 h-full flex flex-col items-center justify-between">
+            <div className=" mt-2" >
+            <div className="flex flex-col items-center justify-center headerlogo gap-4 border-b-2">
             <img
                   className="w-10 bg-white rounded-full p-1"
                   src="https://i.ibb.co/pn6BWTM/aquariacore.png"
                   alt="logo"
                 />
-                <div>
+                <div >
                   <h1 className=" font-semibold header ">PowerEdu</h1>
                 </div>
               </div>
             </div>
-            <div className="Sidebarlist overflow-y-auto flex-grow select-none">
+            <div className="Sidebarlist overflow-y-auto flex-1 select-none  ">
+              <div>
               {Items.map((item, index) => {
                 const Icon = item.icon;
                 return (
@@ -402,7 +404,7 @@ useEffect(() => {
                   </div>
                 );
               })}
-              <div className="relative bottom-0 mt-10 ">
+              <div className="relative bottom-0  ">
                 <button
                   className="flex items-center p-3 rounded-lg w-full transition-colors duration-200 "
                   onClick={logOut}
@@ -417,6 +419,7 @@ useEffect(() => {
                   </span>
                 </button>
               </div>
+            </div>
             </div>
           </div>
         ) : (

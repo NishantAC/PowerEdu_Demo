@@ -8,7 +8,6 @@ import AddEventModal from "./Modals/AddEventModal";
 import { useNavigate } from "react-router-dom";
 import { selectThemeProperties } from "@/slices/theme";
 import { useSelector } from "react-redux";
-
 function Home() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -50,81 +49,84 @@ function Home() {
 
   return (
     <div
-      className={`flex pb-3 gap-4 max-xl:flex-col `}
+      className={`flex gap-4 max-xl:flex-col h-full`}
      
     >
-      <div 
+      {/* Left Section */}
+
+      <div  className={`p-2 rounded-[18px] overflow-hidden z-50`}
         style={{
           background: themeProperties.secondaryColor,
-          borderRadius: "20px",
-          overflow: "hidden",
-        }}>
-
-      {/* Left Section */}
-      <div
-        className={`shadow-lg flex h-full flex-col p-2 gap-2`}
-        style={{
-          color: themeProperties.textColor,
-          // background: "rgba(255, 255, 255, 0.6)",
-          }}
-      >
-        <div 
-          className=" bg-white rounded-[20px] p-3 shadow-lg "
+        }}
         >
-          <div className="  py-2  "
-          style={{color: themeProperties.normal2}}
+
+        <div className=" flex flex-col gap-2 h-full"
+          style={{
+            color: themeProperties.textColor,
+            }}
+        >
+          <div 
+            className=" rounded-[15px] shadow-lg flex flex-col justify-center backdrop-blur-lg p-3 "
+            style={{
+            background: themeProperties.boxBackground,
+            }}
           >
-            <h3 className="opacity-90 font-sans"> Welcome</h3>
-            <h1 className="text-4xl font-semibold font-work-sans">
-            {user?.firstname}
-            </h1>
-          </div>
+            <div className="  py-2"
+            style={{color: themeProperties.normal2,
 
-
-          <div
-            className={`flex gap-2 flex-col items-center`}
-          >
-            <div className=" flex gap-2 items-center justify-center">
-              <div>
-                <CreateNewUserModal themeProperties = {themeProperties}/>
-
-              </div>
-              <div>
-                <AddEventModal  themeProperties = {themeProperties}/>
-
-              </div>
-            </div>
-            <a
-              href="https://calendar.google.com/calendar/u/0/r/eventedit?vcon=meet&dates=now&hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
+            }}
             >
-              <button
-                className=" text-nowrap"
-                style={{
-                  background: themeProperties.normal2,
-                  color: themeProperties.textColor,
-                  borderRadius: "10px",
-                  padding: "10px 48px",
-                  width: "100%",
+              <h3 className="opacity-90 font-sans"> Welcome</h3>
+              <h1 className="text-4xl font-semibold font-work-sans">
+              {user?.firstname}
+              </h1>
+            </div>
 
-                }}
+
+            <div
+              className={`flex gap-2 flex-col items-center`}
+            >
+              <div className=" flex gap-2 items-center justify-center">
+                <div>
+                  <CreateNewUserModal themeProperties = {themeProperties}/>
+
+                </div>
+                <div>
+                  <AddEventModal  themeProperties = {themeProperties}/>
+
+                </div>
+              </div>
+              <a
+                href="https://calendar.google.com/calendar/u/0/r/eventedit?vcon=meet&dates=now&hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Schedule A Meeting
-              </button>
-            </a>
-          </div>
+                <button
+                  className=" text-nowrap"
+                  style={{
+                    background: themeProperties.normal2,
+                    color: themeProperties.textColor,
+                    borderRadius: "10px",
+                    padding: "10px 48px",
+                    width: "100%",
 
-        </div>
-          <div className={` flex-1`}>
-            <MeetingsBox />
+                  }}
+                >
+                  Schedule A Meeting
+                </button>
+              </a>
+            </div>
+
           </div>
-      </div>
+            <div className={` h-full`}>
+              <MeetingsBox />
+            </div>
+        </div>
       </div>
 
       {/* Right Section */}
 
-      <div className="flex-1"
+      <div className="flex-1 h-full"
         style={{ backgroundColor: themeProperties.background }}
       >
         <Information />
