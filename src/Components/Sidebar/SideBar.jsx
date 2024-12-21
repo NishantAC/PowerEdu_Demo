@@ -177,7 +177,7 @@ useEffect(() => {
   return (
     <div className="py-2">
       <div
-        className={`sidebar text-white h-[97.5vh] flex flex-col transition-width items-center duration-300 relative backdrop-blur-md rounded-[20px] max-h-screen`}
+        className={`sidebar text-white h-[97.5vh] flex flex-col transition-width items-center duration-300 relative backdrop-blur-md rounded-[20px] max-h-screen overflow-scroll`}
         style={{
           background: themeProperties.sideBarColor,
           color: themeProperties?.textColor,

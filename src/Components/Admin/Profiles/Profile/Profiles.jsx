@@ -30,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {toast} from 'sonner'
  
 
 function Profiles() {
@@ -40,12 +41,70 @@ function Profiles() {
   const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce delay
   const { allStudents, total: totalStudents } = useSelector((state) => state.student);
   const themeProperties = useSelector(selectThemeProperties);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const pathParts = location.pathname.split("/");
     const lastPart = pathParts[pathParts.length - 1];
     setProfileType(lastPart);
   }, [location.pathname]);
+
+  // Fetch data on the first render without any filter or search string
+  useEffect(() => {
+    if (profileType === "students") {
+      dispatch(
+        fetchAllStudents({
+          school_code: currentUser.schoolcode,
+          class_code: classFilter,
+          year: parseInt(academicYearFilter),
+          page,
+          limit,
+        })
+      );
+    } else if (profileType === "teachers") {
+      dispatch(
+        fetchAllTeachers({
+          school_code: currentUser.schoolcode,
+          year: parseInt(academicYearFilter),
+          profile: "teacher",
+          page,
+          limit,
+        })
+      );
+    } else if (profileType === "principal") {
+      dispatch(
+        fetchAllPrincipal({
+          school_code: currentUser.schoolcode,
+          year: parseInt(academicYearFilter),
+          profile: "principal",
+          page,
+          limit,
+        })
+      );
+    } else if (profileType === "accountant") {
+      dispatch(
+        fetchAllAccountant({
+          school_code: currentUser.schoolcode,
+          year: parseInt(academicYearFilter),
+          profile: "accountant",
+          page,
+          limit,
+        })
+      );
+    } else if (profileType === "staff") {
+      dispatch(
+        fetchAllStaff({
+          school_code: currentUser.schoolcode,
+          year: parseInt(academicYearFilter),
+          profile: "staff",
+          page,
+          limit,
+        })
+      );
+    }
+    setLoading(false);
+  }, [profileType, currentUser.schoolcode, dispatch]);
 
   const { 
     allTeachers, 
@@ -62,7 +121,6 @@ function Profiles() {
   const { classes } = useSelector((state) => state.principal);
   const { academicYearsDropdown } = useSelector((state) => state.admin);
 
-  const dispatch = useDispatch();
 
   const getCurrentAcademicYear = () => {
     const currentDate = new Date();
@@ -88,96 +146,46 @@ function Profiles() {
   }, [classFilter, academicYearFilter]);
 
 
-  let total;
-  if (profileType === "students") {
-    total = totalStudents;
-  } else if (profileType === "teachers") {
-    total = allTeachers.length;
-  } else if (profileType === "principal") {
-    total = allPrincipal.length;
-  } else if (profileType === "accountant") {
-    total = allAccountant.length;
-  } else if (profileType === "staff") {
-    total = allStaff.length;
-  } else {
-    total = 0;
-  }
-
-
   const handleSearchAPI = async () => {
+    setLoading(true);
+    console.log(loading,"loading");
+    const body = {
+      school_code: currentUser.schoolcode,
+      year: parseInt(academicYearFilter),
+      searchTerm: debouncedSearchTerm,
+    };
+  
     if (profileType === "students") {
-      try {
-        const body = {
-          school_code: currentUser.schoolcode,
-          class_code: classFilter,
-          year: parseInt(academicYearFilter),
-          searchTerm: debouncedSearchTerm,
-        };
-        console.log("beforeresultworks")
-        const result = await StudentService.searchStudents(body);
-        console.log(result.students,"resultconsole57457")
-        setFilteredUsers(result); // Update filtered users
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
+      body.class_code = classFilter;
+    } else {
+      body.profile = profileType;
     }
-    else if (profileType === "teachers") {
-      try {
-        const body = {
-          school_code: currentUser.schoolcode,
-          class_code: classFilter,
-          year: parseInt(academicYearFilter),
-          searchTerm: debouncedSearchTerm,
-        };
-        const result = await SchoolUsersService.getAllTeachersByYearSearch(body);
-        setFilteredUsers(result); // Update filtered users
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }   
-  }
-  else if (profileType === "principal") {
+  
     try {
-      const body = {
-        school_code: currentUser.schoolcode,
-        year: parseInt(academicYearFilter),
-        profile: "principal",
-        searchTerm: debouncedSearchTerm,
-      };
-      const result = await SchoolUsersService.getAllOtherManagementMembersByYearSearch(body);
-      setFilteredUsers(result); // Update filtered users
+      let result;
+      switch (profileType) {
+        case "students":
+          result = await StudentService.searchStudents(body);
+          console.log(result,"result")
+          break;
+        case "teachers":
+          result = await SchoolUsersService.getAllTeachersByYearSearch(body);
+          break;
+        case "principal":
+        case "accountant":
+        case "staff":
+          result = await SchoolUsersService.getAllOtherManagementMembersByYearSearch(body);
+          break;
+        default:
+          throw new Error("Invalid profile type");
+      }
+      setFilteredUsers(result);
+      setLoading(false);
     } catch (error) {
-      console.error("Error fetching students:", error);
-    }   
-  }
-  else if (profileType === "accountant") {
-    try {
-      const body = {
-        school_code: currentUser.schoolcode,
-        year: parseInt(academicYearFilter),
-        profile: "accountant",
-        searchTerm: debouncedSearchTerm,
-      };
-      const result = await SchoolUsersService.getAllOtherManagementMembersByYearSearch(body);
-      setFilteredUsers(result); // Update filtered users
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }   
-  }
-  else if (profileType === "staff") {
-    try {
-      const body = {
-        school_code: currentUser.schoolcode,
-        year: parseInt(academicYearFilter),
-        profile: "staff",
-        searchTerm: debouncedSearchTerm,
-      };
-      const result = await SchoolUsersService.getAllOtherManagementMembersByYearSearch(body);
-      setFilteredUsers(result); // Update filtered users
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }   
-  }
-}
+      console.error(`Error fetching ${profileType}:`, error);
+      setLoading(false);
+    }
+  };
 
 
   useEffect(() => {
@@ -187,6 +195,7 @@ function Profiles() {
   }, [debouncedSearchTerm]);
 
   const handleApplyFilter = () => {
+    setLoading(true);
     setFiltersApplied(true);
     if (profileType === "students") {
       dispatch(
@@ -194,7 +203,6 @@ function Profiles() {
           school_code: currentUser.schoolcode,
           class_code: classFilter,
           year: parseInt(academicYearFilter),
-          // profile: "student",
           page,
           limit,
         })
@@ -240,18 +248,24 @@ function Profiles() {
         })
       );
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     dispatch(getDropdownClasses({ schoolcode: currentUser.schoolcode }));
     dispatch(getAcademicYearsDropdown({ schoolcode: currentUser.schoolcode }));
-    handleApplyFilter(); // Fetch the data based on initial filters
+    handleApplyFilter(); 
   }, [currentUser.schoolcode, dispatch]);
 
 
   useEffect(() => {
     handleApplyFilter();
   }, [page]);
+
+  // Automatically apply filter when classFilter or academicYearFilter changes
+  useEffect(() => {
+    handleApplyFilter();
+  }, [classFilter, academicYearFilter]);
   
   useEffect(() => {
     if (profileType === "students") {
@@ -278,9 +292,22 @@ function Profiles() {
 
 
   return (
-    <div className="studentattendance p-4">
-      <div>
-        <h3 className="font-semibold mt-8 text-2xl"
+    <div className="p-1 rounded-[20px] h-full"
+    style={{ background: themeProperties?.borderColor, color: themeProperties?.textColor }}
+    >
+      <div className="rounded-[18px] p-8 h-full flex flex-col gap-4"
+      style={{
+        background: themeProperties?.background,
+
+      }}
+      >
+      <div className="flex justify-between items-center "
+      style={{ color: themeProperties?.textColorAlt , 
+      }}
+      >
+
+        <div>
+        <h3 className="font-semibold text-2xl"
           style={{ color: themeProperties?.textColorAlt }}
         >
           {`${
@@ -294,12 +321,16 @@ function Profiles() {
           } Details`}
         </h3>
       </div>
-      <br />
-      <div className="flex flex-row-reverse justify-between items-center flex-wrap gap-2.5">
-        <div className="filtersContainer">
-          <p className=" font-medium text-xl text-black my-auto">
-            Filters:
-          </p>
+
+        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative">
+            <SearchBarComponent
+              searchString={searchTerm}
+              setSearchString={setSearchTerm}
+              handleChange={(e) => setSearchTerm(e.target.value)}
+            />
+        </div>
+
+        <div className="">  
           <div className="flex gap-4">
             <Select
               value={academicYearFilter}
@@ -317,7 +348,8 @@ function Profiles() {
                 <SelectGroup>
                   <SelectLabel className=" font-normal">Academic Year</SelectLabel>
                   {academicYearsDropdown?.map((year) => (
-                    <SelectItem key={year} value={year}>
+                    <SelectItem key={year} value={year}
+                    >
                       {year}
                     </SelectItem>
                   ))}
@@ -328,7 +360,8 @@ function Profiles() {
 
             {profileType === "students" && (
               <Select value={classFilter} onValueChange={setClassFilter}
-              style = {{color: themeProperties?.textColorAlt}}
+              style = {{color: themeProperties?.textColorAlt, 
+              }}
               >
                 <SelectTrigger className="w-[140px]" 
                 style ={{color: themeProperties?.textColorAlt}}
@@ -342,7 +375,7 @@ function Profiles() {
                   <SelectGroup>
                     <SelectLabel className= " font-normal">Classes</SelectLabel>
                     {classes?.map((c) => (
-                      <SelectItem key={c} value={c}>
+                      <SelectItem key={c} value={c}                      >
                         {c}
                       </SelectItem>
                     ))}
@@ -350,31 +383,11 @@ function Profiles() {
                 </SelectContent>
               </Select>
             )}
-            <button
-              className="rounded-md text-white p-1.5 text-lg"
-              style = {{background: themeProperties?.primaryColor}}
-              onClick={handleApplyFilter}
-            >
-              Apply
-            </button>
           </div>
-        </div>
-        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative">
-            <SearchBarComponent
-              searchString={searchTerm}
-              setSearchString={setSearchTerm}
-              handleChange={(e) => setSearchTerm(e.target.value)}
-            />
         </div>
       </div>
 
-      {!filtersApplied && (
-        <div className="mt-8 text-center text-red-500">
-          Please apply filters to see the results.
-        </div>
-      )}
-
-      <div className="mt-8">
+      <div className=" flex-1 relative">
         <ProfileTable 
           profileType={profileType} 
           allUsers={filteredUsers}
@@ -382,7 +395,10 @@ function Profiles() {
           limit={limit}
           total={allUsers.count}
           onPageChange={handlePageChange} 
+          themeProperties={themeProperties}
+          isLaoding = {loading}
         />
+      </div>
       </div>
     </div>
   );

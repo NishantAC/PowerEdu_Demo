@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,9 +9,10 @@ import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// const { allStudents, total } = useSelector((state) => state.student);
+import { useMediaQuery } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { Skeleton } from "@/components/ui/skeleton"
 
 function ProfileTable({
   profileType,
@@ -20,297 +21,173 @@ function ProfileTable({
   limit,
   total,
   onPageChange,
-  
-
+  themeProperties,
+  isLaoding
 }) {
-  // Console logging for debugging purpose
-  console.log("Profile Type:", profileType, "All Users:", allUsers);
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
-  console.log(allUsers,profileType,allUsers[profileType],"sjgfsagdhgasdgksagdsakgdksagd"); // Check if users data is populated
-
-  // Function to get the correct name for the "Class" or "Department" column based on the profile type
   const getClassOrDepartment = (profile) => {
     if (profileType === "students" || profileType === "teachers") {
-      return profile.class; // Assuming 'class' is the correct key for both students and teachers
+      return profile.class || "N/A";
     } else {
-      return profile.department; // Assuming 'department' is the correct key for other staff
+      return profile.department || "N/A";
     }
   };
 
-  // Function to get the correct ID for the "Admission No." or "Employee Id" column based on the profile type
   const getAdmissionOrEmployeeId = (profile) => {
     if (profileType === "students") {
-      return profile.admissionno; // Assuming 'admissionno' is the key for students
+      return profile.admissionno || "N/A";
     } else {
-      return profile.employeeid; // Assuming 'employeeid' is the key for other staff
+      return profile.employeeid || "N/A";
     }
   };
 
   return (
-    <div>
-      <TableContainer component={Paper} style={{ maxHeight: "400px" }}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow
-              style={{
-                position: "sticky",
-                top: "-5px",
-                background: "white",
-                border: "2px solid #A4A4A4",
-                boxSizing: "border-box",
-                borderRadius: "5px",
-              }}
-            >
-               <TableCell
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
+    <div className=" flex relative flex-col justify-between h-full" >
+      <TableContainer
+        component={Paper}
+        sx={{
+          boxShadow: "none",
+          borderRadius: 2,
+          overflow: "hidden",
+        }}
+      >
+        <Table
+        >
+          {
+            isLaoding ? ( 
+              <TableHead >
+                <TableRow sx={{ backgroundColor: themeProperties?.normal2 }}>
+                  <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColor, textAlign: "center" }}>
+                    Loading
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
+            ) : (
+              <TableHead
+        sx = {{ borderRadius : "20px"}}
+              
               >
-                Rekor Id
-              </TableCell>
-              <TableCell
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                {profileType === "students" ? "Roll no." : "S No."}
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                {profileType === "students" ? "Student" : "Employee"} Name
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                {profileType === "students" || profileType === "teachers"
-                  ? "Class"
-                  : "Department"}
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                {profileType === "students" ? "Admission No." : "Employee Id"}
-              </TableCell>
-              {/* <TableCell
-                align="left"
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                D.O.B
-              </TableCell> */}
-              <TableCell
-                align="left"
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                Contact No.
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                Email
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "600",
-                  fontSize: "20px",
-                  color: "#545454",
-                }}
-              >
-                Action
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #A5A5A5",
-              boxSizing: "border-box",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              borderRadius: "5px",
-            }}
-          >
-            
-            {allUsers[profileType]?.map((profile, index) => (
-              <TableRow
-                key={profile.user_id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                style={{ paddingLeft: "10px" }}
-              >
-                 <TableCell
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                    textAlign: "left",
-                  }}
-                >
-                  {profile.rekorid}
+              <TableRow sx={{ backgroundColor: 
+                "#f3f3f3"
+               }}>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  Rekor ID
                 </TableCell>
-                <TableCell
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                    textAlign: "left",
-                  }}
-                >
-                  {profileType === "students" ? profile.rollno : index + 1}
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  {profileType === "students" ? "Roll No." : "S No."}
                 </TableCell>
                 <TableCell
                   align="left"
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                  }}
+                  sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}
                 >
-                  {profile.name}
+                  {profileType === "students" ? "Student" : "Employee"} Name
                 </TableCell>
                 <TableCell
                   align="left"
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                  }}
+                  sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}
                 >
-                  {getClassOrDepartment(profile)}
+                  {profileType === "students" || profileType === "teachers"
+                    ? "Class"
+                    : "Department"}
                 </TableCell>
                 <TableCell
                   align="left"
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                  }}
+                  sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}
                 >
-                  {getAdmissionOrEmployeeId(profile)}
+                  {profileType === "students" ? "Admission No." : "Employee ID"}
                 </TableCell>
-                {/* <TableCell
-                  align="left"
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                  }}
-                >
-                  {profile.dob}
-                </TableCell> */}
-                <TableCell
-                  align="left"
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                  }}
-                >
-                  {profile.contact}
-                </TableCell>
-                <TableCell
-                  align="left"
-                  style={{
-                    fontFamily: "Lato",
-                    fontWeight: "500",
-                    fontSize: "18px",
-                    color: "#000000",
-                  }}
-                >
-                  {profile.email}
-                </TableCell>
-                <TableCell align="left">
-                  <Link
-                    to={{
-                      pathname: "/admin/edit-profile",
-                      userId: profile.user_id,
-                      userType: profileType,
-                    }}
-                  >
-                    <button
-                      className="editProfileBtn"
-                      type="submit"
-                      style={{
-                        fontFamily: "Rubik",
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        color: "white",
-                        backgroundColor: "#9F8FFF",
-                        width: "133px",
-                        height: "42px",
-                        display: "grid",
-                        placeContent: "center",
-                        border: "none",
-                        outline: "none",
-                      }}
-                    >
-                      Edit Profile
-                    </button>
-                  </Link>
+                <TableCell align="left" sx={{  color: themeProperties?.textColorAlt }}>
+                  Action
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
+            </TableHead>
+            )
+          }
+          {
+            isLaoding ? (
+
+              <>
+              {
+                Array.from({ length: 5 }).map((_, index) => (
+
+                  <Skeleton className="h-[50px] static rounded-xl mt-4" />
+
+              ))}
+            </>
+
+
+            ):(
+              <TableBody>
+              {allUsers[profileType]?.map((profile, index) => (
+                <TableRow
+                  key={profile.user_id}
+                  sx={{
+                  }}
+                  
+                >
+                  <TableCell 
+                  >{profile.rekorid || "N/A"}</TableCell>
+                  <TableCell>{profileType === "students" ? profile.rollno : index + 1}</TableCell>
+                  <TableCell align="left">{profile.name || "N/A"}</TableCell>
+                  <TableCell align="left">{getClassOrDepartment(profile)}</TableCell>
+                  <TableCell align="left">{getAdmissionOrEmployeeId(profile)}</TableCell>
+                  <TableCell align="left">
+                    <Link
+                      to={{
+                        pathname: "/admin/edit-profile",
+                        userId: profile.user_id,
+                        userType: profileType,
+                      }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <button className=" px-4 py-2 rounded-lg"
+                        style={{
+                          textTransform: "none",
+                          color: themeProperties?.textColor,
+                          backgroundColor: themeProperties?.normal2,
+  
+                        }}
+                      >
+                        Edit Profile
+                      </button>
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            )
+          }
         </Table>
       </TableContainer>
-      <Stack spacing={2} alignItems="center" marginTop={2}>
+      <Stack
+        alignItems="center"
+        spacing={2}
+        sx={{
+          marginTop: 2,
+          padding: 2,
+        }}
+      >
         <Pagination
           count={Math.ceil(total / limit)}
           page={page}
           onChange={onPageChange}
-          color="primary"
+          sx={{
+            "& .MuiPaginationItem-root": {
+              color: themeProperties?.textColorAlt,
+              "&.Mui-selected": {
+                backgroundColor: themeProperties?.normal2,
+                color: themeProperties?.textColor,
+              },
+              "&:hover": {
+                backgroundColor: themeProperties?.normal2,
+                color: themeProperties?.textColor,
+              },
+            },
+          }}
         />
       </Stack>
-      <div style={{ textAlign: "center", marginTop: "10px", fontFamily: "Poppins", fontSize: "16px", color: "#545454", fontWeight:"bold"}}>
-        {`You are on page ${page}`}
-      </div>
     </div>
   );
 }
