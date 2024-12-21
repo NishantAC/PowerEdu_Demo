@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./AdminCalendar.css";
 import CircleIcon from "@mui/icons-material/Circle";
 import FullCalendar from "@fullcalendar/react";
 import MonthSelect from "../../Student/Home/MonthDropdown";
