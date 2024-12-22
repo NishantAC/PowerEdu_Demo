@@ -175,6 +175,31 @@ useEffect(() => {
   }, [isCollapsed, showMailItems]);
 
 
+    //* Set the title of the page based on the current path
+  useEffect(() => {
+    const currentPath = location.pathname;
+    let pageName = "Dashboard"; // default
+  
+    Items.forEach((item) => {
+      if (item.route === currentPath) {
+        pageName = item.name;
+      }
+      item.child.forEach((childItem) => {
+        if (childItem.route === currentPath) {
+          pageName = childItem.name;
+        }
+      });
+    });
+  
+    //* Special case for mail items
+    if (currentPath.includes("mail")) {
+      pageName = "Mail";
+    }
+  
+    document.title = `PowerEdu | ${pageName}`;
+  }, [location.pathname, Items]);
+
+
   return (
     <div className=" h-full">
 
@@ -207,8 +232,8 @@ useEffect(() => {
 
           {`
             ::selection {
-              background: ${themeProperties?.sideBarText};
-              color: ${themeProperties?.sideBarColor};
+              background: ${themeProperties?.normal1  };
+              color: ${themeProperties?.sideBarText};
             }
            `}
         </style>
@@ -236,7 +261,7 @@ useEffect(() => {
                     {item.child.length === 0 ? (
                       <Link
                         to={item.route}
-                        className={`flex items-center p-3 rounded-lg transition-colors duration-200 my-3 ` }
+                        className={`flex items-center p-3 rounded-lg transition-colors duration-200 my-3 sideBarListButtons` }
                         style={{
                           "--before-color": activeIndex == index ?themeProperties.sideBarText : "",
                           "--hover-color":activeIndex != index && themeProperties.sideBarButton,
@@ -260,11 +285,11 @@ useEffect(() => {
                       >
                         <style>
                           {`
-                            a:hover {
+                            .sideBarListButtons:hover {
                               background-color: var(--hover-color);
                             }
 
-                            a::before {
+                            .sideBarListButtons::before {
                               content: "";
                               position: absolute;
                               left: 0px;
@@ -287,7 +312,7 @@ useEffect(() => {
                     ) : (
                       <div className="">
                         <button
-                          className={`flex items-center p-3 rounded-lg transition-colors duration-200 w-full my-3`}
+                          className={`flex items-center p-3 rounded-lg transition-colors sideBarListButtons duration-200 w-full my-3`}
                           style={{
                             "--before-color": activeIndex == index ? themeProperties.sideBarText : "",
                             "--hover-color": activeIndex != index && themeProperties.sideBarButton,
@@ -309,10 +334,10 @@ useEffect(() => {
                           )}
                           <style>
                             {`
-                              button:hover {
+                              .sideBarListButtons:hover {
                                 background-color: var(--hover-color);
                               }
-                              button::before {
+                              .sideBarListButtons::before {
                                 content: "";
                                 position: absolute;
                                 left: 0px;
@@ -377,15 +402,17 @@ useEffect(() => {
                                   <Link
                                     to={childItem.route}
                                     key={childItem.name}
-                                    className={`flex items-center p-2 rounded-lg transition-colors duration-200 mb-1`}
+                                    className={`flex items-center p-2 transition-colors duration-200 mb-1 sideBarSubListButtons rounded-lg`}
                                     style={{
-                                      "--before-color": location.pathname === childItem.route ? themeProperties.sideBarText : "",
+                                      
                                       "--hover-color": location.pathname !== childItem.route && themeProperties.sideBarButton,
+                                      "--before-color": location.pathname == childItem.route ? themeProperties.sideBarText : "transparent",
                                       
                                     }}
                                     onClick={() => {
                                       changeActiveIndex(index);
                                       mycontext.setIsMenuOpen(false);
+
                                     }}
                                   >
                                     <style>
@@ -393,6 +420,14 @@ useEffect(() => {
                                         a:hover {
                                           background-color: var(--hover-color);
                                         }
+                                          .sideBarSubListButtons::before {
+                                            content: "";
+                                            position: absolute;
+                                            left: -2px;
+                                            width: 2px;
+                                            height: 20px;
+                                            background-color: var(--before-color);
+                                          }
                                       `}
                                     </style>
                                     <span className="icon-name text-sm font-medium max-w-4 text-nowrap">

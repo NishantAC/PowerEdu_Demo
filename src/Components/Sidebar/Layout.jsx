@@ -3,11 +3,13 @@ import SideBar from './SideBar';
 import Nav from './Nav';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { selectThemeProperties } from '@/slices/theme';
 function Layout(props) {
 
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
     const [isOnMail, setIsOnMail] = React.useState(false);
+    const themeProperties = useSelector(selectThemeProperties);
     useEffect(() => {
         if (!user) {
             navigate("/");
@@ -32,7 +34,9 @@ function Layout(props) {
                 <div className='z-[10] h-screen py-2'>
                     <SideBar/>
                 </div>
-                <div className=' flex flex-col flex-1 overflow-x-hidden gap-3 py-2 z-[0]'>
+                <div className=' flex flex-col flex-1 overflow-x-hidden gap-3 my-2 z-[0] rounded-[20px]'
+                style={{ backgroundColor: themeProperties.backgroundRight  , color: themeProperties.textColor }}
+                >
                     <div className='z-50 h-[10vh] '>
                         <Nav />
                     </div>
