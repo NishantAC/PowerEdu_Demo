@@ -83,7 +83,7 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
 
           <div
           className="text-lg text-white header w-full text-center"
-          style={{ color: themeProperties.textColor }}
+          style={{ color: themeProperties.textColorAlt }}
          >
 
             {user?.name?.split(" ")[0] || ""}
@@ -97,7 +97,7 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
           <div className="shadow-lg overflow-hidden outline-none w-96 bg-white">
             <div className="flex flex-col items-center p-6 border-b"
               style={{ backgroundColor: themeProperties.primaryColor , 
-                color: themeProperties.textColor, 
+                color: themeProperties.textColorAlt, 
                 outline: themeProperties.primaryColor 
                 
               }}
@@ -117,12 +117,12 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
               </h3>
               <a href="https://myaccount.google.com/" target="_blank" rel="noreferrer"
                 className=" text-sm mt-2 hover:underline"
-                style = {{ color: themeProperties.textColor }}
+                style = {{ color: themeProperties.textColorAlt }}
               >
                 Manage your Google Account
               </a>
             </div>
-            <div className="p-6 text-sm" style={{ color: themeProperties.textColorAlt }}>  
+            <div className="p-6 text-sm" style={{ color: themeProperties.textColor }}>  
               <p className="">Signed in as:</p>
               <p className="font-medium">{user?.email}</p>
               <div className="mt-4 flex flex-col gap-3">
@@ -172,9 +172,9 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
           key={item.name}
           className={`flex items-center p-3 rounded-lg transition-colors duration-200 my-5`}
           style={{
-            background: mode == item.name.toLowerCase() ? themeProperties.sideBarButton : "",
-            border : mode == item.name.toLowerCase() ? `2px solid ${themeProperties.textColor}` : ``,
-            "--hover-color": themeProperties.sideBarButton,
+
+              "--before-color": mode == item.name.toLowerCase() ?themeProperties.sideBarText : "",
+              "--hover-color":mode != item.name.toLowerCase() && themeProperties.sideBarButton,
           }}
           onClick={() => {
             localStorage.setItem("mailPath", item.route);
@@ -185,6 +185,15 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
               a:hover {
                       background: var(--hover-color);
                 }
+
+                  a::before {
+                              content: "";
+                              position: absolute;
+                              left: 0px;
+                              width: 2px;
+                              height: 20px;
+                              background-color: var(--before-color);
+                    }
                 `}
               </style>
           <item.icon className="icon mr-3" />

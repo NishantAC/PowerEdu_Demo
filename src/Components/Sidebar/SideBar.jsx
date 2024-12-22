@@ -177,16 +177,13 @@ useEffect(() => {
 
   return (
     <div className=" h-full">
+
+      
       <div
-        className={`sidebar  text-white h-full flex flex-col transition-width items-center duration-300 static backdrop-blur-md rounded-[10px] max-h-screen overflow-scroll`}
+        className={`sidebar text-white h-full flex flex-col transition-width items-center duration-300 static backdrop-blur-md rounded-[10px] max-h-screen `}
         style={{
           background: themeProperties.sideBarColor,
-          color: themeProperties?.textColor,
-        }}
-        onMouseLeave={() => {
-          if (isCollapsed) {
-            // toggleOpenIndex(null);
-          }
+          color: themeProperties?.sideBarText,
         }}
       >
         <div
@@ -206,6 +203,16 @@ useEffect(() => {
           </div>
         </div>
 
+        <style>
+
+          {`
+            ::selection {
+              background: ${themeProperties?.sideBarText};
+              color: ${themeProperties?.sideBarColor};
+            }
+           `}
+        </style>
+
         {!showMailItems ? (
           <div className=" py-2 h-full flex flex-col items-center justify-between">
             <div className=" mt-2" >
@@ -216,11 +223,11 @@ useEffect(() => {
                   alt="logo"
                 />
                 <div >
-                  <h1 className=" font-semibold header ">PowerEdu</h1>
+                <h1 className=" font-semibold header ">PowerEdu</h1>
                 </div>
               </div>
             </div>
-            <div className="Sidebarlist overflow-y-auto flex-1 select-none  ">
+            <div className="Sidebarlist overflow-hidden overflow-y-auto flex-1 select-none  ">
               <div>
               {Items.map((item, index) => {
                 const Icon = item.icon;
@@ -229,17 +236,10 @@ useEffect(() => {
                     {item.child.length === 0 ? (
                       <Link
                         to={item.route}
-                        className={`flex items-center p-3 rounded-lg transition-colors duration-200 my-3`}
+                        className={`flex items-center p-3 rounded-lg transition-colors duration-200 my-3 ` }
                         style={{
-                          background:
-                            activeIndex === index
-                              ? themeProperties.sideBarButton
-                              : "",
-                          "--hover-color": themeProperties.sideBarButton,
-                          border:
-                            activeIndex === index
-                              ? `2px solid ${themeProperties.textColor}`
-                              : "",
+                          "--before-color": activeIndex == index ?themeProperties.sideBarText : "",
+                          "--hover-color":activeIndex != index && themeProperties.sideBarButton,
                         }}
                         onClick={() => {
                           changeActiveIndex(index);
@@ -263,13 +263,22 @@ useEffect(() => {
                             a:hover {
                               background-color: var(--hover-color);
                             }
+
+                            a::before {
+                              content: "";
+                              position: absolute;
+                              left: 0px;
+                              width: 2px;
+                              height: 20px;
+                              background-color: var(--before-color);
+                            }
                           `}
                         </style>
                         <Icon className="icon mr-3" />
                         {
                           <span
                             className="icon-name text-sm font-medium select-none"
-                            style={{ color: themeProperties.textColor }}
+                            style={{ color: themeProperties.sideBarText }}
                           >
                             {item.name}
                           </span>
@@ -280,15 +289,9 @@ useEffect(() => {
                         <button
                           className={`flex items-center p-3 rounded-lg transition-colors duration-200 w-full my-3`}
                           style={{
-                            background:
-                              activeIndex === index
-                                ? themeProperties.sideBarButton
-                                : "",
-                            "--hover-color": themeProperties.sideBarButton,
-                            border:
-                              activeIndex === index
-                                ? `2px solid ${themeProperties.textColor}`
-                                : "",
+                            "--before-color": activeIndex == index ? themeProperties.sideBarText : "",
+                            "--hover-color": activeIndex != index && themeProperties.sideBarButton,
+                           
                           }}
                           onClick={() => {
                             toggleOpenIndex(index);
@@ -309,11 +312,19 @@ useEffect(() => {
                               button:hover {
                                 background-color: var(--hover-color);
                               }
+                              button::before {
+                                content: "";
+                                position: absolute;
+                                left: 0px;
+                                width: 2px;
+                                height: 20px;
+                                background-color: var(--before-color);
+                              }
                             `}
                           </style>
                           <span
                             className="icon-name text-sm font-medium flex items-center gap-2"
-                            style={{ color: themeProperties.textColor }}
+                            style={{ color: themeProperties.sideBarText }}
                           >
                             {item.name}
                             <FaAngleDown
@@ -326,7 +337,7 @@ useEffect(() => {
                           </span>
                         </button>
                         {openIndex === index && (
-                          <div className={`${!isCollapsed ? "relative" : ""} z-[1000]`}>
+                          <div className={`${!isCollapsed ? "relative" : ""} z-[1000] sublist`}>
                             <div
                               className={`ml-6 mt-2 z-[1000] ${
                                 isCollapsed &&
@@ -349,7 +360,7 @@ useEffect(() => {
                               <div
                                 className="relative child_list pt-1"
                                 style={{
-                                  "--before-color": themeProperties.textColor,
+                                  "--before-color": themeProperties.sideBarText,
                                 }}
                               >
                                 <style>
@@ -368,15 +379,9 @@ useEffect(() => {
                                     key={childItem.name}
                                     className={`flex items-center p-2 rounded-lg transition-colors duration-200 mb-1`}
                                     style={{
-                                      background:
-                                        location.pathname === childItem.route
-                                          ? themeProperties.sideBarButton
-                                          : "",
-                                      "--hover-color": themeProperties.sideBarButton,
-                                      border:
-                                        location.pathname === childItem.route
-                                          ? `2px solid ${themeProperties.textColor}`
-                                          : "",
+                                      "--before-color": location.pathname === childItem.route ? themeProperties.sideBarText : "",
+                                      "--hover-color": location.pathname !== childItem.route && themeProperties.sideBarButton,
+                                      
                                     }}
                                     onClick={() => {
                                       changeActiveIndex(index);

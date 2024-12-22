@@ -29,10 +29,10 @@ function Layout(props) {
     return (
         <div>
             <div className=' flex gap-2 pb-0 m-0 px-2 max-md:px-2 max-h-screen'>
-                <div className='z-50 h-screen py-2'>
+                <div className='z-[10] h-screen py-2'>
                     <SideBar/>
                 </div>
-                <div className=' flex flex-col flex-1 overflow-x-hidden gap-3 py-2 max-h-screen'>
+                <div className=' flex flex-col flex-1 overflow-x-hidden gap-3 py-2 z-[0]'>
                     <div className='z-50 h-[10vh] '>
                         <Nav />
                     </div>

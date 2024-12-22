@@ -26,21 +26,21 @@ const Login = () => {
     if (user) {
       const user_id = user?.id?.toString();
       if (user_id?.startsWith("17")) {
-        navigate("/student/home");
+        navigate("/student/dashboard");
       } else if (user_id?.startsWith("14")) {
-        navigate("/teacher/home");
+        navigate("/teacher/dashboard");
       } else if (user_id?.startsWith("15")) {
-        navigate("/teacher/home");
+        navigate("/teacher/dashboard");
       } else if (user_id?.startsWith("13")) {
-        navigate("/principal/home");
+        navigate("/principal/dashboard");
       } else if (user_id?.startsWith("16")) {
         navigate("/accounts");
       } else if (user_id?.startsWith("12")) {
-        navigate("/admin/home");
+        navigate("/admin/dashboard");
       } else if (user_id?.startsWith("10")) {
         navigate("/master");
       } else if (user_id?.startsWith("18")) {
-        navigate("/staff/home");
+        navigate("/staff/dashboard");
       } else {
         navigate("/");
       }
@@ -71,21 +71,21 @@ const Login = () => {
       const schoolCode = response?.payload?.response?.schoolcode;
       const user_id = response?.payload?.response?.id.toString();
       if (user_id?.startsWith("17")) {
-        navigate("/student/home");
+        navigate("/student/dashboard");
       } else if (user_id?.startsWith("14")) {
-        navigate("/teacher/home");
+        navigate("/teacher/dashboard");
       } else if (user_id?.startsWith("15")) {
-        navigate("/teacher/home");
+        navigate("/teacher/dashboard");
       } else if (user_id?.startsWith("13")) {
-        navigate("/principal/home");
+        navigate("/principal/dashboard");
       } else if (user_id?.startsWith("16")) {
         navigate("/accounts");
       } else if (user_id?.startsWith("12")) {
-        navigate("/admin/home");
+        navigate("/admin/dashboard");
       } else if (user_id?.startsWith("10")) {
         navigate("/master");
       } else if (user_id?.startsWith("18")) {
-        navigate("/staff/home");
+        navigate("/staff/dashboard");
       } else {
         navigate("/");
       }

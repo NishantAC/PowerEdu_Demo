@@ -31,10 +31,11 @@ const themes = {
        normal2: "#1D3557",
        normal3: "#457B9D",
       background: "#FFF",
-      textColor: "#FFF",
-      textColorAlt: "#000000",
+      textColor: "#000",
+      textColorAlt: "#FFF",   
       sideBarColor: "#A8DADC",
       sideBarButton: "#457B9D",
+      sideBarText: "#FFF",
       sideBarCollapseButton: "#FFF",
       googleMeetButton: "#457B9D",
       inputBackground: "#FFF",
@@ -88,6 +89,8 @@ const themes = {
       textColorLight: "#000000",
       sideBarColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
       sideBarButton : "#ae1dc4",
+      sideBarText : "#FFF",
+      sideBarCollapseButton : "#FFF",
       borderColor : "#b2b8ff",
       googleMeetButton : "#9694FF",
       inputBackground: "#FFF",
@@ -98,37 +101,40 @@ const themes = {
       toastColor : "#e9cffb",
       boxHoverColor : "#e9cffb",
       boxHoverTextColor : "#000000",
+      scrollColor: "#ff9a9a",
+      
 
     } , 
 
 
 
     DarkMode: {
-      primaryColor: "#E63946",
-      secondaryColor: "#1D3557",    
-      normal1: "#A8DADC",           
-      normal2: "#457B9D",           
-      normal3: "#F4A261",           
-      background: "#121212",        
-      textColor: "#EDEDED",         
-      textColorAlt: "#A8A8A8",      
-      textColorLight: "#ffffffdc",    
-      hoverColor: "#2A2A2A",        
-      googleMeetButton: "#E63946",  
-      inputBackground: "#1E1E1E",   
-      inputTextColor: "#FFFFFF",    
-      logoutColor: "#FF5252",       
-      sideBarColor: "#000",      
-      sideBarButton: "#2A2A2A",
-      sideBarCollapseButton: "#FFF",     
-      borderColor: "#393E46",       
-      boxBackground: "#1C1C1C",  
-      boxTextColor: "#F0F0F0",      
-      toastColor: "#FF9F1C",        
-      boxHoverColor: "#2E2E2E",     
-      boxHoverTextColor: "#FFFFFF", 
-     scrollColor: "#ff9a9a", 
-    },
+          primaryColor: "#E63946",                // Keep red accent
+          secondaryColor: "#2D4A3E",             // Darker green
+          normal1: "#8FB9AA",                    // Muted sage
+          normal2: "#3b7649",                    // Match sidebar green
+          normal3: "#F4A261",                    // Warm accent
+          background: "#000",                 // Match sidebar gradient end
+          textColor: "#EDEDED",                  // Light text
+          textColorAlt: "#A8A8A8",              // Secondary text
+          sideBarText: "#FFF",                  // Keep white sidebar text
+          textColorLight: "#ffffffdc",           // Translucent white
+          hoverColor: "#1A2820",                // Dark green hover
+          googleMeetButton: "#E63946",          // Keep red accent
+          inputBackground: "#151815",            // Very dark green-gray
+          inputTextColor: "#FFFFFF",             // White text
+          logoutColor: "#3b7649",               // Match sidebar green
+          sideBarColor: "radial-gradient(circle at top, #73ff01, #0c0d0e)",  
+          sideBarButton: "#0c0d0e",             // Match background
+          sideBarCollapseButton: "#FFF",        // Keep white
+          borderColor: "#2D4A3E",               // Darker green
+          boxBackground: "#141814",             // Very dark green-gray
+          boxTextColor: "#F0F0F0",              // Off-white
+          toastColor: "#FF9F1C",                // Keep orange
+          boxHoverColor: "#1A2820",             // Dark green hover
+          boxHoverTextColor: "#FFFFFF",         // White
+          scrollColor: "#3b7649",               // Match sidebar green
+        },
     
 
    };

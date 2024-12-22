@@ -1,4 +1,5 @@
-import { FaSignOutAlt, FaHome, FaUser, FaEnvelope, FaBook, FaBus, FaSchool, FaMoneyBill, FaBell, FaCalendarAlt , FaAngleDown,} from "react-icons/fa";
+import { FaSignOutAlt, FaUser, FaEnvelope, FaBook, FaBus, FaSchool, FaMoneyBill, FaBell, FaCalendarAlt , FaAngleDown,} from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 import { MdAssignment } from "react-icons/md"; 
 
 const getLastMailPath = () => {
@@ -12,7 +13,7 @@ const getLastMailPath = () => {
 
  const sidebarItems = {
   Admin: [
-    { name: "Home", route: "/admin/home", icon: FaHome, child: [] },
+    { name: "Dashboard", route: "/admin/dashboard", icon: MdDashboard, child: [] },
     {
       name: "Profiles",
       icon: FaUser,
@@ -41,7 +42,7 @@ const getLastMailPath = () => {
     { name: "Notice", route: "/admin/notice", icon: FaBell, child: [] },
   ],
   Principal: [
-    { name: "Home", route: "/principal/home", icon: FaHome, child: [] },
+    { name: "Dashboard", route: "/principal/dashboard", icon: MdDashboard, child: [] },
     {
       name: "Students",
       icon: FaUser,
@@ -65,7 +66,7 @@ const getLastMailPath = () => {
     { name: "Notice", route: "/principal/notice", icon: FaBell, child: [] },
   ],
   Teacher: [
-    { name: "Home", route: "/teacher/home", icon: FaHome, child: [] },
+    { name: "Dashboard", route: "/teacher/dashboard", icon: MdDashboard, child: [] },
     {
       name: "Students",
       icon: FaUser,
@@ -97,7 +98,7 @@ const getLastMailPath = () => {
     { name: "Notice", route: "/teacher/notice", icon: FaBell, child: [] },
   ],
   Student: [
-    { name: "Home", route: "/student/home", icon: FaHome, child: [] },
+    { name: "Dashboard", route: "/student/dashboard", icon: MdDashboard, child: [] },
     { name: "Subjects", route: "/student/subject", icon: FaBook, child: [] },
     { name: "Assignments", route: "/student/assignment", icon: FaBook, child: [] },
     { name: "Teachers", route: "/student/teacher", icon: FaUser, child: [] },

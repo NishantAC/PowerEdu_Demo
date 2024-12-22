@@ -60,10 +60,6 @@ body{
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-::selection {
-  background-color: #2d53ff; /* Gold background */
-  color: #e0e0e0; /* White text */
-}
 
 .no-spinner::-webkit-outer-spin-button,
 .no-spinner::-webkit-inner-spin-button {

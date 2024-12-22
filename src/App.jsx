@@ -136,7 +136,7 @@ function App() {
           {/* Admin layout */}
 
         <Route element={<MainLayout />}>
-          <Route path="/admin/home" element={<Home />} />
+          <Route path="/admin/dashboard" element={<Home />} />
           <Route path="/admin/profile/students" element={<Profiles />} />
           <Route path="/admin/profile/teachers" element={<Profiles />} />
           <Route path="/admin/profile/principal" element={<Profiles />} />
@@ -156,7 +156,7 @@ function App() {
 
 
           {/*  Teacher layout  */}
-          <Route path="/teacher/home" element={<TeacherHome />} />
+          <Route path="/teacher/dashboard" element={<TeacherHome />} />
           <Route path="/teacher/subject" element={<TeacherSubject />} />
           <Route path="/teacher/add-assignment" element={<TeacherAssignment />} />
           <Route path="/teacher/add-homework" element={<TeacherHomework />} />
@@ -168,23 +168,23 @@ function App() {
           <Route path="/teacher/class-test-marks" element={<ClassTestMarks />} />
           <Route path="/teacher/upload-paper" element={<TeacherExam />} />
           <Route path="/teacher/question-paper" element={<FolderTable />} />
-          <Route path="/teacher/home/profile" element={<TeachersProfile />} />
+          <Route path="/teacher/dashboard/profile" element={<TeachersProfile />} />
 
             {/*  Student layout  */}
 
-          <Route path="/student/home" element={<StudentHome />} />
+          <Route path="/student/dashboard" element={<StudentHome />} />
           <Route path="/student/subject" element={<StudentSubject />} />
           <Route path="/student/assignment" element={<StudentAssignment />} />
           <Route path="/student/teacher" element={<StudentTeacher />} />
           <Route path="/student/fee" element={<StudentFee />} />
           <Route path="/student/exam" element={<StudentExam />} />
           <Route path="/student/notice" element={<StudentNotice />} />
-          <Route path="/student/home/profile" element={<StudentProfile />} />
+          <Route path="/student/dashboard/profile" element={<StudentProfile />} />
 
 
 
             {/*  Principal layout  */}
-            <Route path="/principal/home" element={<PrincipalHome />} />
+            <Route path="/principal/dashboard" element={<PrincipalHome />} />
             <Route path="/principal/student/profile" element={<PrincipalStudents />} />
             <Route path="/principal/student/timetable" element={<StudentTimetable />} />
             <Route path="/principal/student/marks" element={<StudentMarksTable />} />
@@ -197,7 +197,7 @@ function App() {
             <Route path="/principal/fees" element={<PrincipalFees />} />
             <Route path="/principal/mail/:mode" element={<TeacherMail />} />
             <Route path="/principal/notice" element={<PrincipalNotice />} />
-            <Route path="/Principal/home/profile" element={<PrincipalProfile />} />
+            <Route path="/Principal/dashboard/profile" element={<PrincipalProfile />} />
             <Route path="/principal/view-profile" element={<PrincipalStudentsTabs />} />
 
             {/*  Accounts layout  */}

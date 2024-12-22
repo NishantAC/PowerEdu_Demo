@@ -33,7 +33,7 @@ function CircularsList({ themeProperties }) {
 
   return (
     <div
-      className="min-h-[72vh] w-full lg:w-4/5 flex flex-col rounded-2xl shadow-md overflow-hidden"
+      className="min-h-[72vh] w-full lg:w-4/5 flex flex-col rounded-2xl shadow-2xl overflow-hidden"
       style={{
         color: themeProperties.textColorAlt,
         background: themeProperties?.boxBackground
@@ -41,8 +41,7 @@ function CircularsList({ themeProperties }) {
       }}
 
     >
-      {/* Top heading box */}
-      <div className="w-full flex items-center px-5 py-3 justify-center shadow-sm">
+      <div className="w-full flex items-center px-5 py-3 justify-center ">
         <h2
           className={` text-lg font-normal text-center`}
           style={{
