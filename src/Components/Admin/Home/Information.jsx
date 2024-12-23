@@ -216,12 +216,9 @@ function Information() {
 
   return (
     <div className=" max-xl:max-w-4/5 max-xl:mt-10 relative flex flex-col gap-2 h-full" >
-      <div className={`flex h-[10%] max-xl:flex-col-reverse flex-row gap-10 justify-around items-center max-xl:py-4 rounded-[20px]`}
-        style={{
-          background: themeProperties.borderColor,
-        }}
+      <div className={`flex h-[10%] max-xl:flex-col-reverse flex-row gap-10 justify-around items-center max-xl:py-4 rounded-[20px] `}
       >
-        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative" ref={searchRef}>
+        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative " ref={searchRef}>
           <Box sx={{ }}>
             <Toolbar>
               <Search

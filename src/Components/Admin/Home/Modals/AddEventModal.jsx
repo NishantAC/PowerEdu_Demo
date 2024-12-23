@@ -47,7 +47,7 @@ const AddEventModal = ({ themeProperties }) => {
             background: themeProperties.normal2,
           }}
         >
-          <p className="backdrop-blur-lg text-nowrap py-[10px] px-[20px] rounded-[8px]">
+          <p className="backdrop-blur-lg text-nowrap py-[10px] text-[13px] px-[20px] rounded-[8px]">
             New Event
           </p>
         </div>

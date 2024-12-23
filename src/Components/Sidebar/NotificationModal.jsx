@@ -138,10 +138,9 @@ const NotificationModal = () => {
         <PopoverTrigger asChild className=" ">
           <div onClick={handleToggleDropdown} className="cursor-pointer p-2 rounded-full relative border-2"
           style={{ background: themeProperties.normal1, borderColor: themeProperties.textColor
-
            }}
           >
-            <LuBell size={20}  />
+            <LuBell size={20} color={themeProperties?.textColor}  />
             {newNotification && <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full" />}
           </div>
         </PopoverTrigger>

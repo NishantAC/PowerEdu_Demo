@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef} from "react";
 import 'react-calendar/dist/Calendar.css'; // Import calendar styles
 import { useGoogleLogin } from '@react-oauth/google';
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +11,9 @@ import GoogleImage from "../.../../../assets/images/Google.png";
 import { CircularProgress } from '@mui/material';
 import MeetingsTable from './MeetingsTable';
 import { toast } from 'react-toastify';
+import { IoMdAdd } from "react-icons/io";
+import gsap from "gsap";
+import './Meeting.css'
 
 
 function MeetingsBox() {
@@ -21,7 +24,9 @@ function MeetingsBox() {
   const [isAuthorised, setIsAuthorised] = useState(false);
   const [loading, setLoading] = useState(true);
   const themeProperties = useSelector(selectThemeProperties);
-
+  const [isHovered, setIsHovered] = useState(false);
+  const buttonRef = useRef(null);
+  const textRef = useRef(null);  
   const { user: currentUser } = useSelector((state) => state.user);
   const { googleEvents } = useSelector((state) => state.calendarSlice);
 
@@ -55,6 +60,21 @@ function MeetingsBox() {
     dispatch(getGoogleEvents()).finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    gsap.set(textRef.current, { opacity: 0, display: 'none' });
+
+    buttonRef.current.addEventListener('mouseenter', () => {
+      gsap.to(textRef.current, { opacity: 1, display: 'inline',
+        duration: 0.5 });
+    });
+
+    
+
+    buttonRef.current.addEventListener('mouseleave', () => {
+      gsap.to(textRef.current, { opacity: 0, display: 'none', duration: 0.5 });
+    });
+  }, []);
+
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     scope:
@@ -70,6 +90,7 @@ function MeetingsBox() {
     },
   });
 
+  
   useEffect(() => {
     if (isMeetingsListOpen) {
       setCalenderOpen(false);
@@ -100,9 +121,10 @@ function MeetingsBox() {
     return `${day}${getDaySuffix(day)} ${month} ${year}`;
   }
 
+
   return (
     <div
-      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center`}
+      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center shadow-xl `}
     >
       <div
         className={`w-full py-2 px-4 flex justify-between items-center`} 
@@ -128,8 +150,7 @@ function MeetingsBox() {
 
       {/* bottom area */}
       <div
-        className={` w-full h-full overflow-y-scroll transition-all duration-300 px-4`}
-        style={{ background: themeProperties.background }}
+        className={` w-full h-full overflow-y-scroll transition-all duration-300 px-4 relative shadow-2xl`}
       >
         {loading ? (
           <div className="flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px]">
@@ -169,7 +190,41 @@ function MeetingsBox() {
             </div>
           </div>
         )}
+<a
+      href="https://calendar.google.com/calendar/u/0/r/eventedit?vcon=meet&dates=now&hl=en"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="absolute bottom-4 right-4"
+    >
+      <button
+        ref={buttonRef}
+        className="scheduleMeetingButton"
+        style={{
+          background: themeProperties.normal1,
+          color: themeProperties.textColor,
+          borderRadius: '50%',
+          width: '50px',
+          height: '50px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <IoMdAdd size={25} />
+        <span
+          ref={textRef}
+          className="scheduleMeetingText"
+          style={{
+            marginLeft: '10px',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Schedule a Meeting
+        </span>
+      </button>
+    </a>
       </div>
+      
       <CalendarModal
         open={isCalenderOpen}
         onClose={() => setCalenderOpen(false)}

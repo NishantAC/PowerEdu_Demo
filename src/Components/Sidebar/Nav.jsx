@@ -93,25 +93,16 @@ function Navbar() {
     setShowModal(!showModal);
   };
 
-  useEffect(() => {
-    // const NavbarAnimation = gsap.timeline();
-    // NavbarAnimation.to(navbarRef.current, {
-    //   duration: 0.5,
-    // });
-  }, [isCollapsed]);
 
   return (
     <div
-      className="rounded-[14px] shadow-lg relative overflow-hidden p-1"
+      className="rounded-[14px] relative overflow-hidden "
       style={{
-        background: themeProperties?.secondaryColor,
-        color: themeProperties?.textColor,
+        color: themeProperties?.textColorAlt,
       }}
     >
       <div className="flex items-center rounded-[10px] w-full justify-between px-4"
-        style={{
-          background: themeProperties?.sideBarColor
-        }}
+
       >
         <div className="flex items-center gap-4 md:gap-10">
           <div className="flex items-center justify-center">
@@ -120,7 +111,7 @@ function Navbar() {
           <div className="text-[18px] font-helvetica text-nowrap">{schooldata?.school_name ?? "School Name"}</div>
           <div className="hidden md:block text-sm divider"
             style={{
-              "--before-bg": themeProperties?.textColor,
+              "--before-bg": themeProperties?.textColorAlt,
             }}
           >
             <style>
@@ -140,8 +131,7 @@ function Navbar() {
               onClick={toggleNav}
               style={{
                 background: themeProperties?.normal1,
-                color: themeProperties?.headerTextColor,
-                borderColor: themeProperties?.textColor
+                color: themeProperties?.textColor,
               }}
             >
               View Performance Analytics
@@ -155,7 +145,7 @@ function Navbar() {
           >
             <Avatar>
               <AvatarImage src={image ? image : ""} alt={user?.firstname} className="rounded-full "  />
-              <AvatarFallback style={{ background: themeProperties?.normal1 }}>CN</AvatarFallback>
+              <AvatarFallback style={{ background: themeProperties?.normal1, color : themeProperties?.textColor }}>CN</AvatarFallback>
             </Avatar>
           </div>
           <SelectTheme />

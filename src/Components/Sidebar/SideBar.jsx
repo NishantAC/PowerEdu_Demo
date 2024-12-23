@@ -215,9 +215,9 @@ useEffect(() => {
           className="cursor-pointer fixed right-1 top-1 "
           onClick={toggleSidebar}
         >
-          <div className="scale-75">
+          <div className="scale-[0.6]">
             <div
-              className="w-7 h-7 border-4 rounded-[5px] flex items-center"
+              className="w-7 h-7 border-[3px] rounded-[5px] flex items-center"
               style={{ borderColor: themeProperties?.sideBarCollapseButton }}
             >
               <div

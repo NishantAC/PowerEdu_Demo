@@ -50,7 +50,7 @@ function CreateNewUserModal({themeProperties}) {
 
               }}
             >
-        <p className=" backdrop-blur-lg py-[10px] text-nowrap px-[20px] rounded-[8px] ">
+        <p className=" backdrop-blur-lg py-[10px] text-nowrap px-[20px] text-[13px] rounded-[20px] ">
              New User
         </p>
       </div>

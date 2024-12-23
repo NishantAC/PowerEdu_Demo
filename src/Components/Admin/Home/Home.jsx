@@ -54,9 +54,8 @@ function Home() {
     >
       {/* Left Section */}
 
-      <div  className={`p-2 rounded-[18px] overflow-hidden z-50`}
+      <div  className={`rounded-[18px] p-2 overflow-hidden z-50`}
         style={{
-          background: themeProperties.secondaryColor,
         }}
         >
 
@@ -78,11 +77,14 @@ function Home() {
             >
               <h3 className="opacity-90 font-sans"> Welcome</h3>
               <h1 className="text-4xl font-semibold font-work-sans">
-              {user?.firstname}
+              {user?.firstname + " !"} 
               </h1>
             </div>
 
-
+            <div className=" p-4"
+            style={{color: themeProperties.normal2,}}
+            >
+            </div>
             <div
               className={`flex gap-2 flex-col items-center`}
             >
@@ -96,25 +98,7 @@ function Home() {
 
                 </div>
               </div>
-              <a
-                href="https://calendar.google.com/calendar/u/0/r/eventedit?vcon=meet&dates=now&hl=en"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button
-                  className=" text-nowrap"
-                  style={{
-                    background: themeProperties.normal2,
-                    color: themeProperties.textColor,
-                    borderRadius: "10px",
-                    padding: "10px 48px",
-                    width: "100%",
 
-                  }}
-                >
-                  Schedule A Meeting
-                </button>
-              </a>
             </div>
 
           </div>
@@ -127,7 +111,6 @@ function Home() {
       {/* Right Section */}
 
       <div className="flex-1 h-full"
-        style={{ backgroundColor: themeProperties.background }}
       >
         <Information />
       </div>
