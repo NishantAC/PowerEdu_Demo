@@ -54,7 +54,7 @@ function Home() {
     >
       {/* Left Section */}
 
-      <div  className={`rounded-[18px]  overflow-hidden z-50`}
+      <div  className={`rounded-[18px] p-2 overflow-hidden z-50`}
         style={{
         }}
         >
@@ -71,7 +71,7 @@ function Home() {
             }}
           >
             <div className="  py-2"
-            style={{color: themeProperties.normal2,
+            style={{color: themeProperties.specialColor,
 
             }}
             >

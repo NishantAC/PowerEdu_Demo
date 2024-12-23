@@ -40,7 +40,7 @@ function Layout(props) {
                     <div className='z-50 h-[10vh] '>
                         <Nav />
                     </div>
-                    <div className="flex-1 overflow-y-scroll p-2">
+                    <div className="flex-1 overflow-y-scroll ">
                         {props.children}
                     </div>
                 </div>

@@ -124,25 +124,28 @@ function MeetingsBox() {
 
   return (
     <div
-      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center shadow-xl `}
+      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center shadow-xl border-2`}
+      style={{
+        borderColor: themeProperties.borderColor,
+      }}
     >
       <div
         className={`w-full py-2 px-4 flex justify-between items-center`} 
-        style={{borderBottom: `2px solid ${themeProperties.primaryColor}`,
+        style={{borderBottom: `2px solid ${themeProperties.borderColor}`,
         background: themeProperties.boxBackground,
 
       }}
       >
         <div
           className={` font-[10px]   `}
-          style={{ color: themeProperties.normal3 }}
+          style={{ color: themeProperties.specialColor }}
         >
           Meetings
         </div>
         <div
           className={`font-light rounded-md text-[14px] border-none relative transition-all duration-300 flex items-center`}
           // onClick={() => setCalenderOpen(!isCalenderOpen)}
-          style={{ color: themeProperties.normal3 }}
+          style={{ color: themeProperties.specialColor }}
         >
           {formatDate(selectedDate)}
         </div>
@@ -151,6 +154,8 @@ function MeetingsBox() {
       {/* bottom area */}
       <div
         className={` w-full h-full overflow-y-scroll transition-all duration-300 px-4 relative shadow-2xl`}
+
+        style={{ background: themeProperties.boxBackground }}
       >
         {loading ? (
           <div className="flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px]">
@@ -166,7 +171,7 @@ function MeetingsBox() {
               padding: '2px',
               borderRadius: '10px',
             }}>
-            <button onClick={googleLogin} className=" flex p-2 rounded-[10px] bg-white hover:bg-white "            
+            <button onClick={googleLogin} className=" flex p-2 rounded-[10px] "            
             > 
               <img src={GoogleImage} width={20} alt="Sign in with Google" />
 
@@ -200,8 +205,8 @@ function MeetingsBox() {
         ref={buttonRef}
         className="scheduleMeetingButton"
         style={{
-          background: themeProperties.normal1,
-          color: themeProperties.textColor,
+          background: themeProperties.buttonColor,
+          color: themeProperties.textColorAlt,
           borderRadius: '50%',
           width: '50px',
           height: '50px',

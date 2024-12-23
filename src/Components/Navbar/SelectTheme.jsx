@@ -25,15 +25,17 @@ const SelectTheme = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <Drawer>
         <DrawerTrigger
-          className=" p-2 rounded-full flex items-center justify-center"
+          className=" m-auto p-2 rounded-full flex gap-4 items-center justify-center text-[12px] font-work-sans cursor-pointer"
           style={{
-            background: themes[currentTheme].primaryColor,  
+            background: themes[currentTheme].normal1,  
+            color: themes[currentTheme].textColorAlt,
           }}
         >
-          <SunIcon size={20} className="text-white" />
+          Select Theme 
+          <SunIcon size={20}  />
         </DrawerTrigger>
         <DrawerContent
           className="min-h-[80vh] min-w-[60vw] rounded-lg p-6 "

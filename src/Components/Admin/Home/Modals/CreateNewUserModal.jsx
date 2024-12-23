@@ -43,14 +43,14 @@ function CreateNewUserModal({themeProperties}) {
       <div
               style={{
                 borderRadius: "10px",
-                color: themeProperties.textColor,
+                color: themeProperties.textColorAlt,
                 cursor: "pointer",
                 overflow: "hidden",
-                background: themeProperties.normal2,
+                background: themeProperties.buttonColor,
 
               }}
             >
-        <p className=" backdrop-blur-lg py-[10px] text-nowrap px-[20px] text-[13px] rounded-[20px] ">
+        <p className=" backdrop-blur-lg py-[10px] text-nowrap px-[20px] text-[14px] rounded-[20px] ">
              New User
         </p>
       </div>

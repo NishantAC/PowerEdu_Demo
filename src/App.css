@@ -98,6 +98,9 @@ body{
 }
 
 
+.test{
+  color: #ffffff;
+}
 
 @keyframes spin {
   0% {

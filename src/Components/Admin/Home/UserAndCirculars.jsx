@@ -9,22 +9,31 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
 
   return (
     <div
-      className="flex gap-2  rounded-[20px] max-lg:flex-col h-full overflow-hidden"
+      className="flex gap-2 p-2 rounded-[20px] max-lg:flex-col h-full overflow-hidden"
       style={{
         color: themeProperties.textColor,
+
       }}
     >
       {/* List of new users Box */}
-      <div className="relative flex flex-col rounded-[20px] shadow-xl w-full h-full"
+      <div className="relative flex flex-col rounded-[20px] shadow-xl w-full h-full border-2"
         style={{
-          background: themeProperties?.boxBackground
+          background: themeProperties?.boxBackground,
+          borderColor: themeProperties.borderColor
+
         }}
       >
-        <div className="w-full rounded-t-[20px] flex items-center px-5 py-3 justify-center">
-          <div className="flex items-center gap-2 text-lg">
+        <div className="w-full rounded-t-[20px] flex items-center px-5 py-3 justify-center "
+               style={{
+                background: themeProperties?.boxBackgroundTop, 
+              }}
+        >
+          <div className="flex items-center gap-2 text-lg
+          "
+          >
             <div
               style={{
-                color: themeProperties.normal2,
+                color: themeProperties.textColorAlt,
               }}
             >
               Newly Added Users
@@ -36,21 +45,25 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
         >
           <table className="min-w-full border-collapse">
             <thead className="w-full sticky top-0"
-              style={{ background: themeProperties.boxBackground }}
+              style={{ background: themeProperties.boxBackgroundTop }}
             >
-              <tr>
-                <th className="px-6 py-3 text-left text-[12px] font-medium text-gray-500 uppercase tracking-wider">
+              <tr 
+                  style={{ color: themeProperties.textColorAlt }}
+              
+              >
+                <th className="px-6 py-3 text-left text-[12px] font-medium uppercase tracking-wider"
+                >
                   Name
                 </th>
-                <th className="px-6 py-3 text-left text-[12px] font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-[12px] font-medium uppercase tracking-wider">
                   Designation
                 </th>
-                <th className="px-6 py-3 text-left text-[12px] font-medium text-gray-500 uppercase tracking-wider text-nowrap">
+                <th className="px-6 py-3 text-left text-[12px] font-medium uppercase tracking-wider text-nowrap">
                   Date of Joining
                 </th>
               </tr>
             </thead>
-            <tbody className=""
+            <tbody className=" cursor-pointer"
               style={{           background: themeProperties?.boxBackground
               }}
             >
@@ -73,7 +86,7 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
 
                   <td
                     className="whitespace-nowrap flex items-center gap-2 py-2"
-                    style={{ color: themeProperties.textColorAlt }}
+                    style={{ color: themeProperties.textColor }}
                   >
                     {user.imgSrc !== "" ? (
                       <img
@@ -91,13 +104,13 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
                   </td>
                   <td
                     className="px-6 py-4 whitespace-nowrap"
-                    style={{ color: themeProperties.textColorAlt }}
+                    style={{ color: themeProperties.textColor }}
                   >
                     {user.designation}
                   </td>
                   <td
                     className="px-6 py-4 whitespace-nowrap"
-                    style={{ color: themeProperties.textColorAlt }}
+                    style={{ color: themeProperties.textColor }}
                   >
                     {user.dateOfJoining}
                   </td>

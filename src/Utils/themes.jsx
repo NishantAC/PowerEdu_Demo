@@ -1,15 +1,15 @@
 // File to store all the theme colors
 
 const themes = {
-  SoberViolet: {
-
-    primaryColor: "#6A0DAD",
-    secondaryColor: "#D8BFD8",
+  DarkBlue: {
+    specialColor: "#00369a",
     normal1: "#6A0DAD",
     normal2: "#6A0DAD",
     normal3: "#6A0DAD",
     background: "#070F2B",
     backgroundRight: "#f7fcff",
+    boxBackgroundTop: "#001b5f",
+    buttonColor: "#001b5f",
     textColor: "#000",
     textColorAlt: "#FFF",
     textColorLight: "#4b4b4b",
@@ -21,7 +21,7 @@ const themes = {
     sideBarButton: "#9290C3",
     sideBarText: "#FFF",
     sideBarCollapseButton: "#FFF",
-    borderColor: "#D8BFD8",
+    borderColor: "#e2e2e2",
     toastColor: "#6A0DAD",
     toastTextColor: "#FFFFFF",
     boxBackground: "#FFF",
@@ -84,30 +84,32 @@ const themes = {
   },
 
   OceanBreeze: {
-    primaryColor: "#ae1dc4",
-    secondaryColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
     normal1: "#b2b8ff",
     normal2: "#7978E9",
     normal3: "#c96bff",
-    background: "#FFF",
-    textColor: "#FFFFFF",
-    textColorAlt: "#000000",
+    background: "linear-gradient(135deg, #b2b8ff 30%, #fae6eb 0%)",
+    backgroundRight: "#ffffff58",
+    boxBackgroundTop: "#b2b8ff",
+    buttonColor: "#b2b8ff",
+    textColor: "#000",
+    textColorAlt: "#FFF",
     textColorLight: "#000000",
-    sideBarColor: "linear-gradient(135deg, #b2b8ff 0%, #fae6eb 150%)",
+    sideBarColor: "transparent",
     sideBarButton: "#ae1dc4",
     sideBarText: "#FFF",
     sideBarCollapseButton: "#FFF",
-    borderColor: "#b2b8ff",
+    borderColor: "#ffffff ",
     googleMeetButton: "#9694FF",
     inputBackground: "#FFF",
     inputTextColor: "#000000",
     logoutColor: "red",
-    boxBackground: "#FFF",
+    boxBackground: "#ffffff7f",
     boxTextColor: "#000000",
     toastColor: "#e9cffb",
     boxHoverColor: "#e9cffb",
     boxHoverTextColor: "#000000",
     scrollColor: "#ff9a9a",
+    
   },
 
   DarkMode: {

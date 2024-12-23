@@ -93,7 +93,6 @@ const Profile = ({
             <hr />
 
             <div>
-              {/* <SelectTheme /> */}
 
               {/* School Name and powered By  */}
               <div className="flex items-center justify-start gap-4 py-4 px-2 ">
@@ -139,6 +138,9 @@ const Profile = ({
                   )}
                 </div>
               </div>
+
+              <SelectTheme />
+
             </div>
           </div>
         </PopoverContent>

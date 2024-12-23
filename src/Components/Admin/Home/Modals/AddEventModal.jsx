@@ -35,29 +35,31 @@ const AddEventModal = ({ themeProperties }) => {
   }, []);
 
   return (
-    <Dialog>
-      <DialogTrigger>
+    <Dialog >
+      <DialogTrigger >
         <div
           onClick={() => setAddEventModalOpen(true)}
           style={{
             borderRadius: "10px",
-            color: themeProperties.textColor,
+            color: themeProperties.textColorAlt,
             cursor: "pointer",
             overflow: "hidden",
-            background: themeProperties.normal2,
+            background: themeProperties.buttonColor,
           }}
         >
-          <p className="backdrop-blur-lg text-nowrap py-[10px] text-[13px] px-[20px] rounded-[8px]">
+          <p className="backdrop-blur-lg text-nowrap py-[10px] text-[14px] px-[20px] rounded-[8px]">
             New Event
           </p>
         </div>
       </DialogTrigger>
-      <DialogContent className="p-0 overflow-hidden">
+      <DialogContent className="p-0 overflow-hidden" style={{
+        color : themeProperties.textColorAlt
+      }}>
         <DialogHeader
           className="p-4 w-full"
           style={{
-            color: themeProperties.textColor,
-            background: themeProperties.secondaryColor,
+            color: themeProperties.textColorAlt,
+            background: themeProperties.boxBackgroundTop
           }}
         >
           <DialogTitle className="text-center font-normal text-2xl">
@@ -112,7 +114,7 @@ const AddEventModal = ({ themeProperties }) => {
                     {date ? format(date, 'PPP') : <span>Start Date </span>}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent className="w-auto p-0" >
                   <Calendar
                     mode="single"
                     selected={date}
@@ -152,10 +154,10 @@ const AddEventModal = ({ themeProperties }) => {
             </div>
           </div>
           <button
-            className="px-4 py-3 rounded-md opacity-70 hover:opacity-100 transition-all duration-300"
+            className="px-4 py-3 rounded-md  transition-all duration-300"
             style={{
-              background: themeProperties.primaryColor,
-              color: themeProperties.textColor,
+              background: themeProperties.buttonColor,
+              color: themeProperties.textColorAlt,
             }}
           >
             Add Event
