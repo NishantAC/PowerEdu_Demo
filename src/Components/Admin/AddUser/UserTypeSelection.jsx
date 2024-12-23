@@ -33,7 +33,7 @@
           <Button
             aria-expanded={open}
             className="w-[190px] justify-between opacity-100 bg-opacity-100 border-2  border-solid rounded-[8px] p-2 "
-            style = {{ color: themeProperties?.textColorAlt, 
+            style = {{ color: themeProperties?.textColor, 
               backgroundColor: themeProperties?.inputBackground,
               
             }}

@@ -138,16 +138,15 @@ function FillUserInfo() {
       className=""
     >
       <div className=" flex gap-4">
-        <div className=" p-2 rounded-[20px]"
-        style={{ backgroundColor: themeProperties?.normal1 }}
+        <div className=" rounded-[20px] shadow-lg"
         
         >
         <div className=" min-w-[250px] flex flex-col justify-center items-center gap-20 h-[82vh] rounded-[20px] relative"
-        style={{ backgroundColor: themeProperties?.inputBackground }}
+        style={{ backgroundColor: themeProperties?.boxBackground }}
         >
           <div>
           <h1 className=" text-2xl font-normal mb-5 top-10 absolute border-b-2" 
-          style={{ color: themeProperties?.textColorAlt, 
+          style={{ color: themeProperties?.textColor, 
             borderColor: themeProperties?.normal1,
   
            }}
@@ -160,12 +159,8 @@ function FillUserInfo() {
         </div>
 
         <div
-          className=" flex-1 rounded-[20px] p-2 "
-          style={
-            {
-              background : themeProperties.normal1,
-            }
-          }
+          className=" flex-1 rounded-[20px] shadow-lg"
+
         >
           <UserDetailsForm
             formValues={formValues}

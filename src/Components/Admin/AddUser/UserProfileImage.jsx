@@ -31,7 +31,7 @@ function UserProfileImage({ formValues, setFormValues, themeProperties }) {
       ) : (
         <div
           className="h-32 w-32 rounded-full grid place-content-center font-rubik font-medium text-4xl border-dotted border-2 border-gray-400"
-          style={{ background: themeProperties.background, 
+          style={{ background: themeProperties.boxBackground, 
                border : `2px dotted ${themeProperties.normal1}`,
           }}
         >
@@ -46,7 +46,7 @@ function UserProfileImage({ formValues, setFormValues, themeProperties }) {
         <label
           htmlFor="uploadImgBtn"
           className=" cursor-pointer flex gap-2 items-center  "
-          style={{ color: themeProperties.textColor }}
+          style={{ color: themeProperties.textColorAlt }}
         >
           Upload Image
            <FaUser className="ml-2" />

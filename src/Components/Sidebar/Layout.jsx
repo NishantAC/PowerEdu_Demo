@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import SideBar from './SideBar';
-import Nav from './Nav';
+import Nav from '../Navbar/Nav';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectThemeProperties } from '@/slices/theme';
@@ -40,7 +40,7 @@ function Layout(props) {
                     <div className='z-50 h-[10vh] '>
                         <Nav />
                     </div>
-                    <div className="flex-1 overflow-y-scroll">
+                    <div className="flex-1 overflow-y-scroll p-2">
                         {props.children}
                     </div>
                 </div>

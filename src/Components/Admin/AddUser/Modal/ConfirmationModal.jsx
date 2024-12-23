@@ -13,7 +13,7 @@ const ConfirmationModal = ({ close, userId, password,themeProperties }) => {
         {/* heading box */}
         <div className="w-full h-14 flex justify-center items-center px-3  text-[18px] text-gray-700 rounded-t-[10px] relative"
         style={{ backgroundColor: themeProperties?.normal1, 
-          color: themeProperties?.textColor,
+          color: themeProperties?.textColorAlt,
         }}
 
         >
@@ -50,7 +50,7 @@ const ConfirmationModal = ({ close, userId, password,themeProperties }) => {
               className="font-medium border-none outline-none rounded px-4 py-2 mt-10"
 
               style={{ backgroundColor: themeProperties?.normal3, 
-                color: themeProperties?.textColor,
+                color: themeProperties?.textColorAlt,
               }}
             >
               Go to Home

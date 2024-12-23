@@ -49,9 +49,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '20ch',
+      width: '30ch',
       '&:focus': {
-        width: '30ch',
+        width: '40ch',
       },
     },
   },
@@ -215,10 +215,10 @@ function Information() {
   const themeProperties = useSelector(selectThemeProperties);
 
   return (
-    <div className=" max-xl:max-w-4/5 max-xl:mt-10 relative flex flex-col gap-2 h-full" >
-      <div className={`flex h-[10%] max-xl:flex-col-reverse flex-row gap-10 justify-around items-center max-xl:py-4 rounded-[20px] `}
+    <div className=" max-xl:max-w-4/5 max-xl:mt-10 flex flex-col h-full" >
+      <div className={`flex h-0 max-xl:flex-col-reverse flex-row justify-around items-center max-xl:py-4 rounded-[20px] `}
       >
-        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative " ref={searchRef}>
+        <div className="flex max-md:flex-col w-96 justify-center items-center absolute top-2 right-[33%] z-50 " ref={searchRef}>
           <Box sx={{ }}>
             <Toolbar>
               <Search
@@ -290,8 +290,7 @@ function Information() {
             </div>
           )}
         </div>
-        <div>
-          <StatsAndCharts
+        {/* <StatsAndCharts
             totalStudents={totalStudents}
             totalTeachers={totalTeachers}
             totalStaff={totalStaff}
@@ -305,10 +304,9 @@ function Information() {
             setYear={setYear}
             initialDate={initialDate}
             themeProperties={themeProperties}
-          />
-        </div>
+          /> */}
       </div>
-      <div className=" h-[88.5%] ">
+      <div className=" h-full ">
       <UserAndCirculars newlyAddedUsersArray={newlyAddedUsersArray} deviceSize={deviceSize} />
 
       </div>

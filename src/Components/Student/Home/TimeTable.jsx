@@ -10,7 +10,6 @@ import Calendar from "./Calender";
 //new
 import { useDispatch, useSelector } from "react-redux";
 import { getDayWiseSubject } from "../../../slices/daywisetimetable";
-import DatePicker from "react-datepicker";
 import ShowTimeTableSubjects from "./ShowTimeTableSubjects";
 
 export default function TimeTable() {
@@ -25,15 +24,15 @@ export default function TimeTable() {
     const { subject } = useSelector((state) => state.timetable);
 
     //on page load getting data
-    useEffect(() => {
-        dispatch(
-            getDayWiseSubject({
-                class_id: classid,
-                schoolcode,
-                day: startDate.getDay(),
-            })
-        );
-    }, [startDate]);
+    // useEffect(() => {
+    //     dispatch(
+    //         getDayWiseSubject({
+    //             class_id: classid,
+    //             schoolcode,
+    //             day: startDate.getDay(),
+    //         })
+    //     );
+    // }, [startDate]);
 
     return (
         <div className="time-table">
@@ -64,11 +63,12 @@ function ChooseDate({ startDate, setDate }) {
         setDate(d);
     };
     return (
-        <DatePicker
-            className="date"
-            dateFormat="dd/MM/yyyy"
-            selected={startDate}
-            onChange={selectDateHandler}
-        />
+        <></>
+        // <DatePicker
+        //     className="date"
+        //     dateFormat="dd/MM/yyyy"
+        //     selected={startDate}
+        //     onChange={selectDateHandler}
+        // />
     );
 }

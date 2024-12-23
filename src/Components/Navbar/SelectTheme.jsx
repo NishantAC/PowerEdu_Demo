@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "@/slices/theme";
-
 import {
   Drawer,
   DrawerClose,
@@ -12,7 +11,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-
 import { SunIcon } from "lucide-react";
 
 const SelectTheme = () => {

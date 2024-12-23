@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import InputField from "./InputField";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+
 import {
   Popover,
   PopoverContent,
@@ -35,6 +28,19 @@ const UserDetailsForm = ({
   themeProperties,
 }) => {
 
+  const handleDateChange = (name, selectedDate) => {
+    if (selectedDate) {
+      const localDate = new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000);
+      const formattedDate = localDate.toISOString().split("T")[0];
+      handleChange({
+        target: {
+          name,
+          value: formattedDate,
+        },
+      });
+    }
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -46,7 +52,7 @@ const UserDetailsForm = ({
       <div
         className="flex flex-col gap-5 h-full w-full "
         style={{
-          color: themeProperties?.textColorAlt,
+          color: themeProperties?.textColor,
         }}
       >
         {!userType && (
@@ -172,19 +178,7 @@ const UserDetailsForm = ({
                             ? new Date(formValues.admissionDate)
                             : undefined
                         }
-                        onSelect={(selectedDate) => {
-                          if (selectedDate) {
-                            const formattedDate = selectedDate
-                              .toISOString()
-                              .split("T")[0];
-                            handleChange({
-                              target: {
-                                name: "admissionDate",
-                                value: formattedDate,
-                              },
-                            });
-                          }
-                        }}
+                        onSelect={(selectedDate) => handleDateChange("admissionDate", selectedDate)}
                         initialFocus
                       />
                     </PopoverContent>
@@ -263,19 +257,7 @@ const UserDetailsForm = ({
                             ? new Date(formValues.admissionDate)
                             : undefined
                         }
-                        onSelect={(selectedDate) => {
-                          if (selectedDate) {
-                            const formattedDate = selectedDate
-                              .toISOString()
-                              .split("T")[0];
-                            handleChange({
-                              target: {
-                                name: "admissionDate",
-                                value: formattedDate,
-                              },
-                            });
-                          }
-                        }}
+                        onSelect={(selectedDate) => handleDateChange("admissionDate", selectedDate)}
                         initialFocus
                       />
                     </PopoverContent>
@@ -324,19 +306,7 @@ const UserDetailsForm = ({
                             ? new Date(formValues.admissionDate)
                             : undefined
                         }
-                        onSelect={(selectedDate) => {
-                          if (selectedDate) {
-                            const formattedDate = selectedDate
-                              .toISOString()
-                              .split("T")[0];
-                            handleChange({
-                              target: {
-                                name: "admissionDate",
-                                value: formattedDate,
-                              },
-                            });
-                          }
-                        }}
+                        onSelect={(selectedDate) => handleDateChange("admissionDate", selectedDate)}
                         initialFocus
                       />
                     </PopoverContent>
@@ -393,19 +363,7 @@ const UserDetailsForm = ({
                     selected={
                       formValues.dob ? new Date(formValues.dob) : undefined
                     }
-                    onSelect={(selectedDate) => {
-                      if (selectedDate) {
-                        const formattedDate = selectedDate
-                          .toISOString()
-                          .split("T")[0];
-                        handleChange({
-                          target: {
-                            name: "dob",
-                            value: formattedDate,
-                          },
-                        });
-                      }
-                    }}
+                    onSelect={(selectedDate) => handleDateChange("dob", selectedDate)}
                     initialFocus
                   />
                 </PopoverContent>
@@ -571,7 +529,7 @@ const UserDetailsForm = ({
                     : themeProperties.primaryColor,
                   color: !formValues.userType
                     ? "#CECECE"
-                    : themeProperties.textColor,
+                    : themeProperties.textColoAltr,
                 }}
               >
                 Upload

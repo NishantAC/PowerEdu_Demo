@@ -9,7 +9,7 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
 
   return (
     <div
-      className="flex gap-2 p-2 rounded-[20px] max-lg:flex-col h-full overflow-hidden"
+      className="flex gap-2  rounded-[20px] max-lg:flex-col h-full overflow-hidden"
       style={{
         color: themeProperties.textColor,
       }}

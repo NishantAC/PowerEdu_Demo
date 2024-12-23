@@ -24,7 +24,7 @@ function Calendar({
       className={cn("p-3", className)}
       style={{
         backgroundColor: themeProperties?.inputBackground,
-        color: themeProperties?.textColorAlt,
+        color: themeProperties?.textColor,
       }}
       classNames={{
         months: "flex flex-ol sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",

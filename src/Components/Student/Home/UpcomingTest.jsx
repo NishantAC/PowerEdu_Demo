@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import * as moment from 'moment';
+
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -87,7 +87,7 @@ export default function UpcomingTest({ currentUser }) {
           <h4>
             {selectedTest?.testdesc}
             <h6>
-              {moment(selectedTest?.examdate).format('DD-MM-YYYY')}
+              
             </h6>
           </h4>
         </DialogTitle>
