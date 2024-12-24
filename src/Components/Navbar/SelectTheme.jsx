@@ -5,10 +5,8 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { SunIcon } from "lucide-react";
@@ -25,93 +23,69 @@ const SelectTheme = () => {
   };
 
   return (
-    <div className="p-4 ">
+    <div className="p-4">
       <Drawer>
         <DrawerTrigger
-          className=" m-auto p-2 rounded-full flex gap-4 items-center justify-center text-[12px] font-work-sans cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium transition hover:bg-gray-100"
           style={{
-            background: themes[currentTheme].normal1,  
+            background: themes[currentTheme].normal1,
             color: themes[currentTheme].textColorAlt,
           }}
         >
-          Select Theme 
-          <SunIcon size={20}  />
+          <SunIcon size={18} />
+          Select Theme
         </DrawerTrigger>
+
         <DrawerContent
-          className="min-h-[80vh] min-w-[60vw] rounded-lg p-6 "
+          className="min-h-[70vh] min-w-[50vw] p-6 rounded-lg shadow-lg"
           style={{
             background: themes[currentTheme].secondaryColor,
+            color: themes[currentTheme].textColor,
           }}
         >
-          <DrawerHeader className="text-center mb-6">
-            <DrawerTitle className="text-4xl font-bold mb-2 text-gray-800">
-              Customize Your Theme
-            </DrawerTitle>
-            <DrawerDescription className="text-lg text-gray-600">
-              Choose a theme to personalize your application's look and feel.
-            </DrawerDescription>
+          <DrawerHeader className="mb-4 text-center">
+            <h2 className="text-xl font-semibold">Select a Theme</h2>
+            <p className="text-sm text-gray-500">
+              Customize your application's look and feel.
+            </p>
           </DrawerHeader>
 
-          <div className="mt-6">
-            <div className="grid grid-cols-5 gap-8">
-              {Object.keys(themes).map((themeKey) => (  
-                <div
-                  key={themeKey}
-                  className={`p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 border-2 ${
-                    themeKey === currentTheme
-                      ? `border-${themes[themeKey].primaryColor}`
-                      : "border-transparent"
-                  } group relative`}
-                  style={{
-                    background: themes[themeKey].secondaryColor,
-                    opacity: themeKey === selectedTheme ? 1 : 0.5,
-                  }}
+          <div className="grid grid-cols-3 gap-4 mt-6">
+            {Object.keys(themes).map((themeKey) => (
+              <div
+                key={themeKey}
+                className={`p-4 rounded-lg shadow-sm transition hover:shadow-md ${
+                  themeKey === currentTheme
+                    ? "border-2"
+                    : "border border-transparent"
+                }`}
+                onClick={() => handleThemeChange(themeKey)}
+                style={{
+                  background: themes[themeKey].background,
+                  color : themes[themeKey].textColorAlt
+                }}
+              >
+                <button
+                  className="flex flex-col items-center w-full h-full"
                 >
-                  <button
-                    onClick={() => handleThemeChange(themeKey)}
-                    className="w-full h-full flex flex-col items-center justify-center"
-                  >
-                    <span
-                      className="block w-8 h-8 rounded-full border-2"
-                      style={{
-                        backgroundColor: themes[themeKey].primaryColor,
-                        borderColor: themes[themeKey].textColor,
-                      }}
-                    />
-                    <p className="mt-2 text-white font-medium">{themeKey}</p>
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-              Selected Theme Details
-            </h2>
-            <div className="grid grid-cols-5 gap-6">
-              {Object.entries(themes[selectedTheme]).map(([key, value]) => (
-                <div key={key} className="flex items-center">
-                  <span className="font-medium text-gray-800 capitalize">{key}:</span>
                   <div
-                    className="ml-4 w-10 h-10 rounded-md"
+                    className="w-10 h-10 rounded-full mb-2"
                     style={{
-                      background: value,
-                      border: `2px solid ${themes[selectedTheme].textColor}`,
+                      backgroundColor: themes[themeKey].background,
                     }}
                   />
-                </div>
-              ))}
-            </div>
+                  <span
+                    className="text-sm font-medium"
+                    style={{
+                      color: themes[themeKey].textColor,
+                    }}
+                  >
+                    {themeKey}
+                  </span>
+                </button>
+              </div>
+            ))}
           </div>
-
-          <DrawerFooter className="flex justify-end mt-8">
-            <DrawerClose>
-              <button className="px-6 py-3 text-lg font-semibold rounded-lg shadow-md bg-gray-800 text-white hover:bg-gray-700 transition-all">
-                Close
-              </button>
-            </DrawerClose>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </div>
@@ -119,3 +93,4 @@ const SelectTheme = () => {
 };
 
 export default SelectTheme;
+ 

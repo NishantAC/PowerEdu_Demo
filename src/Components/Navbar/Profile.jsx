@@ -38,7 +38,7 @@ const Profile = ({
         <PopoverContent
           className=" absolute -right-4  p-0"
           style={{
-            background: themeProperties?.boxBackground,
+            background: themeProperties?.boxBackgroundSolid,
             color: themeProperties?.textColor,
           }}
         >
