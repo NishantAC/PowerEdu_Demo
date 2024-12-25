@@ -11,6 +11,18 @@ import {
 } from "@/components/ui/drawer";
 import { SunIcon } from "lucide-react";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton"
+
+
 const SelectTheme = () => {
   const dispatch = useDispatch();
   const themes = useSelector((state) => state.theme.themes); // Retrieve themes from Redux
@@ -26,7 +38,7 @@ const SelectTheme = () => {
     <div className="p-4">
       <Drawer>
         <DrawerTrigger
-          className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium transition hover:bg-gray-100"
+          className="flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium transition"
           style={{
             background: themes[currentTheme].normal1,
             color: themes[currentTheme].textColorAlt,
@@ -37,54 +49,113 @@ const SelectTheme = () => {
         </DrawerTrigger>
 
         <DrawerContent
-          className="min-h-[70vh] min-w-[50vw] p-6 rounded-lg shadow-lg"
+          className=" w-full p-6 flex "
           style={{
-            background: themes[currentTheme].secondaryColor,
+            background: themes[currentTheme].backgroundSolid,
             color: themes[currentTheme].textColor,
           }}
         >
-          <DrawerHeader className="mb-4 text-center">
-            <h2 className="text-xl font-semibold">Select a Theme</h2>
-            <p className="text-sm text-gray-500">
-              Customize your application's look and feel.
-            </p>
-          </DrawerHeader>
 
-          <div className="grid grid-cols-3 gap-4 mt-6">
-            {Object.keys(themes).map((themeKey) => (
-              <div
-                key={themeKey}
-                className={`p-4 rounded-lg shadow-sm transition hover:shadow-md ${
-                  themeKey === currentTheme
-                    ? "border-2"
-                    : "border border-transparent"
-                }`}
-                onClick={() => handleThemeChange(themeKey)}
-                style={{
-                  background: themes[themeKey].background,
-                  color : themes[themeKey].textColorAlt
-                }}
-              >
-                <button
-                  className="flex flex-col items-center w-full h-full"
-                >
-                  <div
-                    className="w-10 h-10 rounded-full mb-2"
+          <div className=" flex justify-around w-full items-center h-full mt-4">
+
+            <div>
+            <h1 className="text-xl font-work-sans text-center mb-4" >Select a Theme</h1>
+            <h2 className="text-sm font-work-sans text-center mb-4" >Customize your experience</h2>
+
+            <Select onValueChange={handleThemeChange} value={selectedTheme}
+          
+            >
+              <SelectTrigger className="w-60 bg-transparent font-work-sans">
+                <SelectValue placeholder="Select a theme" className="  " />
+              </SelectTrigger>
+              <SelectContent style={{ background: 'transparent', 
+                borderColor: themes[currentTheme].borderColor,
+               }}>
+                <SelectGroup className="">
+                  {Object.keys(themes).map((themeKey) => (
+                    <SelectItem key={themeKey} value={themeKey} className="w-full cursor-pointer themeSelectorHover "
+                      style={{ "--hover-bg": themes[themeKey].normal1, 
+                        
+                       }}
+                    >
+                      
+                      <style>
+                        {`
+                          .themeSelectorHover {
+                          color: ${themes[themeKey].textColor};
+                        }
+
+                          .themeSelectorHover:hover {
+                            background: var(--hover-bg);
+                            color: ${themes[themeKey].textColorAlt};
+                          }
+                        `}
+                      </style>
+
+                      <div className="flex items-center justify-between w-full gap-10 ">
+                      <p>
+                      {themeKey} 
+                      </p>
+
+                      </div>
+
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            </div>
+  
+            <div className=" flex-1 justify-center flex">
+                  <div className="shadow-lg w-1/2 h-80 rounded-[20px] border-2 flex p-2"
                     style={{
-                      backgroundColor: themes[themeKey].background,
-                    }}
-                  />
-                  <span
-                    className="text-sm font-medium"
-                    style={{
-                      color: themes[themeKey].textColor,
+                      background: themes[selectedTheme].background,
+                      color: themes[selectedTheme].textColorAlt,
+                      borderColor : themes[selectedTheme].borderColor
                     }}
                   >
-                    {themeKey}
-                  </span>
-                </button>
-              </div>
-            ))}
+
+                    <div  className="text-[12px] font-work-sans text-center mt-4 w-1/5 flex flex-col items-center gap-4 ">
+
+                    <div className="flex flex-col items-center gap-2">
+                      <img
+                      className="w-8 bg-white rounded-full p-1"
+                      src="https://i.ibb.co/pn6BWTM/aquariacore.png"
+                      alt="logo"
+                    />
+                      <h1 className=" border-b-2" >PowerEdu</h1> 
+
+                      </div>
+                      <h2 >Theme </h2>
+                    </div>
+
+                  <div className=" flex-1 rounded-[15px] dummyBox flex items-center justify-evenly p-2 gap-10 "
+                    style={{
+                      background: themes[selectedTheme].backgroundRight,
+                      color: themes[selectedTheme].textColorAlt,
+                    }}
+                    > 
+                    <div className="flex flex-col items-center gap-4">
+                    <Skeleton className="h-[60px] w-[120px]"
+                        style={{ background: themes[selectedTheme].boxBackground }}
+                      />
+                      <Skeleton className="h-[140px] w-[120px]"
+                        style={{ background: themes[selectedTheme].boxBackground }}
+                      />
+                    </div>
+
+                    <div className="flex flex-col items-center gap-4">
+                    <Skeleton className="h-[60px] w-[220px]"
+                        style={{ background: themes[selectedTheme].boxBackground }}
+                      />
+                      <Skeleton className="h-[140px] w-[220px]"
+                        style={{ background: themes[selectedTheme].boxBackground }}
+                      />
+                      </div>
+
+                    </div>
+                  </div>
+            </div>
           </div>
         </DrawerContent>
       </Drawer>
@@ -93,4 +164,3 @@ const SelectTheme = () => {
 };
 
 export default SelectTheme;
- 

@@ -1,7 +1,7 @@
 // File to store all the theme colors
 
 const themes = {
-  DarkBlue: {
+  "Dark Blue": {
     specialColor: "#00369a",
     normal1: "#6A0DAD",
     normal2: "#6A0DAD",
@@ -30,16 +30,17 @@ const themes = {
     boxHoverColor: "#E6E6FA",
     boxHoverTextColor: "#000000",
     scrollColor: "#ff9a9a",
+    drawerClose: "#6A0DAD",
   },
 
 
-  OceanBreeze: {
+  "Ocean Breeze": {
     specialColor: "#b2b8ff",
     normal1: "#b2b8ff",
     normal2: "#7978E9",
     normal3: "#c96bff",
     background: "linear-gradient(135deg, #fae6eb 0%, #b2b8ff 30%)",
-    backgroundRight: "#ffffff58",
+    backgroundRight: "#ffffffa2",
     boxBackgroundTop: "#b2b8ff",
     boxBackgroundSolid : "#ffffff",
     buttonColor: "#b2b8ff",
@@ -50,7 +51,7 @@ const themes = {
     sideBarButton: "#ae1dc4",
     sideBarText: "#FFF",
     sideBarCollapseButton: "#FFF",
-    borderColor: "#ffffff ",
+    borderColor: "#FFF ",
     googleMeetButton: "#9694FF",
     inputBackground: "#FFF",
     inputTextColor: "#000000",
@@ -62,6 +63,7 @@ const themes = {
     boxHoverColor: "#e9cffb",
     boxHoverTextColor: "#000000",
     scrollColor: "#ff9a9a",
+    drawerClose: "#b2b8ff",
     
   },
 };

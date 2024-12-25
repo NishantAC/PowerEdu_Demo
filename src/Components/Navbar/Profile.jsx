@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SelectTheme from "./SelectTheme";
+import { SiAnalogue } from "react-icons/si";
 
 const Profile = ({
   user,
@@ -93,7 +94,6 @@ const Profile = ({
             <hr />
 
             <div>
-
               {/* School Name and powered By  */}
               <div className="flex items-center justify-start gap-4 py-4 px-2 ">
                 <div className="flex items-center justify-center mb-4">
@@ -121,26 +121,30 @@ const Profile = ({
               </div>
 
               <hr />
-              {/* Performance Analytics */}
 
-              <div className="py-4 px-2 flex items-center justify-center w-full">
-                <div className=" ">
-                  {data.view_performance_button && (
-                    <button
-                      className="py-2 px-3 md:py-3 md:px-4 rounded-full text-[12px] border-2 text-nowrap"
-                      style={{
-                        background: themeProperties?.normal1,
-                        color: themeProperties?.textColorAlt,
-                      }}
-                    >
-                      View Performance Analytics
-                    </button>
-                  )}
+              <div className="my-4">
+                {/* Performance Analytics */}
+
+                <div className=" px-2 flex items-center justify-center w-full">
+                  <div className=" ">
+                    {data.view_performance_button && (
+                      <button
+                        className="py-2 px-3 md:py-2 md:px-4 rounded-full text-sm border-2 text-nowrap"
+                        style={{
+                          background: themeProperties?.normal1,
+                          color: themeProperties?.textColorAlt,
+                        }}
+                      >
+                        <SiAnalogue className="inline-block mr-2" />
+                        View Analytics
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className=" w-full flex items-center justify-center ">
+                  <SelectTheme />
                 </div>
               </div>
-
-              <SelectTheme />
-
             </div>
           </div>
         </PopoverContent>

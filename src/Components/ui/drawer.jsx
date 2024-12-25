@@ -1,7 +1,8 @@
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
-
+import { selectThemeProperties } from "@/slices/theme"
 import { cn } from "@/lib/utils"
+import { useSelector } from "react-redux"
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -25,21 +26,31 @@ const DrawerOverlay = React.forwardRef(({ className, ...props }, ref) => (
 ))
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
-const DrawerContent = React.forwardRef(({ className, children, ...props }, ref) => (
-  <DrawerPortal>
-    <DrawerOverlay />
-    <DrawerPrimitive.Content
-      ref={ref}
-      className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
-        className
-      )}
-      {...props}>
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
-      {children}
-    </DrawerPrimitive.Content>
-  </DrawerPortal>
-))
+const DrawerContent = React.forwardRef(({ className, children, ...props }, ref) => {
+  const theme = useSelector(selectThemeProperties);
+
+  return (
+    <DrawerPortal>
+      <DrawerOverlay />
+      <DrawerPrimitive.Content
+        ref={ref}
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
+          className
+        )}
+        {...props}
+      >
+        <div
+          className="mx-auto mt-4 h-2 w-[100px] rounded-full"
+          style={{ background: theme.drawerClose }}
+        />
+        {children}
+      </DrawerPrimitive.Content>
+    </DrawerPortal>
+  );
+});
+
+
 DrawerContent.displayName = "DrawerContent"
 
 const DrawerHeader = ({
