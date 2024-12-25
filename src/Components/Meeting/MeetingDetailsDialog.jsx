@@ -20,10 +20,9 @@ function MeetingDetailsDialog({ meeting, themeProperties }) {
     <Dialog>
       <DialogTrigger asChild>
         <button
-          className="px-4 py-2 rounded-md font-normal transition hover:opacity-100 opacity-90"
+          className="px-4 py-2 rounded-md font-normal transition hover:opacity-100 opacity-90 "
           style={{
-            color: themeProperties.textColor,
-            background: themeProperties.googleMeetButton,
+            color: themeProperties.buttonColor,
           }}
         >
           Details
@@ -36,21 +35,18 @@ function MeetingDetailsDialog({ meeting, themeProperties }) {
         <DialogHeader className="">
           <DialogTitle
             className="text-2xl p-4 font-normal text-center "
-            style={{ color: themeProperties.textColor , background: themeProperties.secondaryColor }}
+            style={{ color: themeProperties.textColorAlt , background: themeProperties.boxBackgroundTop }}
           >
             {meeting.summary || 'No Title'}
           </DialogTitle>
         </DialogHeader>
-        <div className="min-h-80 p-4 flex flex-col justify-around items-center" style={{ color: themeProperties.textColorAlt }}>
+        <div className="min-h-80 p-4 flex flex-col justify-around items-start" 
+          style={{ color: themeProperties.textColor  }}>
           <div className='w-full text-start'>
             Time : {startTime} - {endTime}
           </div>
 
-          <p>
-            {meeting.description
-              ? meeting.description
-              : ''}
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: meeting.description || '' }} />
 
           {meeting.attachments && meeting.attachments.length > 0 && (
             <div className="w-full text-start ">
@@ -76,8 +72,8 @@ function MeetingDetailsDialog({ meeting, themeProperties }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-3 rounded-md"
-                style={{ background: themeProperties.primaryColor, 
-                    color: themeProperties.textColor
+                style={{ background: themeProperties.buttonColor, 
+                    color: themeProperties.textColorAlt
                  }}
               >
                 Join Meeting

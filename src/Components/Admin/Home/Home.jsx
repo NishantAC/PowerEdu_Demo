@@ -54,7 +54,7 @@ function Home() {
     >
       {/* Left Section */}
 
-      <div  className={`rounded-[18px] p-2 overflow-hidden z-50`}
+      <div  className={`rounded-[18px] p-2 overflow-hidden z-50 w-[23%]`}
         style={{
         }}
         >
@@ -67,11 +67,11 @@ function Home() {
           <div 
             className=" rounded-[15px] shadow-lg flex flex-col justify-center backdrop-blur-lg p-3 "
             style={{
-            background: themeProperties.boxBackground,
+            background: themeProperties.specialColor,
             }}
           >
             <div className="  py-2"
-            style={{color: themeProperties.specialColor,
+            style={{color: themeProperties.textColorAlt,
 
             }}
             >

@@ -524,12 +524,8 @@ const UserDetailsForm = ({
                 disabled={!formValues.userType}
                 style={{
                   display: !formValues.userType ? "none" : "block",
-                  backgroundColor: !formValues.userType
-                    ? "#FAFAFA"
-                    : themeProperties.primaryColor,
-                  color: !formValues.userType
-                    ? "#CECECE"
-                    : themeProperties.textColoAltr,
+                  background: themeProperties?.buttonColor,
+                  color: themeProperties?.textColorAlt,
                 }}
               >
                 Upload

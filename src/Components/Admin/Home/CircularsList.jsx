@@ -30,11 +30,10 @@ function CircularsList({ themeProperties }) {
 
   return (
     <div
-      className="min-h-[72vh] w-full lg:w-4/5 flex flex-col rounded-2xl border-2 shadow-2xl overflow-hidden "
+      className="min-h-[72vh] w-full lg:w-4/5 flex flex-col rounded-2xl overflow-hidden "
       style={{
         color: themeProperties.textColorAlt,
-        background: themeProperties?.boxBackground,
-        borderColor: themeProperties.borderColor,
+        background: themeProperties?.boxBackgroundSolid,
       }}
     >
       <div
@@ -96,12 +95,12 @@ function CircularsList({ themeProperties }) {
               <DialogContent
                 style={{
                   color: themeProperties.textColorAlt,
-                  background: themeProperties?.boxBackground,
+                  background: themeProperties?.boxBackgroundSolid,
                 }}
-                className="p-0  max-h-[80vh] min-w-[60vw] overflow-y-scroll"
+                className="p-0  h-[80vh] min-w-[40vw] overflow-y-scroll"
               >
-                <DialogHeader>
-                  <DialogTitle
+                <div>
+                  <div
                     className="text-center p-4 text-2xl font-normal flex items-center justify-center"
                     style={{
                       color: themeProperties.textColorAlt,
@@ -109,8 +108,8 @@ function CircularsList({ themeProperties }) {
                     }}
                   >
                     <div className="text-center flex items-center justify-center absolute left-4">
-                      <DialogDescription
-                        className=" flex p-4 gap-2 w-fit rounded-md justify-center items-center"
+                      <div
+                        className=" flex p-4 gap-2 text-sm w-fit rounded-md justify-center items-center"
                         style={{
                           color: themeProperties.textColorAlt,
                         }}
@@ -118,14 +117,15 @@ function CircularsList({ themeProperties }) {
                         <FaCalendarAlt />
 
                         {circular.date}
-                      </DialogDescription>
+                      </div>
                     </div>
 
                     {circular.subject}
-                  </DialogTitle>
-                </DialogHeader>
-                <DialogDescription
-                  className="m-4 p-4 flex flex-col items-start text-start "
+                  </div>
+                </div>
+
+                <div
+                  className="m-4 p-4 flex flex-col items-start justify-start text-start "
                   style={{ color: themeProperties.textColorAlt }}
                 >
                   <div
@@ -135,7 +135,7 @@ function CircularsList({ themeProperties }) {
                     className="prose text-sm m-0 p-0 "
                     style={{ color: themeProperties.textColor }}
                   />
-                </DialogDescription>
+                </div>
               </DialogContent>
             </Dialog>
           ))}

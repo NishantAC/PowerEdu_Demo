@@ -124,27 +124,25 @@ function MeetingsBox() {
 
   return (
     <div
-      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center shadow-xl border-2`}
+      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center border-2`}
       style={{
         borderColor: themeProperties.borderColor,
       }}
     >
       <div
         className={`w-full py-2 px-4 flex justify-between items-center`} 
-        style={{borderBottom: `2px solid ${themeProperties.borderColor}`,
-        background: themeProperties.boxBackground,
-
+        style={{
+        background: themeProperties.boxBackgroundSolid,
       }}
       >
         <div
-          className={` font-[10px]   `}
+          className={` font-[10px] `}
           style={{ color: themeProperties.specialColor }}
         >
           Meetings
         </div>
         <div
           className={`font-light rounded-md text-[14px] border-none relative transition-all duration-300 flex items-center`}
-          // onClick={() => setCalenderOpen(!isCalenderOpen)}
           style={{ color: themeProperties.specialColor }}
         >
           {formatDate(selectedDate)}
@@ -155,7 +153,7 @@ function MeetingsBox() {
       <div
         className={` w-full h-full overflow-y-scroll transition-all duration-300 px-4 relative shadow-2xl`}
 
-        style={{ background: themeProperties.boxBackground }}
+        style={{ background: themeProperties.boxBackgroundSolid }}
       >
         {loading ? (
           <div className="flex justify-center items-center h-full min-h-80 max-sm:min-h-[480px]">
@@ -163,23 +161,26 @@ function MeetingsBox() {
           </div>
         ) : !isAuthorised ? (
           <div className="h-full min-h-80 flex justify-center items-center max-sm:min-h-[480px]">
-            <div
-            className="hover:scale-105 transition-all duration-300"
-            style={{ 
-              background: 'linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335)', 
-              color: themeProperties.textColorAlt ,
-              padding: '2px',
-              borderRadius: '10px',
-            }}>
-            <button onClick={googleLogin} className=" flex p-2 rounded-[10px] "            
-            > 
+          <div
+            className=" p-[px] rounded-[10px] w-fit border-2"
+            style={{
+              background: themeProperties.boxBackgroundSolid,
+              borderColor : themeProperties.specialColor,
+            }}
+          >
+            <button
+              onClick={googleLogin}
+              className=" p-2 rounded-[10px] flex items-center "
+            >
               <img src={GoogleImage} width={20} alt="Sign in with Google" />
-
-              <span className="ml-2"
-              style={{ color: themeProperties.textColorAlt }}
-              >Sign in with Google</span>
+              <span
+                className="ml-2"
+                style={{ color: themeProperties.specialColor }}
+              >
+                Sign in with Google
+              </span>
             </button>
-            </div>
+          </div>
           </div>
         ) : (
           <div className="p-2 min-h-80 max-sm:min-h-[480px]">

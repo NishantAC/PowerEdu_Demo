@@ -27,7 +27,7 @@ const Profile = ({
             <AvatarFallback
               className=""
               style={{
-                background: themeProperties?.normal3,
+                background: themeProperties?.specialColor,
                 color: themeProperties?.textColorAlt,
               }}
             >
@@ -37,7 +37,7 @@ const Profile = ({
         </PopoverTrigger>
 
         <PopoverContent
-          className=" absolute -right-4  p-0"
+          className=" absolute -right-4  p-0 "
           style={{
             background: themeProperties?.boxBackgroundSolid,
             color: themeProperties?.textColor,
@@ -69,7 +69,7 @@ const Profile = ({
                 <AvatarFallback
                   className=""
                   style={{
-                    background: themeProperties?.normal3,
+                    background: themeProperties?.specialColor,
                     color: themeProperties?.textColorAlt,
                   }}
                 >
@@ -95,6 +95,36 @@ const Profile = ({
 
             <div>
               {/* School Name and powered By  */}
+
+              <hr />
+
+              <div className="my-4">
+                {/* Performance Analytics */}
+
+                <div className=" px-2 flex items-center justify-center w-full">
+                  <div className=" ">
+                    {data.view_performance_button && (
+                      <button
+                        className="py-2 px-3 md:py-2 md:px-4 rounded-full text-sm text-nowrap"
+                        style={{
+                          background: themeProperties?.buttonColor,
+                          color: themeProperties?.textColorAlt,
+                        }}
+                      >
+                        <SiAnalogue className="inline-block mr-2" />
+                        View Analytics
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className=" w-full flex items-center justify-center ">
+                  <SelectTheme />
+                </div>
+              </div>
+
+
+              <hr />
+
               <div className="flex items-center justify-start gap-4 py-4 px-2 ">
                 <div className="flex items-center justify-center mb-4">
                   <Avatar className="">
@@ -119,33 +149,10 @@ const Profile = ({
                   </p>
                 </div>
               </div>
-
-              <hr />
-
-              <div className="my-4">
-                {/* Performance Analytics */}
-
-                <div className=" px-2 flex items-center justify-center w-full">
-                  <div className=" ">
-                    {data.view_performance_button && (
-                      <button
-                        className="py-2 px-3 md:py-2 md:px-4 rounded-full text-sm border-2 text-nowrap"
-                        style={{
-                          background: themeProperties?.normal1,
-                          color: themeProperties?.textColorAlt,
-                        }}
-                      >
-                        <SiAnalogue className="inline-block mr-2" />
-                        View Analytics
-                      </button>
-                    )}
-                  </div>
-                </div>
-                <div className=" w-full flex items-center justify-center ">
-                  <SelectTheme />
-                </div>
-              </div>
             </div>
+
+
+            
           </div>
         </PopoverContent>
       </Popover>

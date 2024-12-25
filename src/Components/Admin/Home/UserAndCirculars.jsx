@@ -16,11 +16,9 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
       }}
     >
       {/* List of new users Box */}
-      <div className="relative flex flex-col rounded-[20px] shadow-xl w-full h-full border-2"
+      <div className="relative flex flex-col rounded-[20px] w-full h-full"
         style={{
-          background: themeProperties?.boxBackground,
-          borderColor: themeProperties.borderColor
-
+          background: themeProperties?.boxBackgroundSolid,
         }}
       >
         <div className="w-full rounded-t-[20px] flex items-center px-5 py-3 justify-center "
@@ -64,7 +62,7 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
               </tr>
             </thead>
             <tbody className=" cursor-pointer"
-              style={{           background: themeProperties?.boxBackground
+              style={{           background: themeProperties?.boxBackgroundSolid
               }}
             >
               {newlyAddedUsersArray.map((user, index) => (

@@ -41,10 +41,10 @@ const AddEventModal = ({ themeProperties }) => {
           onClick={() => setAddEventModalOpen(true)}
           style={{
             borderRadius: "10px",
-            color: themeProperties.textColorAlt,
+            color: themeProperties.specialColor,
             cursor: "pointer",
             overflow: "hidden",
-            background: themeProperties.buttonColor,
+            background: themeProperties.boxBackgroundSolid,
           }}
         >
           <p className="backdrop-blur-lg text-nowrap py-[10px] text-[14px] px-[20px] rounded-[8px]">

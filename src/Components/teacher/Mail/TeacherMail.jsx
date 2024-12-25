@@ -321,15 +321,15 @@ const fetchDeletedMail = async (refresh) => {
       <>
         <div className="flex items-center justify-center h-screen">
           <div
-            className=" p-[2px] rounded-[10px] w-fit shadow-xl  border-2 "
+            className=" p-[4px] rounded-[10px] w-fit shadow-xl"
             style={{
-              color: themeProperties.textColorAlt,
-              borderColor: themeProperties.googleMeetButton,
+              background: themeProperties.boxBackgroundSolid,
             }}
           >
             <button
               onClick={googleLogin}
-              className=" p-2 flex rounded-[10px] bg-white hover:bg-white  "
+              className=" p-2 rounded-[10px] flex items-center "
+              style={{ background: themeProperties.buttonColor }}
             >
               <img src={GoogleImage} width={20} alt="Sign in with Google" />
               <span
@@ -364,7 +364,7 @@ const fetchDeletedMail = async (refresh) => {
         >
           <div
             className="text-center text-sm mt-2"
-            style={{ color: themeProperties.primaryColor }}
+            style={{ color: themeProperties.specialColor }}
           >
             <LinearProgress color="inherit"/>   
             <p

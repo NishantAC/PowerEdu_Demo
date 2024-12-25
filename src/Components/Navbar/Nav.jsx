@@ -120,7 +120,7 @@ function Navbar() {
               }}
             >
               {timeWithoutPeriod}{" "}
-              <span style={{ color: themeProperties?.normal1 }}>{period}</span>
+              <span style={{ color: themeProperties?.specialColor }}>{period}</span>
             </div>
             <NotificationModal />
             <Profile

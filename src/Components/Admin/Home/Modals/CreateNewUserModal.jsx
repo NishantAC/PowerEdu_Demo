@@ -43,10 +43,10 @@ function CreateNewUserModal({themeProperties}) {
       <div
               style={{
                 borderRadius: "10px",
-                color: themeProperties.textColorAlt,
+                color: themeProperties.specialColor,
                 cursor: "pointer",
                 overflow: "hidden",
-                background: themeProperties.buttonColor,
+                background: themeProperties.boxBackgroundSolid,
 
               }}
             >
@@ -62,8 +62,8 @@ function CreateNewUserModal({themeProperties}) {
         <DialogHeader>
           <DialogTitle
             className = "text-center p-4 text-2xl font-normal mb-10"
-          style={{ color: themeProperties.textColor, 
-            background: themeProperties.secondaryColor,
+          style={{ color: themeProperties.textColorAlt, 
+            background: themeProperties.boxBackgroundTop,
            }}
 
           >Create New User</DialogTitle>
