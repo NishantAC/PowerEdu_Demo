@@ -1,6 +1,6 @@
 import { Modal } from '@mui/material';
 import { deleteMail } from '../../../../services/mail.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 function DeleteModal({ open, handleClose, messageData, setFltMails }) {
 

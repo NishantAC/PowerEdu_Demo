@@ -5,8 +5,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 import Login from "./components/Login/Login";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import MenuState from "./context/Menu/MenuState";
@@ -99,7 +97,6 @@ import { Toaster } from "@/components/ui/sonner"
 function App() {
   return (
     <>
-      <ToastContainer />
       <Toaster />
       <MenuState>
         <Router>

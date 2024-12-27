@@ -8,7 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ImageModal from '../ComposeMail/ImageModal';
 import ClearIcon from '@mui/icons-material/Clear';
 import { sendMail } from '../../../../services/mail.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { getCurrentTime } from '../../../../common/Time';
 import { useForm } from "react-hook-form";
 

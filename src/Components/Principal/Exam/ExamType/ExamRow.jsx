@@ -14,7 +14,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CalendarModal from "./Modals/CalendarModal";
 import SyllabusModal from "./Modals/SyllabusModal";
 import TimeModal from "./Modals/TimeModal";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export default function ExamRow({
   sno,

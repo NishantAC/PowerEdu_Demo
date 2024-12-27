@@ -7,8 +7,7 @@ import bannerTwo from "./bannerTwo.svg";
 import bannerThree from "./bannerThree.svg";
 import bannerFour from "./bannerFour.svg";
 import bannerFive from "./bannerFive.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { IoEyeOffOutline,IoEye  } from "react-icons/io5";
 import { login, handleTokenExpiry } from "../../slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -170,7 +169,7 @@ const Login = () => {
                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#4e6e5d] focus:outline-none"
                     onClick={handlePasswordVisibility}
                   >
-                    <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                    {showPassword ? <IoEye /> : <IoEyeOffOutline />}
                   </button>
                 </div>
                 {formik.touched.password && formik.errors.password && (

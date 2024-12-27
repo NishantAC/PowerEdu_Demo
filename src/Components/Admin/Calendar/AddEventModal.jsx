@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDropdownClasses } from "../../../slices/principal";
 import { Box, Modal } from "@mui/material";
 import CalendarServices from "../../../services/calendar.service";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const style = {
   position: "absolute",

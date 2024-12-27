@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import { useForm } from 'react-hook-form';
 import { whiteSpaceValidation } from '../../../Utils/CommonValidation';
 import { REQUIRED_FIELD_ERROR } from '../../../common/constant';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import styles from './PrincipleNotice.module.css';
 import principalService from '../../../services/principal.service';
 

@@ -7,8 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import { useSelector, useDispatch } from "react-redux";
 import ClassNoticeService from "../../../services/classnotice.service";
 import principalService from "../../../services/principal.service";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { FaDownload } from "react-icons/fa";
+
 import NoticeDescription from "./noticeDescription";
 import Readmore from "../Home/Readmore";
 
@@ -175,14 +175,7 @@ export default function StudentNotice() {
                     }
                     href="your_download_link"
                   >
-                    <FontAwesomeIcon
-                      icon={faDownload}
-                      style={{
-                        float: "right",
-                        color: "#6755D9",
-                        marginTop: "-50px",
-                      }}
-                    />
+                    <FaDownload />
                   </a>
                 )}
               </div>

@@ -14,7 +14,7 @@ import { styled } from "@mui/material/styles";
 import NotesBtn from "./NotesBtn";
 import LinkBtn from "./Linkbtn";
 import Delete from "./Delete";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const StyledTabs = styled((props) => (
   <Tabs

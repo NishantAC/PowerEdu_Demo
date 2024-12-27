@@ -3,7 +3,7 @@ import { Box, Modal } from '@mui/material';
 import './HomeworkTable.css'
 import { useState } from 'react';
 import HomeWorkService from '../../../../services/homework.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 const style = {
     position: 'absolute',

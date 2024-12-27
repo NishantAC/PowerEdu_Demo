@@ -4,7 +4,7 @@ import FavouriteMessage from "./FavouriteMessage";
 import SearchIcon from "@mui/icons-material/Search";
 import { getTime } from "../../../../common/Time";
 import { getStarred, getThread } from "../../../../services/mail.service";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 function FavouriteMail() {
   const [value, setValue] = useState({});

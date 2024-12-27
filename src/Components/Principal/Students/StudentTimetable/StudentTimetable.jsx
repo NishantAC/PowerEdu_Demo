@@ -17,7 +17,7 @@ import {
 import { getDropdownSubjectsByClass } from "../../../../slices/subject";
 import { getTimetableByClass } from "../../../../slices/daywisetimetable";
 import TimeTableService from "../../../../services/timetable.service";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { Modal, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";

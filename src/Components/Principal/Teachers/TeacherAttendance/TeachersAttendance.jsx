@@ -17,7 +17,7 @@ import {
   getSubjectTeacherData,
 } from "../../../../slices/subjectteacher";
 import MarkAttendance from "./MarkAttendance";
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { markUserAttendance } from "../../../../slices/attendance";
 import TeacherProfileCard from "./TeacherProfileCard";
 

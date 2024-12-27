@@ -20,7 +20,7 @@ import {
 import { bgcolor } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExamType, updateExamType, clearMessage, clearError } from "../../../../slices/examtype";
-import { toast } from "react-toastify"
+import { toast } from "sonner"
 
 function ExamType({ setActiveKey, activeKey, examtype, copyData }) {
   const [isEditing, setIsEditing] = useState(false);

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./ResetPassword.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import authService from "../../services/auth.service";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { IoEyeOffOutline,IoEye  } from "react-icons/io5";
 import OtpVerify from "./OtpVerify";
 
 function ResetPassword() {
@@ -110,9 +109,7 @@ function ResetPassword() {
                         setShowOldPassword(!showOldPassowrd);
                       }}
                     >
-                      <FontAwesomeIcon
-                        icon={showOldPassowrd ? faEye : faEyeSlash}
-                      />
+                      {showOldPassowrd ? <IoEye /> : <IoEyeOffOutline />}
                     </button>
                   </div>
                 </div>

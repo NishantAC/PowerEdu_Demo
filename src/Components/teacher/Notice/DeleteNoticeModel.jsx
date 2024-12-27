@@ -2,10 +2,9 @@ import React from 'react';
 import styles from './TeacherNotice.module.css'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FaTrash } from "react-icons/fa6";
 import ClassNoticeService from '../../../services/classnotice.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 const style = {
     position: 'absolute',
@@ -53,7 +52,8 @@ function DeleteNoticeModal({ title, id, type, fetchNotices, classIds,setType }) 
 
     return (
         <div>
-            <FontAwesomeIcon onClick={handleOpen} icon={faTrash} style={{ color: "#6755D9", cursor: "pointer" }} />
+            <FaTrash onClick={handleOpen} className={styles.deleteicon} />
+                
             <Modal
                 style={{ zIndex: '0' }}
                 open={open}

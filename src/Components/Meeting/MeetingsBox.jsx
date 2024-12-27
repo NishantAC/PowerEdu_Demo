@@ -1,5 +1,5 @@
 import React, { useEffect, useState , useRef} from "react";
-import 'react-calendar/dist/Calendar.css'; // Import calendar styles
+
 import { useGoogleLogin } from '@react-oauth/google';
 import { useSelector, useDispatch } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
@@ -10,7 +10,7 @@ import CalendarModal from "./CalendarModal";
 import GoogleImage from "../.../../../assets/images/Google.png";
 import { CircularProgress } from '@mui/material';
 import MeetingsTable from './MeetingsTable';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { IoMdAdd } from "react-icons/io";
 import gsap from "gsap";
 import './Meeting.css'

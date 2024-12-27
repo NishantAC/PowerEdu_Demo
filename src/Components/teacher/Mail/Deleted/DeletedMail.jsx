@@ -5,7 +5,7 @@ import DeletedMessage from './DeletedMessage';
 import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
 import { getTrashMails } from '../../../../services/mail.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 function DeletedMail() {
   const [value, setValue] = useState({});

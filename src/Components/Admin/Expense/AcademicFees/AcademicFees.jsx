@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AcademicFees.css";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WestIcon from "@mui/icons-material/West";

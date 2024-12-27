@@ -10,7 +10,7 @@ import { fetchExamTypes } from "../../../../slices/examtype";
 import { getCurrentTeacherData } from "../../../../slices/subjectteacher";
 import { getAllSubjectsBySchool } from "../../../../slices/subject";
 import { addPaper } from "../../../../slices/questionpaper";
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 const style = {
   position: "absolute",

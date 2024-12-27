@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"; // Shadcn Button component
 import  Textarea  from "@/components/ui/textarea"; // Shadcn Textarea component
 import { RadioGroup, RadioItem } from "@/components/ui/radiogroup"; // Shadcn Radio components
 import Typography from "@/components/ui/typography"; // Shadcn Typography component
-import { toast } from "react-toastify"; // For displaying toast notifications
+import { toast } from "sonner"; // For displaying toast notifications
 
 const FeedbackForm = ({ show, onHide, feedbackForm }) => {
   const { user } = useSelector((state) => state.user);

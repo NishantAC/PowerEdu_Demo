@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import {Calendar} from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { ClickAwayListener } from "@mui/material";
 import InputParent from "./InputParent";
@@ -147,37 +147,61 @@ function RangeDateSelector({ correctFormatDate, isEditMode, info, setInfo }) {
 
         {isCalenderOpen && (
           <>
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                zIndex: "30",
-                width: "300px",
-              }}
-            >
-              <Calendar
-                onChange={(newDate) => {
-                  setInfo({ ...info, start_date: reverseFormatDate(newDate) });
-                }}
-                value={getParsedDate(info.start_date)}
-              />
-            </div>
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: "102%",
-                zIndex: "30",
-                width: "300px",
-              }}
-            >
-              <Calendar
-                onChange={(newDate) => {
-                  setInfo({ ...info, end_date: reverseFormatDate(newDate) });
-                }}
-                value={getParsedDate(info.end_date)}
-              />
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    zIndex: "30",
+                    width: "300px",
+                  }}
+                >
+                  <Calendar
+                    onChange={(newDate) => {
+                      setInfo({ ...info, start_date: reverseFormatDate(newDate) });
+                    }}
+                    value={getParsedDate(info.start_date)}
+                  />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Calendar
+                  onChange={(newDate) => {
+                    setInfo({ ...info, start_date: reverseFormatDate(newDate) });
+                  }}
+                  value={getParsedDate(info.start_date)}
+                />
+              </PopoverContent>
+            </Popover>
+            <Popover>
+              <PopoverTrigger asChild>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: "102%",
+                    zIndex: "30",
+                    width: "300px",
+                  }}
+                >
+                  <Calendar
+                    onChange={(newDate) => {
+                      setInfo({ ...info, end_date: reverseFormatDate(newDate) });
+                    }}
+                    value={getParsedDate(info.end_date)}
+                  />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Calendar
+                  onChange={(newDate) => {
+                    setInfo({ ...info, end_date: reverseFormatDate(newDate) });
+                  }}
+                  value={getParsedDate(info.end_date)}
+                />
+              </PopoverContent>
+            </Popover>
           </>
         )}
       </div>

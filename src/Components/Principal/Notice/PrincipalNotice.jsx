@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import ClassNoticeService from "../../../services/classnotice.service";
 import principalService from "../../../services/principal.service";
 import Readmore from "../../Student/Home/Readmore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FaDownload } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+
 import PrincipalDeleteNotice from "./PrincipalDeleteNotice";
 import PrincipalAddNotice from "./PrincipalAddNotice";
 import { Box } from "@mui/material";
@@ -244,10 +245,7 @@ export default function PrincipalNotice() {
                       }
                       href="#"
                     >
-                      <FontAwesomeIcon
-                        icon={faDownload}
-                        style={{ color: "#6755D9" }}
-                      />
+                      <FaDownload />
                     </a>
                   )}
                   {row?.created_by === user?.id && (
@@ -270,13 +268,7 @@ export default function PrincipalNotice() {
             {/* Title and Edit button in a single row */}
             <div className={styles.principalHeader}>
               <p>Principal Message</p>
-              <FontAwesomeIcon
-                icon={faEdit}
-                style={{
-                  color: "#1bbf9c",
-                  cursor: "pointer",
-                  marginLeft: "10px",
-                }}
+              <MdEdit 
                 onClick={() =>
                   handleEditClick(
                     principalMsgs[0].id,

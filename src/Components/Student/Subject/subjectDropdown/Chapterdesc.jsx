@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../StudentSubject.module.css";
 import CommonService from "../../../../services/common.service";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import {
   Accordion,
   AccordionItem,

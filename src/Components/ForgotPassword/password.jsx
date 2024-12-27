@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ForgotPassword.css';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'sonner';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IoMdEyeOff } from "react-icons/io";
 import { IoMdEye } from "react-icons/io";

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import InputParent from "./InputParent";
 
 function RangeDateSelector({ correctFormatDate, isEditMode, info, setInfo }) {
-  // const [startDate, setStartDate] = useState(null);
-  // const [endDate, setEndDate] = useState(null);
   const [isStartEndDateOpened, setStartEndDateOpened] = useState(false);
   const [isCalenderOpen, setCalenderOpen] = useState(false);
 
@@ -20,7 +18,6 @@ function RangeDateSelector({ correctFormatDate, isEditMode, info, setInfo }) {
   function doubleDigit(number) {
     return number > 9 ? number : `0${number}`;
   }
-
 
   function reverseFormatDate(date) {
     const day = doubleDigit(date.getDate());
@@ -146,39 +143,25 @@ function RangeDateSelector({ correctFormatDate, isEditMode, info, setInfo }) {
         </InputParent>
 
         {isCalenderOpen && (
-          <>
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                zIndex: "30",
-                width: "300px",
-              }}
-            >
+          <Popover>
+            <PopoverTrigger>
+              <button>Open Calendar</button>
+            </PopoverTrigger>
+            <PopoverContent>
               <Calendar
                 onChange={(newDate) => {
                   setInfo({ ...info, start_date: reverseFormatDate(newDate) });
                 }}
                 value={getParsedDate(info.start_date)}
               />
-            </div>
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: "102%",
-                zIndex: "30",
-                width: "300px",
-              }}
-            >
               <Calendar
                 onChange={(newDate) => {
                   setInfo({ ...info, end_date: reverseFormatDate(newDate) });
                 }}
                 value={getParsedDate(info.end_date)}
               />
-            </div>
-          </>
+            </PopoverContent>
+          </Popover>
         )}
       </div>
     </ClickAwayListener>

@@ -8,11 +8,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { TextField } from '@mui/material';
-import { createEditor, Editor, Transforms, Text } from 'slate';
-import { Slate, Editable, withReact } from 'slate-react';
 import schoolService from '../../../../services/school.service';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 function AddCircularModal() {
   const [open, setOpen] = useState(false);
@@ -27,15 +27,7 @@ function AddCircularModal() {
   const openclndr = () => setOpenclndr(true);
   const closeclndr = () => setOpenclndr(false);
 
-
-const initialValue = [
-    {
-      type: 'paragraph',
-      children: [{ text: 'A line of text in a paragraph.' }],
-    },
-  ]
-  const [editor] = useState(() => withReact(createEditor()))
-  const [editorValue, setEditorValue] = useState(initialValue);
+  const [editorValue, setEditorValue] = useState('');
 
   useEffect(() => {
     schoolService.getSchoolData(user?.schoolcode)
@@ -77,15 +69,11 @@ const initialValue = [
           </div>
           <div style={{ background: 'rgba(0, 0, 0, 0.02)', height: '400px' }}>
             <h6 style={{ textAlign: 'center', borderBottom: '1px solid #DBDBDB', padding: '10px 0px', fontWeight: '600' }}>Circular</h6>
-            <Slate editor={editor} initialValue={editorValue} onChange={newValue => setEditorValue(newValue)}>
-              <Editable
-                style={{ height: '88%' }}
-                
-                // renderElement={renderElement}
-                // renderLeaf={renderLeaf}
-                // onKeyDown={onKeyDown}
-              />
-            </Slate>
+            <ReactQuill
+              value={editorValue}
+              onChange={setEditorValue}
+              style={{ height: '88%' }}
+            />
           </div>
           <button className={styles.postbtn}>Post<TelegramIcon style={{ fontSize: '20px' }} /></button>
         </Box>
@@ -95,14 +83,13 @@ const initialValue = [
         onClose={closeclndr}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-    >
+      >
         <Box className="boxstyle" sx={{width: 'max-content', px: 1, py: 2}}>
             <div style={{display:'flex',padding:'0'}}>
                 <h4 style={{color: 'rgba(0, 0, 0, 0.55)',margin:'auto',width:'100%',textAlign:'center'}}>Calendar</h4>
                 <button className={styles.modalbutton} onClick={closeclndr}>X</button>
             </div>
             <div>
-            {/* <Calendar onChange={onChange} value={value} /> */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <StaticDatePicker className={styles.clndr}
                     displayStaticWrapperAs="desktop"
@@ -119,7 +106,7 @@ const initialValue = [
                 <button type="submit" onClick={closeclndr} className={styles.addbtn}>Save</button> 
             </div>
         </Box>
-    </Modal>
+      </Modal>
     </div>
   )
 }

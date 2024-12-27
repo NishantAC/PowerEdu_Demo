@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useForm } from "react-hook-form";
 import { REQUIRED_FIELD_ERROR } from '../../../../common/constant';
 import AssignmentService from '../../../../services/assignment.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { whiteSpaceValidation } from '../../../../Utils/CommonValidation';
 
 const style = {

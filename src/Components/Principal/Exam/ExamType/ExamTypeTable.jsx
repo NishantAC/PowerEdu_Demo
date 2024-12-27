@@ -23,7 +23,7 @@ import { getAllSubjectsBySchool } from "../../../../slices/subject";
 import AddNewExamRow from "./AddNewExamRow";
 import { fetchSyllabusBySubject } from "../../../../slices/syllabus";
 import moment from "moment";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { clearMessage } from "../../../../slices/examtype";
 
 function ExamTypeTable({ examtype, activeKey, copyData }) {

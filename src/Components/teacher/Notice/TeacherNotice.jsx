@@ -13,8 +13,8 @@ import schoolService from "../../../services/school.service";
 import principalService from "../../../services/principal.service";
 import Readmore from "../../Student/Home/Readmore";
 import NoticeDescription from "../../Student/Notice/noticeDescription";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FaTrash } from "react-icons/fa6";
+
 import DeleteNoticeModal from "./DeleteNoticeModel";
 import NoticeDropDown from "./NoticeDropDown";
 import { Box } from "@mui/material";
@@ -144,7 +144,7 @@ export default function TeacherNotice() {
                 </div>
                 <div >
                   {notice?.file_url && <a onClick={event => handleDownloadButton(event, row.savedFileName)} href="your_download_link">
-                    <FontAwesomeIcon icon={faDownload} style={{ color: "#6755D9" }} />
+                    <FaDownload />
                   </a>
                   }
                   {/*if createdby and userid is same then permission to delete*/}

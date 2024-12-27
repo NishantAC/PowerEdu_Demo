@@ -11,7 +11,7 @@ import { whiteSpaceValidation } from '../../../../Utils/CommonValidation';
 import { REQUIRED_FIELD_ERROR } from '../../../../common/constant';
 import { useSelector } from 'react-redux';
 import NoteService from '../../../../services/note.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 const style = {
   position: 'absolute',

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { whiteSpaceValidation } from '../../../Utils/CommonValidation';
 import { REQUIRED_FIELD_ERROR } from '../../../common/constant';
 import ClassNoticeService from "../../../services/classnotice.service";
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 const style = {
     position: 'absolute',

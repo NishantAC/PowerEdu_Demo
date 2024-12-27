@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { ClickAwayListener } from "@mui/material";
 import InputParent from "./InputParent";
-
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 function RangeDateSelector({ correctFormatDate, isEditMode, info, setInfo }) {
   // const [startDate, setStartDate] = useState(null);
   // const [endDate, setEndDate] = useState(null);
-  const [isStartEndDateOpened, setStartEndDateOpened] = useState(false);
-  const [isCalenderOpen, setCalenderOpen] = useState(false);
 
   useEffect(() => {
     if (isEditMode) {
@@ -35,153 +35,129 @@ function RangeDateSelector({ correctFormatDate, isEditMode, info, setInfo }) {
   };
 
   return (
-    <ClickAwayListener
-      onClickAway={() => {
-        if ((!info.start_date || !info.end_date) && !isEditMode)
-          setStartEndDateOpened(false);
-        setCalenderOpen(false);
-      }}
-    >
-      <div className="startEndDate">
-        <InputParent text="Start/End Date *">
-          {isStartEndDateOpened ? (
-            <div
-              style={{
-                height: "100%",
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "0px 10px",
-              }}
-            >
+    <Popover>
+      <PopoverTrigger>
+        <div className="startEndDate">
+          <InputParent text="Start/End Date *">
+            {isStartEndDateOpened ? (
               <div
                 style={{
-                  display: "flex",
-                  fontFamily: "Lato",
-                  fontWeight: "500",
-                  fontSize: "18px",
                   height: "100%",
                   width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
                   alignItems: "center",
-                  paddingLeft: "10px",
-                  gap: "10px",
+                  padding: "0px 10px",
                 }}
               >
-                {info.start_date ? (
-                  <div>{correctFormatDate(info.start_date)}</div>
-                ) : (
-                  <div style={{ color: "#909090", opacity: "0.65" }}>
-                    dd-mm-yyyy
-                  </div>
-                )}
-                <div>-</div>
-                {info.end_date ? (
-                  <div>{correctFormatDate(info.end_date)}</div>
-                ) : (
-                  <div style={{ color: "#909090", opacity: "0.65" }}>
-                    dd-mm-yyyy
-                  </div>
-                )}
+                <div
+                  style={{
+                    display: "flex",
+                    fontFamily: "Lato",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    height: "100%",
+                    width: "100%",
+                    alignItems: "center",
+                    paddingLeft: "10px",
+                    gap: "10px",
+                  }}
+                >
+                  {info.start_date ? (
+                    <div>{correctFormatDate(info.start_date)}</div>
+                  ) : (
+                    <div style={{ color: "#909090", opacity: "0.65" }}>
+                      dd-mm-yyyy
+                    </div>
+                  )}
+                  <div>-</div>
+                  {info.end_date ? (
+                    <div>{correctFormatDate(info.end_date)}</div>
+                  ) : (
+                    <div style={{ color: "#909090", opacity: "0.65" }}>
+                      dd-mm-yyyy
+                    </div>
+                  )}
+                </div>
+                <div
+                  style={{
+                    color: "#909090",
+                    opacity: "0.65",
+                    height: "20px",
+                    width: "18px",
+                    display: "grid",
+                    placeContent: "center",
+                  }}
+                  onClick={() => {
+                    if (!info.start_date || !info.end_date)
+                      setStartEndDateOpened(false);
+                    setCalenderOpen(!isCalenderOpen);
+                  }}
+                >
+                  <CalendarTodayIcon />
+                </div>
               </div>
+            ) : (
               <div
                 style={{
-                  color: "#909090",
-                  opacity: "0.65",
-                  height: "20px",
-                  width: "18px",
-                  display: "grid",
-                  placeContent: "center",
+                  height: "100%",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "0px 10px",
                 }}
                 onClick={() => {
-                  if (!info.start_date || !info.end_date)
-                    setStartEndDateOpened(false);
-                  setCalenderOpen(!isCalenderOpen);
+                  setStartEndDateOpened(true);
+                  setCalenderOpen(true);
                 }}
               >
-                <CalendarTodayIcon />
+                <div
+                  style={{
+                    fontFamily: "Inter",
+                    fontWeight: "400",
+                    fontStyle: "italic",
+                    fontSize: "22px",
+                    color: "#909090",
+                    opacity: "0.65",
+                  }}
+                >
+                  Select Date
+                </div>
+                <div
+                  style={{
+                    color: "#909090",
+                    opacity: "0.65",
+                    height: "20px",
+                    width: "18px",
+                    display: "grid",
+                    placeContent: "center",
+                  }}
+                >
+                  <CalendarTodayIcon />
+                </div>
               </div>
-            </div>
-          ) : (
-            <div
-              style={{
-                height: "100%",
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "0px 10px",
-              }}
-              onClick={() => {
-                setStartEndDateOpened(true);
-                setCalenderOpen(true);
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "Inter",
-                  fontWeight: "400",
-                  fontStyle: "italic",
-                  fontSize: "22px",
-                  color: "#909090",
-                  opacity: "0.65",
-                }}
-              >
-                Select Date
-              </div>
-              <div
-                style={{
-                  color: "#909090",
-                  opacity: "0.65",
-                  height: "20px",
-                  width: "18px",
-                  display: "grid",
-                  placeContent: "center",
-                }}
-              >
-                <CalendarTodayIcon />
-              </div>
-            </div>
-          )}
-        </InputParent>
-
-        {isCalenderOpen && (
-          <>
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                zIndex: "30",
-                width: "300px",
-              }}
-            >
-              <Calendar
-                onChange={(newDate) => {
-                  setInfo({ ...info, start_date: reverseFormatDate(newDate) });
-                }}
-                value={getParsedDate(info.start_date)}
-              />
-            </div>
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: "102%",
-                zIndex: "30",
-                width: "300px",
-              }}
-            >
-              <Calendar
-                onChange={(newDate) => {
-                  setInfo({ ...info, end_date: reverseFormatDate(newDate) });
-                }}
-                value={getParsedDate(info.end_date)}
-              />
-            </div>
-          </>
-        )}
-      </div>
-    </ClickAwayListener>
+            )}
+          </InputParent>
+        </div>
+      </PopoverTrigger>
+      <PopoverContent>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <Calendar
+            onChange={(newDate) => {
+              setInfo({ ...info, start_date: reverseFormatDate(newDate) });
+            }}
+            value={getParsedDate(info.start_date)}
+          />
+          <Calendar
+            onChange={(newDate) => {
+              setInfo({ ...info, end_date: reverseFormatDate(newDate) });
+            }}
+            value={getParsedDate(info.end_date)}
+          />
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 

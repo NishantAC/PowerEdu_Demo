@@ -15,7 +15,7 @@ import DownloadSheet from "./DownloadSheet";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStudentClassTestMarks, addTestMarks } from "../../../../../slices/classtest";
 import UploadMarks from "./UploadMarks";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 function TestMarksTable({ hide, test }) {
   const {user} = useSelector(state => state.user)

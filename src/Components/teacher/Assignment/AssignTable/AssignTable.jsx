@@ -14,7 +14,7 @@ import DeleteModal from './DeleteModal';
 import '../TeacherAssignment.css'
 import Upload from '../UploadAssign/Upload';
 import { minWidth } from '@mui/system';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
 
 function AssignTable(props) {

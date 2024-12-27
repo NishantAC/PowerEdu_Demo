@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ClickAwayListener } from "@mui/material";
-import { faBullseye } from "@fortawesome/free-solid-svg-icons";
 
 function Select({ folders, info, setInfo, placeHolder }) {
   const [isInfoDropDownOpen, setInfoDropDownOpen] = useState(false);

@@ -3,20 +3,15 @@ import { useSelector } from "react-redux";
 import { MyMonthlyCalendar } from "./Calendar";
 import MonthSelect from "./MonthDropdown";
 import YearSelect from "./YearDropdown";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import timeGridPlugin from "@fullcalendar/timegrid";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import CalendarServices from "../../../services/calendar.service";
 
 export default function AcademicCalendar() {
   const [date, setDate] = useState(new Date());
   const [events, setEvents] = useState([]);
 
-  const { user: currentUser } =
-    useSelector((state) => state.user);
+  const { user: currentUser } = useSelector((state) => state.user);
 
   // Fetch events from the calendar service
   const getEvents = () => {
@@ -44,7 +39,7 @@ export default function AcademicCalendar() {
     getEvents();
   }, []);
 
-  const calendarRef = useRef(null); // Create a reference to the FullCalendar component
+  const calendarRef = useRef(null); // Create a reference to the Calendar component
 
   const handleDateClick = (info) => {
     setDate(info.date);
@@ -74,28 +69,19 @@ export default function AcademicCalendar() {
         </div>
       </div>
       <div className="acdiv2">
-        {/* FullCalendar with Tailwind CSS for hover effect */}
-        <FullCalendar
-          ref={calendarRef}
-          headerToolbar={false}
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          events={events}
-          height={340}
-          selectable={true}
-          date={date}
-          eventDidMount={(info) => {
-            const eventElement = info.el;
-            const description = info.event.extendedProps.description;
-
-            // Add Tailwind CSS classes for hover effect
-            eventElement.classList.add("relative", "group");
-            const tooltip = document.createElement("div");
-            tooltip.className = "absolute left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300";
-            tooltip.innerText = description;
-            eventElement.appendChild(tooltip);
-          }}
-        />
+        <Popover>
+          <PopoverTrigger>
+            <button>Open Calendar</button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <Calendar
+              ref={calendarRef}
+              date={date}
+              onChange={handleCalendarDateChange}
+              events={events}
+            />
+          </PopoverContent>
+        </Popover>
       </div>
     </div>
   );

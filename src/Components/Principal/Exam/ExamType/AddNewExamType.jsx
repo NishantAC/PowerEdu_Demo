@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { addExamType } from '../../../../slices/examtype';
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux';
 
 const style = {

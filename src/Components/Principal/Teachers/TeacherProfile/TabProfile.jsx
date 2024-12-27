@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import styles from "./TabProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import SubjectTeacherService from "../../../../services/subjectteacher.service";
 import authService from "../../../../services/auth.service";
 import { fetchTeachersProfile } from "../../../../slices/principal";

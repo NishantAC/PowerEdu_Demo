@@ -16,7 +16,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DownloadSheet from "../../ClassTestMarks/table/DownloadSheet";
 import { useDispatch, useSelector } from "react-redux";
 import UploadMarks from "./UploadMarks";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import {
   addExamMarks,
   updateStudentMarks,

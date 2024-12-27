@@ -10,7 +10,7 @@ import { getDropdownClasses } from "../../../slices/principal";
 import { getDropdownSubjectsByClass } from "../../../slices/subject";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import ExamTypeService from "../../../services/examtype.service";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 function PrincipalExam() {
   const [activeKey, setActiveKey] = useState("");

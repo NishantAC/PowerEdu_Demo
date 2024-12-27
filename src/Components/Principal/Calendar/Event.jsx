@@ -10,7 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import CalendarServices from "../../../services/calendar.service";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const Event = ({ event, handleEdit, getEvents}) => {
     const [anchorEl, setAnchorEl] = useState(null);

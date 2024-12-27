@@ -4,7 +4,7 @@ import { getDropdownClasses } from "../../../slices/principal";
 import { Box, Modal } from "@mui/material";
 import "./AddEventModal.css";
 import CalendarServices from "../../../services/calendar.service";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const style = {
   position: "absolute",

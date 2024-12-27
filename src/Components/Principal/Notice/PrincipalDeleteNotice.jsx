@@ -2,10 +2,9 @@ import React from 'react';
 import styles from './PrincipleNotice.module.css'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import ClassNoticeService from '../../../services/classnotice.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
+import { FaTrash } from "react-icons/fa6";
 
 const style = {
     position: 'absolute',
@@ -38,7 +37,9 @@ function PrincipalDeleteNotice({ title, id, type, fetchNotices, filterClass }) {
 
     return (
         <div>
-            <FontAwesomeIcon onClick={handleOpen} icon={faTrash} style={{ color: "#6755D9", cursor: "pointer" }} />
+            <button onClick={handleOpen} className={styles.deletebtn}>
+                <FaTrash />
+            </button>
             <Modal
                 style={{ zIndex: '0' }}
                 open={open}

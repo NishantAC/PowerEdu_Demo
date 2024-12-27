@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse"; // Import PapaParse library for CSV parsing
 import ExcelJS from "exceljs"; // Import ExcelJS library for Excel file parsing
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 function UploadMarks({
   tableData,

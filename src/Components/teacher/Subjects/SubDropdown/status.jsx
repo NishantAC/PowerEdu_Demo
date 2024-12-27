@@ -10,7 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { useDispatch, useSelector } from 'react-redux';
 import SubjectService from '../../../../services/subject.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 const StyledFormControlLabel = styled((props) => <FormControlLabel {...props} />)(
   ({ theme, checked }) => ({

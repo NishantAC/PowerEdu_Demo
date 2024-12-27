@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useSelector } from 'react-redux';
 import LinkService from '../../../../services/link.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 const style = {
     position: 'absolute',
     top: '50%',

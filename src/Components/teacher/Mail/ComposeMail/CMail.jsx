@@ -8,7 +8,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import SendIcon from '@mui/icons-material/Send';
 import ImageModal from './ImageModal';
 import { sendMail, createDraft } from '../../../../services/mail.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { getCurrentTime } from '../../../../common/Time';
 import { useForm } from "react-hook-form";
 

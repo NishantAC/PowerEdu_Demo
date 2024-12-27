@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import HomeWorkService from '../../../../services/homework.service';
 import { REQUIRED_FIELD_ERROR } from '../../../../common/constant';
 import { whiteSpaceValidation } from '../../../../Utils/CommonValidation';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import AssignmentService from '../../../../services/assignment.service';
 
 const style = {

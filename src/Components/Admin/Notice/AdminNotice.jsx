@@ -11,8 +11,7 @@ import ClassNoticeService from "../../../services/classnotice.service";
 import schoolService from "../../../services/school.service";
 import principalService from "../../../services/principal.service";
 import Readmore from "../../Student/Home/Readmore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { FaDownload } from "react-icons/fa6";
 import PrincipalDeleteNotice from "./PrincipalDeleteNotice";
 import PrincipalAddNotice from "./PrincipalAddNotice";
 import EditNotice from "./EditNotice";
@@ -186,7 +185,7 @@ export default function AdminNotice() {
                 {/* {console.table(row)} */}
                 <div style={{ width: "20%", paddingLeft: "100px" }}>
                   {row?.file_url && <a onClick={event => handleDownloadButton(event, row.file_url)} href="your_download_link">
-                    <FontAwesomeIcon icon={faDownload} style={{ color: "#6755D9" }} />
+                    <FaDownload />
                   </a>
                   }
                   {/*if createdby and userid is same then permission to delete*/}

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../TeacherSubject.module.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import NoteService from "../../../../services/note.service";
 import LinkService from "../../../../services/link.service";
 

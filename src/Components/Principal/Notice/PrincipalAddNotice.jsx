@@ -8,7 +8,7 @@ import { whiteSpaceValidation } from '../../../Utils/CommonValidation';
 import { REQUIRED_FIELD_ERROR } from '../../../common/constant';
 import SubjectTeacherService from '../../../services/subjectteacher.service';
 import SchoolNoticeService from '../../../services/schoolnotice.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import ClassNoticeService from '../../../services/classnotice.service';
 const style = {
     position: 'absolute',

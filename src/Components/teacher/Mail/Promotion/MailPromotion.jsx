@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Avatar } from '@mui/material';
 ;
 import SearchIcon from '@mui/icons-material/Search';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { getTime } from '../../../../common/Time';
 import PromotionMessage from './PromotionMessage';
 

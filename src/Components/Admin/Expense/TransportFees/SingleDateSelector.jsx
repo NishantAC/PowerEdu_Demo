@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { ClickAwayListener } from "@mui/material";
 import InputParent from "./InputParent";
@@ -139,16 +139,14 @@ function SingleDateSelector({ correctFormatDate, isEditMode, info, setInfo }) {
         </InputParent>
 
         {isCalenderOpen && (
-          <div
-            style={{
-              position: "absolute",
-              top: "100%",
-              zIndex: "30",
-              width: "300px",
-            }}
-          >
-            <Calendar onChange={handleDateChange} value={getParsedDate()} />
-          </div>
+          <Popover>
+            <PopoverTrigger>
+              <button>Open Calendar</button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Calendar onChange={handleDateChange} value={getParsedDate()} />
+            </PopoverContent>
+          </Popover>
         )}
       </div>
     </ClickAwayListener>

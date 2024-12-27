@@ -4,7 +4,7 @@ import DraftMessage from './DraftMessage';
 import SearchIcon from '@mui/icons-material/Search';
 import { getTime } from '../../../../common/Time';
 import { getDraftMails } from '../../../../services/mail.service';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 function DraftMail() {
   const [value, setValue] = useState({});

@@ -16,7 +16,7 @@ import {
   getStudentProgressDataById,
 } from "../../../../slices/exam";
 import { fetchDropdownExamTypes } from "../../../../slices/examtype";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import styles from "../../../teacher/Subjects/TeacherSubject.module.css";
 import ExamMarkService from "../../../../services/exammark.service";
 import InputBase from "@mui/material/InputBase";
