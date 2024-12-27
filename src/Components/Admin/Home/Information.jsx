@@ -216,7 +216,7 @@ function Information() {
 
   return (
     <div className=" max-xl:max-w-4/5 max-xl:mt-10 flex flex-col h-full" >
-      <div className={`flex h-0 max-xl:flex-col-reverse flex-row justify-around items-center max-xl:py-4 rounded-[20px] `}
+      <div className={`flex max-xl:flex-col-reverse flex-row justify-around items-center max-xl:py-4 rounded-[20px] `}
       >
         <div className="flex max-md:flex-col w-96 justify-center items-center absolute top-2 right-[33%] z-50 " ref={searchRef}>
           <Box sx={{ }}>
@@ -290,6 +290,7 @@ function Information() {
             </div>
           )}
         </div>
+
         {/* <StatsAndCharts
             totalStudents={totalStudents}
             totalTeachers={totalTeachers}
@@ -306,7 +307,7 @@ function Information() {
             themeProperties={themeProperties}
           /> */}
       </div>
-      <div className=" h-full ">
+      <div className="h-full ">
       <UserAndCirculars newlyAddedUsersArray={newlyAddedUsersArray} deviceSize={deviceSize} />
 
       </div>

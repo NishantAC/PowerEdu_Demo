@@ -1,7 +1,7 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-function MeetingDetailsDialog({ meeting, themeProperties }) {
+function MeetingDetailsDialog({ meeting, themeProperties, open, onOpenChange }) {
   const timeZone = meeting.timeZone || 'UTC';
   const startTime = new Date(meeting.start.dateTime).toLocaleTimeString([], {
     hour: '2-digit',
@@ -17,17 +17,7 @@ function MeetingDetailsDialog({ meeting, themeProperties }) {
   });
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <button
-          className="px-4 py-2 rounded-md font-normal transition hover:opacity-100 opacity-90 "
-          style={{
-            color: themeProperties.buttonColor,
-          }}
-        >
-          Details
-        </button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className="p-0 overflow-hidden rounded-lg shadow-lg"
         style={{ color: themeProperties.textColorAlt }}

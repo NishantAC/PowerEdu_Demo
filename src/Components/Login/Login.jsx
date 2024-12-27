@@ -147,7 +147,7 @@ const Login = () => {
 
               <div className="mt-12">
                 <div className="relative">
-                  <input
+                  <input 
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"

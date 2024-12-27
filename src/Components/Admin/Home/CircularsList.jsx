@@ -12,10 +12,20 @@ import {
 } from "@/components/ui/dialog";
 import DOMPurify from "dompurify";
 import { FaCalendarAlt } from "react-icons/fa";
+import { Calendar } from "@/components/ui/calendar"
+import { getGoogleEvents } from "@/slices/calendar";
+import { useDispatch } from "react-redux";
+import { Calendarmini } from "@/Components/ui/calendarmini";
+
+
 
 function CircularsList({ themeProperties }) {
+
+
   const { user } = useSelector((state) => state.user);
   const [circularsArray, setCircularsArray] = useState([]);
+  const { googleEvents } = useSelector((state) => state.calendarSlice);
+
   useEffect(() => {
     CircularService.getCirculars(user?.schoolcode).then((res) => {
       const formattedCirculars = res.map((circular) => ({
@@ -30,41 +40,16 @@ function CircularsList({ themeProperties }) {
 
   return (
     <div
-      className="min-h-[72vh] w-full lg:w-4/5 flex flex-col rounded-2xl overflow-hidden "
+      className="w-full lg:w-2/5 flex flex-col rounded-2xl overflow-hidden "
       style={{
         color: themeProperties.textColorAlt,
         background: themeProperties?.boxBackgroundSolid,
       }}
     >
-      <div
-        className="w-full flex items-center px-5 py-3 justify-center "
-        style={{
-          background: themeProperties?.boxBackgroundTop,
-        }}
-      >
-        <h2
-          className={` text-lg font-normal text-center`}
-          style={{
-            color: themeProperties.textColorAlt,
-          }}
-        >
-          Circulars
-        </h2>
-      </div>
 
-      {/* List container */}
+      <Calendarmini googleEvents= {googleEvents} circular= {circularsArray} />
+
       <div className="flex flex-col ">
-        {/* Header */}
-        <div
-          className="flex justify-between px-6 py-3 text-xs sticky top-0 left-0"
-          style={{
-            background: themeProperties?.boxBackgroundTop,
-          }}
-        >
-          <span className="text-[12px] ">SUBJECT</span>
-          <span className=" text-[12px] ">DATE</span>
-        </div>
-
         {/* Circulars */}
         <div className="custom-scrollbar w-full flex flex-col overflow-y-scroll px-6 py-4 ">
           {circularsArray.map((circular, index) => (
