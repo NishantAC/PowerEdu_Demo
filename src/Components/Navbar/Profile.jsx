@@ -22,18 +22,25 @@ const Profile = ({
     <div>
       <Popover>
         <PopoverTrigger>
-          <Avatar className="scale-90">
-            <AvatarImage src={image ? image : ""} alt={user?.firstname} />
-            <AvatarFallback
-              className=""
-              style={{
-                background: themeProperties?.specialColor,
-                color: themeProperties?.textColorAlt,
-              }}
-            >
+
+        <div className="h-9 w-9 flex items-center justify-center rounded-full overflow-hidden "
+        style={{
+          border: `2px solid ${themeProperties?.textColorAlt}`  ,
+          boxShadow: "0 1px 5px rgba(0, 0, 0, 0.2)",
+
+        }}
+        >
+          {
+            image ? 
+            <img src={image} alt={user?.firstname} className="w-full h-full object-cover" />
+            :
+            <div className="w-full h-full flex items-center justify-center" style={{background: themeProperties?.specialColor, color: themeProperties?.textColorAlt, }}>
+
               {initial}
-            </AvatarFallback>
-          </Avatar>
+            </div>
+          } 
+        </div>
+          
         </PopoverTrigger>
 
         <PopoverContent

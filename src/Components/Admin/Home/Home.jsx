@@ -65,7 +65,7 @@ function Home() {
             }}
         >
           <div 
-            className=" rounded-[15px] shadow-lg flex flex-col justify-center backdrop-blur-lg p-3 h-[50%]"
+            className=" rounded-[15px] shadow-md flex flex-col justify-center backdrop-blur-lg p-3 h-[50%]"
             style={{
             background: themeProperties.specialColor,
             }}
@@ -102,7 +102,7 @@ function Home() {
             </div>
 
           </div>
-            <div className={` h-full`}>
+            <div className={` h-full `}>
               <MeetingsBox />
             </div>
         </div>

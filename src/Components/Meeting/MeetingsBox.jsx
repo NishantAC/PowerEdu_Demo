@@ -13,7 +13,6 @@ import MeetingsTable from './MeetingsTable';
 import { toast } from 'sonner';
 import { IoMdAdd } from "react-icons/io";
 import gsap from "gsap";
-import './Meeting.css'
 
 
 function MeetingsBox() {
@@ -124,7 +123,7 @@ function MeetingsBox() {
 
   return (
     <div
-      className={`flex flex-col w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center border-2`}
+      className={`flex flex-col shadow-md w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center border-2`}
       style={{
         borderColor: themeProperties.borderColor,
       }}

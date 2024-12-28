@@ -8,6 +8,7 @@ import checkUserType from "@/common/checkUserType";
 import NotificationModal from "./NotificationModal";
 import { selectThemeProperties } from "@/slices/theme";
 import Profile from "./Profile";
+import Clock from "./Clock";
 
 function Navbar() {
   const [data, setData] = useState({});
@@ -111,16 +112,19 @@ function Navbar() {
             {currentSection}
           </div>
           <div className="flex items-center gap-4 ">
-            {/* time showing */}
-
+            <div className="flex items-center gap-4">
+            <div className=" ">
+              <Clock themeProperties={themeProperties} />
+            </div>
             <div
-              className="text-[14px] font-work-sans"
+              className="text-[14px] font-work-sans w-32"
               style={{
                 color: themeProperties?.textColor,
               }}
             >
               {timeWithoutPeriod}{" "}
               <span style={{ color: themeProperties?.specialColor }}>{period}</span>
+            </div>
             </div>
             <NotificationModal />
             <Profile

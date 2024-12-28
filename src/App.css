@@ -97,6 +97,9 @@ body{
   background: #4b4b4b;
 }
 
+.shadowMain{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .test{
   color: #f93475;
