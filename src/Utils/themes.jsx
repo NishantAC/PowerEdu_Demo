@@ -39,7 +39,7 @@ const themes = {
     normal2: "#7978E9",
     normal3: "#c96bff",
     background: "linear-gradient(135deg, #fae6eb 0%, #b2b8ff 30%)",
-    backgroundRight: "#ffffffa2",
+    backgroundRight: "#fffffff3",
     boxBackgroundTop: "#b2b8ff",
     boxBackgroundSolid : "#ffffff",
     buttonColor: "#b2b8ff",

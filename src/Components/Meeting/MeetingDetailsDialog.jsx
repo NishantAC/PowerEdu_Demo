@@ -2,6 +2,8 @@ import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { IoTimeOutline } from "react-icons/io5";
 import { CiCalendarDate } from "react-icons/ci";
+import DOMPurify from "dompurify";
+
 
 function MeetingDetailsDialog({ meeting, themeProperties, open, onOpenChange , date}) {
   const timeZone = meeting.timeZone || 'UTC';
@@ -50,7 +52,8 @@ function MeetingDetailsDialog({ meeting, themeProperties, open, onOpenChange , d
           </div>
 
           {meeting.description && (
-            <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: meeting.description }} style={{ color: themeProperties.textColor } } />
+            <div className="prose text-sm m-0 p-0"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(meeting.description), }} style={{ color: themeProperties.textColor } } />
           )}
 
           {meeting.attachments && meeting.attachments.length > 0 && (

@@ -49,7 +49,7 @@ function Home() {
 
   return (
     <div
-      className={`flex gap-4 max-xl:flex-col h-full`}
+      className={`flex max-xl:flex-col h-full`}
      
     >
       {/* Left Section */}
@@ -65,7 +65,7 @@ function Home() {
             }}
         >
           <div 
-            className=" rounded-[15px] shadow-md flex flex-col justify-center backdrop-blur-lg p-3 h-[50%]"
+            className=" rounded-[15px] shadow-md flex flex-col justify-center backdrop-blur-lg p-3 h-[50%] "
             style={{
             background: themeProperties.specialColor,
             }}

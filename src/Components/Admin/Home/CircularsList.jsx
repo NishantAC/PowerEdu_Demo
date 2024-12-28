@@ -12,16 +12,12 @@ import {
 } from "@/components/ui/dialog";
 import DOMPurify from "dompurify";
 import { FaCalendarAlt } from "react-icons/fa";
-import { Calendar } from "@/components/ui/calendar"
+import { Calendar } from "@/components/ui/calendar";
 import { getGoogleEvents } from "@/slices/calendar";
 import { useDispatch } from "react-redux";
 import { Calendarmini } from "@/Components/ui/calendarmini";
 
-
-
 function CircularsList({ themeProperties }) {
-
-
   const { user } = useSelector((state) => state.user);
   const [circularsArray, setCircularsArray] = useState([]);
   const { googleEvents } = useSelector((state) => state.calendarSlice);
@@ -46,12 +42,26 @@ function CircularsList({ themeProperties }) {
         background: themeProperties?.boxBackgroundSolid,
       }}
     >
+      <div className="m-2">
+        <Calendarmini
+          googleEvents={googleEvents}
+          circular={circularsArray}
+          className=" shadow-md rounded-lg"
+        />
+      </div>
+      {/* Circulars */}
 
-      <Calendarmini googleEvents= {googleEvents} circular= {circularsArray} />
+      <div
+        className="text-center font-normal"
+        style={{
+          color: themeProperties.textColor,
+        }}
+      >
+        Circulars
+      </div>
 
-      <div className="flex flex-col ">
-        {/* Circulars */}
-        <div className="custom-scrollbar w-full flex flex-col overflow-y-scroll px-6 py-4 ">
+      <div className="flex flex-col m-2">
+        <div className="custom-scrollbar w-full flex flex-col overflow-y-scroll ">
           {circularsArray.map((circular, index) => (
             <Dialog key={index} className="custom-scrollbar">
               <DialogTrigger asChild>
@@ -65,11 +75,11 @@ function CircularsList({ themeProperties }) {
                 >
                   <style>
                     {`    
-                        .circularButton:hover {
-                          background: var(--hover-bg);
-                          color: var(--hover-text);
-                        }
-                      `}
+                      .circularButton:hover {
+                        background: var(--hover-bg);
+                        color: var(--hover-text);
+                      }
+                    `}
                   </style>
 
                   <span className="w-2/3 truncate">{circular.subject}</span>
@@ -78,46 +88,42 @@ function CircularsList({ themeProperties }) {
               </DialogTrigger>
 
               <DialogContent
+                className="overflow-hidden rounded-xl shadow-lg p-0"
                 style={{
+                  backgroundColor: themeProperties.backgroundColor,
                   color: themeProperties.textColorAlt,
-                  background: themeProperties?.boxBackgroundSolid,
                 }}
-                className="p-0  h-[80vh] min-w-[40vw] overflow-y-scroll"
               >
-                <div>
-                  <div
-                    className="text-center p-4 text-2xl font-normal flex items-center justify-center"
-                    style={{
-                      color: themeProperties.textColorAlt,
-                      background: themeProperties.boxBackgroundTop,
-                    }}
-                  >
-                    <div className="text-center flex items-center justify-center absolute left-4">
-                      <div
-                        className=" flex p-4 gap-2 text-sm w-fit rounded-md justify-center items-center"
-                        style={{
-                          color: themeProperties.textColorAlt,
-                        }}
-                      >
-                        <FaCalendarAlt />
-
-                        {circular.date}
-                      </div>
+                <div
+                  className="text-center p-4 text-2xl font-normal flex items-center justify-center"
+                  style={{
+                    color: themeProperties.textColorAlt,
+                    background: themeProperties.boxBackgroundTop,
+                  }}
+                >
+                  <div className="text-center flex items-center justify-center absolute left-4">
+                    <div
+                      className="flex p-4 gap-2 text-sm w-fit rounded-md justify-center items-center"
+                      style={{
+                        color: themeProperties.textColorAlt,
+                      }}
+                    >
+                      <FaCalendarAlt />
+                      {circular.date}
                     </div>
-
-                    {circular.subject}
                   </div>
+                  {circular.subject}
                 </div>
 
                 <div
-                  className="m-4 p-4 flex flex-col items-start justify-start text-start "
-                  style={{ color: themeProperties.textColorAlt }}
+                  className="p-6 space-y-4"
+                  style={{ color: themeProperties.textColor }}
                 >
-                  <div
+                  <p
                     dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(circular.message),
+                      __html: circular.message,
                     }}
-                    className="prose text-sm m-0 p-0 "
+                    className="prose text-sm m-0 p-0"
                     style={{ color: themeProperties.textColor }}
                   />
                 </div>

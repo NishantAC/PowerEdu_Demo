@@ -10,7 +10,7 @@ import { selectThemeProperties } from "@/slices/theme";
 import Profile from "./Profile";
 import Clock from "./Clock";
 
-function Navbar() {
+function Navbar({ toggleSidebar }) {
   const [data, setData] = useState({});
   const [newMail, setNewMail] = useState(true);
   const [ring, setRing] = useState(true);
@@ -104,27 +104,49 @@ function Navbar() {
       <div className="flex items-center rounded-[10px] w-full  px-4">
         <div className="flex items-center gap-2 md:gap-4 justify-between w-full">
           <div
-            className="text-[20px] font-bold capitalize "
+            className="text-[20px] font-bold capitalize flex gap-4 items-center pl-3"
             style={{
               color: themeProperties?.textColor,
             }}
           >
+            <div
+              className="cursor-pointer absolute left-1"
+              onClick={toggleSidebar}
+            >
+              <div className="scale-[0.6]">
+                <div
+                  className="w-7 h-7 border-[4px] rounded-[5px] flex items-center"
+                  style={{
+                    borderColor: themeProperties?.sideBarCollapseButton,
+                  }}
+                >
+                  <div
+                    className="w-[4px] h-7 sideBarIcon ml-[4px]"
+                    style={{
+                      background: themeProperties?.sideBarCollapseButton,
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
             {currentSection}
           </div>
           <div className="flex items-center gap-4 ">
             <div className="flex items-center gap-4">
-            <div className=" ">
-              <Clock themeProperties={themeProperties} />
-            </div>
-            <div
-              className="text-[14px] font-work-sans w-32"
-              style={{
-                color: themeProperties?.textColor,
-              }}
-            >
-              {timeWithoutPeriod}{" "}
-              <span style={{ color: themeProperties?.specialColor }}>{period}</span>
-            </div>
+              <div className=" ">
+                <Clock themeProperties={themeProperties} />
+              </div>
+              <div
+                className="text-[14px] font-work-sans w-32"
+                style={{
+                  color: themeProperties?.textColor,
+                }}
+              >
+                {timeWithoutPeriod}{" "}
+                <span style={{ color: themeProperties?.specialColor }}>
+                  {period}
+                </span>
+              </div>
             </div>
             <NotificationModal />
             <Profile
