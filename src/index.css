@@ -84,5 +84,50 @@
 .prose :where(p, ul, ol , li, h3, h1 , br, ul, ol, strong ):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  font-family:  Helvetica !important;
+  font-family: Helvetica !important;
+}
+
+
+.prose :where(h1){
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  font-family: Helvetica !important;
+}
+
+.prose :where(h2){
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  font-family: Helvetica !important;
+}
+
+.prose :where(h3){
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  font-family: Helvetica !important;
+}
+
+.prose :where(h4){
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  font-family: Helvetica !important;
+}
+
+.prose :where(h5){
+  font-size: 0.875rem !important;
+  font-family: Helvetica !important;
+}
+
+.prose :where(h6){
+  font-size: 0.75rem !important;
+  font-family: Helvetica !important;
+}
+
+.prose :where(b){
+  font-family: Helvetica !important;
+}
+
+.prose :where(p, li){
+  font-size: 0.8rem !important;
+  font-family: Helvetica !important;
 }

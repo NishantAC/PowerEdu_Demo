@@ -55,7 +55,8 @@ function Layout(props) {
             toggleOpenIndex={toggleOpenIndex}
             isCollapsed={isCollapsed}
             setIsCollapsed={setIsCollapsed}
-            openIndex={setOpenIndex}
+            openIndex={openIndex}
+            setOpenIndex={setOpenIndex}
           />
         </div>
         <div

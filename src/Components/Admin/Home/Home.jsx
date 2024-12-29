@@ -49,12 +49,12 @@ function Home() {
 
   return (
     <div
-      className={`flex max-xl:flex-col h-full`}
+      className={`flex max-xl:flex-col h-full max-lg:min-h-[100vh]`}
      
     >
       {/* Left Section */}
 
-      <div  className={`rounded-[18px] p-2 overflow-hidden z-50 w-[23%]`}
+      <div  className={`rounded-[18px] p-2 overflow-hidden z-50 w-[23%] max-lg:w-full h-full max-lg:min-h-[100vh]`}
         style={{
         }}
         >
@@ -110,7 +110,7 @@ function Home() {
 
       {/* Right Section */}
 
-      <div className="flex-1 h-full"
+      <div className="xl:flex-1 xl:h-full"
       >
         <Information />
       </div>

@@ -373,7 +373,7 @@ function SideBar({
                                 style={{
                                   background:
                                     isCollapsed &&
-                                    themeProperties.secondaryColor,
+                                    themeProperties.background,
                                 }}
                                 onMouseLeave={() => {
                                   if (isCollapsed) {

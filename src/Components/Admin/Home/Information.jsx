@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import Spinner from "@/Components/Spinner/Spinner";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -123,21 +124,6 @@ function Information() {
     },
   ];
 
-  const monthArray = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const yearArray = [];
   for (let year = 1951; year <= 2050; year++) {
     yearArray.push(year.toString());
@@ -172,11 +158,11 @@ function Information() {
 
   const debouncedFetch = debounce(async (value) => {
     if (value) {
+      setShowDropdown(true);
       try {
         const response = await axios.get(API_BASE_URL + `schoolusers/listofid/${value}`);
         const formattedOptions = response?.data?.userIds.map((id) => id);
         setOptions(formattedOptions);
-        setShowDropdown(true);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -215,7 +201,7 @@ function Information() {
   const themeProperties = useSelector(selectThemeProperties);
 
   return (
-    <div className=" max-xl:max-w-4/5 max-xl:mt-10 flex flex-col h-full" >
+    <div className=" max-xl:max-w-4/5 max-xl:mt-10 flex flex-col h-full " >
       <div className={`flex max-xl:flex-col-reverse flex-row justify-around items-center max-xl:py-4 rounded-[20px] `}
       >
         <div className="flex max-md:flex-col w-96 justify-center items-center absolute top-2 right-[33%] z-50 " ref={searchRef}>
@@ -245,7 +231,7 @@ function Information() {
               </Search>
             </Toolbar>
           </Box>
-          {showDropdown && options.length > 0 && (
+          {showDropdown && options.length > 0 ? (
             <div className="p-[4px] absolute scrolling top-14 z-[100] w-full rounded-[20px] shadow-2xl overflow-hidden"
               style={{
                 background: themeProperties.boxBackground,
@@ -253,7 +239,7 @@ function Information() {
             >
               <ul className="list-none p-0 m-0 w-full overflow-y-auto scrolling h-60 rounded-[18px] outline-none"
               style={{
-                background: themeProperties?.borderColor
+                background: themeProperties?.boxBackground
 
               }}
               >
@@ -288,7 +274,16 @@ function Information() {
                 ))}
               </ul>
             </div>
-          )}
+          ) : 
+          <div className="p-[4px] absolute scrolling top-14 z-[100] w-full rounded-[20px] shadow-2xl overflow-hidden h-60 flex justify-center items-center "
+          style={{
+            background: themeProperties.boxBackground,
+            display: searchString.length > 0 && showDropdown? "flex" : "none",
+          }}
+        >
+          No results found for "{searchString}"
+          </div>
+          }
         </div>
 
         {/* <StatsAndCharts
@@ -307,8 +302,8 @@ function Information() {
             themeProperties={themeProperties}
           /> */}
       </div>
-      <div className="h-full ">
-      <UserAndCirculars newlyAddedUsersArray={newlyAddedUsersArray} deviceSize={deviceSize} />
+      <div className="h-full relative  ">
+        <UserAndCirculars newlyAddedUsersArray={newlyAddedUsersArray} deviceSize={deviceSize} />
 
       </div>
     </div>

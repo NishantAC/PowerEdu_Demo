@@ -52,8 +52,13 @@ function MeetingDetailsDialog({ meeting, themeProperties, open, onOpenChange , d
           </div>
 
           {meeting.description && (
-            <div className="prose text-sm m-0 p-0"
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(meeting.description), }} style={{ color: themeProperties.textColor } } />
+                  <p
+                  dangerouslySetInnerHTML={{
+                    __html:(meeting.description)
+                  }}
+                  className="prose text-sm m-0 p-0"
+                  style={{ color: themeProperties.textColor }}
+                />
           )}
 
           {meeting.attachments && meeting.attachments.length > 0 && (

@@ -123,10 +123,8 @@ function MeetingsBox() {
 
   return (
     <div
-      className={`flex flex-col shadow-md w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center border-2`}
-      style={{
-        borderColor: themeProperties.borderColor,
-      }}
+      className={`flex flex-col shadow-md w-full h-full rounded-[15px] overflow-hidden relative transition-all duration-300 items-center `}
+ 
     >
       <div
         className={`w-full py-2 px-4 flex justify-between items-center`} 

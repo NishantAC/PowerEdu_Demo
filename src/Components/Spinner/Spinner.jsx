@@ -1,13 +1,27 @@
 import React from 'react'
 import './Spinner.css'
-
-const Spinner = ({width, borderRightColor}) => {
+import { selectThemeProperties } from '@/slices/theme'
+import { useSelector } from 'react-redux'
+const Spinner = ({}) => {
+  const themeProperties = useSelector(selectThemeProperties)
   return (
     <div className='loader'
-          style={{width: width, 
-               borderRightColor: borderRightColor
-          }}
-    ></div>
+    >
+
+        <style>
+          {`
+            .loader {
+                color: ${themeProperties?.normal3};
+                }
+              .loader:after {
+                color: ${themeProperties?.specialColor}; 
+              }
+          
+
+          `}
+        </style>
+
+    </div>
   )
 }
 

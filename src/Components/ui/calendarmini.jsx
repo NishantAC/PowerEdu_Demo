@@ -9,6 +9,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { useSelector } from "react-redux"
 import { selectThemeProperties } from "@/slices/theme";
 import MeetingDetailsDialog from "../Meeting/MeetingDetailsDialog";
+import moment from "moment"
 
 function Calendarmini({
   className,
@@ -114,6 +115,7 @@ function Calendarmini({
                meeting={selectedEvent}
                onOpenChange={setOpen}
                themeProperties={themeProperties}
+               date={moment(selectedEvent.start.dateTime).format("DD-MM-YYYY")}
            />
           )
        }

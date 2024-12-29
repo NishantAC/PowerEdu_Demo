@@ -20,7 +20,7 @@ const themes = {
     logoutColor: "red",
     sideBarButton: "#9290C3",
     sideBarText: "#FFF",
-    sideBarCollapseButton: "#FFF",
+    sideBarCollapseButton: "#00369a",
     borderColor: "#FFF",
     toastColor: "#6A0DAD",
     toastTextColor: "#FFFFFF",
@@ -148,8 +148,8 @@ const themes = {
       logoutColor: "red",
       sideBarButton: "#f93475", 
       sideBarText: "#FFF",
-      sideBarCollapseButton: "#FFF",
-      borderColor: "#FFF",
+      sideBarCollapseButton: "#845ec2",
+      borderColor: "#fff3ea",
       toastColor: "#ff9671", 
       toastTextColor: "#FFFFFF",
       boxBackground: "#FFF",
@@ -158,6 +158,7 @@ const themes = {
       boxHoverTextColor: "#000000",
       scrollColor: "#845ec2", 
       drawerClose: "#d65db1", 
+      lightColor : "#fffcff"
     },
   "Midnight Orange": {
     specialColor: "#1E3E62",

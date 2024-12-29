@@ -48,6 +48,11 @@ body{
   src: url("./assets/Fonts/BigShoulders/BigShouldersDisplay-VariableFont_wght.ttf");
 }
 
+@font-face {
+  font-family: 'Open Sans';
+  src: url("./assets/Fonts/OpenSans/OpenSans.ttf");
+}
+
 ::-webkit-scrollbar {
   width: 0px;
   display: none;

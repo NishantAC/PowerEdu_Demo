@@ -1,5 +1,8 @@
 .custom-scrollbar::-webkit-scrollbar {
-  width: 2px;
+  display: block;
+  width: 5px;
+  border-radius: 10px;
+  cursor: alias
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -7,23 +10,24 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: gray;
+  border-radius: 10px;
+
 }
 
 .scrolling::-webkit-scrollbar {
   display: block;
   width: 5px;
   border-radius: 10px;
-  cursor: alias
+  cursor: alias;
 }
 
 .scrolling::-webkit-scrollbar-track {
-  background: transparent;
   margin: 20px 0;
+  background: #fff3ea;
 }
 
 .scrolling::-webkit-scrollbar-thumb {
-
   border-radius: 10px;
 }
+
 
