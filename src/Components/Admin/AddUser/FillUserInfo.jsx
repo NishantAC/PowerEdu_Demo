@@ -135,7 +135,7 @@ function FillUserInfo() {
 
   return (
     <div
-      className=""
+      className="px-4"
     >
       <div className=" flex gap-4">
         <div className=" rounded-[20px] shadow-lg"

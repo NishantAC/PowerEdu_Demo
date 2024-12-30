@@ -54,9 +54,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '20ch',
+      width: '30ch',
       '&:focus': {
-        width: '30ch',
+        width: '40ch',
       },
     },
   },
@@ -172,7 +172,7 @@ function Mail({ mails, fetchMails, themeProperties, setLoading,loading, type}) {
                     refresh();
                   }}
                   style={{
-                    color: themeProperties.textColorAlt,
+                    color: themeProperties.textColor,
                   }}
                 />
               </div>
@@ -194,21 +194,21 @@ function Mail({ mails, fetchMails, themeProperties, setLoading,loading, type}) {
                   disableElevation
                   style={{
                     backgroundColor: selectedMail === mail?.id ? themeProperties?.normal1 : "",
-                    color: selectedMail === mail?.id ? themeProperties?.textColor : "",
+                    color: selectedMail === mail?.id ? themeProperties?.textColorAlt : "",
                     boxShadow: selectedMail === mail?.id ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none', 
                     display: extractName(mail.from) === "Mail Delivery Subsystem" ? "none" : "block",
                     marginTop : "10px !important",
                     marginBottom : "10px !important",
                     borderRadius: "10px",
                     border: "1px solid #e5e5e5",
-                    "--hover-color": themeProperties?.textColor,
+                    "--hover-color": themeProperties?.textColorAlt,
                     "--hover-bg": themeProperties?.normal1,
                   }}
                 >
                   <style> 
                     {`
                     .mail{
-                      color : ${themeProperties?.textColorAlt};
+                      color : ${themeProperties?.textColor};
                     }
                     
                     .mail:hover 

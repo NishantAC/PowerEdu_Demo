@@ -1,4 +1,5 @@
 
+import { toast } from "sonner";
 import authService from "../../../services/auth.service";
 
 
@@ -131,4 +132,6 @@ export const handleSubmit = (e, formValues, setErrorMsg, setUserId, setPassword,
         }
       });
   }
+
+  toast.info("User Added Successfully", { description: `User Added Successfully, User ID: ${formValues.rekorId}, Save the information.` });
 };

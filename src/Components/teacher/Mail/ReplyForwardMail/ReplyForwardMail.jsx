@@ -111,8 +111,8 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
     <div
       className="flex justify-start pl-20 gap-6 mb-10"
       style={{
-        background: themeProperties?.background,
-        color: themeProperties?.textColorAlt,
+        background: themeProperties?.boxBackgroundSolid,
+        color: themeProperties?.textColor,
       }}
     >
       <Dialog className="rounded-[20px]">
@@ -130,7 +130,7 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
               {`
                 button:hover {
                   background-color: ${themeProperties?.normal1};
-                  color: ${themeProperties?.textColor};
+                  color: ${themeProperties?.textColorAlt};
                 }
               `}
             </style>
@@ -140,8 +140,8 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
         </DialogTrigger>
         <DialogContent
           style={{
-            backgroundColor: themeProperties?.boxBackground,
-            color: themeProperties?.textColor,
+            backgroundColor: themeProperties?.boxBackgroundSolid,
+            color: themeProperties?.textColorAlt,
             borderRadius: "16px",
             boxShadow: "0 8px 12px rgba(0, 0, 0, 0.15)",
             padding: "0px",
@@ -155,12 +155,12 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
           style={{ backgroundColor: themeProperties?.normal1 }}
           >
             <h1 className="text-[16px] font-normal  underline-offset-2 "
-              style={{ color: themeProperties?.textColor }}
+              style={{ color: themeProperties?.textColorAlt }}
             >Reply to {name}</h1>
             <h2
                 className="text-[14px] font-light "
                 style={{
-                  color: themeProperties?.textColor,
+                  color: themeProperties?.textColorAlt,
                 }}
               >
                 {"( " + emailFrom + " )"}
@@ -178,7 +178,7 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
             {({ isSubmitting, setFieldValue }) => (
               <Form className="w-full space-y-6 px-[20px]"
               style={{
-                color:themeProperties.textColorAlt
+                color:themeProperties.textColor
               } }
               >
                 {/* Attachments Section */}
@@ -252,14 +252,14 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
                     className="px-6 py-2 flex items-center gap-2 rounded-full cursor-pointer hover:scale-105 transition-transform duration-200 "
                     type="submit"
                     style={{
-                      background: themeProperties.normal3,
-                      color: themeProperties.textColor,
+                      background: themeProperties.buttonColor,
+                      color: themeProperties.textColorAlt,
                       opacity: isSubmitting || loading ? 0.5 : 1,
                     }}
                     disabled={isSubmitting || loading}
                   >
                     Send
-                    <IoMdSend size ={20} />
+                  
                   </button>
                 </div>
                 </DialogFooter>
@@ -283,7 +283,7 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
               {`
                 .reply:hover {
                   background-color: ${themeProperties?.normal1};
-                  color: ${themeProperties?.textColor};
+                  color: ${themeProperties?.textColorAlt};
                 }
               `}
             </style>
@@ -293,8 +293,8 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
         </DialogTrigger>
         <DialogContent
           style={{
-            backgroundColor: themeProperties?.boxBackground,
-            color: themeProperties?.textColor,
+            backgroundColor: themeProperties?.boxBackgroundSolid,
+            color: themeProperties?.textColorAlt,
             borderRadius: "16px",
             boxShadow: "0 8px 12px rgba(0, 0, 0, 0.15)",
             padding: "0px",

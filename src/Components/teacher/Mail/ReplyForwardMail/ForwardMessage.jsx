@@ -102,7 +102,7 @@ function ForwardMessage({ email, attachments, setAttachments, themeProperties , 
         style={{ backgroundColor: themeProperties?.normal1 }}
       >
         <h1 className="text-[16px] font-normal underline-offset-2"
-          style={{ color: themeProperties?.textColor }}
+          style={{ color: themeProperties?.textColorAlt }}
         >
           Forward Message
         </h1>

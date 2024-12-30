@@ -115,6 +115,15 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
             </div>
           </div>
           <div className="dob">
+          
+          <label
+            htmlFor="dob" 
+            className="text-black text-[12px] font-normal absolute -translate-y-5 translate-x-1"
+            style={{
+              color : themeProperties?.textColorLight
+            }}
+          > Date of Birth
+          </label>
           <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -129,7 +138,7 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
                   }}
                 >
                   <CalendarIcon className="h-4 w-4" />
-                  {values.admissionDate ? (
+                  {values.dob ? (
                     format(new Date(values.dob), "PPP")
                   ) : (
                     <span>Date of Birth</span>
@@ -140,15 +149,23 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
                 <Calendar
                   mode="single"
                   selected={
-                    values.admissionDate ? new Date(values.admissionDate) : undefined
+                    values.dob ? new Date(values.dob) : undefined
                   }
-                  onSelect={(selectedDate) => handleDateChange("admissionDate", selectedDate)}
+                  onSelect={(selectedDate) => handleDateChange("dob", selectedDate)}
                   initialFocus
                 />
               </PopoverContent>
             </Popover>
           </div>
           <div className="AdmissionDate">
+          <label
+            htmlFor="admissionDate" 
+            className="text-black text-[12px] font-normal absolute -translate-y-5 translate-x-1"
+            style={{
+              color : themeProperties?.textColorLight
+            }}
+          > {profiletype === "students" ? "Admission Date" : "Joining Date"}
+          </label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -166,7 +183,9 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
                   {values.admissionDate ? (
                     format(new Date(values.admissionDate), "PPP")
                   ) : (
-                    <span>Admission Date</span>
+                    <span>
+                      {profiletype === "students" ? "Admission Date" : "Joining Date"}
+                    </span>
                   )}
                 </Button>
               </PopoverTrigger>
@@ -203,7 +222,6 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
               handleChange={handleChange}
               htmlFor="middleName"
               placeholder="Middle Name"
-              required={true}
               type="text"
             />
           </div>
@@ -234,6 +252,10 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
           {profiletype === "students" ? (
             <div className=" flex gap-10 items-center">
               <div className="studentClass">
+                <label htmlFor="class" className="text-black text-[12px] font-normal absolute -translate-y-5 translate-x-1"
+                  style={{  color : themeProperties?.textColorLight }}
+                > Class
+                </label>
                 <SelectBox
                   text="Class"
                   options={classesDropdown}
@@ -259,6 +281,10 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
               </div>
 
               <div className="gender">
+              <label htmlFor="gender" className="text-black text-[12px] font-normal absolute -translate-y-5 translate-x-1"
+                  style={{  color : themeProperties?.textColorLight }}
+                > Gender
+                </label>
                 <SelectBox
                   text="Gender"
                   options={["Male", "Female", "Others"]}
@@ -391,7 +417,6 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
                   handleChange={handleChange}
                   htmlFor="guardianName"
                   placeholder="Guardian's Name"
-                  required={true}
                   type="text"
                 />
               </div>
@@ -454,13 +479,12 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
             <div className="guardianContactNo">
               <InputField
                 name="guardianContact"
-                value={values.guardianContact}
+                value={values.guardianContact === "NaN" ? "" : values.guardianContact}
                 handleChange={handleChange}
                 htmlFor="guardianContactNo"
                 placeholder="Guardian's Contact No"
-                required={true}
                 type="tel"
-                pattern="[0-9]{10} "
+                pattern="[0-9]{10}"
               />
             </div>
           </div>

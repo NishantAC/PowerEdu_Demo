@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import WestIcon from "@mui/icons-material/West";
-import SelectBox from "./SelectBox";
-import { Link, useLocation } from "react-router-dom";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import {  useLocation, useNavigate } from "react-router-dom";
 import "./EditProfile.css";
-import InputParent from "./InputParent";
-import DeleteConfirmationModal from "./Modal/DeleteConfirmationModal";
-import DeleteConfirmedModal from "./Modal/DeleteConfirmedModal";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchStudentDetails,
@@ -20,13 +13,15 @@ import {
   updateOtherManagementMemebrDetails,
   updateTeacherDetails,
 } from "../../../../slices/admin";
-import InputField from "@/Components/InputField/InputField";
 import ProfileImage from "./ProfileImage";
 import ProfileForm from "./ProfileForm";
 import { selectThemeProperties } from "@/slices/theme";
+import SearchBarComponent from "@/Components/SearcBar/SearchBar";
+import { toast } from "sonner";
+import { handleChange } from "../../AddUser/fillUserInfoFunction";
 
 function EditProfile() {
-  const location = useLocation();
+  const navigate = useNavigate();
   const userDetailsString = localStorage.getItem("editUserDetails");
   const userDetails = JSON.parse(userDetailsString);
   const { user_id, profiletype } = userDetails;
@@ -103,21 +98,34 @@ function EditProfile() {
     } else {
       dispatch(updateOtherManagementMemebrDetails(values));
     }
+    toast.success("Profile Updated Successfully", {
+      description: "Profile Updated Successfully",
+    });
+
+    // navigate("/admin/profile/" + profiletype);
+    // localStorage.removeItem("editUserDetails");
+
   };
 
-  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
-    useState(false);
+  const fullName = `${formValues?.firstname || ''} ${formValues?.middlename || ''} ${formValues?.lastname || ''}`.trim();
 
   return (
     <div
-      className=" h-full"
+      className=" h-full relative p-4"
     >
-      <div className=" flex justify-center items-center h-full">
-        <div className="">
-          <ProfileImage formValues={formValues} setShowDeleteConfirmationModal={setShowDeleteConfirmationModal} themeProperties={themeProperties} />
+      <div className=" flex items-center h-full gap-4" >
+        <div className=" h-full flex flex-col gap-5 items-center justify-center shadow-md px-6 rounded-[15px] "
+        style={{
+          backgroundColor: themeProperties.boxBackgroundSolid,
+        }}
+        >
+          <ProfileImage formValues={formValues}  themeProperties={themeProperties} profiletype= {profiletype} name = {fullName} handlechange={handleChange}/>
         </div>
         <div
-          className=""
+          className=" h-full flex flex-1 flex-col gap-5 items-center justify-center shadow-md px-6 rounded-[15px] "
+          style={{
+            backgroundColor: themeProperties.boxBackgroundSolid,
+          }}
         >
           <Formik
             initialValues={formValues}
@@ -135,7 +143,7 @@ function EditProfile() {
      
                   <div className=" ">
                     <button
-                      className=" px-4 absolute ri py-2 rounded-lg hover:scale-95 transition-all duration-300"
+                      className=" px-4 absolute right-10 bottom-6 py-2 rounded-lg hover:scale-95 transition-all duration-300"
                       type="submit"
                       style={{
                         backgroundColor: themeProperties.buttonColor,
@@ -150,7 +158,6 @@ function EditProfile() {
           </Formik>
         </div>
       </div>
-      {showDeleteConfirmationModal && <DeleteConfirmedModal />}
     </div>
   );
 }

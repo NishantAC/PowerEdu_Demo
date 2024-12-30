@@ -1,83 +1,108 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaUser } from "react-icons/fa";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
+const ProfileImage = ({ formValues, themeProperties, profiletype, name, handlechange }) => {
+  const [imageUrl, setImageUrl] = useState(formValues?.imageUrl || "");
 
-const ProfileImage = ({ formValues, setShowDeleteConfirmationModal, themeProperties }) => {
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result);
+        handlechange({ target: { name: 'imageUrl', value: reader.result } });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
-    <>
-      <h1>
-        {formValues.profiletype === "students"
+    <div className="flex flex-col gap-5 items-center w-48">
+      <h1 className="text-2xl font-semiBold underline-offset-2 underline mb-4 absolute top-10 z-[100000]">
+        {profiletype === "students"
           ? "Student"
-          : formValues.profiletype === "teachers"
+          : profiletype === "teachers"
           ? "Teacher"
-          : formValues.profiletype === "principal"
+          : profiletype === "principal"
           ? "Principal"
-          : formValues.profiletype === "accountant"
+          : profiletype === "accountant"
           ? "Accountant"
-          : formValues.profiletype === "staff"
+          : profiletype === "staff"
           ? "Staff"
-          : ""}{" "}
-        Profile
+          : ""} Profile
       </h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-          alignItems: "center",
-        }}
-      >
-        {formValues.imageUrl ? (
+      <div className="flex flex-col gap-5 items-center">
+        {imageUrl ? (
           <div
-            style={{
-              height: "132px",
-              width: "132px",
-              borderRadius: "50%",
-              backgroundImage: `url(${formValues.imageUrl})`,
-              backgroundSize: "cover",
-            }}
+            className="h-32 w-32 rounded-full bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${imageUrl})` }}
           ></div>
         ) : (
           <div
-            style={{
-              height: "132px",
-              width: "132px",
-              borderRadius: "50%",
-              backgroundColor: "#F5F5F5",
-              display: "grid",
-              placeContent: "center",
-              fontFamily: "Rubik",
-              fontWeight: "500",
-              fontSize: "48px",
-              color: "#959595",
-            }}
+            className="h-32 w-32 rounded-full grid place-content-center font-rubik font-medium text-4xl border-dotted border-2 border-gray-400"
+            style={{ background: themeProperties.boxBackground, border: `2px dotted ${themeProperties.normal1}` }}
           >
-            A
+            <FaUser className="text-4xl text-gray-700" />
           </div>
         )}
 
-        <button
-          className="adminEditBtn"
-          onClick={() => setShowDeleteConfirmationModal(true)}
-          style={{
-            width: "200px",
-            height: "45px",
-            borderRadius: "5px",
-            backgroundColor: "#D10707",
-            fontFamily: "Rubik",
-            fontSize: "16px",
-            fontWeight: "400",
-            color: "white",
-            display: "grid",
-            placeContent: "center",
-            border: "none",
-            outline: "none",
-            userSelect: "none",
-          }}
+        {name}
+
+        <div
+          className="px-6 h-10 border border-dotted rounded-lg relative flex items-center justify-center cursor-pointer"
+          style={{ background: themeProperties.buttonColor }}
         >
-          Request Delete Account
-        </button>
+          <label
+            htmlFor="uploadImgBtn"
+            className="cursor-pointer flex gap-2 items-center"
+            style={{ color: themeProperties.textColorAlt }}
+          >
+            Upload Image
+            <FaUser className="ml-2" />
+          </label>
+
+          <input
+            id="uploadImgBtn"
+            type="file"
+            accept="image/*"
+            className="hidden cursor-pointer"
+            onChange={handleImageChange}
+          />
+        </div>
+
+        <Dialog>
+          <DialogTrigger
+            className="w-fit px-4 py-2 rounded-lg text-white font-rubik font-medium flex items-center justify-center absolute bottom-10"
+            style={{
+              backgroundColor: themeProperties.logoutColor,
+            }}
+          >
+            Delete Account
+          </DialogTrigger>
+          <DialogContent
+            className="w-full max-w-md"
+            style={{
+              backgroundColor: themeProperties.boxBackgroundSolid,
+            }}
+          >
+            <DialogHeader>
+              <DialogTitle>Delete Account</DialogTitle>
+              <DialogDescription className="text-sm text-muted-foreground pt-10">
+                Your request to delete the account has been submitted. You will be notified once the account is deleted.
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,10 @@
 import React from "react";
+import { selectThemeProperties } from "@/slices/theme";
+import { useSelector } from "react-redux";
+const InputField = ({ value, htmlFor, placeholder, name, handleChange, required, type = "text", pattern , address = false , disable = false}) => {
 
-const InputField = ({ value, htmlFor, placeholder, name, handleChange, themeProperties, required, type = "text", pattern , address = false , disable = false}) => {
+  const themeProperties = useSelector(selectThemeProperties);
+
   return (
     <div className="relative">
       <input
@@ -13,6 +17,10 @@ const InputField = ({ value, htmlFor, placeholder, name, handleChange, themeProp
         onChange={handleChange}
         disabled={disable}
         className={` px-3 overflow-hidden py-[9px] ${address ? ' min-w-[480px]':'w-[192px]'} border rounded-lg focus:outline-none peer ${type === 'number' ? 'no-spinner' : ''}`}
+        style={{
+          background : themeProperties.inputBackground,
+          color : themeProperties.inputTextColor,
+        }}
         required={required}
       />
       <label
@@ -20,7 +28,7 @@ const InputField = ({ value, htmlFor, placeholder, name, handleChange, themeProp
         className={`absolute left-3 text-nowrap text-gray-500 top-3 transition-all duration-200 transform ${value ? '-translate-y-8 -translate-x-2 opacity-100 text-[12px]' : 'peer-focus:-translate-y-8 peer-focus:text-[12px] peer-placeholder-shown:translate-y-0 text-[14px] '
         }`}
         style={{
-          // color: value && themeProperties.textColorAlt,
+          color: value && themeProperties.textColorLight,
         }}
       >
         {placeholder}

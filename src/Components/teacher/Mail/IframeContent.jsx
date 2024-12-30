@@ -46,9 +46,8 @@ function IframeContent({ content, messageData, setValue, showReplyForward ,refre
     iframeRef.current.addEventListener("load", updateHeight);
     iframeDoc.addEventListener("click", handleLinkClick);
   
-    // Apply theme properties to the iframe body
-    iframeDoc.body.style.color = themeProperties?.textColorAlt || "initial";
-    iframeDoc.body.style.backgroundColor = themeProperties?.background || "initial";
+      iframeDoc.body.style.color = themeProperties?.textColorAlt || "initial";
+    iframeDoc.body.style.backgroundColor = themeProperties?.boxBackgroundSolid || "initial";
   
     updateHeight();
   }, [content, themeProperties]);
@@ -156,8 +155,8 @@ function IframeContent({ content, messageData, setValue, showReplyForward ,refre
       <div
         className="w-full rounded-lg "
         style={{
-          color: themeProperties?.textColorAlt,
-          backgroundColor: themeProperties?.background,
+          color: themeProperties?.textColor,
+          backgroundColor: themeProperties?.boxBackgroundSolid,
         }}
       >
         
@@ -180,8 +179,8 @@ function IframeContent({ content, messageData, setValue, showReplyForward ,refre
               style={{ backgroundColor: themeProperties?.normal3 }}
             >
               <p
-                className="text-lg font-semibold"
-                style={{ color: themeProperties?.textColor }}
+                className="text-lg font-semibold text-white"
+                
               >
                 {refreshLoading ? "" : name.charAt(0) }
               </p>
@@ -225,7 +224,7 @@ function IframeContent({ content, messageData, setValue, showReplyForward ,refre
               height: refreshLoading ? "0px" : height,
               minHeight: "100px",
               border: "none",
-              backgroundColor: themeProperties?.backgroundColor,
+              backgroundColor: themeProperties?.boxBackgroundSolid,
               visibility: refreshLoading ? "hidden" : "visible",
               color: themeProperties?.textColor,
             }}

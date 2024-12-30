@@ -352,7 +352,7 @@ const fetchDeletedMail = async (refresh) => {
     >
 
       <div  className="h-full rounded-[9px] overflow-hidden "
-        style={{ background: themeProperties?.background }}
+        style={{ background: themeProperties?.boxBackgroundSolid }}
       
       >
       {googleLoading ? (
@@ -368,7 +368,7 @@ const fetchDeletedMail = async (refresh) => {
           >
             <LinearProgress color="inherit"/>   
             <p
-            style={{ color: themeProperties.textColorAlt   }}
+            style={{ color: themeProperties.textColor   }}
             >
             Starting your Google Space
             </p>      
