@@ -25,6 +25,7 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [sanitizedContent, setSanitizedContent] = useState("");
+  const [isPrinting, setIsPrinting] = useState(false);
   const themeProperties = useSelector(selectThemeProperties);
 
   const [isStarred, setIsStarred] = useState(messageData?.isStarred);
@@ -70,6 +71,15 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
     setIsStarred(messageData?.isStarred);
   }, []);
 
+
+  const handlePrint = useCallback(() => {
+    setIsPrinting(true);
+    setTimeout(() => {
+      // print the componentRef
+      setIsPrinting(false);
+    }, 0);
+  }, []);
+
   return (
     <div className="h-full">
       <div className="flex items-center space-x-8 justify-end pr-10 py-2">
@@ -97,8 +107,11 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
         </div>
 
         <ReactToPrint
+        
           trigger={() => (
-            <div className="relative group cursor-pointer">
+            setIsPrinting(true),
+            <div className="relative group cursor-pointer"
+            >
               <IoPrint
                 size={25}
                 className="text-white cursor-pointer"
@@ -109,7 +122,10 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
               </div>
             </div>
           )}
-          content={() => componentRef.current}
+          content={() =>{ 
+            setIsPrinting(true);
+            return componentRef.current;
+          }}
         />
 
         <div onClick={handleOpen} className="relative group cursor-pointer">
@@ -143,31 +159,36 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
         />
       </div>
 
-      <div ref={componentRef} className="print-content">
-        <style>
-          {`
-          .print-content {
-          visibility:hidden;
-          height:0;
-          overflow:hidden;
-          opacity:0;
+      <div ref={componentRef}>
+  <style>
+    {`
+      .print-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Ensure it doesn't affect the layout */
+        visibility: hidden; /* Hidden by default */
+      }
 
-          }
+      @media print {
+        .print-content {
+          position: static; /* Reset positioning for print layout */
+          z-index: auto; /* Allow it to appear normally */
+          visibility: visible; /* Make visible only during print */
+          width: 100%;
+          height: auto;
+        }
+      }
+    `}
+  </style>
+  <div
+    className="print-content"
+    dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+  />
+</div>
 
-          @media print {
-          .print-content {
-
-          visibility:visible;
-          height:auto;
-          overflow:visible;
-          opacity:1;
-          }
-          }
-        `}
-        </style>
-
-        <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
-      </div>
     </div>
   );
 }

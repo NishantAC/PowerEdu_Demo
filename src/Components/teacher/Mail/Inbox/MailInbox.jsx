@@ -133,8 +133,7 @@ function Mail({ mails, fetchMails, themeProperties, setLoading,loading, type}) {
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel minSize={20} defaultSize={30} maxSize={40}>
         <div className="h-[90vh] overflow-y-scroll px-2" ref={scrollRef}>
-          <div className="flex items-center justify-center sticky mt-4 top-0 z-20"
-            style = {{ backgroundColor: themeProperties?.background }}
+          <div className="flex items-center justify-center fixed mt-4 top-0 z-[1000] -translate-x-1/2 left-1/2"
           >
             <Box sx={{}}>
               <Toolbar>
