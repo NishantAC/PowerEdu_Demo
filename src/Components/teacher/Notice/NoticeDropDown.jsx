@@ -22,11 +22,11 @@ fetchClassNotices(result.payload.data.class_codes[0])
     const handleDropdownChange = (event) => {
         setFilterClass(event.target.value)
         fetchClassNotices(event.target.value);
-        console.log(event.target.value);
+        
     };
 
     useEffect(() => {
-        console.log('filterClass changed:', filterClass);
+        
     }, [filterClass]);
 
     return (

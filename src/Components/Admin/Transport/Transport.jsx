@@ -27,11 +27,11 @@ function Transport() {
 
   const [driversList, setDriversList] = useState([]);
   const [transportList, setTransportList] = useState([]);
-  console.log(transportList,"transportlist")
+  
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
   // const [totalRecords, setTotalRecords] = useState(0);  // Add this
-  // console.log(totalRecords,"totalrecords")
+  // 
 
 
 
@@ -43,7 +43,7 @@ function Transport() {
       limit: limit      // Pass limit to fetch only limited data
     }).then((response) => {
       if (response.data && response.data.rows) {
-        console.log(response.count, "response data");
+        
         setTransportList(response.data.rows);  // Update transport list
         setTotalRecords(response.count);  // Set total records if API returns it
       }
@@ -53,7 +53,7 @@ function Transport() {
 
 
   const handlePageChange = (event, value) => {
-    console.log(value,"vlaueofpage")
+    
     setPage(value);
   };
 
@@ -318,9 +318,9 @@ function Transport() {
                 borderRadius: "5px",
               }}
               onClick={() => {
-                console.log(formValues);
+                
                 TransportService.addTransport(formValues).then(() => {
-                  console.log("Transport Added");
+                  
                 });
               }}
             >

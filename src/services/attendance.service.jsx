@@ -8,7 +8,7 @@ const getAllStudentsOfClass = async (body) => {
     const { data } = await axios.post(API_URL + "class-students", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -36,7 +36,7 @@ const markUserAttendance = async (body) => {
     const { data } = await axios.post(API_URL + "mark", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -46,7 +46,7 @@ const getAcademicYearFilter = async (body) => {
     const { data } = await axios.post(API_URL + "acedemic-years", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -56,7 +56,7 @@ const getStudentsAcedemicYears = async (body) => {
     const { data } = await axios.post(API_URL + "students-years", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -66,7 +66,7 @@ const getTeachersWithAttendance = async (body) => {
     const { data } = await axios.post(API_URL + "teacherattendance", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };

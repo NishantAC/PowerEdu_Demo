@@ -74,7 +74,7 @@ function ExamTypeTable({ examtype, activeKey, copyData }) {
   const [passMarks, setPassMarks] = useState("");
 
   const handleSubmit = () => {
-    // console.log({
+    // 
     //   selectedSubject,
     //   selectedChapters,
     //   dateValue,

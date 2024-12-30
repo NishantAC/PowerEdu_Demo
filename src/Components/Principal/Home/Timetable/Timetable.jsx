@@ -17,13 +17,13 @@ import { getGoogleEvents } from "../../../../slices/calendar";
 
 export default function Timetable() {
   const [value, setValue] = useState(new Date());
-  console.log(value);
+  
   const [openClndr, setOpenclndr] = useState(false);
   const openclndr = () => setOpenclndr(true);
   const closeclndr = () => setOpenclndr(false);
   const [isAuthorised, setIsAuthorised] = useState(false);
   const [meetings, setMeetings] = useState([]);
-  console.log(meetings, "meets");
+  
 
   const dispatch = useDispatch();
 

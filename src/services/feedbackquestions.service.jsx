@@ -20,7 +20,7 @@ const getFeedbackQuestions = async (class_id, schoolcode) => {
     const response = await axios.post(`${API_URL}list`, {
       schoolcode, class_id
     });
-    // console.log({class_id, schoolcode})
+    // 
     return response.data;
   } catch (error) {
     console.error(error);

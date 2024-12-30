@@ -91,7 +91,7 @@ const StudentProgress = () => {
     }
   };
 
-  console.log(passedStudents, "passed student");
+  
 
   const handlePass = () => {
     ExamMarkService.passStudents(passedStudents)
@@ -257,9 +257,9 @@ const StudentProgress = () => {
         console.error("An error occurred:", error);
       });
   };
-  console.log(query, "user_id");
+  
   const handleViewMarks = (academic) => {
-    console.log(academic, "academic");
+    
     setRecord(academic);
     setIsPopupOpen(true);
   };

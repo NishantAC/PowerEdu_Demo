@@ -36,7 +36,9 @@ function AddTodoModal({setRows}) {
         TodoService.createTodo(todoData).then(res => {
           setRows(prev => [...prev, res]);
           closeclndr();
-        }).catch(err => console.log(err));
+        }).catch(err => 
+            console.error(err)
+        );
       };
 
     return (

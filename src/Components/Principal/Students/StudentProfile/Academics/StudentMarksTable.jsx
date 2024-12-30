@@ -26,7 +26,7 @@ function StudentMarksTable() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  console.log(exam);
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchExamMarks({ examid: exam?.examid }));

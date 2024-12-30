@@ -84,7 +84,7 @@ export const handleTokenExpiry = createAsyncThunk(
     if (token && tokenExpiry && user) {
       const expiryTime = parseInt(tokenExpiry);
       const currentTime = Date.now();
-      // console.log(expiryTime - currentTime);
+      // 
       if (expiryTime - currentTime < 0) {
         // sign out the user as soon as the token expires
         dispatch(clearUser());

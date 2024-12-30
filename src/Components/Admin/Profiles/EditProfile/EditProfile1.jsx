@@ -26,7 +26,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 
 
 function EditProfile1({userId, userType}) {
-  console.log(userId,userType,"propsssssssssssssss")
+  
   const location = useLocation();
   // const { userId, userType } = location;
   const { student, loading } = useSelector((state) => state.student);
@@ -91,14 +91,14 @@ function EditProfile1({userId, userType}) {
       : "";
 
   const [formValues, setFormValues] = useState(user);
-  console.log(formValues,"FORMAVLAALALALLA")
+  
 
   useEffect(() => {
     setFormValues(user);
   }, [user]);
 
   // useEffect(() => {
-  //   console.log("formvalues:", formValues);
+  //   
   // }, [formValues]);
 
   const [subject, setSubject] = useState(formValues.subject);
@@ -126,12 +126,12 @@ function EditProfile1({userId, userType}) {
       ...formValues,
       [name]: newValue,
     });
-    // console.log(newValue);
+    // 
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues);
+    
     if (userType === "students") {
       dispatch(updateStudentDetails(formValues));
     } else if (userType === "students") {
@@ -145,7 +145,7 @@ function EditProfile1({userId, userType}) {
     useState(false);
 
   // useEffect(() => {
-  //   console.log("loading", loading);
+  //   
   // }, [loading]);
 
   return (

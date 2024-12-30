@@ -15,7 +15,7 @@ function StudentAttendance() {
     const [filterYear, setFilterYear] = useState('');
     const showTable = () => setMarkAttendanceTable(true);
     const hideTable = () => setMarkAttendanceTable(false);
-    console.log(filterAcademicYear)
+    
     const getAcademicYear = () => {
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();

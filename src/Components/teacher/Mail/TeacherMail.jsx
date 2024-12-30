@@ -95,7 +95,7 @@ function TeacherMail() {
     socket.emit("connected", user.id);
 
     socket.on("disconnect", () => {
-      console.log("WebSocket connection disconnected.");
+      
     });
 
     socket.on("sendmail", (emailData) => {
@@ -140,7 +140,7 @@ function TeacherMail() {
           break;
         
         default:
-          console.log("Unknown mode:", mode);
+          
       }
     } else {
       setGoogleLoading(false);3

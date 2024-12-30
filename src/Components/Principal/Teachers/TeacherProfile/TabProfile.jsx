@@ -32,10 +32,10 @@ function TabProfile({ currentteacher }) {
     const getClasses = async () => {
       try {
         const res = await SubjectTeacherService.getClassIds(currentteacher?.user_id);
-        console.log(res);
+        
         setClasses(Object.keys(res.subjects));
       } catch (error) {
-        console.log(error);
+        
       }
     };
     getClasses();
@@ -56,7 +56,7 @@ function TabProfile({ currentteacher }) {
     }));
   };
 
-  console.log(userData)
+  
 
   const handleUpdate = async () => {
     try {
@@ -72,7 +72,7 @@ function TabProfile({ currentteacher }) {
       }
 
     } catch (error) {
-      console.log(error);
+      
     }
   };
 

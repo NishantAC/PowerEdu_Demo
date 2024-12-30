@@ -3,15 +3,15 @@ import SubjectTeacherService from "../../../../services/subjectteacher.service"
 
 export default function TeacherClasses({userId}) {
     const [classes, setClasses] = useState([])
-// console.log(userId)
+// 
     useEffect(() => {
         const getClasses = async () => {
             try {
                 const res = await SubjectTeacherService.getClassIds(userId)
-                console.log(res)
+                
                 setClasses(res?.classes)
             } catch (error) {
-                console.log(error)
+                
             }
         }
         getClasses()

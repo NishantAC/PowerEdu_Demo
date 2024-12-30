@@ -10,7 +10,7 @@ const UserFeeDetailsModal = ({ selectedStudentId }) => {
         setStudentDetails(res);
       })
       .catch((error) => {
-        console.log(error);
+        
       });
   }, []);
 

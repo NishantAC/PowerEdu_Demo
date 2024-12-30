@@ -22,7 +22,7 @@ function Calendarmini({
   const themeProperties = useSelector(selectThemeProperties);
   const googleEventDates = googleEvents.map(event => new Date(event.start.dateTime).toDateString());
 
-  console.log(circularsArray)
+  
 
   const [open, setOpen] = React.useState(false);
   const [selectedEvent, setSelectedEvent] = React.useState(null);
@@ -33,7 +33,7 @@ function Calendarmini({
     );
     if (event) {
 
-     console.log(event); 
+     
       setSelectedEvent(event);
       setOpen(true);
     }

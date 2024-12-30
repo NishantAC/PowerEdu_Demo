@@ -22,7 +22,7 @@ function ExamMarksTable({ examdetails, examSubject, setExamSubject }) {
     setExamSubject("")
     setShow(false)
   }
-//   console.log(examSubject)
+//   
   const [selectedExam, setSelectedExam] = useState();
   const [filteredData, setFilteredData] = useState(examdetails);
   const [academicYearFilter, setAcademicYearFilter] = useState("");

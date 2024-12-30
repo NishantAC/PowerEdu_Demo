@@ -448,17 +448,17 @@ function AcademicFees() {
                 borderRadius: "5px",
               }}
               onClick={() => {
-                console.log(formValues);
+                
                 if (isEditMode) {
                   TransportFeesService.updateFees(formValues).then((data) => {
-                    console.log("updated", data);
+                    
                     clearForm();
                     handleApplyFilter();
                     setEditMode(false);
                   });
                 } else {
                   TransportFeesService.addFees(formValues).then((data) => {
-                    console.log("Added", data);
+                    
                     clearForm();
                     handleApplyFilter();
                   });

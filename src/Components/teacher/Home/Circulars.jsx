@@ -35,14 +35,14 @@ function Circulars() {
   const handleOpen = (row) => {
     setOpen(true);
     setselectedRow(row)
-    console.log("this is selected row ",selectedRow)
+    
 }
   const handleClose = () => setOpen(false);
 
     useEffect(() => {
       CircularService.getCirculars(user?.schoolcode).then(res => {
         setRows(res)
-        console.log("this is res", res)
+        
       })
       
     }, [user])

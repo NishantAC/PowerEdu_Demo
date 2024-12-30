@@ -66,7 +66,7 @@ function AccountsHome() {
           academicYearFilter === "all" ? null : parseInt(academicYearFilter),
         interval: intervalFilter === "all" ? null : intervalFilter,
       }).then((res) => {
-        console.log(res.data);
+        
         setFeeList(res.data);
       });
     }
@@ -78,7 +78,7 @@ function AccountsHome() {
           academicYearFilter === "all" ? null : parseInt(academicYearFilter),
         interval: intervalFilter === "all" ? null : intervalFilter,
       }).then((res) => {
-        console.log(res.data);
+        
         setFeeList(res.data);
       });
     }
@@ -91,7 +91,7 @@ function AccountsHome() {
           academicYearFilter === "all" ? null : parseInt(academicYearFilter),
         interval: intervalFilter === "all" ? null : intervalFilter,
       }).then((res) => {
-        console.log(res.data);
+        
         setFeeList(res.data);
       });
     }
@@ -136,7 +136,7 @@ function AccountsHome() {
     if (selectedFeeType === "academic") {
       AcademicFeePaidService.updatePaidAmounts(updatedFeeList)
         .then(() => {
-          console.log("Updated Successfully");
+          
           setEditMode(false);
           setSelectedRows([]);
           handleApplyFilter(); // Refresh the list after update
@@ -149,7 +149,7 @@ function AccountsHome() {
     if (selectedFeeType === "transport") {
       TransportFeePaidService.updatePaidAmounts(updatedFeeList)
         .then(() => {
-          console.log("Updated Successfully");
+          
           setEditMode(false);
           setSelectedRows([]);
           handleApplyFilter(); // Refresh the list after update
@@ -162,7 +162,7 @@ function AccountsHome() {
     if (selectedFeeType === "extracurricular") {
       ExtracurricularFeePaidService.updatePaidAmounts(updatedFeeList)
         .then(() => {
-          console.log("Updated Successfully");
+          
           setEditMode(false);
           setSelectedRows([]);
           handleApplyFilter(); // Refresh the list after update
@@ -179,7 +179,7 @@ function AccountsHome() {
   const [selectedStudentId, setSelectedStudentId] = useState(-1);
 
   useEffect(() => {
-    console.log(selectedStudentId);
+    
   }, [selectedStudentId]);
 
   const exportToExcel = (exportOption) => {
@@ -468,7 +468,7 @@ function AccountsHome() {
                         setFeeList(() => {
                           return feeList.map((fee, index) => {
                             if (selectedRows.includes(index)) {
-                              console.log("id", fee.id);
+                              
                               handlePaidAmountChange(fee.id, fee.total_amount);
                             }
                             return fee;

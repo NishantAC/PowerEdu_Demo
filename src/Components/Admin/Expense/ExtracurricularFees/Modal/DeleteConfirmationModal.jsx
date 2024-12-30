@@ -115,7 +115,7 @@ function DeleteConfirmationModal({ itemToDelete, setItemToDelete, onClick }) {
                 onClick={() => {
                   ExtracurricularFeesService.deleteFee({ id: itemToDelete }).then(
                     () => {
-                      console.log("Item deleted");
+                      
                       setItemToDelete(-1);
                     }
                   );

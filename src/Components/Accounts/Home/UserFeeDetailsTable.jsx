@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 
 function UserFeeDetailsTable({ studentDetails }) {
-  console.log("detail", studentDetails);
+  
   let paidbtn = {
     background: "#3CB532",
     color: "white",

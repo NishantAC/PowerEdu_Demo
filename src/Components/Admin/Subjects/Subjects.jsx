@@ -71,7 +71,7 @@ function Subjects() {
   const [classesDropdown, setClassesDropdown] = useState([]);
 
   // useEffect(() => {
-  //   console.log(subjects);
+  //   
   // }, [subjects]);
 
   const dispatch = useDispatch();
@@ -369,7 +369,7 @@ function Subjects() {
                   newSubjects: formValues.subjectCode,
                 };
                 SubjectService.updateSubjectsOfClasses(body).then(() => {
-                  console.log("Subjects Added");
+                  
                   setFormValues({
                     class: "",
                     subjectName: [],

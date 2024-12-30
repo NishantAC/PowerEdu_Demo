@@ -53,9 +53,9 @@ export default function UpcomingTest({ currentUser }) {
         .then((res) => {
           setTest(res);
         })
-        .catch((err) => console.log(err));
-    }
-  }, [currentUser]);
+        .catch((err) => {
+          console.error(err)
+        })}} , [ currentUser])
 
   return (
     <ThemeProvider theme={theme}>

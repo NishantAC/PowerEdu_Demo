@@ -25,7 +25,7 @@ function Circulars() {
   const handleOpen = (row) => {
     setOpen(true);
     setselectedRow(row)
-    console.log("this is selected row ", selectedRow)
+    
   }
 
   const handleClose = () => {

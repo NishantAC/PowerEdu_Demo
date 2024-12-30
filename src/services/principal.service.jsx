@@ -35,7 +35,7 @@ const getDropdownTeachers = async (school_code) => {
 
 const editPrincipleNotice = async ({ id, body }) => {
   try {
-    console.log(id);
+    
     const response = await axios.put(`${API_URL}editprincipaldata/${id}`, body);
     return response;
   } catch (error) {
@@ -102,9 +102,9 @@ const sendPrincipalMessage = async (body) => {
 };
 
 const getPrincipalMessage = async (body) => {
-  console.log(body,"vsdhfafshdjhdfsafdjasfjadf")
+  
   try {
-    console.log(`${API_URL}principalmessage`, body);
+    
     const response = await axios.post(`${API_URL}principalmessage`, body);
     return response.data;
   } catch (error) {
@@ -129,7 +129,7 @@ const getPrincipalPhoto = async (body) => {
     const response = await axios.post(`${API_URL}getphoto`, body, {
       responseType: "json",
     });
-    console.log(response.data,"6453654")
+    
 
     return response.data;
   } catch (error) {

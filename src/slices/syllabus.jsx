@@ -24,7 +24,7 @@ export const fetchSyllabusBySubject = createAsyncThunk(
   "syllabus/fetchSyllabusBySubject",
   async ({ schoolcode, classid, subjectid }, thunkAPI) => {
     try {
-      console.log(classid);
+      
       const data = await SyllabusService.getSyllabusBySubject(schoolcode, classid, parseInt(subjectid));
       return data;
     } catch (error) {

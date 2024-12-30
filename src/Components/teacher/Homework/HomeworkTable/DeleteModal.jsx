@@ -32,7 +32,7 @@ function DeleteModal(props) {
     */
     const deleteHomework = (id) => {
         HomeWorkService.deleteHomework({ "homeworkId": id }).then((res) => {
-            console.log(res)
+            
             if (res.message) {
                 toast.success(res.message);
                 props.initialData();

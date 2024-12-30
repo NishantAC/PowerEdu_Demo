@@ -23,7 +23,7 @@ function AdminSidebar() {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     } catch (e) {
-      console.log(e, "error");
+      
     }
   }, [dispatch]);
 

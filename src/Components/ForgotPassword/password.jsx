@@ -79,7 +79,7 @@ function Password(props) {
 
     await axios.put(API_BASE_URL + "auth/password", body)
       .then((response) => {
-        console.log(response.data.message);
+        
         toast.success("Password updated successfully!", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1000,
@@ -88,7 +88,7 @@ function Password(props) {
           navigate("/");
         }, 1500);
       }, (error) => {
-        console.log(error.data.message);
+        
       });
   };
 

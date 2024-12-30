@@ -24,7 +24,7 @@ function TransportTable({
   total,
   onPageChange,
 }) {
-  console.log(feeList);
+  
   const handleHeaderCheckboxChange = (event) => {
     if (event.target.checked) {
       const ids = feeList.map((row, index) => index);

@@ -7,7 +7,7 @@ import { getTime } from '../../../../common/Time';
 import PromotionMessage from './PromotionMessage';
 
 function MailPromotion({ promotionMails }) {
-    console.log(promotionMails, "this is promotionMails")
+    
 
     const [value, setValue] = useState({});
 
@@ -18,7 +18,7 @@ function MailPromotion({ promotionMails }) {
 
     }
 
-    // console.log(inboxmails);
+    // 
 
     return (
 

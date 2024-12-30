@@ -14,7 +14,7 @@ const getUserFeeType = async (body) => {
 };
 
 const getFeeStructure = async (body) => {
-  console.log(body);
+  
   try {
     const response = await axios.post(`${API_BASE_URL}fee-types/fee-structure`, body);
     return response.data;
@@ -29,7 +29,7 @@ const getPdf = async (body) => {
     const response = await axios.post(API_URL + "getPdf", body, {
       responseType: 'blob'
     })
-    // console.log(response)
+    // 
     return response;
   } catch (error) {
     console.error(error);

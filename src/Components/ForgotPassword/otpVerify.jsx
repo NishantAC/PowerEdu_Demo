@@ -25,10 +25,10 @@ function OtpVerify(props) {
       .post( API_BASE_URL+ "auth/forgetPassword", body)
       .then(
         (response) => {
-          console.log("PwerEdu id is sended");
+          
         },
         (error) => {
-          console.log("error in forget password function");
+          
         }
       );
   };
@@ -49,7 +49,7 @@ function OtpVerify(props) {
       if (error.response) {
         setErrorMsg(error.response.data.message)
       } else {
-        console.log(error.message); // Log any network or other errors
+        
       }
     }
   };
@@ -64,7 +64,7 @@ function OtpVerify(props) {
       checkOtp();
     }
 
-    // console.log("hello")
+    // 
   };
 
   const handleChange = (element, index) => {

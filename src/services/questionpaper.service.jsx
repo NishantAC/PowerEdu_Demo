@@ -61,7 +61,7 @@ const fetchAllPapers = async (schoolcode) => {
 
 const deletePaper = async (id) => {
   try {
-    console.log(id);
+    
     const response = await axios.delete(`${API_URL}/` + id);
     return response.data;
   } catch (error) {

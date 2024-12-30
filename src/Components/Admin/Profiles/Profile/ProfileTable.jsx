@@ -9,10 +9,7 @@ import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useMediaQuery } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Skeleton } from "@/components/ui/skeleton"
+import { useMediaQuery, Skeleton, Button, Typography } from "@mui/material";
 
 function ProfileTable({
   profileType,
@@ -22,7 +19,7 @@ function ProfileTable({
   total,
   onPageChange,
   themeProperties,
-  isLaoding
+  isLoading,
 }) {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
@@ -43,146 +40,122 @@ function ProfileTable({
   };
 
   return (
-    <div className=" flex relative flex-col justify-between h-full" >
+    <div className="flex flex-col justify-between h-full">
       <TableContainer
         component={Paper}
         sx={{
           boxShadow: "none",
-          borderRadius: 2,
+          borderRadius: 3,
           overflow: "hidden",
+          backgroundColor: themeProperties?.boxBackgroundSolid || "#ffffff",
         }}
       >
-        <Table
-        >
-          {
-            isLaoding ? ( 
-              <TableHead >
-                <TableRow sx={{ backgroundColor: themeProperties?.normal2 }}>
-                  <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColor, textAlign: "center" }}>
-                    Loading
-                  </TableCell>
-                </TableRow>
-              </TableHead>
+        <Table>
+          {isLoading ? (
+            <TableHead>
+              <TableRow>
+                <TableCell colSpan={6} align="center" sx={{ color: themeProperties?.textColor }}>
+                  Loading...
+                </TableCell>
+              </TableRow>
+            </TableHead>
+          ) : (
 
-            ) : (
-              <TableHead
-        sx = {{ borderRadius : "20px"}}
-              
-              >
-              <TableRow sx={{ backgroundColor: 
-                "#f3f3f3"
-               }}>
+            <TableHead>
+              <TableRow sx={{ backgroundColor: themeProperties?.boxBackgroundTop || "#f5f5f5" }}>
                 <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
-                  Rekor ID
+                  PowerEdu ID
                 </TableCell>
                 <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
                   {profileType === "students" ? "Roll No." : "S No."}
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}
-                >
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
                   {profileType === "students" ? "Student" : "Employee"} Name
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}
-                >
-                  {profileType === "students" || profileType === "teachers"
-                    ? "Class"
-                    : "Department"}
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  {profileType === "students" || profileType === "teachers" ? "Class" : "Department"}
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}
-                >
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
                   {profileType === "students" ? "Admission No." : "Employee ID"}
                 </TableCell>
-                <TableCell align="left" sx={{  color: themeProperties?.textColorAlt }}>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt , textAlign: "end"}}>
                   Action
                 </TableCell>
               </TableRow>
             </TableHead>
-            )
-          }
-          {
-            isLaoding ? (
+          
+          )}
 
-              <>
-              {
-                Array.from({ length: 5 }).map((_, index) => (
-
-                  <Skeleton className="h-[50px] static rounded-xl mt-4" />
-
-              ))}
-            </>
-
-
-            ):(
-              <TableBody>
-              {allUsers[profileType]?.map((profile, index) => (
-                <TableRow
-                  key={profile.user_id}
-                  sx={{
-                  }}
-                  
-                >
-                  <TableCell 
-                  >{profile.rekorid || "N/A"}</TableCell>
-                  <TableCell>{profileType === "students" ? profile.rollno : index + 1}</TableCell>
-                  <TableCell align="left">{profile.name || "N/A"}</TableCell>
-                  <TableCell align="left">{getClassOrDepartment(profile)}</TableCell>
-                  <TableCell align="left">{getAdmissionOrEmployeeId(profile)}</TableCell>
-                  <TableCell align="left">
-                    <Link
-                      to={{
-                        pathname: "/admin/edit-profile",
-                        userId: profile.user_id,
-                        userType: profileType,
-                      }}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <button className=" px-4 py-2 rounded-lg"
-                        style={{
-                          textTransform: "none",
-                          color: themeProperties?.textColor,
-                          backgroundColor: themeProperties?.normal2,
-  
-                        }}
-                      >
-                        Edit Profile
-                      </button>
-                    </Link>
+          {isLoading ? (
+            <TableBody>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell colSpan={6} align="center">
+                    <Skeleton height={50} variant="rectangular" />
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
-            )
-          }
+          ) : (
+            <TableBody>
+            {allUsers[profileType]?.map((profile, index) => (
+              <TableRow key={profile.user_id} hover>
+                <TableCell>{profile.rekorid || "N/A"}</TableCell>
+                <TableCell>{profileType === "students" ? profile.rollno : index + 1}</TableCell>
+                <TableCell>{profile.name || "N/A"}</TableCell>
+                <TableCell>{getClassOrDepartment(profile)}</TableCell>
+                <TableCell>{getAdmissionOrEmployeeId(profile)}</TableCell>
+                <TableCell sx = {{textAlign: "end"}}>
+                  <Link
+                    to={{ pathname: "/admin/edit-profile", userId: profile.user_id, userType: profileType }}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <button
+                    onClick={() => {  
+                      const editUserDetails = { ...profile, profiletype: profileType };
+                      localStorage.setItem("editUserDetails", JSON.stringify(editUserDetails));
+                    }}
+
+                      className="px-4 py-2 rounded-md"
+                      style={{
+                        textTransform: "none",
+                        backgroundColor: themeProperties?.buttonColor,
+                        color: themeProperties?.textColorAlt,
+                        '&:hover': {
+                          backgroundColor: themeProperties?.hoverColor,
+                        },
+                      }}
+                    >
+                      Edit Profile
+                    </button>
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          )}
         </Table>
       </TableContainer>
+
       <Stack
         alignItems="center"
         spacing={2}
-        sx={{
-          marginTop: 2,
-          padding: 2,
-        }}
+        sx={{ marginTop: 2, padding: 2 }}
       >
         <Pagination
           count={Math.ceil(total / limit)}
           page={page}
           onChange={onPageChange}
           sx={{
-            "& .MuiPaginationItem-root": {
-              color: themeProperties?.textColorAlt,
-              "&.Mui-selected": {
-                backgroundColor: themeProperties?.normal2,
-                color: themeProperties?.textColor,
+            '& .MuiPaginationItem-root': {
+              color: themeProperties?.textColor,
+              '&.Mui-selected': {
+                backgroundColor: themeProperties?.normal1,
+                color: themeProperties?.textColorAlt,
               },
-              "&:hover": {
-                backgroundColor: themeProperties?.normal2,
-                color: themeProperties?.textColor,
+              '&:hover': {
+                backgroundColor: themeProperties?.normal1,
+                color: themeProperties?.textColorAlt,
               },
             },
           }}

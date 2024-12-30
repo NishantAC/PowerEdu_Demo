@@ -59,7 +59,7 @@ export default function Attendance() {
     AttendanceService.getUserAttendance({ user_id: user.id })
       .then((res) => {
         allAttendance.current = res;
-        console.log(res);
+        
         filterAttendance(res, "weekly");
       })
       .catch((err) => console.error(err));
@@ -124,7 +124,7 @@ export default function Attendance() {
     ]);
   };
 
-  // console.log(allAttendance)
+  // 
 
   return (
     <div className="attendance">

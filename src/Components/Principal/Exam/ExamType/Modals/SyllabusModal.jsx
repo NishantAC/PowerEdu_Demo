@@ -5,7 +5,7 @@ import { Box, Checkbox, Modal } from '@mui/material';
 export default function SyllabusModal({ selectedChapters, setSelectedChapters, closeSyllabus, syllabusModal }) {
 
   const Chapters = Array.from({ length: 20 }, (_, index) => index + 1);
-  console.log(Chapters);
+  
 
   return (
     <Modal

@@ -14,7 +14,7 @@ import FeesSlip from "./FeeSlip";
 import styles from "./Student.module.css";
 
 export default function AcademicFeeTable(props) {
-  console.log(props.rows, "this is fee data");
+  
   //Table data
   let row = props.rows[0];
 
@@ -24,7 +24,7 @@ export default function AcademicFeeTable(props) {
   const downloadPdf = async () => {
     FeeTypeService.getPdf({ feeTypeId: row.pdfFile })
       .then(async (response) => {
-        console.log(response);
+        
         const contentDisposition = response.headers["content-disposition"];
         const match = contentDisposition.match(/filename="(.+)"/);
         const fetchedFilename = match ? match[1] : "file.pdf";
@@ -32,7 +32,7 @@ export default function AcademicFeeTable(props) {
         saveAs(blob, fetchedFilename);
       })
       .catch((error) => {
-        console.log({ error: error, message: "error in handleDownloadButton" });
+        
       });
   };
 

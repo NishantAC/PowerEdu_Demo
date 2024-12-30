@@ -120,7 +120,7 @@ function AcademicFees() {
     //     subject.subjectName.includes(searchValue)
     // );
     // setFilteredSubjects(filteredResults);
-    console.log(searchValue);
+    
   };
 
   const [itemToDelete, setItemToDelete] = useState(-1);
@@ -130,7 +130,7 @@ function AcademicFees() {
     setEditMode(true);
     clearForm();
     AcademicFeesService.getFee({ id: id }).then((data) => {
-      console.log(data);
+      
       setFormValues({
         ...formValues,
         id: data.id,
@@ -475,17 +475,17 @@ function AcademicFees() {
                 borderRadius: "5px",
               }}
               onClick={() => {
-                console.log(formValues);
+                
                 if (isEditMode) {
                   AcademicFeesService.updateFees(formValues).then((data) => {
-                    console.log("updated", data);
+                    
                     clearForm();
                     handleApplyFilter();
                     setEditMode(false);
                   });
                 } else {
                   AcademicFeesService.addFees(formValues).then((data) => {
-                    console.log("Added", data);
+                    
                     clearForm();
                     handleApplyFilter();
                   });

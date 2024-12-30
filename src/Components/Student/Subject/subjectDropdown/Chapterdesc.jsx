@@ -22,7 +22,7 @@ export default function Chapterdesc({ chapterDesc }) {
       const file = await CommonService.downloadFileByPath({ filePath });
       CommonService.downloadFileByBytes(file, filePath);
     } catch (err) {
-      console.log("Problem in Chapterdesc :: downloadNote() => ", err);
+      
     }
   };
 

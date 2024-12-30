@@ -26,7 +26,7 @@ function TeacherAttendance() {
     setAttendanceList(teachersWithAttendance)
   }, [teachersWithAttendance])
 
-  console.log(attendanceList)
+  
 
   return (
     <div className="tchrattendance">

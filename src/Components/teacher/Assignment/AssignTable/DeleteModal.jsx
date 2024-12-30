@@ -31,7 +31,7 @@ function DeleteModal(props) {
     *Delete a assignment 
     */
     const deleteAssignment = (id) => {
-        console.log(id)
+        
         AssignmentService.deleteAssignment({ "assignmentId": id }).then((res) => {
             props.initialData();
         }).catch((err) => {

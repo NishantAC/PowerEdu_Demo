@@ -47,16 +47,16 @@ const Search = styled('div')(({ theme }) => ({
        transition: theme.transitions.create('width'),
        width: '100%',
        [theme.breakpoints.up('sm')]: {
-         width: '20ch',
+         width: '30ch',
          '&:focus': {
-           width: '30ch',
+           width: '40ch',
          },
        },
      },
    }));
    
 
-const SearchBarComponent = ({ searchString, setSearchString, handleChange }) => {
+const SearchBarComponent = ({ searchString, setSearchString, handleChange, placeholder = "Search.." }) => {
      const themeProperties =  useSelector(selectThemeProperties);
 
      
@@ -64,7 +64,7 @@ const SearchBarComponent = ({ searchString, setSearchString, handleChange }) => 
      return (
           <>
           
-          <Box sx={{ }}>
+          <Box sx={{ position:"fixed", top: "0", padding: "10px", zIndex: "100"}}>
             <Toolbar>
               <Search
                 style={{
@@ -78,7 +78,7 @@ const SearchBarComponent = ({ searchString, setSearchString, handleChange }) => 
                    }} />
                 </SearchIconWrapper>
                 <StyledInputBase
-                  placeholder="Search…"
+                  placeholder={placeholder}
                   inputProps={{ 'aria-label': 'search' }}
                   value={searchString}
                   onChange={handleChange}

@@ -9,7 +9,7 @@ function Editor({editorHtml, setEditorHtml}) {
     setEditorHtml(html);
   };
 
-  console.log(editorHtml)
+  
   // const modules = {
   //   toolbar: [
   //     [{ 'header': [1, 2, false] }],

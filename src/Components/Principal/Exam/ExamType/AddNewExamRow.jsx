@@ -36,7 +36,7 @@ export default function AddNewExamRow({
     setPassMarks(e.target.value);
   };
 
-  // console.log(starttime, endtime, dateValue)
+  // 
   return (
     <TableRow
       // key={row.sno}

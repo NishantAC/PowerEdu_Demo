@@ -65,11 +65,11 @@ function UploadHomework(props) {
      */
     const onClassChange = (e) => {
         const className = e.target.value;
-        console.log(className)
+        
         if (className) {
 
             const subname = Object.entries(initialData[className]).map(([key, value]) => ({ [key]: value }));
-            // console.log(subname)
+            // 
             setSubjects(subname);
         } else {
             setSubjects([]);
@@ -89,7 +89,7 @@ function UploadHomework(props) {
         formData.append("userid", user.id);
 
         HomeWorkService.saveHomework(formData).then((res) => {
-            console.log(res);
+            
             if (res.message) {
                 toast.success(res.message);
                 reset(initialForm);

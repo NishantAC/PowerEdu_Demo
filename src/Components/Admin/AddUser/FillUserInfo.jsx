@@ -68,7 +68,7 @@ function FillUserInfo() {
           setRekorId(res.id);
         })
         .catch((error) => {
-          console.log(error);
+          
         });
 
       authService
@@ -77,12 +77,12 @@ function FillUserInfo() {
           setAdmissionNoPlaceholder(res.admissionNo);
         })
         .catch((error) => {
-          console.log(error);
+          
         });
 
       if (userType === "Student") {
         classService
-          .getDropdownClasses(1)
+          .getDropdownClasses( user?.schoolcode )
           .then((res) => {
             setClassesDropdown(res);
           });
@@ -90,7 +90,7 @@ function FillUserInfo() {
 
       if (userType === "Teacher") {
         classService
-          .getAvailableClasses({ school_code: 1 })
+          .getAvailableClasses({ school_code: user?.schoolcode })
           .then((res) => {
             setClassesDropdown(res.data);
           });
@@ -120,7 +120,7 @@ function FillUserInfo() {
             setRollNoPlaceholder(res.rollNo);
           })
           .catch((error) => {
-            console.log(error);
+            
           });
       }
     }

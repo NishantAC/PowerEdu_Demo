@@ -40,7 +40,7 @@ export const getAllSubjectDetails = createAsyncThunk(
         subject_code
       );
       // thunkAPI.dispatch(setMessage(data.message));
-      // console.log(response)
+      // 
       return response;
     } catch (error) {
       const message =
@@ -61,7 +61,7 @@ export const getAllSubjectsBySchool = createAsyncThunk(
     try {
       const response = await SubjectService.getAllSubjectsBySchool(schoolcode);
       // thunkAPI.dispatch(setMessage(data.message));
-      // console.log(response)
+      // 
       return response;
     } catch (error) {
       const message =
@@ -86,7 +86,7 @@ export const getDropdownSubjectsByClass = createAsyncThunk(
         timetable
       );
       // thunkAPI.dispatch(setMessage(data.message));
-      // console.log(response)
+      // 
       return response;
     } catch (error) {
       const message =
@@ -109,7 +109,7 @@ export const getAllDropdownSubjectsByClass = createAsyncThunk(
         class_code
       );
       // thunkAPI.dispatch(setMessage(data.message));
-      // console.log(response)
+      // 
       return response;
     } catch (error) {
       const message =
@@ -130,7 +130,7 @@ export const getSubjectsOfClasses = createAsyncThunk(
     try {
       const response = await SubjectService.getSubjectsOfClasses(body);
       // thunkAPI.dispatch(setMessage(data.message));
-      // console.log(response)
+      // 
       return response;
     } catch (error) {
       const message =

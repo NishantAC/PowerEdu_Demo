@@ -138,7 +138,7 @@ function Profiles() {
   const [allUsers, setAllUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
+  const [limit] = window.innerHeight > 850 ? window.innerHeight > 960 ? useState(9) : useState(7) : useState(5);
   const [filtersApplied, setFiltersApplied] = useState(false);
 
   useEffect(() => {
@@ -148,7 +148,7 @@ function Profiles() {
 
   const handleSearchAPI = async () => {
     setLoading(true);
-    console.log(loading,"loading");
+    
     const body = {
       school_code: currentUser.schoolcode,
       year: parseInt(academicYearFilter),
@@ -166,7 +166,7 @@ function Profiles() {
       switch (profileType) {
         case "students":
           result = await StudentService.searchStudents(body);
-          console.log(result,"result")
+          
           break;
         case "teachers":
           result = await SchoolUsersService.getAllTeachersByYearSearch(body);
@@ -286,18 +286,16 @@ function Profiles() {
   }, [allUsers]);
 
   const handlePageChange = (event, value) => {
-    console.log(value,"vlaueofpage")
+    
     setPage(value);
   };
 
 
   return (
-    <div className="p-1 rounded-[20px] h-full"
-    style={{ background: themeProperties?.borderColor, color: themeProperties?.textColor }}
-    >
+    <div className="p-1 rounded-[20px] h-full">
       <div className="rounded-[18px] p-8 h-full flex flex-col gap-4"
       style={{
-        background: themeProperties?.background,
+        // background: themeProperties?.boxBackgroundSolid,
 
       }}
       >
@@ -308,7 +306,7 @@ function Profiles() {
 
         <div>
         <h3 className="font-semibold text-2xl"
-          style={{ color: themeProperties?.textColorAlt }}
+          style={{ color: themeProperties?.textColor }}
         >
           {`${
             profileType === "students"
@@ -327,6 +325,7 @@ function Profiles() {
               searchString={searchTerm}
               setSearchString={setSearchTerm}
               handleChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search your emails here..."
             />
         </div>
 
@@ -338,7 +337,7 @@ function Profiles() {
               style = {{color: themeProperties?.textColorAlt}}
             >
               <SelectTrigger className="w-[140px]"
-              style = {{color: themeProperties?.textColorAlt}}
+              style = {{color: themeProperties?.textColor}}
               >
                 <SelectValue placeholder="Select an academic year">
                   {academicYearFilter}
@@ -364,7 +363,7 @@ function Profiles() {
               }}
               >
                 <SelectTrigger className="w-[140px]" 
-                style ={{color: themeProperties?.textColorAlt}}
+                style ={{color: themeProperties?.textColor}}
                 >
                   <SelectValue placeholder="Select a class" >
                     {classFilter}

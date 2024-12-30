@@ -16,7 +16,7 @@ const registerClassTestMark = async (marks, test_id, createdby) => {
 const getClassTestMarks = async (data) => {
   try {
     const response = await axios.post(API_URL + "list", data);
-    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     console.error(error);
@@ -37,7 +37,7 @@ const getStudentClassTestMarks = async (body) => {
 const updateStudentClassTestMarks = async (body) => {
   try {
     const response = await axios.put(`${API_URL}update-marks`, body);
-    console.log('response: ', response.data)
+    
     return response.data;
   } catch (error) {
     console.error(error);

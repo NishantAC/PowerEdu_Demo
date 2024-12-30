@@ -27,7 +27,7 @@ export default function HomeWork() {
     })
       .then((res) => {
         works.current = res;
-        // console.log(res)
+        // 
         setList(res);
         // filterByDate(res, new Date());
       })
@@ -61,7 +61,7 @@ export default function HomeWork() {
     });
   }, [list]);
 
-  console.log(list);
+  
   return (
     <div className="homework">
       <div className="homeworkdiv1">

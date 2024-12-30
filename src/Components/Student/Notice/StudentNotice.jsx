@@ -77,7 +77,7 @@ export default function StudentNotice() {
         setPrincipalMsg(res);
       })
       .catch((err) =>
-        console.log("Problem in TeacherNotice :: fetchPrincipalMsg() => ", err)
+        console.error(err)
       );
   };
   
@@ -89,12 +89,12 @@ export default function StudentNotice() {
         const url = URL.createObjectURL(
           new Blob([result], { type: "image/jpeg" })
         );
-        console.log(url);
+        
         setLogo(url);
-        console.log("successfully fetched image");
+        
       })
       .catch((error) => {
-        console.log(error);
+        
       });
   };
 
@@ -102,7 +102,7 @@ export default function StudentNotice() {
     event.preventDefault();
     ClassNoticeService.getPdf({ key: key })
       .then(async (response) => {
-        console.log(response);
+        
         const contentDisposition = response.headers["content-disposition"];
         const match = contentDisposition.match(/filename="(.+)"/);
         const fetchedFilename = match ? match[1] : "file.pdf";
@@ -110,7 +110,7 @@ export default function StudentNotice() {
         saveAs(blob, fetchedFilename);
       })
       .catch((error) => {
-        console.log({ error: error, message: "error in handleDownloadButton" });
+        
       });
   };
   return (

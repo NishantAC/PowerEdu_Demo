@@ -35,7 +35,7 @@ function AddCircularModal() {
         setData(result.data);
       })
       .catch((error) => {
-        console.log(error);
+        
       });
 
     schoolService.getSchoolLogo(user?.schoolcode)
@@ -44,7 +44,7 @@ function AddCircularModal() {
         setLogo(url);
       })
       .catch((error) => {
-        console.log(error);
+        
       });
   }, []);
 

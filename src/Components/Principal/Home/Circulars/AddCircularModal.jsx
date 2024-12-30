@@ -35,7 +35,7 @@ function AddCircularModal({ setRows }) {
                 setData(result.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
 
         schoolService.getSchoolLogo(user?.schoolcode)
@@ -44,7 +44,7 @@ function AddCircularModal({ setRows }) {
                 setLogo(url);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     }, []);
 
@@ -58,13 +58,13 @@ function AddCircularModal({ setRows }) {
             added_by: user.id
         }
         CircularService.createCircular(circularData).then(res => {
-            console.log(res)
+            // console.log(res)
             setRows(prev => [...prev, res])
             setTitle('')
             setEditorHtml('')
             setValue(new Date())
             handleClose()
-        }).catch(err => console.log(err))
+        }).catch(err => console.error(err))
     }
 
     return (

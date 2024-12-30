@@ -29,7 +29,7 @@ export default function StudentTeacher() {
   //handel drop down
   const handleApplyFilter = async () => {
     if (tabType === "Academic") {
-      console.log(currentUser.schoolcode, currentUser.classname);
+      
       const allFee = await AcademicFeesService.getAllFees({
         school_code: currentUser.schoolcode,
         class_code: currentUser.classname,

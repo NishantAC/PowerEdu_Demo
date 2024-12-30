@@ -31,7 +31,7 @@ function ProfileDetails({ hideOverall, userId }) {
         hideOverall()
     }
 
-    console.log(studentDetails)
+    
     return (
         <div>
             <div className='profilediv1'>

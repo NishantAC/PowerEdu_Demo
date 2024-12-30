@@ -34,7 +34,7 @@ const StatsAndCharts = ({
     setModalContent(content);
   };
 
-  console.log("chartData:", chartData); // Debugging chartData
+  
 
   return (
     <div className="flex items-center justify-center ">

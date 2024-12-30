@@ -23,7 +23,7 @@ function ProfileDetails() {
     const [classes, setClasses] = React.useState('');
     const image = useSelector((state) => state.image);
 
-    console.log(currentUser)
+    
     const getClassed = async () => {
         const result = await classService.getClasses(currentUser.userid);
         setClasses(result.data.classes.toString());

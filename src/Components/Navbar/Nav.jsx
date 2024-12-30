@@ -38,7 +38,7 @@ function Navbar({ toggleSidebar }) {
 
   useEffect(() => {
     const role = checkUserType(user?.id);
-    console.log(role);
+    
     setUserType(role);
   }, []);
 
@@ -58,7 +58,7 @@ function Navbar({ toggleSidebar }) {
         setLogo(result?.data?.school_logo);
       })
       .catch((error) => {
-        console.log(error);
+        
       });
   }, [code]);
 
@@ -87,11 +87,18 @@ function Navbar({ toggleSidebar }) {
   const timeWithoutPeriod = timeParts[0];
   const period = timeParts[1];
 
+  function formatSectionName(section) {
+    return section
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  
   useEffect(() => {
     const location = window.location.href;
     const splitLocation = location.split("/");
     const section = splitLocation[splitLocation.length - 1];
-    setCurrentSection(section);
+    setCurrentSection(formatSectionName(section));
   }, [window.location.href]);
 
   return (

@@ -14,7 +14,7 @@ import { markUserAttendance } from "../../../../slices/attendance"
 function MarkAttendance({ hideTable }) {
   const dispatch = useDispatch();
   const { subjectteachers } = useSelector((state) => state.subjectteacher);
-  console.log("this is teachers ", subjectteachers)
+  
   const [teachers, setTeachers] = useState([])
   const date = moment().format('DD-MM-YYYY')
 

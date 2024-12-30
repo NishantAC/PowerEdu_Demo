@@ -32,9 +32,6 @@ function Delete({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // console.warn(id);
-
-  console.log("this is chapter num", chapterDesc.chapter_number);
 
   const deleteById = () => {
     if (note) {
@@ -51,7 +48,7 @@ function Delete({
           handleClose();
         })
         .catch((err) =>
-          console.log(
+          console.error(
             "Problem in ChapterDescription :: deleteNoteById() => ",
             err
           )
@@ -71,7 +68,7 @@ function Delete({
           handleClose();
         })
         .catch((err) =>
-          console.log(
+          console.error(
             "Problem in ChapterDescription :: deleteLinkById() => ",
             err
           )

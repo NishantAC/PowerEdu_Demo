@@ -128,7 +128,7 @@ function DeleteConfirmationModal({ itemToDelete, onClick }) {
                     };
 
                     SubjectService.deleteSubjectsOfClasses(body).then(() => {
-                      console.log("Deleted");
+                      
                     });
                   }
                 }}

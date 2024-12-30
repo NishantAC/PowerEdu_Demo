@@ -67,7 +67,7 @@ export default function StudentTeacher() {
     const subReponses = feedbackresponses.find(
       (fr) => fr.user_id === currentUser.id && fr.question_id === selectedForm?.id 
     );
-    console.log(subReponses)
+    
     setSubmittedResponses(subReponses);
     handleOpenModal();
   };
@@ -85,7 +85,7 @@ export default function StudentTeacher() {
           let currentForm = feedbackquestions?.find(
             (feed) => feed.teacher_id === row.teacher_id && feed.subject_id === row.subject_id
           );
-          console.log(currentForm);
+          
           const isFeedbackSubmitted = feedbackresponses?.some(
             (fr) =>
               currentForm?.id === fr.question_id &&

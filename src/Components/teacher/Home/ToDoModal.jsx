@@ -142,7 +142,6 @@ function ToDoModal({ setTask, task, edit, handleOpen, handleClose, open, view })
             </LocalizationProvider>
             </div>
                     <div style={{ width: '70%', margin: 'auto', marginTop: '30px' }}>
-                        {/* {console.log("this is edit ", edit ? true : false)} */}
                         <button type="submit" className={styles.addbtn} onClick={edit ? editTodo : createTodo}>Save</button>
             </div>
         </Box>

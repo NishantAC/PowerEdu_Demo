@@ -113,7 +113,7 @@ function StudentTimetable() {
           })
         ).then((result) => {
           if (result.payload && result.payload.timetable) {
-            console.log(result.payload.timetable, "this is time table");
+            
             setTimetableData(reorderTimetable(result.payload.timetable));
             setCustomStartTime(
               parseTimeStringToDefaultFormat(
@@ -206,7 +206,7 @@ function StudentTimetable() {
 
   const saveTimetable = () => {
     // Send timetableData to backend
-    console.log("Timetable Data:", timetableData);
+    
     TimeTableService.createTimetable({
       school_code: user?.schoolcode,
       class_code: classid,

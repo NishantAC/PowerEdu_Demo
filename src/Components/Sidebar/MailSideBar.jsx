@@ -54,7 +54,7 @@ function MailSideBar({ setShowMailItems, userType, setIsCollapsed , isCollapsed}
       try {
         const response = await checkAuth();
         setUser(response?.data?.userDetails);
-        console.log(response?.data?.userDetails);
+        
 
       } catch (error) {
         console.error(error);

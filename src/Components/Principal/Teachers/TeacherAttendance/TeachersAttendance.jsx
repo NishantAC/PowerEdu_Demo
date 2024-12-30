@@ -33,7 +33,7 @@ function TeachersAttendance() {
   const [teachers, setTeachers] = useState(subjectteachers);
   const [attendanceList, setAttendanceList] = useState([]);
 
-  console.log(attendanceList)
+  
   useEffect(() => {
     // dispatch(fetchTeachersProfile({schoolcode: user?.schoolcode}))
     dispatch(fetchAllTeachersBySchool({ schoolcode: user?.schoolcode }));
@@ -53,7 +53,7 @@ function TeachersAttendance() {
   const handleSubjectChange = (event) => {
     setSelectedSubject(event.target.value);
   };
-  // console.log(selectedClass)
+  // 
   const applyFilters = () => {
     let filteredTeachers = teachers;
     filteredTeachers = teachers.filter(

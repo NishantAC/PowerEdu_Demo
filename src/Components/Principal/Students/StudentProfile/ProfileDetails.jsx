@@ -30,7 +30,7 @@ function ProfileDetails({ UserId }) {
     useEffect(() => {
         setUpdatedDetails(studentDetails)
     }, [studentDetails])
-    console.log(updateStudentDetails,"updatestudentdetails")
+    
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;

@@ -25,7 +25,7 @@ const MyModal = (props) => {
                 const url = URL.createObjectURL(new Blob([result], { type: "image/jpeg" }))
                 setLogo(url);
             }).catch((error) => {
-                console.log(error)
+                
             })
     }, []
     )

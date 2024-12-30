@@ -37,7 +37,7 @@ function AcademicsDetails({stud}) {
 
   // Apply the filters and update the displayed rows
   const applyFilters = () => {
-    console.log(subjectFilter, examTypeFilter)
+    
     const filteredData = examdetails.filter(row =>
       (subjectFilter === "" || row.subject === subjectFilter) && (examTypeFilter === "" || row.examtype === examTypeFilter)
     );

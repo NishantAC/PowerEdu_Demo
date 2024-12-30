@@ -63,7 +63,7 @@ function ReplyForwardMail({ email, setFltMails, setValue }) {
   };
 
   const submitReply = async (values, { setSubmitting }) => {
-    console.log (values);
+    
     if (!values.content && attachments.length === 0) {
 
       toast("Message should not be empty", { description: "Please write a message" });

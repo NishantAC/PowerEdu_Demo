@@ -7,7 +7,7 @@ const API_URL = `${API_BASE_URL}assignments/`;
 
 const downloadFileByPath = async (filePath) => {
   try {
-    console.log(filePath)
+    
     const response = await axios.post(`${API_URL}download-file`, filePath);
     return response.data;
   } catch (error) {

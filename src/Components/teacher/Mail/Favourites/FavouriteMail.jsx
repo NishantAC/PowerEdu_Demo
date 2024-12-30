@@ -20,7 +20,7 @@ function FavouriteMail() {
     if (error) {
       toast.error("Failed to get Starred mails", { autoClose: 500 });
     } else {
-      console.log(response.data, "this is fav mails");
+      
       setFavMails(response.data);
       toast.success("Successfully fetched Starred mails", { autoClose: 500 });
     }

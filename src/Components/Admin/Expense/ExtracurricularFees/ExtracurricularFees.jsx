@@ -466,17 +466,17 @@ function AcademicFees() {
                 borderRadius: "5px",
               }}
               onClick={() => {
-                console.log(formValues);
+                
                 if (isEditMode) {
                   ExtracurricularFeesService.updateFee(formValues).then((data) => {
-                    console.log("updated", data);
+                    
                     clearForm();
                     handleApplyFilter();
                     setEditMode(false);
                   });
                 } else {
                   ExtracurricularFeesService.addFee(formValues).then((data) => {
-                    console.log("Added", data);
+                    
                     clearForm();
                     handleApplyFilter();
                   });

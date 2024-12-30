@@ -80,7 +80,7 @@ function Mail({ mails, fetchMails, themeProperties, setLoading,loading, type}) {
     setSelectedMail();
     setValue({});
     fetchMails(true).then(() => {
-      console.log("Refreshed");
+      
       setRefreshLoading(false);
       toast.success("Refreshed", { description:` Your ${type} mails has been refreshed"` });
       setDisableRefresh(false);
@@ -100,7 +100,7 @@ function Mail({ mails, fetchMails, themeProperties, setLoading,loading, type}) {
       if (scrollRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
         if (scrollHeight - scrollTop <= clientHeight + 400) {
-          console.log("Reached bottom");
+          
           if (loading) { return; }
           
           fetchMails(false);

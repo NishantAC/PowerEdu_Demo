@@ -115,7 +115,7 @@ function DeleteConfirmationModal({ itemToDelete, setItemToDelete, onClick }) {
                 onClick={() => {
                   AcademicFeesService.deleteFees({ id: itemToDelete }).then(
                     () => {
-                      console.log("Item deleted");
+                      
                       setItemToDelete(-1);
                     }
                   );

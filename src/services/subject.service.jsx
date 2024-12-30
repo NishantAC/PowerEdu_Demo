@@ -30,7 +30,7 @@ const getAllSubjectsDetails = async (class_code, school_code, subject_code) => {
       school_code,
       subject_code,
     });
-    // console.log(response.data)
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -43,7 +43,7 @@ const getAllSubjectsBySchool = async (schoolcode) => {
     const response = await axios.post(`${API_URL}school-subjects`, {
       schoolcode,
     });
-    // console.log(response.data)
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -64,7 +64,7 @@ const getAssignedSubjects = async (userId) => {
 //args(clsid,shclcode,subjectid)
 const updateStatus = async (chapterId, status, chapter_number) => {
   try {
-    // console.log("here", chapterId, status)
+    // 
     const response = await axios.put(
       `${API_BASE_URL}chapters/status`,
       { chapterId, status, chapter_number }
@@ -87,7 +87,7 @@ const getDropdownSubjectsByClass = async (
       class_code,
       timetable,
     });
-    // console.log(response.data)
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -100,7 +100,7 @@ const getAllDropdownSubjectsByClass = async (class_code) => {
     const response = await axios.post(`${API_URL}class-all-subjects-dropdown`, {
       class_code,
     });
-    // console.log(response.data)
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -114,7 +114,7 @@ const updateSubjectsOfClasses = async (body) => {
       `${API_URL}update-subjects-of-classes`,
       body
     );
-    // console.log(response.data)
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -128,8 +128,8 @@ const getSubjectsOfClasses = async (body) => {
       `${API_URL}get-subjects-of-classes`,
       body
     );
-    // console.log(response.data)
-    console.log(response.data,"reponsedatad")
+    // 
+    
 
     return response.data;
   } catch (error) {
@@ -144,8 +144,8 @@ const getSearchSubjectsOfClasses = async (body) => {
       `${API_URL}get-search-subject-classes`,
       body
     );
-    // console.log(response.data)
-    console.log(response.data,"reponsedatad")
+    // 
+    
 
     return response.data;
   } catch (error) {
@@ -161,7 +161,7 @@ const deleteSubjectsOfClasses = async (body) => {
       `${API_URL}delete-subjects-of-classes`,
       body
     );
-    // console.log(response.data)
+    // 
     return response.data;
   } catch (error) {
     console.error(error);

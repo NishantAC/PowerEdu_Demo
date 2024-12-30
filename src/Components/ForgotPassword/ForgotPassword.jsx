@@ -25,11 +25,11 @@ function ForgotPassword() {
       };
       try {
         const response = await axios.post( API_BASE_URL+ "auth/forgetPassword", body);
-        console.log(response.data);
+        
         setTitle(false);
       } catch (error) {
         setErrorMsg(error.response.data.message);
-        console.log("error in forget password function", error);
+        
       }
     }
   };

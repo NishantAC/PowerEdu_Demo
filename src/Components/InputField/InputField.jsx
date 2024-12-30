@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({ value, htmlFor, placeholder, name, handleChange, themeProperties, required, type = "text", pattern , address = false}) => {
+const InputField = ({ value, htmlFor, placeholder, name, handleChange, themeProperties, required, type = "text", pattern , address = false , disable = false}) => {
   return (
     <div className="relative">
       <input
@@ -11,7 +11,8 @@ const InputField = ({ value, htmlFor, placeholder, name, handleChange, themeProp
         maxLength={type === "tel" ? 10 : null}
         value={value}
         onChange={handleChange}
-        className={`w-full px-3 overflow-hidden py-[9px] ${address ? ' min-w-[480px]':'max-w-[192px]'} border rounded-lg focus:outline-none peer ${type === 'number' ? 'no-spinner' : ''}`}
+        disabled={disable}
+        className={` px-3 overflow-hidden py-[9px] ${address ? ' min-w-[480px]':'w-[192px]'} border rounded-lg focus:outline-none peer ${type === 'number' ? 'no-spinner' : ''}`}
         required={required}
       />
       <label

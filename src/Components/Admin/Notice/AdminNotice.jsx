@@ -96,7 +96,7 @@ export default function AdminNotice() {
         setPrincipalMsg(res);
       })
       .catch((err) =>
-        console.log("Problem in TeacherNotice :: fetchPrincipalMsg() => ", err)
+        console.error(err)
       );
   };
 
@@ -104,11 +104,11 @@ export default function AdminNotice() {
     principalService.getPrincipalPhoto({ "schoolcode": code })
       .then((result) => {
         const url = URL.createObjectURL(new Blob([result], { type: "image/jpeg" }))
-        // console.log(url)
+        // 
         setLogo(url);
-        // console.log('successfully fetched image')
+        // 
       }).catch((error) => {
-        console.log(error)
+        
       })
   }
 
@@ -116,14 +116,14 @@ export default function AdminNotice() {
     event.preventDefault()
     ClassNoticeService.getPdf({ key: key })
       .then(async (response) => {
-        // console.log(response)
+        // 
         const contentDisposition = response.headers['content-disposition'];
         const match = contentDisposition.match(/filename="(.+)"/);
         const fetchedFilename = match ? match[1] : 'file.pdf';
         const blob = new Blob([response.data], { type: 'application/pdf' });
         saveAs(blob, fetchedFilename);
       }).catch((error) => {
-        console.log({ error: error, message: "error in handleDownloadButton" })
+        
       })
   }
 

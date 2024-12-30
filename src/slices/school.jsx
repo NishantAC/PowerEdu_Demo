@@ -38,10 +38,10 @@ export const schooldata = createAsyncThunk(
   "school/schooldata",
   async ({ code }, { dispatch, rejectWithValue }) => {
     try {
-      console.log("Fetching school data for code:", code); // Log the school code before fetching
+      
 
       const { data } = await SchoolService.getSchoolData(code);
-      console.log("Fetched school data:", data); // Log the fetched data
+      
 
       dispatch(setSchoolDetail(data));
 
@@ -98,7 +98,7 @@ const schoolSlice = createSlice({
       state.academicYears = null;
     },
     [schooldata.fulfilled]: (state, action) => {
-      console.log("Payload on schooldata fulfilled:", action.payload);
+      
 
       state.isLoggedIn = true;
       state.school = action?.payload?.school;

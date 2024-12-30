@@ -36,34 +36,11 @@ export default function MonthSelect({ calendarRef, setDate, date }) {
 
   };
 
-  React.useEffect(() => {
-    calendarRef.current.getApi().gotoDate(date);
-  },[date])
+  // React.useEffect(() => {
+  //   calendarRef.current.getApi().gotoDate(date);
+  // },[date])
 
   return (
-    <Box sx={{ minWidth: 90 }} >
-      <FormControl fullWidth size="small" >
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={months[date.getMonth()]}
-          onChange={handleChange}
-          style={{ height: '25px', display: "inline-flex", alignItems: "center", backgroundColor: "#E0DDDD", borderRadius: "5px", boxShadow: "0px 1px 5px rgba(33, 33, 33, 0.48)", padding: '5px' }}
-        >
-          <MenuItem value="January">January</MenuItem>
-          <MenuItem value="February">February</MenuItem>
-          <MenuItem value="March">March</MenuItem>
-          <MenuItem value="April">April</MenuItem>
-          <MenuItem value="May">May</MenuItem>
-          <MenuItem value="June">June</MenuItem>
-          <MenuItem value="July">July</MenuItem>
-          <MenuItem value="August">August</MenuItem>
-          <MenuItem value="September">September</MenuItem>
-          <MenuItem value="October">October</MenuItem>
-          <MenuItem value="November">November</MenuItem>
-          <MenuItem value="December">December</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <></>
   );
 }

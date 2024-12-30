@@ -28,13 +28,13 @@ function OtpVerify(props) {
       .post(API_BASE_URL+"auth/updatepassword", body)
       .then(
         (response) => {
-          console.log("Password has been updated");
+          
           setErrorMsg("password updated");
           setMinutes(0);
           setSeconds(0);
         },
         (error) => {
-          console.log("error in update password function");
+          
         }
       );
   };
@@ -50,16 +50,16 @@ function OtpVerify(props) {
         API_BASE_URL+"auth/checkOtp",
         body
       );
-      console.log(response.data.message); // Log the success message
+      
       if (response.status === 200) {
         updatePassword();
       }
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message); // Log the error message from the response
+        
         setErrorMsg(error.response.data.message);
       } else {
-        console.log(error.message); // Log any network or other errors
+        
       }
     }
   };
@@ -111,21 +111,21 @@ function OtpVerify(props) {
           setErrorMsg("");
           setShowOtpScreen(true);
         } else {
-          console.log(res.data.message); // Access the error message from res.data
+          
         }
       })
       .catch((error) => {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log(error.response.data.message);
+          
           setErrorMsg(error.response.data.message);
         } else if (error.request) {
           // The request was made but no response was received
-          console.log(error.request);
+          
         } else {
           // Something happened in setting up the request that triggered an Error
-          console.log("Error", error.message);
+          
         }
       });
   };

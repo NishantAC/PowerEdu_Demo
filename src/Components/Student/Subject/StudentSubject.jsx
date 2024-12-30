@@ -25,7 +25,7 @@ export default function StudentSubject() {
     );
   }, []);
 
-  console.log(subject);
+  
 
   const [activeItem, setActiveItem] = useState(null);
 

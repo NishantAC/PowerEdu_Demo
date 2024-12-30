@@ -28,7 +28,7 @@ function ExamType({ setActiveKey, activeKey, examtype, copyData }) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { error, message } = useSelector(state => state.examtype)
 
-  console.log(examtype);
+  
   useEffect(() => {
     setTitle(examtype.exam_name);
   }, [examtype, error, message]);

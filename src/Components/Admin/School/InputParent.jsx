@@ -1,7 +1,7 @@
 import React from "react";
 
 function InputParent({ children, text }) {
-  console.log(children,text,"console.log(value")
+  
   return (
     <div
       style={{

@@ -3,7 +3,7 @@ import { fetchAllMails } from '@/services/mail.service';
 
 export const fetchMails = createAsyncThunk('mail/fetchMails', async (userId) => {
   const response = await fetchAllMails(userId);
-  console.log("Hello world", response.data);
+  
   return response.data;
 });
 

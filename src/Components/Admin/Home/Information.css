@@ -23,7 +23,7 @@
 
 .scrolling::-webkit-scrollbar-track {
   margin: 20px 0;
-  background: #fff3ea;
+  /* background: #; */
 }
 
 .scrolling::-webkit-scrollbar-thumb {

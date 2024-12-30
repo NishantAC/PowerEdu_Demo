@@ -46,7 +46,7 @@ function AddNoticeModal(props) {
 
     const saveClassNotice = (data) => {
         const formData = new FormData();
-        console.log(props.user, data)
+        
         if (data.file) {
             formData.append("file", data?.file[0]);
         }
@@ -58,9 +58,9 @@ function AddNoticeModal(props) {
         formData.append("title", data?.title);
         formData.append("description", data?.description);
 
-        console.log('FormData Entries:');
+        
         for (const entry of formData.entries()) {
-            console.log(entry[0] + ':', entry[1]);
+            
         }
         ClassNoticeService.registerClassNotice(formData).then((res) => {
             reset();

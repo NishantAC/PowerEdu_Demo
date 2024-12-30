@@ -101,7 +101,7 @@ function UploadMarks({
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    console.log('fff', event)
+    
     if (file) {
       event.target.value = null;
       if (file.type === "text/csv") {
@@ -138,7 +138,7 @@ function UploadMarks({
                 });
               }
             }
-            //console.log('2')
+            //
             saveUploadedMarks(parsedData);
             setMsg("success");
           },

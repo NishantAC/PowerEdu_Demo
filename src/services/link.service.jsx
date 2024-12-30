@@ -22,7 +22,7 @@ const registerLink = async (schoolCode, className, subjectName, chapterName, lin
 
 const deleteLinkById = async (body) => {
   try {
-    console.log("this is data ",body)
+    
     const response = await axios.post(`${API_URL}deletelink`, body);
     return response;
   } catch (error) {

@@ -51,7 +51,7 @@ const getUniqueRekorId = async (body) => {
     const response = await axios.get(`${API_URL}/getuniquerekorid`, {
       params: body,
     });
-    // console.log(response.data);
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -64,7 +64,7 @@ const getUniqueRollNo = async (body) => {
     const response = await axios.get(`${API_URL}/getuniquerollno`, {
       params: body,
     });
-    // console.log(response.data);
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -77,7 +77,7 @@ const getUniqueAdmissionNo = async (body) => {
     const response = await axios.get(`${API_URL}/getuniqueadmissionno`, {
       params: body,
     });
-    // console.log(response.data);
+    // 
     return response.data;
   } catch (error) {
     console.error(error);
@@ -113,12 +113,12 @@ const sendOTP = async (body) => {
 
 const updatePassword = async (body) => {
   try {
-    console.log("body is:", body);
+    
     const response = axios.post(
       API_BASE_URL+"auth/updatepassword",
       body
     );
-    console.log(response);
+    
     return response;
   } catch (error) {
     throw error;

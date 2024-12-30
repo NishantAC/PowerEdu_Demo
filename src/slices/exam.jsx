@@ -71,7 +71,7 @@ export const updateExam = createAsyncThunk(
   "exam/updateExam",
   async ({ updatedRow, school_code, class_code }, { rejectWithValue, dispatch }) => {
     try {
-      console.log(updatedRow);
+      
       const response = await ExamService.updateExam(updatedRow);
       dispatch(fetchExamTypes({ school_code, class_code }));
       return response;

@@ -33,7 +33,7 @@ function EditNotice({ fetchPrincipalMsg, getPhoto, initialData, schoolcode }) {
     const fileInputRef = useRef();
     const [file, setFile] = useState();
 
-    // console.log(initialData)
+    // 
 
     // useEffect(() => {
 
@@ -59,7 +59,7 @@ function EditNotice({ fetchPrincipalMsg, getPhoto, initialData, schoolcode }) {
 
     const fileValidation = (e) => {
         const file = e.target.files[0];
-        // console.log(file)
+        // 
         if (file) {
             setValue('file', file);
             setFile(file.name);
@@ -74,7 +74,7 @@ function EditNotice({ fetchPrincipalMsg, getPhoto, initialData, schoolcode }) {
         const formData = new FormData();
         formData.append('title', data?.title);
         formData.append('description', data?.description);
-        console.log(data)
+        
         //calling service
         principalService.editPrincipleNotice({ id: initialData.id, body: formData })
             .then((res) => {

@@ -22,7 +22,7 @@ const SubjectsTable = ({
   searchSubjects
 }) => {
 
-  console.log(subjects,"subjectsdata21364712")
+  
   return (
     <div>
       <TableContainer component={Paper} style={{ height: "370px" }}>

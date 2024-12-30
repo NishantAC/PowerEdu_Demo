@@ -39,7 +39,7 @@ export const fetchStudentsWithMarks = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const data = await StudentService.getStudentsWithMarks(body);
-      console.log(data,"returnddatatatatatattaatata")
+      
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -52,7 +52,7 @@ export const fetchStudentDetails = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const data = await StudentService.getStudent(body);
-      console.log(data,"datatataatatatatatat")
+      
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

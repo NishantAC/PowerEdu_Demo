@@ -35,7 +35,7 @@ function FillUserInfo() {
   const [subject, setSubject] = useState("");
 
   const [imageUrl, setImageUrl] = useState(null);
-  console.log(imageUrl,"imageurllist")
+  
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];

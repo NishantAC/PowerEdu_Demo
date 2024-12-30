@@ -33,7 +33,7 @@ function LinkBtn({ chapterDesc, setChapterLinks, chapterLinks, getAssignedSubjec
 
     const onhandelLink = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
-        console.log(data)
+        
     }
 
     const saveLink = () => {

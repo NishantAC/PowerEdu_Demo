@@ -5,9 +5,9 @@ import { toast } from 'sonner';
 function DeleteModal({ open, handleClose, messageData, setFltMails }) {
 
     const handleDelete = async () => {
-        console.log(messageData);
+        
         const res = await deleteMail(messageData.threadId);
-        console.log(res.data.message);
+        
         if (res.status === 200) {
             setFltMails(prevData => prevData.map(m => {
                 if (m.emailid === messageData.emailid) {

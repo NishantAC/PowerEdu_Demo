@@ -35,7 +35,7 @@ export default function PrincipalNotice() {
   const [allNotices, setAllNotices] = useState([]);
   const [type, setType] = useState("");
   const [logo, setLogo] = useState(); // To store principal's image
-  console.log("logostae", logo);
+  
   const [active, setActive] = useState(0);
   const { classes } = useSelector((state) => state.principal);
   const [selectedMessageId, setSelectedMessageId] = useState(null); // Track selected message ID for editing
@@ -79,11 +79,11 @@ export default function PrincipalNotice() {
         if (res) {
           setPrincipalMsgs([res]); // Wrap response in array if needed
         } else {
-          console.log("No principal message found");
+          
         }
       })
       .catch((err) => {
-        console.log("Problem in fetchPrincipalMsgs:", err);
+        console.error(err)
       });
   };
 
@@ -97,11 +97,11 @@ export default function PrincipalNotice() {
         if (imageUrl) {
           setLogo(imageUrl); // Set the image URL in the logo state
         } else {
-          console.log("Image URL not found in API response");
+          
         }
       })
       .catch((error) => {
-        console.log("Error fetching principal photo:", error);
+        
       });
   };
 
@@ -120,7 +120,7 @@ export default function PrincipalNotice() {
       const fetchedFilename = match ? match[1] : "file.pdf";
       saveAs(blob, fetchedFilename);
     } catch (error) {
-      console.log({ error: error, message: "Error in handleDownloadButton" });
+      
     }
   };
 

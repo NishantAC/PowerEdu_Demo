@@ -26,7 +26,7 @@ export default function TeacherNotice() {
   const [allNotices, setAllNotices] = useState();
   const [active, setActive] = useState(0);
 
-  console.log('=>' ,user)
+  
 
   const classFunc = () => {
     setActive(0);
@@ -66,7 +66,7 @@ export default function TeacherNotice() {
         setPrincipalMsg(res);
       })
       .catch((err) =>
-        console.log("Problem in TeacherNotice :: fetchPrincipalMsg() => ", err)
+        console.error(err)
       );
   };
 
@@ -79,14 +79,14 @@ export default function TeacherNotice() {
     event.preventDefault()
     ClassNoticeService.getPdf({ key: key })
       .then(async (response) => {
-        console.log(response)
+        
         const contentDisposition = response.headers['content-disposition'];
         const match = contentDisposition.match(/filename="(.+)"/);
         const fetchedFilename = match ? match[1] : 'file.pdf';
         const blob = new Blob([response.data], { type: 'application/pdf' });
         saveAs(blob, fetchedFilename);
       }).catch((error) => {
-        console.log({ error: error, message: "error in handleDownloadButton" })
+        
       })
   }
 

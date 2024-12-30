@@ -31,7 +31,7 @@ function TeacherExam() {
     return groups;
   }, {});
 
-  console.log(groupedPapers);
+  
 
   return (
     <div className="tchrexam">

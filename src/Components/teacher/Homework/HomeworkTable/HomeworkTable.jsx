@@ -88,7 +88,7 @@ function HomeworkTable(props) {
         //                     <TableCell align="left" style={{ paddingTop: '20px', paddingBottom: '20px', fontFamily: 'Poppins', fontStyle: 'normal', fontWeight: '600', fontSize: '20px', color: '#545454', borderBottom: 'none' }}>Action</TableCell>
         //                 </TableRow>
         //             </TableHead>
-        //             {console.log(props)}
+        //             {
         //             <TableBody style={{ background: '#FFFFFF', border: '1px solid #A5A5A5', boxSizing: 'border-box', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: '5px' }}>
         //                 {
         //                     props?.data?.map((ass, index) => (

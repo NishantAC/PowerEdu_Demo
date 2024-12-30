@@ -44,7 +44,7 @@ const getAcademicYears = async (school_code) => {
 
 const getSchoolData = async (code) => {
   try {
-    console.log("getSchoolData called with code:", code); // Add this log
+    
 
     // const response = await axios.post(`${API_URL}school`, { code: code });
     const response = await axios.post(`${API_URL1}`,{code:code});
@@ -70,7 +70,7 @@ const fetchSchoolClasses = async (code) => {
 };
 
 const getSchoolLogo = async (code) => {
-  console.log(code,"codedddddddddddddddddddddd")
+  
   try {
     const response = await axios.get(`${API_URL2}/schoollogo/${code}`, {
       responseType: "arraybuffer",

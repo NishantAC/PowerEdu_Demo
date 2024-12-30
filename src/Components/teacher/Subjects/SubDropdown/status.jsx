@@ -60,7 +60,7 @@ function Status({ classDropdownValue, chapter, getAssignedSubjects }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const user = useSelector((state) => state.auth.user)
-  // console.log(user)
+  // 
 
   //handel radioChange
   const handleChange = (event) => {

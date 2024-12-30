@@ -18,7 +18,7 @@ function PaperFilter({ papers, setFilteredPapers }) {
   const { examTypes } = useSelector((state) => state.examtype);
   const { subject } = useSelector((state) => state.subject);
   const { currentteacher } = useSelector((state) => state.subjectteacher);
-  // console.log(examTypes);
+  // 
   useEffect(() => {
     dispatch(fetchExamTypes({ schoolcode: user?.schoolcode }));
     dispatch(getCurrentTeacherData({ userId: user?.id }));

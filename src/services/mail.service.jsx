@@ -10,10 +10,10 @@ export const googleAuth = async (body) => {
       
       withCredentials: true,
     });
-    console.log("Google Auth Response", response);
+    
     return response;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -26,7 +26,7 @@ export const logoutGoogle = async () => {
     });
     return response;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -39,8 +39,8 @@ export const checkAuth = async () => {
     });
     return response;
   } catch (error) {
-    console.log('Error in checkAuth:', error.response || error.message); 
-    console.log(error);
+    
+    
     throw error;
     
   }
@@ -201,7 +201,7 @@ export const fetchAllUsername = async ({ name, schoolcode }) => {
     );
     return result.data;
   } catch (err) {
-    console.log(`${err} in fetchUser`);
+    
   }
 };
 
@@ -322,7 +322,7 @@ export const getMail = async (body) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -334,7 +334,7 @@ export const getMails = async (body) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };

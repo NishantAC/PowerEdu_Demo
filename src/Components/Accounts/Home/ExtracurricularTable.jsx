@@ -18,7 +18,7 @@ function ExtracurricularTable({
   handlePaidAmountChange,
   setSelectedStudentId,
 }) {
-  console.log(feeList);
+  
   const handleHeaderCheckboxChange = (event) => {
     if (event.target.checked) {
       const ids = feeList.map((row, index) => index);

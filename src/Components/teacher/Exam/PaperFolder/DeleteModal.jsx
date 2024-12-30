@@ -19,7 +19,7 @@ const style = {
 function DeleteModal({ open, handleClose, paperId }) {
     const dispatch = useDispatch()
 
-    console.log(paperId);
+    
     const handleDelete = (e) => {
         dispatch(deletePaper({id: paperId}));
         handleClose();

@@ -6,7 +6,7 @@ const API_URL = API_BASE_URL+"todos/";
 const createTodo = async (todoData) => {
   try {
     const response = await axios.post(`${API_URL}add`, todoData);
-    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     console.error(error);

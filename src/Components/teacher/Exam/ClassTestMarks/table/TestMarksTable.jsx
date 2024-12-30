@@ -29,7 +29,7 @@ function TestMarksTable({ hide, test }) {
   const dispatch = useDispatch();
   const [errorCells, setErrorCells] = useState([]);
   const [msg, setMsg] = useState("");
-  console.log('classtest', tableData )
+  
   useEffect(() => {
     setTableData(studentTestMarks);
   }, [studentTestMarks]);

@@ -98,7 +98,7 @@ const getTeacher = async (body) => {
     const { data } = await axios.post(API_URL + "getteacherdetails", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -108,7 +108,7 @@ const updateTeacherDetails = async (body) => {
     const { data } = await axios.post(API_URL + "updateteacherdetails", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -147,7 +147,7 @@ const getOtherManagementMemeber = async (body) => {
     );
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -160,7 +160,7 @@ const updateOtherManagementMemeberDetails = async (body) => {
     );
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };

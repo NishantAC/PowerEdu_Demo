@@ -85,7 +85,7 @@ function CircularModal({ rows, row, open, handleClose, edit, setRows }) {
 
         handleClose();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
 
   }
 

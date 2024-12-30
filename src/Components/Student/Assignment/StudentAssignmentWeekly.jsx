@@ -84,7 +84,7 @@ export default function WeeklyTable() {
         beforeMonth.setDate(now.getDate() + 30);
         let beforeWeek = new Date(now.getTime());
         beforeWeek.setDate(now.getDate() + 7);
-        console.log("drop month", beforeMonth, " ", now);
+        
         stdAssignment = stdAssignment.filter(ass => {
           let dueDate = new Date(String(ass.duedate));
           if (dueDate >= beforeWeek && dueDate <= beforeMonth) {
@@ -102,7 +102,7 @@ export default function WeeklyTable() {
   //download the assignment using file path
   const downloadAssignment = async (filePath) => {
     try {
-      // console.log("in", filePath)
+      // 
       //chaned filepath to key
       const file = await CommonService.downloadFileByPath({ "key": filePath });
       CommonService.downloadFileByBytes(file, filePath);
@@ -110,7 +110,7 @@ export default function WeeklyTable() {
       console.error("Problem in StudentAssignmentWeekly.js :: downloadAssignment() => ", err);
     }
   }
-  { console.log(filteredAss) }
+  { 
 
   return (
 
@@ -152,3 +152,5 @@ export default function WeeklyTable() {
     </TableContainer>
   );
 }
+}
+

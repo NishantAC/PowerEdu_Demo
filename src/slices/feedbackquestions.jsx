@@ -29,7 +29,7 @@ export const getFeedbackQuestions = createAsyncThunk(
     try {
       const response = await FeedbackQuestionService.getFeedbackQuestions(class_id, schoolcode);
       // thunkAPI.dispatch(setMessage(response.data.message));
-      // console.log({class_id, schoolcode})
+      // 
       return response;
     } catch (error) {
       const message =

@@ -6,7 +6,7 @@ const API_URL = API_BASE_URL+"circular/";
 const createCircular = async (body) => {
   try {
     const response = await axios.post(`${API_URL}add`, body);
-    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     console.error(error);
@@ -27,7 +27,7 @@ const getCirculars = async (schoolcode) => {
 const editCircular = async (body) => {
   try {
     const response = await axios.put(`${API_URL}update`, body);
-    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     console.error(error);

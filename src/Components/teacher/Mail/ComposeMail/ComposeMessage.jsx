@@ -61,7 +61,7 @@ const socket = io(socketUrl);
 
 
 // useEffect(() => {
-//   console.log(editorState);
+//   
 // }, [editorState]);
 
 
@@ -141,16 +141,16 @@ function ComposeMessage() {
   useEffect(() => {
     // WebSocket event listeners
     socket.on('connect', () => {
-      console.log('WebSocket connection established.');
+      
     });
 
     socket.on('disconnect', () => {
-      console.log('WebSocket connection disconnected.');
+      
     });
 
     socket.on('mail', (emailData) => {
       // Handle the new email notification
-      console.log('New email received:', emailData);
+      
       // Update the Inbox or other relevant parts of the UI in real time
     });
 
@@ -176,7 +176,7 @@ function ComposeMessage() {
   const onSubmit = (data) => {
     socket.emit("mail", { data });
     reset();
-    console.log(data);
+    
   };
 
 
@@ -192,7 +192,7 @@ function ComposeMessage() {
           <div className={styles.Div2P}>
             <p>To:-</p>
             <input className={styles.Input2} type='text' id="to" {...register("to", { required: true, onChange: validation })} />
-            {console.log(errors)}
+            {
           </div>
           <div>
             {errors?.to && <span style={{ color: "red" }}>{REQUIRED_FIELD_ERROR}</span>}

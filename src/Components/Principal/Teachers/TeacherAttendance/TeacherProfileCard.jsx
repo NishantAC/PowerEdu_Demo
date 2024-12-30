@@ -7,7 +7,7 @@ import { Avatar } from '@mui/material';
 
 const TeacherProfileCard = () => {
     const { subjectteachers: teachers } = useSelector((state) => state.subjectteacher);
-    console.log(teachers, "this is teachers")
+    
     return (
         <div className={style.teacherdiv}>
             {teachers?.map((row) => {

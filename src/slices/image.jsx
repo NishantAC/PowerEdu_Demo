@@ -6,7 +6,7 @@ export const getImageUrl = createAsyncThunk(
     'image/getImageUrl',
     async ({ path }) => {
         const response = await imageService.getimageUrl(path);
-        // console.log(response);
+        // 
         return response.data;
     }
 );

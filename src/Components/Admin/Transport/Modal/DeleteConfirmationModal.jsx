@@ -115,7 +115,7 @@ function DeleteConfirmationModal({ deleteItemId, setDeleteItemId, onClick }) {
                 onClick={() => {
                   TransportService.deleteTransports({ id: deleteItemId }).then(
                     () => {
-                      console.log("Delete Successfull");
+                      
                       setDeleteItemId(-1);
                     }
                   );

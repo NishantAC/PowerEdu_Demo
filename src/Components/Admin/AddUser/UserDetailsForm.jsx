@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputField from "./InputField";
+import InputField from "@/Components/InputField/InputField";
 
 import {
   Popover,

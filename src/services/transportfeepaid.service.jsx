@@ -5,9 +5,9 @@ const API_URL = API_BASE_URL+"transport-fee-paids/";
 
 const getAllFeesPaid = async (body) => {
   try {
-    console.log("body", body);
+    
     const response = await axios.post(`${API_URL}all`, body);
-    console.log("response",response);
+    
     return response.data;
   } catch (error) {
     console.error(error);

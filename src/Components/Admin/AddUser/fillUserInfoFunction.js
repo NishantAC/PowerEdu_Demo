@@ -113,7 +113,7 @@ export const handleSubmit = (e, formValues, setErrorMsg, setUserId, setPassword,
 
     authService.register(formData)
       .then((res) => {
-        console.log(res);
+        
         if (res.status === 201) {
           setUserId(res.data.userId);
           setPassword(res.data.password);
@@ -122,12 +122,12 @@ export const handleSubmit = (e, formValues, setErrorMsg, setUserId, setPassword,
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response.data.message);
+          
           setErrorMsg(error.response.data.message);
         } else if (error.request) {
-          console.log(error.request);
+          
         } else {
-          console.log("Error", error.message);
+          
         }
       });
   }

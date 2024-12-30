@@ -10,7 +10,7 @@ const getDayWiseSubjects = async (classid, schoolcode, day) => {
       schoolcode,
       day,
     });
-    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     console.error(error);

@@ -27,9 +27,9 @@ function MarksTable({ hide, exam }) {
   const { user } = useSelector(state => state.user)
   const { studentmarks, message, error } = useSelector((state) => state.exam);
   const [tableData, setTableData] = useState(studentmarks);
-  console.log(studentmarks, "this is studentmarks")
+  
   const [newMarks, setNewMarks] = useState();
-  console.log(newMarks, "this is new marks")
+  
   const [edit, setEdit] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -78,7 +78,7 @@ function MarksTable({ hide, exam }) {
     validate();
     if (msg !== "error" && errorCells?.length === 0) {
       if (newMarks?.length > 0) {
-        console.log("inside add exam")
+        
         await dispatch(
           addExamMarks({ marks: newMarks, exam_id: exam?.id })
         ).then((result) => {

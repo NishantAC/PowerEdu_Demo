@@ -35,7 +35,7 @@ const getPdf = async (body) => {
     const response = await axios.post(API_URL + "getPdf", body, {
       responseType: 'blob'
     })
-    // console.log(response)
+    // 
     return response;
   } catch (error) {
     console.error(error);

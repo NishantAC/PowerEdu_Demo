@@ -25,7 +25,7 @@ const registerServiceWorker = () => {
     navigator.serviceWorker
       .register('/firebase-messaging-sw.js')
       .then((registration) => {
-        console.log('Service Worker registered with scope:', registration.scope);
+        
       })
       .catch((error) => {
         console.error('Service Worker registration failed:', error);
@@ -39,7 +39,7 @@ const requestNotificationPermission = async () => {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       const token = await getToken(messaging, { vapidKey: 'rFjqmHBWpuCbJaYdU60QOeDuTfaxLXqd_NCsBR7pzwA' });
-      console.log('FCM Token:', token);
+      
       // Send the token to your server to save it
     } else {
       console.warn('Notification permission denied');
@@ -51,7 +51,7 @@ const requestNotificationPermission = async () => {
 
 // Handle incoming messages while the app is in the foreground
 onMessage(messaging, (payload) => {
-  console.log('Message received. ', payload);
+  
   // Customize notification handling here
 });
 

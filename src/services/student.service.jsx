@@ -8,7 +8,7 @@ const getAllStudents = async (body) => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -19,7 +19,7 @@ const searchStudents = async(body) => {
     return response.data;
 
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -31,7 +31,7 @@ const getStudent = async (body) => {
     const { data } = await axios.post(API_URL + "details", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -44,7 +44,7 @@ const updateStudentDetails = async (body) => {
     const { data } = await axios.post(API_URL + "update", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -54,7 +54,7 @@ const deleteStudentProfile = async (body) => {
     const { data } = await axios.post(API_URL + "delete", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -64,7 +64,7 @@ const getStudentAcademics = async (body) => {
     const { data } = await axios.post(API_URL + "academics", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -74,7 +74,7 @@ const getStudentsWithMarks = async (body) => {
     const { data } = await axios.post(API_URL + "studentmarks", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };
@@ -84,7 +84,7 @@ const getStudentFeeDetails = async (body) => {
     const { data } = await axios.post(API_URL + "studentfeedetails", body);
     return data;
   } catch (error) {
-    console.log(error);
+    
     throw error;
   }
 };

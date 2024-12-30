@@ -6,7 +6,7 @@ import "./ClassesUpdateConfirmationModal.css";
 import classService from "../../../../../services/class.service";
 
 function ClassesUpdateConfirmationModal({ updatedClasses, setClasses, close }) {
-  console.log(updatedClasses,"updateclasses")
+  
   return (
     <div
       style={{

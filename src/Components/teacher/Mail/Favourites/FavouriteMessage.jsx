@@ -6,7 +6,7 @@ import DOMPurify from 'dompurify';
 
 function FavouriteMessage({ messageData }) {
   const sanitizedHtml = DOMPurify.sanitize(messageData.body);
-  console.log(messageData)
+  
   return (
     <div>
       <div>

@@ -123,7 +123,7 @@ function ChapterDescription({
         setChapterNotes(filt);
       })
       .catch((err) =>
-        console.log(
+        console.error(
           "Problem in ChapterDescription :: deleteNoteById() => ",
           err
         )

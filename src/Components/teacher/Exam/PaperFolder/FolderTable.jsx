@@ -27,7 +27,7 @@ const rows = [
 function FolderTable() {
   const location = useLocation();
   const papers = location.state?.papers;
-  console.log(papers);
+  
 
   const [open, setOpen] = useState(false);
   const [rowId, setRowId] = useState(null);

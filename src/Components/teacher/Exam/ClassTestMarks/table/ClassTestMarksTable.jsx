@@ -86,7 +86,7 @@ function ClassTestMarksTable({ classtests, testSubject, setTestSubject }) {
     setFilteredData(classtests)
   }
 
-  console.log(classtests)
+  
 
   return (
     <>
