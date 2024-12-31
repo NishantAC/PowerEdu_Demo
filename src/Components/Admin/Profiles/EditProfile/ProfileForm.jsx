@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import SelectBox from "./SelectBox";
+import SelectBox from "@/Components/InputField/SelectBox";
 import InputField from "@/Components/InputField/InputField";
 import { useSelector } from "react-redux";
 import authService from "@/services/auth.service";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WestIcon from "@mui/icons-material/West";
-import SelectBox from "./SelectBox";
+import SelectBox from "../../../InputField/SelectBox";
 import { Link, useLocation } from "react-router-dom";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import "./EditProfile1.css";

@@ -17,13 +17,13 @@ function SelectBox({ options, info, setInfo, placeHolder, value }) {
       >
         <SelectTrigger className="w-48" style={{ textAlign: "left" }}>
           <SelectValue
-            placeholder={info}
+            placeholder={placeHolder}
             className={info ? "text-black" : "text-gray-400 italic"}
           >
             {info || placeHolder}
           </SelectValue>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="">
           {options.map((option, index) => (
             <SelectItem key={index} value={option}>
               {option}

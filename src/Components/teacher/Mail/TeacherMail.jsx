@@ -347,8 +347,6 @@ const fetchDeletedMail = async (refresh) => {
 
   return (
     < div className=" p-1 h-full rounded-[10px] "
-      style={{ background: themeProperties?.borderColor }}
-
     >
 
       <div  className="h-full rounded-[9px] overflow-hidden "

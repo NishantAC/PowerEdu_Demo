@@ -29,17 +29,22 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import CalendarServices from "../../../services/calendar.service";
 import { getGoogleEvents } from "../../../slices/calendar";
-import HolidayEvents from "./HolidayEvents";
 import AddEventModal from "./AddEventModal";
-import SchoolEvents from "./SchoolEvents";
 import { selectThemeProperties } from "@/slices/theme";
 import "./AdminCalendar.css";
 
-
-// ... existing imports ...
+import {
+  Select as SelectShadCn,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 const StyledDay = styled(Paper)(({ theme, isSelected, isToday, isCurrentMonth, hasEvents }) => ({
-  height: '80px', // Increased height
+  height: '100px', // Increased height for better spacing
   padding: '8px',
   display: 'flex',
   flexDirection: 'column',
@@ -93,6 +98,9 @@ const CalendarHeader = styled(Box)(({ theme }) => ({
   padding: '16px',
   boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
   marginBottom: '24px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
 }));
 
 const StyledSelect = styled(Select)(({ theme }) => ({
@@ -104,16 +112,15 @@ const StyledSelect = styled(Select)(({ theme }) => ({
   minWidth: '120px',
 }));
 
-
 function AdminCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState([]);
-  const [holidayEvents, setHolidayEvents] = useState([]);
-  const [schoolEvents, setSchoolEvents] = useState([]);
   const [open, setOpen] = useState(false);
   const [holiday, setHoliday] = useState(null);
   const [editData, setEditData] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState(format(new Date(), "MMMM"));
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
   const themeProperties = useSelector(selectThemeProperties);
 
   const dispatch = useDispatch();
@@ -121,23 +128,7 @@ function AdminCalendar() {
   const { user: currentUser } = useSelector((state) => state.user);
 
   const months = Array.from({ length: 12 }, (_, i) => format(setMonth(new Date(), i), "MMMM"));
-  const years = Array.from({ length: 21 }, (_, i) => new Date().getFullYear() - 10 + i);
-
-  const separateEvents = (events) => {
-    const holidayEventsArray = [];
-    const schoolEventsArray = [];
-
-    events.forEach((event) => {
-      if (event.event_type !== "normal" && event.isHoliday === true) {
-        holidayEventsArray.push(event);
-      } else if (event.event_type !== "normal" && event.isHoliday === false) {
-        schoolEventsArray.push(event);
-      }
-    });
-
-    setHolidayEvents(holidayEventsArray);
-    setSchoolEvents(schoolEventsArray);
-  };
+  const years = Array.from({ length: 21 }, (_, i) => (new Date().getFullYear() - 10 + i).toString());
 
   const getEvents = () => {
     const dbEventsPromise = CalendarServices.getEventsForManagement(currentUser.schoolcode);
@@ -149,7 +140,6 @@ function AdminCalendar() {
         const googleEvents = googleEventsRes.payload.map(transformEventFromGoogle);
         const mergedEvents = [...dbEvents, ...googleEvents];
         setEvents(mergedEvents);
-        separateEvents(mergedEvents);
       })
       .catch((err) => console.error("error is ", err));
   };
@@ -183,42 +173,77 @@ function AdminCalendar() {
     getEvents();
   }, [currentDate]);
 
+  const handleMonthChange = (month, index) => {
+    setSelectedMonth(month);
+    setCurrentDate(setMonth(currentDate, index)); // Update currentDate with the selected month
+  };
+
+  
+  const handleYearChange = (year) => {
+    console.log(year);
+    setCurrentDate(setYear(currentDate, parseInt(year, 10))); 
+    setSelectedYear(year);
+
+  };
   const renderHeader = () => (
     <CalendarHeader>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <IconButton 
-          onClick={() => setCurrentDate(subMonths(currentDate, 1))}
-          sx={{ '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' } }}
-        >
-          <NavigateBeforeIcon />
-        </IconButton>
-        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-          <StyledSelect
-            value={format(currentDate, "MMMM")}
-            onChange={(e) => setCurrentDate(setMonth(currentDate, months.indexOf(e.target.value)))}
-          >
-            {months.map((month, index) => (
-              <MenuItem key={index} value={month}>{month}</MenuItem>
-            ))}
-          </StyledSelect>
-          <StyledSelect
-            value={format(currentDate, "yyyy")}
-            onChange={(e) => setCurrentDate(setYear(currentDate, parseInt(e.target.value, 10)))}
-          >
-            {years.map((year) => (
-              <MenuItem key={year} value={year}>{year}</MenuItem>
-            ))}
-          </StyledSelect>
-        </Box>
-        <IconButton 
-          onClick={() => setCurrentDate(addMonths(currentDate, 1))}
-          sx={{ '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' } }}
-        >
-          <NavigateNextIcon />
-        </IconButton>
+      <IconButton 
+        onClick={() => {
+          setCurrentDate(subMonths(currentDate, 1));
+          setSelectedMonth(format(subMonths(currentDate, 1), "MMMM"));
+          setSelectedYear(format(subMonths(currentDate, 1), "yyyy"));
+        }}
+        sx={{ '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' } }}
+      >
+        <NavigateBeforeIcon />
+      </IconButton>
+      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        <SelectShadCn value={selectedMonth} onValueChange={(value) => handleMonthChange(value, months.indexOf(value))}>
+          <SelectTrigger>
+            <SelectValue placeholder={selectedMonth} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Months</SelectLabel>
+              {months.map((month, index) => (
+                <SelectItem key={index} value={month}>
+                  {month}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </SelectShadCn>
+  
+        <SelectShadCn value={selectedYear} onValueChange={(value) => handleYearChange(value)}>
+          <SelectTrigger>
+            <SelectValue placeholder={selectedYear} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Years</SelectLabel>
+              {years.map((year, index) => (
+                <SelectItem key={index} value={year}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </SelectShadCn>
       </Box>
+      <IconButton 
+        onClick={() => {
+          setCurrentDate(addMonths(currentDate, 1));
+          setSelectedMonth(format(addMonths(currentDate, 1), "MMMM"));
+          setSelectedYear(format(addMonths(currentDate, 1), "yyyy"));
+        }}
+        sx={{ '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' } }}
+      >
+        <NavigateNextIcon />
+      </IconButton>
     </CalendarHeader>
   );
+
+
   const renderDays = () => {
     const days = [];
     const startDate = startOfWeek(currentDate);
@@ -245,84 +270,68 @@ const renderCells = () => {
   let days = [];
   let day = startDate;
 
-  while (day <= endDate) {
-    for (let i = 0; i < 7; i++) {
-      const currentDay = day;
-      const dayEvents = events?.filter((event) =>
-        isSameDay(new Date(event.start), currentDay)
-      );
-      days.push(
-        <Grid item xs key={day.toString()}>
-          <StyledDay
-            isSelected={isSameDay(day, selectedDate)}
-            isToday={isSameDay(day, new Date())}  
-            isCurrentMonth={isSameMonth(day, monthStart)}
-            hasEvents={dayEvents?.length > 0}
-            onClick={() => setSelectedDate(currentDay)}
-          >
-            <Typography variant="body2" sx={{ textAlign: 'right' }}>
-              {format(day, "d")}
-            </Typography>
-            <EventPreview>
-              {dayEvents?.slice(0, 3).map((event, index) => (
-                <EventDot 
-                  key={index}
-                  color={event.isHoliday ? '#f44336' : '#1976d2'}
-                />
-              ))}
-              {dayEvents?.length > 3 && (
-                <Typography variant="caption" sx={{ fontSize: '0.7rem', color: 'text.secondary' }}>
-                  +{dayEvents.length - 3}
-                </Typography>
-              )}
-            </EventPreview>
-          </StyledDay>
+    while (day <= endDate) {
+      for (let i = 0; i < 7; i++) {
+        const currentDay = day;
+        const dayEvents = events?.filter((event) =>
+          isSameDay(new Date(event.start), currentDay)
+        );
+        days.push(
+          <Grid item xs key={day.toString()}>
+            <StyledDay
+              isSelected={isSameDay(day, selectedDate)}
+              isToday={isSameDay(day, new Date())}  
+              isCurrentMonth={isSameMonth(day, monthStart)}
+              hasEvents={dayEvents?.length > 0}
+              onClick={() => {
+                setSelectedDate(currentDay);
+                setOpen(true);
+              }}
+            >
+              <Typography variant="body2" sx={{ textAlign: 'right' }}>
+                {format(day, "d")}
+              </Typography>
+              <EventPreview>
+                {dayEvents?.map((event, index) => (
+                  <EventDot 
+                    key={index}
+                    color={event.isHoliday ? '#f44336' : '#1976d2'}
+                  />
+                ))}
+              </EventPreview>
+            </StyledDay>
+          </Grid>
+        );
+        day = addDays(day, 1);
+      }
+      rows.push(
+        <Grid container spacing={1} key={day.toString()}>
+          {days}
         </Grid>
       );
-      day = addDays(day, 1);
+      days = [];
     }
-    rows.push(
-      <Grid container spacing={1} key={day.toString()}>
-        {days}
-      </Grid>
-    );
-    days = [];
-  }
-  return rows;
-};
+    return rows;
+  };
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <Box>
+    <div className="flex  gap-2">
+      <div className=" flex-1">
         {renderHeader()}
         {renderDays()}
         {renderCells()}
-      </Box>
-      <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-        <HolidayEvents
-          setOpen={setOpen}
-          setHoliday={setHoliday}
-          holidayEvents={holidayEvents}
-          setEditData={setEditData}
-          getEvents={getEvents}
-        />
-        <SchoolEvents
-          setOpen={setOpen}
-          setHoliday={setHoliday}
-          schoolEvents={schoolEvents}
-          setEditData={setEditData}
-          getEvents={getEvents}
-        />
-      </Box>
+      </div>
       <AddEventModal
         open={open}
         setOpen={setOpen}
         holiday={holiday}
         getEvents={getEvents}
-        editData={editData}
         setEditData={setEditData}
         setHoliday={setHoliday}
+        selectedDate={selectedDate}
+        events={events}
       />
-    </Box>
+    </div>
   );
 }
 

@@ -159,7 +159,7 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
         />
       </div>
 
-      <div ref={componentRef}>
+  <div ref={componentRef} className="print-content fixed"> 
   <style>
     {`
       .print-content {
@@ -168,15 +168,14 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1; /* Ensure it doesn't affect the layout */
-        visibility: hidden; /* Hidden by default */
+        z-index: -100;
+        visibility: hidden; 
       }
-
       @media print {
         .print-content {
-          position: static; /* Reset positioning for print layout */
-          z-index: auto; /* Allow it to appear normally */
-          visibility: visible; /* Make visible only during print */
+          position: static; 
+          z-index: auto; 
+          visibility: visible;
           width: 100%;
           height: auto;
         }

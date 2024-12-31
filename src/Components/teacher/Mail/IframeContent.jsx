@@ -46,7 +46,7 @@ function IframeContent({ content, messageData, setValue, showReplyForward ,refre
     iframeRef.current.addEventListener("load", updateHeight);
     iframeDoc.addEventListener("click", handleLinkClick);
   
-      iframeDoc.body.style.color = themeProperties?.textColorAlt || "initial";
+      iframeDoc.body.style.color = themeProperties?.textColor || "initial";
     iframeDoc.body.style.backgroundColor = themeProperties?.boxBackgroundSolid || "initial";
   
     updateHeight();
