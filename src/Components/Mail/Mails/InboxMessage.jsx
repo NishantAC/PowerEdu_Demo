@@ -3,10 +3,10 @@ import { MdDelete } from "react-icons/md";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { IoPrint } from "react-icons/io5";
-import DeleteModal from "../Deleted/DeleteModal";
+// import DeleteModal from "../Deleted/DeleteModal";
 import ReplyForwardMail from "../ReplyForwardMail/ReplyForwardMail";
 import ReactToPrint from "react-to-print";
-import { getCurrentTime } from "../../../../common/Time";
+import { getCurrentTime } from "../../../common/Time";
 import DOMPurify from "dompurify";
 import IframeContent from "../IframeContent";
 import { Skeleton } from "@mui/material";
@@ -139,13 +139,13 @@ function InboxMessage({ messageData, setValue, refreshLoading , disableRefresh})
           </div>
         </div>
 
-        {open && (
+        {/* {open && (
           <DeleteModal
             open={open}
             handleClose={handleClose}
             messageData={messageData}
           />
-        )}
+        )} */}
       </div>
 
       <div className=" h-full">

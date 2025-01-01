@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDropdownClasses } from "../../../slices/principal";
-import CalendarServices from "../../../services/calendar.service";
+import { getDropdownClasses } from "../../slices/principal";
+import CalendarServices from "../../services/calendar.service";
 import { toast } from "sonner";
 import { Formik, Form, Field } from "formik";
 import Modal from '@mui/material/Modal';

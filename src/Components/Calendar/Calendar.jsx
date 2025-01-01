@@ -27,11 +27,10 @@ import {
 } from "date-fns";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import CalendarServices from "../../../services/calendar.service";
-import { getGoogleEvents } from "../../../slices/calendar";
+import CalendarServices from "../../services/calendar.service";
+import { getGoogleEvents } from "../../slices/calendar";
 import AddEventModal from "./AddEventModal";
 import { selectThemeProperties } from "@/slices/theme";
-import "./AdminCalendar.css";
 
 import {
   Select as SelectShadCn,
@@ -112,7 +111,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
   minWidth: '120px',
 }));
 
-function AdminCalendar() {
+function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState([]);
@@ -335,4 +334,4 @@ const renderCells = () => {
   );
 }
 
-export default AdminCalendar;
+export default Calendar;

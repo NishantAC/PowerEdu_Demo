@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import DraftMessage from './DraftMessage';
 ;
 import SearchIcon from '@mui/icons-material/Search';
-import { getTime } from '../../../../common/Time';
-import { getDraftMails } from '../../../../services/mail.service';
+import { getTime } from '../../../common/Time';
+import { getDraftMails } from '../../../services/mail.service';
 import { toast } from 'sonner';
 
 function DraftMail() {

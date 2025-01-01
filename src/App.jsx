@@ -32,6 +32,9 @@ import RegisterLink from "./components/Register/RegisterLink";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import "./App.css";
 import ViewProfile from "./components/Principal/Students/ViewProfile";
+import Calendar from "./Components/Calendar/Calendar";
+
+
 // Importing Admin Layout Components
 import Profiles from "./components/Admin/Profiles/Profile/Profiles";
 import EditProfile from "./components/Admin/Profiles/EditProfile/EditProfile";
@@ -39,7 +42,6 @@ import Home from "./components/Admin/Home/Home";
 import FillUserInfo from "./components/Admin/AddUser/FillUserInfo";
 import Subjects from "./components/Admin/Subjects/Subjects";
 import Transport from "./components/Admin/Transport/Transport";
-import AdminCalendar from "./components/Admin/Calendar/AdminCalendar";
 import AdminNotice from "./components/Admin/Notice/AdminNotice";
 import AcademicFees from "./components/Admin/Expense/AcademicFees/AcademicFees";
 import ExtracurricularFees from "./components/Admin/Expense/ExtracurricularFees/ExtracurricularFees";
@@ -72,7 +74,7 @@ import ClassTestMarks from "./components/Teacher/Exam/ClassTestMarks/ClassTestMa
 import StudentAttendance from "./components/Teacher/Student/StudentAttendance/StudentAttendance";
 import TeachersProfile from "./components/Teacher/TeacherProfile/Profile";
 import FolderTable from "./components/Teacher/Exam/PaperFolder/FolderTable";
-import TeacherMail from "./components/Teacher/Mail/TeacherMail";
+import TeacherMail from "./Components/Mail/TeacherMail";
 
 // Importing Principal Layout Components
 
@@ -80,7 +82,6 @@ import PrincipalHome from "./components/Principal/Home/PrincipalHome";
 import PrincipalStudents from "./components/Principal/Students/PrincipalStudents";
 import PrincipalTeachers from "./components/Principal/Teachers/PrincipalTeacher";
 import PrincipalExam from "./components/Principal/Exam/PrincipalExam";
-import PrincipalCalendar from "./components/Principal/Calendar/PrincipalCalendar";
 import PrincipalFees from "./components/Principal/Fees/PrincipalFees";
 import PrincipalNotice from "./components/Principal/Notice/PrincipalNotice";
 import TeachersAttendance from "./components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
@@ -144,7 +145,7 @@ function App() {
           <Route path="/admin/Subjects" element={<Subjects />} />
           <Route path="/admin/Transport" element={<Transport />} />
           <Route path="/admin/mail/:mode" element={<TeacherMail />} />
-          <Route path="/admin/calendar" element={<AdminCalendar />} />
+          <Route path="/admin/calendar" element={<Calendar />} />
           <Route path="/admin/notice" element={<AdminNotice />} />
           <Route path="/admin/academic-fees" element={<AcademicFees />} />
           <Route path="/admin/extracurricular" element={<ExtracurricularFees />} />
@@ -190,7 +191,7 @@ function App() {
             <Route path="/principal/teacher/profile" element={<TeacherProfile />} />
             <Route path="/principal/exam" element={<PrincipalExam />} />
             <Route path="/principal/student/progress" element={<StudentProgress />} />
-            <Route path="/principal/calendar" element={<PrincipalCalendar />} />
+            <Route path="/principal/calendar" element={<Calendar />} />
             <Route path="/principal/fees" element={<PrincipalFees />} />
             <Route path="/principal/mail/:mode" element={<TeacherMail />} />
             <Route path="/principal/notice" element={<PrincipalNotice />} />

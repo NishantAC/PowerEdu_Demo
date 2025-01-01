@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Mail from "./Inbox/MailInbox";
+import Mail from "./Mails/MailInbox";
 // import ComposeMail from "./ComposeMail/ComposeMail";
 // import FavouriteMail from "./Favourites/FavouriteMail";
 import io from "socket.io-client";
@@ -17,10 +17,9 @@ import {
   getTrashMails,
   getStarred,
   getSentMails
-} from "../../../services/mail.service";
-import { socketUrl } from "../../../common/socketLink";
+} from "../../services/mail.service";
+import { socketUrl } from "../../common/socketLink";
 import { useGoogleLogin } from "@react-oauth/google";
-import MailPromotion from "./Promotion/MailPromotion";
 import { selectThemeProperties } from "@/slices/theme";
 import { useSelector, useDispatch } from "react-redux";
 import { LinearProgress } from "@mui/material";
@@ -389,7 +388,7 @@ const fetchDeletedMail = async (refresh) => {
               )}
 
               {mode === "promotion" && (
-                <MailPromotion promotionMails={promotionMails} />
+                <></>
               )}
               {mode === "sent" && (
                 

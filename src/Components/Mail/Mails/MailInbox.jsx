@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import InboxMessage from "./InboxMessage";
 import SearchIcon from "@mui/icons-material/Search";
-import { getTime } from "../../../../common/Time";
+import { getTime } from "../../../common/Time";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";

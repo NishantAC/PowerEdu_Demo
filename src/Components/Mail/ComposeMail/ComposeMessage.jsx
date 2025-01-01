@@ -14,9 +14,9 @@ import { IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 import io from 'socket.io-client';
-import { socketUrl } from '../../../../common/socketLink';
-import { whiteSpaceValidation } from '../../../../Utils/CommonValidation';
-import { REQUIRED_FIELD_ERROR } from '../../../../common/constant';
+import { socketUrl } from '../../../common/socketLink';
+import { whiteSpaceValidation } from '../../../Utils/CommonValidation';
+import { REQUIRED_FIELD_ERROR } from '../../../common/constant';
 const socket = io(socketUrl);
 
 // const HtmlTooltip = styled(({ className, ...props }) => (

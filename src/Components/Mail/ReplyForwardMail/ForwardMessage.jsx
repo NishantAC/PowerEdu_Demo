@@ -4,7 +4,7 @@ import { IoMdSend } from "react-icons/io";
 import {
   fetchAllUsername,
   forwardMail,
-} from "../../../../services/mail.service";
+} from "../../../services/mail.service";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { IoIosAttach } from "react-icons/io";

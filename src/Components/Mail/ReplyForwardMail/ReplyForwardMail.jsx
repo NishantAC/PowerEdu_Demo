@@ -4,7 +4,7 @@ import { IoIosAttach, IoMdSend } from "react-icons/io";
 import { FaRegFileImage } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import ForwardMessage from "./ForwardMessage";
-import { getThread, replyToMail } from "../../../../services/mail.service";
+import { getThread, replyToMail } from "../../../services/mail.service";
 import ImageModal from "../ComposeMail/ImageModal";
 import { useSelector } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
