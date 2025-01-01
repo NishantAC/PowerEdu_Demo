@@ -4,9 +4,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Mail from "./Mails/MailInbox";
 // import ComposeMail from "./ComposeMail/ComposeMail";
-// import FavouriteMail from "./Favourites/FavouriteMail";
 import io from "socket.io-client";
-import GoogleImage from "../../../assets/images/Google.png";
+import GoogleImage from "../../assets/images/Google.png";
 import {
   checkAuth,
   fetchAllMails,
@@ -27,7 +26,6 @@ import debounce from "lodash.debounce";
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import { throttle } from "lodash";
-import "./TeacherMail.css"
 
 export const socket = io(socketUrl, {
   transports: ["websocket"],
@@ -39,7 +37,7 @@ export const socket = io(socketUrl, {
   forceBase64: false,
 });
 
-function TeacherMail() {
+function MailComponent() {
   const { user } = useSelector((state) => state.user);
   const themeProperties = useSelector(selectThemeProperties);
   const [AllMails, setAllMails] = useState([]);
@@ -66,7 +64,6 @@ function TeacherMail() {
   const [hasMoreDeleted, setHasMoreDeleted] = useState(true);
   const [starredMailNextPageToken, setStarredMailNextPageToken] = useState(null);
   const [hasMoreStarred, setHasMoreStarred] = useState(true);
-  // const [refresh, setRefresh] = useState(false)
   
 
   const googleLogin = useGoogleLogin({
@@ -117,6 +114,7 @@ function TeacherMail() {
   }, [user.id]);
 
   useEffect(() => {
+    
     if (isAuthorised) {
       switch (mode) {
         case "inbox":
@@ -193,7 +191,7 @@ function TeacherMail() {
         toast.info("No messages in sent",  { description: "You have not sended any messages yet"});
         setLoading(false);
         setGoogleLoading(false);
-        setDeletedMails([]);
+        setSentMails([]);
         return;
       }
       if ( refresh ){
@@ -322,18 +320,24 @@ const fetchDeletedMail = async (refresh) => {
           <div
             className=" p-[4px] rounded-[10px] w-fit shadow-xl"
             style={{
-              background: themeProperties.boxBackgroundSolid,
+              background: themeProperties.boxBackgroundSolid
             }}
           >
             <button
               onClick={googleLogin}
               className=" p-2 rounded-[10px] flex items-center "
-              style={{ background: themeProperties.buttonColor }}
+              style={{
+                background: themeProperties.buttonColor,
+                color: themeProperties.textColor,
+              }}
+              
             >
               <img src={GoogleImage} width={20} alt="Sign in with Google" />
               <span
                 className="ml-2"
-                style={{ color: themeProperties.textColorAlt }}
+                style={{ color: themeProperties.textColorAlt , 
+
+                }}
               >
                 Sign in with Google
               </span>
@@ -443,4 +447,4 @@ const fetchDeletedMail = async (refresh) => {
   );
 }
 
-export default TeacherMail;
+export default MailComponent;

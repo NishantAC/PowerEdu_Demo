@@ -33,6 +33,7 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 import "./App.css";
 import ViewProfile from "./components/Principal/Students/ViewProfile";
 import Calendar from "./Components/Calendar/Calendar";
+import MailComponent from "./Components/Mail/MailComponent";
 
 
 // Importing Admin Layout Components
@@ -74,7 +75,6 @@ import ClassTestMarks from "./components/Teacher/Exam/ClassTestMarks/ClassTestMa
 import StudentAttendance from "./components/Teacher/Student/StudentAttendance/StudentAttendance";
 import TeachersProfile from "./components/Teacher/TeacherProfile/Profile";
 import FolderTable from "./components/Teacher/Exam/PaperFolder/FolderTable";
-import TeacherMail from "./Components/Mail/TeacherMail";
 
 // Importing Principal Layout Components
 
@@ -144,7 +144,7 @@ function App() {
           <Route path="/admin/addUser" element={<FillUserInfo />} />
           <Route path="/admin/Subjects" element={<Subjects />} />
           <Route path="/admin/Transport" element={<Transport />} />
-          <Route path="/admin/mail/:mode" element={<TeacherMail />} />
+          <Route path="/admin/mail/:mode" element={<MailComponent />} />
           <Route path="/admin/calendar" element={<Calendar />} />
           <Route path="/admin/notice" element={<AdminNotice />} />
           <Route path="/admin/academic-fees" element={<AcademicFees />} />
@@ -160,7 +160,7 @@ function App() {
           <Route path="/teacher/add-homework" element={<TeacherHomework />} />
           <Route path="/teacher/student/attendance" element={<StudentAttendance />} />
           <Route path="/teacher/student/profile" element={<TeacherStudent />} />
-          <Route path="/teacher/mail/:mode" element={<TeacherMail />} />
+          <Route path="/teacher/mail/:mode" element={<MailComponent />} />
           <Route path="/teacher/notice" element={<TeacherNotice />} />
           <Route path="/teacher/exam-marks" element={<ExamMarks />} />
           <Route path="/teacher/class-test-marks" element={<ClassTestMarks />} />
@@ -193,7 +193,7 @@ function App() {
             <Route path="/principal/student/progress" element={<StudentProgress />} />
             <Route path="/principal/calendar" element={<Calendar />} />
             <Route path="/principal/fees" element={<PrincipalFees />} />
-            <Route path="/principal/mail/:mode" element={<TeacherMail />} />
+            <Route path="/principal/mail/:mode" element={<MailComponent />} />
             <Route path="/principal/notice" element={<PrincipalNotice />} />
             <Route path="/Principal/dashboard/profile" element={<PrincipalProfile />} />
             <Route path="/principal/view-profile" element={<PrincipalStudentsTabs />} />

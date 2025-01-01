@@ -9,7 +9,6 @@ import InputParent from "../Profiles/EditProfile/InputParent";
 import MultiSelectBox from "./Select";
 import SubjectsTable from "./Table/SubjectsTable";
 import DeleteConfirmationModal from "./Modal/DeleteConfirmationModal";
-import SelectBox from "./SelectBox";
 import { useDispatch, useSelector } from "react-redux";
 import classService from "../../../services/class.service";
 import {
@@ -22,7 +21,9 @@ import { resetSubjectsDropdown } from "../../../slices/subject";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import useDebounce from "../../../Utils/debounce";
-
+import AddSubjectForm from "./AddSubjectForm"; // Import the new component
+import SearchBarComponent from "@/Components/SearcBar/SearchBar";
+import SelectBox from "../../InputField/SelectBox";
 
 function Subjects() {
   const { user } = useSelector((state) => state.user);
@@ -69,10 +70,6 @@ function Subjects() {
     setPage(value);
   };
   const [classesDropdown, setClassesDropdown] = useState([]);
-
-  // useEffect(() => {
-  //   
-  // }, [subjects]);
 
   const dispatch = useDispatch();
 
@@ -147,251 +144,13 @@ function Subjects() {
     );
   };
 
-  // useEffect(() => {
-  //   setFilteredSubjects(subjects);
-  // }, [subjects]);
-
-  //   const searchSubjects = (event) => {
-  //   const searchValue = event.target.value.toLowerCase();
-  //   if (subjects?.result) {
-  //     const filteredResults = subjects.result.filter((subject) => {
-  //       const subjectCode = subject.subjectCode.toString();
-  //       const subjectName = subject.subjectName.toLowerCase();
-  //       return subjectCode.includes(searchValue) || subjectName.includes(searchValue);
-  //     });
-
-  //     // setFilteredSubjects(filteredResults); // Filter the subjects.result array
-  //     setPage(1); // Reset pagination when filtering
-  //   }
-  // };
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value); // Update search term as user types
   };
 
   return (
     <div className="subjectsContainer">
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          height: "20px",
-        }}
-      >
-        {/* left area */}
-        <div
-          style={{ color: "#4D4D4D", display: "flex", alignItems: "center" }}
-        >
-          <div
-            style={{
-              fontFamily: "Roboto",
-              fontSize: "18px",
-              fontWeight: "400",
-            }}
-          >
-            Home
-          </div>
-          <KeyboardArrowRightIcon />
-          <div
-            style={{
-              fontFamily: "Roboto",
-              fontSize: "18px",
-              fontWeight: "700",
-              textDecoration: "underline",
-            }}
-          >
-            Subjects
-          </div>
-        </div>
-
-        {/* right area */}
-        <Link to="/admin/home" style={{ textDecoration: "none" }}>
-          <div
-            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-          >
-            <WestIcon style={{ color: "#5F5F5F" }} />
-            <div
-              style={{
-                fontFamily: "Roboto",
-                fontWeight: "500",
-                fontSize: "24px",
-                letterSpacing: "4%",
-                color: "#414141",
-              }}
-            >
-              Home
-            </div>
-          </div>
-        </Link>
-      </nav>
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        <div>
-          <h3
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "600",
-              marginTop: "30px",
-              fontSize: "25px",
-            }}
-          >
-            All Subjects
-          </h3>
-        </div>
-        <div
-          style={{
-            width: "100%",
-            minHeight: "260px",
-            boxShadow: "0 2px 7px 0 rgba(52, 52, 52, 0.35)",
-            borderRadius: "5px",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              height: "64px",
-              backgroundColor: "#F9F9F9",
-              borderRadius: "5px 5px 0px 0px",
-              paddingLeft: "10px",
-              fontFamily: "Poppins",
-              fontSize: "20px",
-              fontWeight: "600",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            Add Subject
-          </div>
-          <form>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "30px",
-                padding: "20px 20px 60px 20px",
-              }}
-            >
-              <div className="classNo" style={{ backgroundColor: "white" }}>
-                <SelectBox
-                  text="Class"
-                  options={classesDropdown}
-                  placeHolder=""
-                  info={formValues.class}
-                  setInfo={(selectedClass) =>
-                    setFormValues({
-                      ...formValues,
-                      class: selectedClass,
-                    })
-                  }
-                />
-              </div>
-
-              <div className="subjectName" style={{ position: "relative" }}>
-                <MultiSelectBox
-                  text="Subject(s) *"
-                  placeholder="Enter Subject(s)"
-                  options={alldropdownClassSubjects}
-                  formValues={formValues}
-                  setFormValues={setFormValues}
-                />
-              </div>
-
-              <div className="subjectCode">
-                <InputParent text="Subject Code">
-                  <div
-                    className="inputBox"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    {formValues?.subjectCode?.join(", ")}
-                  </div>
-                </InputParent>
-              </div>
-
-              <div className="NoOfChapters">
-                <InputParent text="No. Of Chapter(s)">
-                  <div
-                    className="inputBox"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    {formValues?.noOfChapters?.join(", ")}
-                  </div>
-                </InputParent>
-              </div>
-            </div>
-          </form>
-          <div
-            style={{
-              position: "absolute",
-              bottom: "10px",
-              right: "40px",
-              display: "flex",
-              justifyContent: "center",
-              gap: "20px",
-              fontFamily: "Rubik",
-              fontSize: "18px",
-              fontWeight: "500",
-            }}
-          >
-            <button
-              style={{
-                width: "96px",
-                height: "36px",
-                backgroundColor: "white",
-                border: "1px solid #C14D4D",
-                color: " #C14D4D",
-                borderRadius: "5px",
-              }}
-              onClick={() => {
-                setFormValues({
-                  class: "",
-                  subjectName: [],
-                  subjectCode: [],
-                  noOfChapters: [],
-                });
-                dispatch(resetSubjectsDropdown()); // Clear the dropdown subjects
-              }}
-            >
-              Reset
-            </button>
-            <button
-              style={{
-                width: "96px",
-                height: "36px",
-                backgroundColor: "#204DF9",
-                border: "none",
-                color: "white",
-                borderRadius: "5px",
-              }}
-              onClick={() => {
-                const body = {
-                  school_code: user?.schoolcode,
-                  class_code: formValues.class,
-                  newSubjects: formValues.subjectCode,
-                };
-                SubjectService.updateSubjectsOfClasses(body).then(() => {
-                  
-                  setFormValues({
-                    class: "",
-                    subjectName: [],
-                    subjectCode: [],
-                    noOfChapters: [],
-                  });
-                  dispatch(
-                    getSubjectsOfClasses({
-                      school_code: user?.schoolcode,
-                      page,
-                      limit,
-                    })
-                  );
-                });
-              }}
-            >
-              Add
-            </button>
-          </div>
-        </div>
-
-        {/* Filters */}
         <div
           style={{
             display: "flex",
@@ -401,52 +160,23 @@ function Subjects() {
             gap: "10px",
           }}
         >
-          <div className="filtersContainer">
-            <p
-              style={{
-                fontFamily: "Rubik",
-                fontStyle: "normal",
-                fontWeight: "500",
-                fontSize: "20px",
-                color: "#000000",
-                marginTop: "auto",
-                marginBottom: "auto",
-              }}
-            >
-              Filters:-
-            </p>
-            <div className="filters">
-              <select
-                value={classFilter}
-                onChange={(e) => setClassFilter(e.target.value)}
-                style={{
-                  borderRadius: "5px",
-                  fontSize: "17px",
-                  padding: "4px 10px",
-                  color: "#414141",
-                }}
-              >
-                <option value="all">All</option>
-                {classesDropdown?.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-              <button
-                className="stdntAttndnceApplyBtn"
-                onClick={handleApplyFilter}
-              >
-                Apply
-              </button>
+            <div className="">
+              
+              <SelectBox
+                options={classesDropdown}
+                info={formValues.class}
+                setInfo={(selectedValue) =>
+                  setFormValues({ ...formValues, class: selectedValue })
+                }
+                placeHolder="Select Class"
+              />
+             
             </div>
-          </div>
-          <div className="searchBar">
-            <SearchRoundedIcon />
-            <input
-              type="text"
-              onChange={handleSearchChange}
-              placeholder="Search by subject name or code"
+          <div className="fixed left-1/2 top-0 transform -translate-x-1/2 z-[10000]">
+            <SearchBarComponent
+              searchTerm={searchTerm}
+              placeholder="Search Subjects"
+              handleChange={handleSearchChange}
             />
           </div>
         </div>

@@ -64,7 +64,7 @@ const SearchBarComponent = ({ searchString, setSearchString, handleChange, place
      return (
           <>
           
-          <Box sx={{ position:"fixed", top: "0", padding: "10px", zIndex: "100"}}>
+          <Box sx={{  padding: "10px", zIndex: "100"}}>
             <Toolbar>
               <Search
                 style={{

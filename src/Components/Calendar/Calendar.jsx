@@ -42,34 +42,43 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const StyledDay = styled(Paper)(({ theme, isSelected, isToday, isCurrentMonth, hasEvents }) => ({
-  height: '100px', // Increased height for better spacing
-  padding: '8px',
-  display: 'flex',
+const StyledDay = styled(Paper)(({ theme, isSelected, isToday, isCurrentMonth, hasEvents, themeProperties }) => ({
+  height: '80px', // Increased height for better spacing
+  padding: '20px',
+  display: isCurrentMonth ? 'flex' : 'none',
+  margin: '8px',
   flexDirection: 'column',
   cursor: 'pointer',
   backgroundColor: isSelected
-    ? `${theme.palette.primary.main}15`
+    ? `${themeProperties.specialColor}`
     : isToday
     ? `${theme.palette.grey[200]}80`
-    : 'white',
+    : `${themeProperties.boxBackgroundSolid}`,
   color: !isCurrentMonth
-    ? theme.palette.text.disabled
+    ? themeProperties.textColorAlt
     : isSelected
-    ? theme.palette.primary.main
+    ? themeProperties.textColorAlt
     : 'inherit',
-  border: isSelected 
-    ? `2px solid ${theme.palette.primary.main}`
-    : '1px solid #e0e0e0',
+
   borderRadius: '8px',
   transition: 'all 0.2s ease',
   position: 'relative',
   overflow: 'hidden',
-  boxShadow: hasEvents ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
+  boxShadow: 'none',
+  outline: '2px solid transparent',
+  
   
   '&:hover': {
     transform: 'scale(1.02)',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    boxShadow: isCurrentMonth &&  '0 4px 8px rgba(0,0,0,0.1)',
+    outline: hasEvents ? `2px solid #ff662e` : `2px solid ${themeProperties.specialColor}`,
+
+
+    '& $eventDot': {
+      transform: 'scale(1.2)',
+    },
+
+
   },
 }));
 
@@ -92,24 +101,14 @@ const EventPreview = styled(Box)(({ theme }) => ({
 }));
 
 const CalendarHeader = styled(Box)(({ theme }) => ({
-  background: theme.palette.background.paper,
   borderRadius: '12px',
-  padding: '16px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-  marginBottom: '24px',
+  marginBottom: '18px',
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
+  gap: '16px',
   alignItems: 'center',
 }));
 
-const StyledSelect = styled(Select)(({ theme }) => ({
-  '& .MuiSelect-select': {
-    paddingTop: '8px',
-    paddingBottom: '8px',
-    borderRadius: '8px',
-  },
-  minWidth: '120px',
-}));
 
 function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -185,7 +184,8 @@ function Calendar() {
 
   };
   const renderHeader = () => (
-    <CalendarHeader>
+    <CalendarHeader 
+    >
       <IconButton 
         onClick={() => {
           setCurrentDate(subMonths(currentDate, 1));
@@ -197,8 +197,8 @@ function Calendar() {
         <NavigateBeforeIcon />
       </IconButton>
       <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-        <SelectShadCn value={selectedMonth} onValueChange={(value) => handleMonthChange(value, months.indexOf(value))}>
-          <SelectTrigger>
+        <SelectShadCn  value={selectedMonth} onValueChange={(value) => handleMonthChange(value, months.indexOf(value))}>
+          <SelectTrigger className="w-40">
             <SelectValue placeholder={selectedMonth} />
           </SelectTrigger>
           <SelectContent>
@@ -214,7 +214,7 @@ function Calendar() {
         </SelectShadCn>
   
         <SelectShadCn value={selectedYear} onValueChange={(value) => handleYearChange(value)}>
-          <SelectTrigger>
+          <SelectTrigger className="w-40">
             <SelectValue placeholder={selectedYear} />
           </SelectTrigger>
           <SelectContent>
@@ -250,8 +250,10 @@ function Calendar() {
     for (let i = 0; i < 7; i++) {
       days.push(
         <Grid item xs key={i}>
-          <Typography align="center" sx={{ fontWeight: "bold" }}>
-            {format(addDays(startDate, i), "EEEEEE")}
+          <Typography align="center" sx={{ fontWeight: "semibold", 
+            color: themeProperties.specialColor
+           }}>
+            {format(addDays(startDate, i), "EEEE")}
           </Typography>
         </Grid>
       );
@@ -286,6 +288,7 @@ const renderCells = () => {
                 setSelectedDate(currentDay);
                 setOpen(true);
               }}
+              themeProperties={themeProperties}
             >
               <Typography variant="body2" sx={{ textAlign: 'right' }}>
                 {format(day, "d")}
@@ -314,7 +317,13 @@ const renderCells = () => {
   };
 
   return (
-    <div className="flex  gap-2">
+    <div className="flex gap-2 p-4 m-4 " 
+      style={{
+        background: themeProperties.boxBackgroundSolid,
+        color: themeProperties.textColor,
+        borderRadius: '12px',
+      }}
+    >
       <div className=" flex-1">
         {renderHeader()}
         {renderDays()}

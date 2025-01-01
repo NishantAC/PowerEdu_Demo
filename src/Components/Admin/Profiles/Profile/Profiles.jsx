@@ -320,12 +320,12 @@ function Profiles() {
         </h3>
       </div>
 
-        <div className="flex max-md:flex-col gap-10 w-96 justify-center items-center relative">
+        <div className=" fixed top-0 left-1/2 transform -translate-x-1/2 z-[10000]">
             <SearchBarComponent
               searchString={searchTerm}
               setSearchString={setSearchTerm}
               handleChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search your emails here..."
+              placeholder="Search by name or email"
             />
         </div>
 
