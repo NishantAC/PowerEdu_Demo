@@ -1,4 +1,5 @@
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+export const API_BASE_NEW_URL = import.meta.env.VITE_API_BASE_NEW_URL;
 
 // Constant messages
 const REQUIRED_FIELD_ERROR = "This is a required field.";

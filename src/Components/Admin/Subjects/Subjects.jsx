@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./Subjects.css";
 import { toast } from "sonner";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WestIcon from "@mui/icons-material/West";
-import { Link } from "react-router-dom";
-import InputParent from "../Profiles/EditProfile/InputParent";
-import MultiSelectBox from "./Select";
 import SubjectsTable from "./Table/SubjectsTable";
-import DeleteConfirmationModal from "./Modal/DeleteConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import classService from "../../../services/class.service";
 import {
@@ -24,6 +19,9 @@ import useDebounce from "../../../Utils/debounce";
 import AddSubjectForm from "./AddSubjectForm"; // Import the new component
 import SearchBarComponent from "@/Components/SearcBar/SearchBar";
 import SelectBox from "../../InputField/SelectBox";
+import { selectThemeProperties } from "@/slices/theme";
+
+
 
 function Subjects() {
   const { user } = useSelector((state) => state.user);
@@ -33,6 +31,7 @@ function Subjects() {
   const { alldropdownClassSubjects, subjects } = useSelector(
     (state) => state.subject
   );
+  const themeProperties = useSelector(selectThemeProperties);
 
   const [filteredSubjects, setFilteredSubjects] = useState(subjects);
 
@@ -44,6 +43,7 @@ function Subjects() {
           const body = {
             school_code: user?.schoolcode,
             searchTerm: debouncedSearchTerm,
+            limit
           };
           const result = await SubjectService.getSearchSubjectsOfClasses(body);
           setFilteredSubjects(result); // Update the filtered subjects with API response
@@ -63,8 +63,22 @@ function Subjects() {
     noOfChapters: [],
   });
 
+
+  const getLimit = () => {
+    const height = window.innerHeight;
+    const intHeight = parseInt(height/100);
+    return intHeight - 1;
+  };
+
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
+  const [limit, setLimit] = useState(getLimit());
+
+
+  useEffect(() => {
+    const intHeight = getLimit();
+    setLimit(intHeight);
+  }, [window.innerHeight, page, totalSubjects]);
+
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -113,6 +127,19 @@ function Subjects() {
       );
     }
   }, [formValues.class, user, page]);
+
+
+  const handleGetSubjects = (classCode) => {
+    dispatch(
+      getSubjectsOfClasses({
+        school_code: user?.schoolcode,
+        class_code: classCode,
+        page,
+        limit,
+      })
+    );
+  };
+  
 
   useEffect(() => {
     if (subjects) {
@@ -164,9 +191,9 @@ function Subjects() {
               
               <SelectBox
                 options={classesDropdown}
-                info={formValues.class}
+                info={formValues.class} 
                 setInfo={(selectedValue) =>
-                  setFormValues({ ...formValues, class: selectedValue })
+                  handleGetSubjects(selectedValue)
                 }
                 placeHolder="Select Class"
               />
@@ -184,8 +211,6 @@ function Subjects() {
         <div
           style={{
             width: "100%",
-            height: "300px",
-            backgroundColor: "red",
           }}
         >
           <SubjectsTable
@@ -198,15 +223,11 @@ function Subjects() {
             limit={limit}
             total={subjects.count}
             onPageChange={handlePageChange}
+            themeProperties={themeProperties}
           />
         </div>
       </div>
-      {showDeleteConfirmationModal && (
-        <DeleteConfirmationModal
-          itemToDelete={itemToDelete}
-          onClick={() => setShowDeleteConfirmationModal(false)}
-        />
-      )}
+
     </div>
   );
 }

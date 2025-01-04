@@ -1,11 +1,9 @@
 import React from "react";
-import SelectBox from "./SelectBox";
-import MultiSelectBox from "./Select";
-import InputParent from "../Profiles/EditProfile/InputParent";
 import { useDispatch } from "react-redux";
 import { resetSubjectsDropdown, getSubjectsOfClasses } from "../../../slices/subject";
 import SubjectService from "../../../services/subject.service";
-
+import SelectBox from "../../InputField/SelectBox";
+import InputField from "@/Components/InputField/InputField";
 const AddSubjectForm = ({
   classesDropdown,
   formValues,

@@ -242,7 +242,7 @@ function SideBar({
                 </div>
               </div>
             </div>
-            <div className="Sidebarlist overflow-hidden overflow-y-auto flex-1 select-none  ">
+            <div className="Sidebarlist overflow-hidden flex-1 select-none  ">
               <div>
                 {Items.map((item, index) => {
                   const Icon = item.icon;

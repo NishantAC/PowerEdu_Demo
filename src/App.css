@@ -6,7 +6,7 @@
 }
 
 body{
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 @font-face {
@@ -110,6 +110,7 @@ body{
 .test{
   color: #fffffff3;
 }
+
 
 @keyframes spin {
   0% {

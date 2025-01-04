@@ -317,7 +317,8 @@ const renderCells = () => {
   };
 
   return (
-    <div className="flex gap-2 p-4 m-4 " 
+    <div className=" p-2 h-full">
+    <div className="flex gap-2 h-full p-2" 
       style={{
         background: themeProperties.boxBackgroundSolid,
         color: themeProperties.textColor,
@@ -339,6 +340,8 @@ const renderCells = () => {
         selectedDate={selectedDate}
         events={events}
       />
+    </div>
+        
     </div>
   );
 }
