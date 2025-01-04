@@ -4,6 +4,7 @@ import { resetSubjectsDropdown, getSubjectsOfClasses } from "../../../slices/sub
 import SubjectService from "../../../services/subject.service";
 import SelectBox from "../../InputField/SelectBox";
 import InputField from "@/Components/InputField/InputField";
+
 const AddSubjectForm = ({
   classesDropdown,
   formValues,
@@ -47,19 +48,15 @@ const AddSubjectForm = ({
           </div>
 
           <div className="subjectCode">
-            <InputParent text="Subject Code">
               <div className="inputBox flex items-center">
                 {formValues?.subjectCode?.join(", ")}
               </div>
-            </InputParent>
           </div>
 
           <div className="NoOfChapters">
-            <InputParent text="No. Of Chapter(s)">
               <div className="inputBox flex items-center">
                 {formValues?.noOfChapters?.join(", ")}
               </div>
-            </InputParent>
           </div>
         </div>
       </form>

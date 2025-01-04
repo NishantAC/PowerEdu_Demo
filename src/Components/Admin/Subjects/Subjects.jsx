@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WestIcon from "@mui/icons-material/West";
-import SubjectsTable from "./Table/SubjectsTable";
+import SubjectsTable from "./SubjectsTable";
 import { useDispatch, useSelector } from "react-redux";
 import classService from "../../../services/class.service";
 import {
