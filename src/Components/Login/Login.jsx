@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
@@ -15,7 +15,7 @@ import { schooldata } from "../../slices/school";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,29 +46,31 @@ const Login = () => {
       dispatch(handleTokenExpiry());
     }
 
-    const loginData = JSON.parse(localStorage.getItem("loginData"));
+    const loginData = JSON.parse(sessionStorage.getItem("loginData"));
     if (loginData && loginData.rememberMe) {
-      formik.setValues({ email: loginData.email, rememberMe: true });
+      formik.setValues({ poweredu_id: loginData.poweredu_id, rememberMe: true });
     }
   }, [user]);
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      poweredu_id: "",
       password: "",
       rememberMe: false,
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("PowerEdu Id is required"),
+      poweredu_id: Yup.string().required("PowerEdu Id is required"),
       password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long"),
     }),
     onSubmit: async (values) => {
-      const { email, password, rememberMe } = values;
-      const response = await dispatch(login({ userid: email, password, rememberMe }));
+      const { poweredu_id, password, rememberMe } = values;
+      const response = dispatch(login({ userid: poweredu_id, password, rememberMe }));
       const schoolCode = response?.payload?.response?.schoolcode;
       const user_id = response?.payload?.response?.id.toString();
+
+
       if (user_id?.startsWith("17")) {
         navigate("/student/dashboard");
       } else if (user_id?.startsWith("14")) {
@@ -124,23 +126,23 @@ const Login = () => {
               <div className="relative">
                 <input
                   type="text"
-                  id="email"
-                  name="email"
-                  value={formik.values.email}
+                  id="poweredu_id"
+                  name="poweredu_id"
+                  value={formik.values.poweredu_id}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   className="w-full p-3 border border-white rounded-lg text-black focus:outline-none focus:ring-[#FFF] peer"
                 />
                 <label
-                  htmlFor="email"
+                  htmlFor="poweredu_id"
                   className={`absolute left-3 top-3 transition-all duration-200 transform ${
-                    formik.values.email ? '-translate-y-8 -translate-x-2 text-sm text-[#000]' : 'peer-focus:-translate-y-8 peer-focus:text-sm peer-focus:text-black peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-[16px] text-gray-500'
+                    formik.values.poweredu_id ? '-translate-y-8 -translate-x-2 text-sm text-[#000]' : 'peer-focus:-translate-y-8 peer-focus:text-sm peer-focus:text-black peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-[16px] text-gray-500'
                   }`}
                 >
-                  Login Id
+                  PowerEdu Id
                 </label>
-                {formik.touched.email && formik.errors.email && (
-                  <div className="text-red-500 text-sm mt-1 absolute">{formik.errors.email}</div>
+                {formik.touched.poweredu_id && formik.errors.poweredu_id && (
+                  <div className="text-red-500 text-sm mt-1 absolute">{formik.errors.poweredu_id}</div>
                 )}
               </div>
 

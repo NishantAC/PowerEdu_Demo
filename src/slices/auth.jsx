@@ -4,7 +4,7 @@ import AuthService from "../services/auth.service";
 import { setUser, clearUser } from "./user";
 import { useNavigate } from "react-router-dom";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(sessionStorage.getItem("user"));
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -75,24 +75,23 @@ export const login = createAsyncThunk(
   }
 );
 
+
 export const handleTokenExpiry = createAsyncThunk(
   "auth/handleLoginExpiry",
   async (_, { dispatch }) => {
-    const user = localStorage.getItem("user");
-    const token = localStorage.getItem("powerEduAuthToken");
-    const tokenExpiry = localStorage.getItem("tokenExpiry");
+    const user = sessionStorage.getItem("user");
+    const token = sessionStorage.getItem("powerEduAuthToken");
+    const tokenExpiry = sessionStorage.getItem("tokenExpiry");
     if (token && tokenExpiry && user) {
       const expiryTime = parseInt(tokenExpiry);
       const currentTime = Date.now();
-      // 
       if (expiryTime - currentTime < 0) {
-        // sign out the user as soon as the token expires
         dispatch(clearUser());
         dispatch(logout());
       } else {
         await new Promise((resolve) => {
           setTimeout(() => {
-            resolve(dispatch(handleTokenExpiry())); // set the timer to handle token expiry
+            resolve(dispatch(handleTokenExpiry()));
           }, expiryTime - currentTime);
         });
       }

@@ -15,9 +15,9 @@ const login = async (user_id, password, rememberMe) => {
     const tokenExpiry = rememberMe
       ? Date.now() + 7 * 24 * 60 * 60 * 1000
       : Date.now() + 24 * 60 * 60 * 1000; // set token expiry to 7 days if rememberMe is checked, otherwise 24 hours
-    localStorage.setItem("user", JSON.stringify(user)); // stores the user data in the browser's local storage for persistent use.
-    localStorage.setItem("powerEduAuthToken", JSON.stringify(accessToken));
-    localStorage.setItem("tokenExpiry", JSON.stringify(tokenExpiry));
+    sessionStorage.setItem("user", JSON.stringify(user)); // stores the user data in the browser's local storage for persistent use.
+     sessionStorage.setItem("powerEduAuthToken", JSON.stringify(accessToken));    
+     sessionStorage.setItem("tokenExpiry", JSON.stringify(tokenExpiry));
     return response;
   } catch (error) {
     console.error(error);
@@ -39,9 +39,9 @@ const updateUser = async (user_id, userData) => {
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("token");
-  localStorage.removeItem("tokenExpiry");
+  sessionStorage.removeItem("user");
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("tokenExpiry");
 };
 
 // services by Abhishek

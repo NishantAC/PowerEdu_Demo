@@ -41,7 +41,7 @@ function ProfileDetails() {
 
                 // Update the local storage data with the new values
                 const updatedUser = { ...currentUser, email, adress1: addressLine1, adress2: addressLine2 };
-                localStorage.setItem("user", JSON.stringify(updatedUser));
+                sessionStorage.setItem("user", JSON.stringify(updatedUser));
 
                 // Update the user data in the Redux store
                 dispatch(setUser(updatedUser));
