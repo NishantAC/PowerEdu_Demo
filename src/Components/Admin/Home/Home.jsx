@@ -75,7 +75,7 @@ function Home() {
 
             }}
             >
-              <h3 className="opacity-90 font-sans"> Welcome</h3>
+              <h3 className=" font-work-sans"> Welcome</h3>
               <h1 className="text-4xl font-semibold font-work-sans">
               {user?.firstname + " !"} 
               </h1>

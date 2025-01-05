@@ -13,8 +13,8 @@ const Toaster = ({
       className="toaster group"
       toastOptions={{
         style: {
-          background: themeProperties.toastColor ,
-          color: themeProperties.toastTextColor,
+          background: themeProperties?.toastColor ,
+          color: themeProperties?.toastTextColor,
         },
       }}
 

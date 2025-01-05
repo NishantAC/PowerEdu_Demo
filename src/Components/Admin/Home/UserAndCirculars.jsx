@@ -120,7 +120,7 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
       </div>
 
       {/* Circulars List Box */}
-      <CircularsList themeProperties={themeProperties} />
+      <CircularsList/>
     </div>
   );
 };

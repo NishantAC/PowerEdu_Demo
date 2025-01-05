@@ -7,18 +7,17 @@ import Totalinfo from "./Totalinfo/Totalinfo";
 import TeacherAttendance from "./TeacherAttendance/TeacherAttendance";
 import Circulars from "./Circulars/Circulars";
 import TopStudents from "./TopStudents/TopStudents";
-import TodoList from "./TodoList/TodoList";
-import "./PrincipalHome.css";
 import ToDo from "../../teacher/Home/ToDo";
-
+import { selectThemeProperties } from "@/slices/theme";
+import MeetingsBox from "@/Components/Meeting/MeetingsBox";
+import CircularsList from "@/Components/Admin/Home/CircularsList";
+import Information from "./Information";
 function PrincipalHome() {
   const mycontext = useContext(MenuContext);
   const navigate = useNavigate();
-  const { user: currentUser } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
+  const themeProperties = useSelector(selectThemeProperties);
 
-  if (!currentUser) {
-    return <Navigate to="/" />;
-  }
 
   const handleUploadNotice = () => {
     navigate("/principal/notice");
@@ -30,67 +29,82 @@ function PrincipalHome() {
 
   return (
     <div
-      onClick={mycontext.offMenu}
-      onScroll={mycontext.offMenu}
-      className="main__container"
+      className={`flex max-xl:flex-col h-full max-lg:min-h-[100vh]`}
+     
     >
-      <div className="left__container">
-        <br />
-        <span
-          style={{
-            fontFamily: "sans-serif",
-            fontStyle: "normal",
-            fontWeight: "bold",
-            fontSize: "25px",
-          }}
+       <div  className={`rounded-[18px] p-2 overflow-hidden z-50 w-[23%] max-lg:w-full h-full max-lg:min-h-[100vh]`}
+        style={{
+        }}
         >
-          Hello,{" "}
-          <span
+
+        <div className=" flex flex-col gap-2 h-full"
+          style={{
+            color: themeProperties.textColor,
+            }}
+        >
+          <div 
+            className=" rounded-[15px] shadow-md flex flex-col justify-center backdrop-blur-lg p-3 h-[50%] "
             style={{
-              fontFamily: "sans-serif",
-              fontStyle: "normal",
-              fontWeight: "normal",
-              fontSize: "25px",
+            background: themeProperties.specialColor,
             }}
           >
-            {currentUser.firstname}
-          </span>
-          &nbsp;<span className="wave">👋</span>
-        </span>
-        <br />
-        <br />
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <button onClick={handleUploadNotice} className="prncplbtn">
-            Upload Notice/Event
-          </button>
-          <a
-            href="https://calendar.google.com/calendar/u/0/r/eventedit?vcon=meet&dates=now&hl=en"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="prncplbtn">Schedule Meeting</button>
-          </a>
-          <button onClick={handleCreateExam} className="prncplbtn">
-            Create Exam Schedule
-          </button>
+            <div className="  py-2"
+            style={{color: themeProperties.textColorAlt,
+
+            }}
+            >
+              <h3 className=" font-work-sans"> Welcome</h3>
+              <h1 className="text-4xl font-semibold font-work-sans">
+              {user?.firstname + " !"} 
+              </h1>
+            </div>
+
+            <div className=" p-4"
+            style={{color: themeProperties.normal2,}}
+            >
+            </div>
+            <div
+              className={`flex gap-2 flex-col items-center`}
+            >
+              <div className=" flex gap-2 items-center justify-center">
+                <div>
+                </div>
+                <div>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+            <div className={` h-full `}>
+              <MeetingsBox />
+            </div>
         </div>
-        <Timetable />
       </div>
-      <div className="right__container">
-        <div>
-          <div className="prncplhomediv1">
+
+      <div className="xl:flex-1 xl:h-full"
+      >
+        <Information />
+      </div>
+        
+      {/* <div className="flex flex-1">
+        <div className="flex flex-1">
+          <div className="">
             <Totalinfo />
           </div>
-          <div className="prncplhomediv2">
+          <div className="">
+          <TopStudents />
             <TeacherAttendance />
-            <Circulars />
           </div>
-          <div className="prncplhomediv3">
-            <TopStudents />
+
+          <div className="w-full">
+          <CircularsList />
+
             <ToDo />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

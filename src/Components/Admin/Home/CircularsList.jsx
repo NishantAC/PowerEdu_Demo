@@ -16,15 +16,17 @@ import { Calendar } from "@/components/ui/calendar"
 import { getGoogleEvents } from "@/slices/calendar";
 import { useDispatch } from "react-redux";
 import { Calendarmini } from "@/Components/ui/calendarmini";
+import { selectThemeProperties } from "@/slices/theme";
 
 
 
-function CircularsList({ themeProperties }) {
+function CircularsList() {
 
 
   const { user } = useSelector((state) => state.user);
   const [circularsArray, setCircularsArray] = useState([]);
   const { googleEvents } = useSelector((state) => state.calendarSlice);
+  const themeProperties = useSelector(selectThemeProperties);
 
   useEffect(() => {
     CircularService.getCirculars(user?.schoolcode).then((res) => {
