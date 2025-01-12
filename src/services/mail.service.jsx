@@ -6,6 +6,7 @@ const API_URL = API_BASE_URL+"mail/";
 
 export const googleAuth = async (body) => {
   try {
+    console.log("googleAuth body", body);
     const response = await axios.post(`${API_URL}auth/google`, body, {
       
       withCredentials: true,
@@ -37,10 +38,10 @@ export const checkAuth = async () => {
       headers: authHeader(),
       withCredentials: true,
     });
+    console.log("Check auth response " + response);
     return response;
   } catch (error) {
-    
-    
+    console.error("Check auth error " +error);
     throw error;
     
   }

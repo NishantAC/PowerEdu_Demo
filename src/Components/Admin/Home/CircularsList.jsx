@@ -29,7 +29,7 @@ function CircularsList() {
   const themeProperties = useSelector(selectThemeProperties);
 
   useEffect(() => {
-    CircularService.getCirculars(user?.schoolcode).then((res) => {
+    CircularService.getCirculars(user?.school_id).then((res) => {
       const formattedCirculars = res.map((circular) => ({
         id: circular.id,
         subject: circular.title,
@@ -60,7 +60,7 @@ function CircularsList() {
     {/* Circulars */}
 
       
-      <div className=" px-2 py- rounded-lg flex-1 innerBlur">
+      <div className=" px-2 rounded-lg flex-1 innerBlur">
         <div className="text-center font-normal sticky top-0 z-50 py-2"
           style={
             {
@@ -71,8 +71,8 @@ function CircularsList() {
           Circulars 
         </div>
       
-        <div className="mx-1  relative">
-          <div className="flex flex-col overflow-y-scroll h-full max-lg:h-72 gap-2 relative pt-2 rounded-2xl">
+        <div className="mx-1 relative">
+          <div className="flex flex-col overflow-y-scroll h-full max-lg:h-72 gap-2 relative pt-2 pb-2 rounded-2xl">
             <style>
               {` 
               .custom-scrollbar::-webkit-scrollbar-thumb {

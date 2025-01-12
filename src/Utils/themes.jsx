@@ -113,7 +113,7 @@ const themes = {
   "sideBarColor": "transparent",
   "sideBarButton": "#228B22",
   "sideBarText": "#FFFFFF",
-  "sideBarCollapseButton": "#006400",
+  "sideBarCollapseButton": "#FFF",
   "googleMeetButton": "#228B22",
   "inputBackground": "#FFFFFF",
   "inputTextColor": "#000000",

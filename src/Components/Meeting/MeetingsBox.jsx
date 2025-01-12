@@ -80,7 +80,10 @@ function MeetingsBox() {
       "https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar",
     include_granted_scopes: false,
     onSuccess: async (codeResponse) => {
-      await googleAuth({ code: codeResponse.code, user_id: currentUser.id });
+      console.log("codeResponse", codeResponse);
+      console.log("currentUser", currentUser?.poweredu_id );
+
+      await googleAuth({ code: codeResponse.code, user_id: currentUser?.poweredu_id });
       setIsAuthorised(true);
       toast.success("Authentication successful", { autoClose: 500 });
     },

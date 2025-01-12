@@ -19,9 +19,6 @@ function Home() {
   const themeProperties = useSelector(selectThemeProperties);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
 
     const handleResize = () => {
       const screenSize = window.innerWidth;
@@ -77,7 +74,7 @@ function Home() {
             >
               <h3 className=" font-work-sans"> Welcome</h3>
               <h1 className="text-4xl font-semibold font-work-sans">
-              {user?.firstname + " !"} 
+              {user?.first_name + " !"} 
               </h1>
             </div>
 

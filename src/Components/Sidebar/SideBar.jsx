@@ -8,7 +8,7 @@ import React, {
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { MenuContext } from "@/context/Menu/MenuContext";
-import { logout } from "@/slices/auth";
+import { logout , authUser} from "@/slices/auth";
 import { eventBus } from "@/common/EventBus";
 import gsap from "gsap";
 import { FaSignOutAlt, FaAngleDown } from "react-icons/fa";
@@ -17,11 +17,11 @@ import { selectThemeProperties } from "@/slices/theme";
 import "./SideBar.css";
 import sidebarItems from "./SidebarItems";
 import MailSideBar from "./MailSideBar";
+import { toast } from "sonner";
+import { schooldata } from "@/slices/school";
 
 function SideBar({
-  toggleSidebar,
   openIndex,
-  setOpenIndex,
   isCollapsed,
   setIsCollapsed,
   toggleOpenIndex,
@@ -30,8 +30,6 @@ function SideBar({
   const lastActiveIndexString = localStorage.getItem("lastActiveIndex");
   const lastActiveIndex = Number(lastActiveIndexString);
   const [activeIndex, setActiveIndex] = useState(lastActiveIndex || 0);
-  // const [openIndex, setOpenIndex] = useState(null);
-  // const [isCollapsed, setIsCollapsed] = useState(false);
   const [Items, setItems] = useState([]);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -53,14 +51,42 @@ function SideBar({
   }, [userType]);
 
   useEffect(() => {
-    const userType = checkUserType(user?.id);
 
-    if (userType === "No ID provided") {
+    const powerEduAuthToken = sessionStorage.getItem("powerEduAuthToken");
+
+
+    if(!powerEduAuthToken){
       navigate("/");
-      return;
+      toast.error("Please login to continue");
     }
-    setUserType(userType);
-  }, [user]);
+
+    if (!user && powerEduAuthToken) {
+      const getUserInfo = async () => {
+        const response = await dispatch(authUser());
+
+        if(response.error){
+          dispatch(logout());
+          navigate("/");
+        }
+
+        // console.log(response?.payload);
+        const schoolCode = response?.payload?.school_id;
+        dispatch(schooldata({ code: schoolCode }));
+        const user = response?.payload
+        const userRole = user?.role.toLowerCase();
+
+        toast.message(`Welcome ${user?.first_name} ${user?.middle_name || ''} ${user?.last_name}`)
+
+        // dispatch(handleTokenExpiry());
+          
+        navigate(`/${userRole}/dashboard`);
+      };
+      getUserInfo();
+    }    
+    const type = user?.role;
+    setUserType(type);
+    
+  }, [ user]);
 
   useEffect(() => {
     setItems(memoizedItems);

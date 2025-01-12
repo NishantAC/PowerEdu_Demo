@@ -1,23 +1,21 @@
 import axios from "axios";
-import { API_BASE_URL } from "../common/constant";
-
-const API_URL = API_BASE_URL + "auth/";
-
+import { API_BASE_NEW_URL } from "../common/constant";
+import { setUser } from "../slices/user";
+import store from "../store"; // Assuming you have a store.js file where you configure your Redux store
+import {toast} from 'sonner';
+const API_URL = API_BASE_NEW_URL + "auth/";
 
 const login = async (user_id, password, rememberMe) => {
   try {
-    const response = await axios.post(API_URL + "signin", {
-      user_id,
+    const response = await axios.post(API_URL + "login", {
+      poweredu_id: user_id,
       password,
-      rememberMe,
+      remember_me: rememberMe,
     });
-    const { accessToken, ...user } = response.data;
-    const tokenExpiry = rememberMe
-      ? Date.now() + 7 * 24 * 60 * 60 * 1000
-      : Date.now() + 24 * 60 * 60 * 1000; // set token expiry to 7 days if rememberMe is checked, otherwise 24 hours
-    sessionStorage.setItem("user", JSON.stringify(user)); // stores the user data in the browser's local storage for persistent use.
-     sessionStorage.setItem("powerEduAuthToken", JSON.stringify(accessToken));    
-     sessionStorage.setItem("tokenExpiry", JSON.stringify(tokenExpiry));
+    console.log(response?.data?.data);
+    const user = response?.data?.data?.userInfo;
+    const accessToken = response?.data?.data?.token;
+    sessionStorage.setItem("powerEduAuthToken", JSON.stringify(accessToken));
     return response;
   } catch (error) {
     console.error(error);
@@ -39,10 +37,28 @@ const updateUser = async (user_id, userData) => {
 };
 
 const logout = () => {
-  sessionStorage.removeItem("user");
-  sessionStorage.removeItem("token");
-  sessionStorage.removeItem("tokenExpiry");
+  sessionStorage.removeItem("powerEduAuthToken"); 
 };
+
+
+const authUser = async () => {
+  try {
+    const response = await axios.post(API_URL + "authuser", {
+
+    }, 
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("powerEduAuthToken"))}`,
+        },
+    });
+    const user = response?.data?.data?.userInfo;
+    store.dispatch(setUser(user));
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 // services by Abhishek
 
@@ -135,6 +151,7 @@ const authService = {
   getUniqueRollNo,
   sendOTP,
   updatePassword,
+  authUser, 
 };
 
 export default authService;

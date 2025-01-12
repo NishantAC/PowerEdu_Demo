@@ -7,18 +7,11 @@ import { selectThemeProperties } from "@/slices/theme";
 
 function Layout(props) {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
   const [isOnMail, setIsOnMail] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
   const themeProperties = useSelector(selectThemeProperties);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-    return;
-  }, [user]);
 
   useEffect(() => {
     if (window.location.pathname.includes("mail")) {
@@ -29,6 +22,11 @@ function Layout(props) {
   }, [window.location.pathname]);
 
   useEffect(() => {
+
+    if(!localStorage.getItem("lastActiveIndex")){
+      localStorage.setItem("lastActiveIndex", 0);
+    }
+
     const isCollapsedString = localStorage.getItem("isCollapsed");
     const isCollapsed = isCollapsedString === "true";
     setTimeout(() => {

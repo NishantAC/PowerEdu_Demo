@@ -31,20 +31,20 @@ const NotificationModal = () => {
 
   const themeProperties = useSelector(selectThemeProperties);
 
-  useEffect(() => {
-    const requestNotificationPermission = async () => {
-      try {
-        const permission = await Notification.requestPermission();
-        if (permission === "granted") {
-          const token = await getToken(messaging);
-          setToken(token);
-        }
-      } catch (error) {
-        console.error("Error obtaining device token:", error);
-      }
-    };
-    requestNotificationPermission();
-  }, []);
+  // useEffect(() => {
+  //   const requestNotificationPermission = async () => {
+  //     try {
+  //       const permission = await Notification.requestPermission();
+  //       if (permission === "granted") {
+  //         const token = await getToken(messaging);
+  //         setToken(token);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error obtaining device token:", error);
+  //     }
+  //   };
+  //   requestNotificationPermission();
+  // }, []);
 
   useEffect(() => {
     if (user?.userid && token) {

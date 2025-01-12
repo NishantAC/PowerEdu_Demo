@@ -8,49 +8,60 @@ import bannerThree from "./bannerThree.svg";
 import bannerFour from "./bannerFour.svg";
 import bannerFive from "./bannerFive.svg";
 import { IoEyeOffOutline,IoEye  } from "react-icons/io5";
-import { login, handleTokenExpiry } from "../../slices/auth";
+import { login, handleTokenExpiry, authUser } from "../../slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { schooldata } from "../../slices/school";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import store from "@/store";
+import { setUser } from "@/slices/user";
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
+  useEffect(() => {
+
+    const powerEduAuthToken = sessionStorage.getItem("powerEduAuthToken");
+    if (powerEduAuthToken) {
+      
+
+      const getUserInfo = async () => {
+        const response = await dispatch(authUser());
+
+        if (response?.error) {
+          return;
+        }
+
+        console.log(response?.payload);
+        const schoolCode = response?.payload?.school_id;
+        const user = response?.payload
+        console.log(user);
+        const userRole = user?.role.toLowerCase();
+        dispatch(schooldata({ code: schoolCode }));
+
+        toast.success("Login Successfull", {description: `Welcome ${user?.first_name} ${user?.middle_name || ''} ${user?.last_name}`});
+
+        dispatch(handleTokenExpiry());
+
+        navigate(`/${userRole}/dashboard`);
+
+
+      };
+      getUserInfo();
+
+    }
+
+  }, []);
 
   useEffect(() => {
-    if (user) {
-      const user_id = user?.id?.toString();
-      if (user_id?.startsWith("17")) {
-        navigate("/student/dashboard");
-      } else if (user_id?.startsWith("14")) {
-        navigate("/teacher/dashboard");
-      } else if (user_id?.startsWith("15")) {
-        navigate("/teacher/dashboard");
-      } else if (user_id?.startsWith("13")) {
-        navigate("/principal/dashboard");
-      } else if (user_id?.startsWith("16")) {
-        navigate("/accounts");
-      } else if (user_id?.startsWith("12")) {
-        navigate("/admin/dashboard");
-      } else if (user_id?.startsWith("10")) {
-        navigate("/master");
-      } else if (user_id?.startsWith("18")) {
-        navigate("/staff/dashboard");
-      } else {
-        navigate("/");
-      }
-      dispatch(handleTokenExpiry());
+    if (!localStorage.getItem("isCollapsed")) {
+      localStorage.setItem("isCollapsed", false);
     }
-
-    const loginData = JSON.parse(sessionStorage.getItem("loginData"));
-    if (loginData && loginData.rememberMe) {
-      formik.setValues({ poweredu_id: loginData.poweredu_id, rememberMe: true });
-    }
-  }, [user]);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -66,34 +77,26 @@ const Login = () => {
     }),
     onSubmit: async (values) => {
       const { poweredu_id, password, rememberMe } = values;
-      const response = dispatch(login({ userid: poweredu_id, password, rememberMe }));
+      const response = await dispatch(login({ userid: poweredu_id, password, rememberMe }));
+
+      if (response?.error) {
+        console.error(response);
+        toast.error("Login Failed", {description: response?.payload});
+        return;
+      }
       const schoolCode = response?.payload?.response?.schoolcode;
-      const user_id = response?.payload?.response?.id.toString();
+      const user = response?.payload?.response?.data?.userInfo;
+      const userRole = user?.role.toLowerCase();
+      console.log(user);
+      store.dispatch(setUser(user));
+      dispatch(schooldata({ code: schoolCode }));
 
+      toast.success("Login Successfull", {description: `Welcome ${user?.first_name} ${user?.middle_name || ''} ${user?.last_name}`});
+      
+      navigate(`/${userRole}/dashboard`);
 
-      if (user_id?.startsWith("17")) {
-        navigate("/student/dashboard");
-      } else if (user_id?.startsWith("14")) {
-        navigate("/teacher/dashboard");
-      } else if (user_id?.startsWith("15")) {
-        navigate("/teacher/dashboard");
-      } else if (user_id?.startsWith("13")) {
-        navigate("/principal/dashboard");
-      } else if (user_id?.startsWith("16")) {
-        navigate("/accounts");
-      } else if (user_id?.startsWith("12")) {
-        navigate("/admin/dashboard");
-      } else if (user_id?.startsWith("10")) {
-        navigate("/master");
-      } else if (user_id?.startsWith("18")) {
-        navigate("/staff/dashboard");
-      } else {
-        navigate("/");
-      }
       dispatch(handleTokenExpiry());
-      if (schoolCode) {
-        dispatch(schooldata({ code: schoolCode }));
-      }
+  
     },
   });
 

@@ -72,23 +72,23 @@ function Information() {
   const searchRef = useRef(null);
 
   useEffect(() => {
-    SchoolUsersService.getTotalStudentsNumber(user?.schoolcode).then((res) =>
+    SchoolUsersService.getTotalStudentsNumber(user?.school_id).then((res) =>
       setTotalStudents(res.totalStudentsNumber)
     );
 
-    SchoolUsersService.getTotalTeachersNumber(user?.schoolcode).then((res) =>
+    SchoolUsersService.getTotalTeachersNumber(user?.school_id).then((res) =>
       setTotalTeachers(res.totalTeachersNumber)
     );
 
-    SchoolUsersService.getTotalStaffNumber(user?.schoolcode).then((res) =>
+    SchoolUsersService.getTotalStaffNumber(user?.school_id).then((res) =>
       setTotalStaff(res.totalStaffNumber)
     );
 
-    SchoolUsersService.getStudentGenderCounts(user?.schoolcode).then((res) => {
+    SchoolUsersService.getStudentGenderCounts(user?.school_id).then((res) => {
       setStudentGenderCounts(res);
     });
 
-    SchoolUsersService.newlyAddedUsers(user?.schoolcode).then((res) => {
+    SchoolUsersService.newlyAddedUsers(user?.school_id).then((res) => {
       const updatedUsersArray = res.map((user) => ({
         imgSrc: user.profileImage || "",
         firstName: user.firstname,

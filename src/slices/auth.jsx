@@ -76,6 +76,21 @@ export const login = createAsyncThunk(
 );
 
 
+export const authUser = createAsyncThunk(
+  "auth/authUser",
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const user = await AuthService.authUser();
+      dispatch(setUser(user));
+      return user;
+    } catch (error) {
+      dispatch(clearUser());
+      return rejectWithValue(error);
+    }
+  }
+);
+
+
 export const handleTokenExpiry = createAsyncThunk(
   "auth/handleLoginExpiry",
   async (_, { dispatch }) => {

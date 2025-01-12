@@ -22,7 +22,7 @@ function Navbar({ toggleSidebar }) {
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.user);
   const code = user?.schoolcode;
   const dispatch = useDispatch();
   const image = useSelector((state) => state.image);
@@ -35,12 +35,6 @@ function Navbar({ toggleSidebar }) {
   const navbarRef = useRef(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentSection, setCurrentSection] = useState("Dashboard");
-
-  useEffect(() => {
-    const role = checkUserType(user?.id);
-    
-    setUserType(role);
-  }, []);
 
   useEffect(() => {
     if (user?.image) {

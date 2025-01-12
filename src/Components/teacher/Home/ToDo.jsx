@@ -22,7 +22,7 @@ function ToDo() {
     resetEditAndView();
   }
 
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.user.user?.id);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openMenu = Boolean(anchorEl);
 

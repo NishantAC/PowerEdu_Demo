@@ -1,5 +1,5 @@
 export default function authHeader() {
-  const token = localStorage.getItem("powerEduAuthToken");
+  const token = sessionStorage.getItem("powerEduAuthToken");
 
   // Check if token exists and is not null/undefined
   if (token) {

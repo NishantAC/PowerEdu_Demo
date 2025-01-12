@@ -73,7 +73,9 @@ function MailComponent() {
     include_granted_scopes: false,
     onSuccess: async (codeResponse) => {
       try {
-        await googleAuth({ code: codeResponse.code, userId: user?.id });
+
+        //! have to change the userId as user?.poweredu_id
+        await googleAuth({ code: codeResponse.code, userId: 123456 });
         setIsAuthorised(true);
         toast.success("Login successful!", { description: "Login successful!" });
       } catch (error) {
@@ -88,7 +90,7 @@ function MailComponent() {
   });
 
   useEffect(() => {
-    socket.emit("connected", user.id);
+    socket.emit("connected",  user?.poweredu_id);
 
     socket.on("disconnect", () => {
       
@@ -111,7 +113,7 @@ function MailComponent() {
     return () => {
       socket.disconnect();
     };
-  }, [user.id]);
+  }, [user]);
 
   useEffect(() => {
     

@@ -15,6 +15,7 @@ const Toaster = ({
         style: {
           background: themeProperties?.toastColor ,
           color: themeProperties?.toastTextColor,
+          padding: "16px",
         },
       }}
 

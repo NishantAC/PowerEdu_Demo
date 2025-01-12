@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 
 function ToDoModal({ setTask, task, edit, handleOpen, handleClose, open, view }) {    
-    const user_id = useSelector((state) => state.user.user.id);
+    const user_id = useSelector((state) => state.user.user?.id);
 
     const [openClndr, setOpenclndr] = useState(false);
     const openclndr = () => setOpenclndr(true);
