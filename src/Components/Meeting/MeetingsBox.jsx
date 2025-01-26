@@ -32,7 +32,7 @@ function MeetingsBox() {
   const dispatch = useDispatch();
 
   const checkUserAuthorization = async () => {
-    const response = await checkAuth(currentUser.id);
+    const response = await checkAuth(currentUser?.id);
     setIsAuthorised(response?.data?.isAuthorised);
   };
   

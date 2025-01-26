@@ -41,7 +41,7 @@ function Subjects() {
       const searchSubjectsAPI = async () => {
         try {
           const body = {
-            school_code: user?.schoolcode,
+            school_code: user?.school_id,
             searchTerm: debouncedSearchTerm,
             limit
           };
@@ -88,14 +88,14 @@ function Subjects() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user && user?.schoolcode !== undefined) {
+    if (user && user?.school_id !== undefined) {
       classService
-        .getDropdownClasses(user?.schoolcode)
+        .getDropdownClasses(user?.school_id)
         .then((res) => setClassesDropdown(res));
 
       dispatch(
         getSubjectsOfClasses({
-          school_code: user?.schoolcode,
+          school_code: user?.school_id,
           page,
           limit,
         })
@@ -120,7 +120,7 @@ function Subjects() {
 
       dispatch(
         getSubjectsOfClasses({
-          school_code: user?.schoolcode,
+          school_code: user?.school_id,
           page,
           limit,
         })
@@ -132,7 +132,7 @@ function Subjects() {
   const handleGetSubjects = (classCode) => {
     dispatch(
       getSubjectsOfClasses({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: classCode,
         page,
         limit,
@@ -163,7 +163,7 @@ function Subjects() {
 
     dispatch(
       getSubjectsOfClasses({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: classFilter === "All" ? null : classFilter,
         page,
         limit,

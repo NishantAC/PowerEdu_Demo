@@ -52,7 +52,7 @@ function SideBar({
 
   useEffect(() => {
 
-    const powerEduAuthToken = sessionStorage.getItem("powerEduAuthToken");
+    const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
 
 
     if(!powerEduAuthToken){

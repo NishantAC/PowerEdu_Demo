@@ -8,6 +8,7 @@ import TeacherAttendance from "./TeacherAttendance/TeacherAttendance";
 import Circulars from "./Circulars/Circulars";
 import TopStudents from "./TopStudents/TopStudents";
 import ToDo from "../../teacher/Home/ToDo";
+import HomeInfo from "./HomeInfo";
 
 
 
@@ -16,23 +17,32 @@ function Information() {
   const themeProperties = useSelector(selectThemeProperties);
 
   return (
-    <div className=" max-xl:max-w-4/5 max-xl:mt-10 flex flex-col h-full p-2" >
-  
-      <div className="h-full relative overflow-hidden lg:flex w-full">
-
-        <div className="flex flex-col gap-2 h-full w-full ">
-        <TeacherAttendance />
-
+    <div className=" max-xl:max-w-4/5 max-xl:mt-10 flex flex-col h-full " >
+      <div className={`flex max-xl:flex-col-reverse flex-row justify-around items-center max-xl:py-4 rounded-[20px] `}
+      >
+        <div className="flex max-md:flex-col w-96 justify-center items-center absolute top-2 right-[33%] z-50 " >
         </div>
 
-        <div className="flex flex-col gap-2 h-full overflow-scroll w-full">
-          <CircularsList />
-        </div>
-
+        {/* <StatsAndCharts
+            totalStudents={totalStudents}
+            totalTeachers={totalTeachers}
+            totalStaff={totalStaff}
+            chartData={chartData}
+            deviceSize={deviceSize}
+            monthArray={monthArray}
+            yearArray={yearArray}
+            month={month}
+            setMonth={setMonth}
+            year={year}
+            setYear={setYear}
+            initialDate={initialDate}
+            themeProperties={themeProperties}
+          /> */}
+      </div>
+      <div className="h-full relative  ">
+        <HomeInfo />
 
       </div>
-
-
     </div>
   );
 }

@@ -48,9 +48,8 @@ function PrincipalTeacher(props) {
     const navigate = useNavigate();
     const { user: currentUser } = useSelector((state) => state.user);
     const currentteacher = useSelector((state) => state.subjectteacher.currentteacher);
-    const tabValue = props.location.tab;
-    const fromhome = props.location.state?.fromhome;
-    const userId = props.location.state?.userId;
+    const tabValue = localStorage.getItem('tab') ? parseInt(localStorage.getItem('tab')) : 0;
+    const userId = localStorage.getItem('teacher') ? JSON.parse(localStorage.getItem('teacher')).user_id : currentUser.id;
     const [value, setValue] = React.useState(tabValue ? tabValue : 0);
 
     const handleChange = (event, newValue) => {
@@ -64,27 +63,6 @@ function PrincipalTeacher(props) {
     return (
         <div className="studentprofile">
             <div className='studentaccount'>
-                <div style={{ marginTop: '28px', marginRight: '25px', marginLeft: '25px' }}>
-                    <p style={{ fontFamily: "Roboto", fontStyle: "normal", fontWeight: "400", fontSize: "18px", lineHeight: "21px", color: "#4D4D4D", }}>
-                        <Link to="/principal/home">Home</Link>{" "}&gt;
-                        <b>
-                            {" "}
-                            <u>Teacher Profile</u>
-                        </b>
-                    </p>
-                    <br />
-                    <h2 style={{ textAlign: 'center', fontFamily: "Poppins", fontWeight: '600', marginTop: '40px', fontSize: '25px' }}>Teacher Profile</h2>
-                    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-                        {/* Conditional Rendering for Profile Image */}
-                        <Avatar 
-                            className="stdntavtr"
-                            sx={{ width: 120, height: 120 }} 
-                            src={currentteacher?.profile_image ? currentteacher.profile_image : '/default-avatar.png'} // Use a default avatar if no profile image is available
-                            alt={`${currentteacher?.details?.firstname || 'Teacher'}'s Profile`}
-                        />
-                        <button className="stdntprofilebtn">Delete Account</button>
-                    </div>
-                </div>
             </div>
             <div style={{ width: '100%', padding: '0 0px' }}>
                 <Box sx={{ width: '100%' }} className="stdnttabbox">
@@ -106,10 +84,6 @@ function PrincipalTeacher(props) {
                     </TabPanel>
                 </Box>
             </div>
-            <button className="tchrprofilebackbtn" onClick={() => navigate(fromhome ? "/principal/home" : '/principal/teacher-attendance')}>
-                <KeyboardBackspaceOutlined style={{ verticalAlign: 'middle', marginTop: '5px' }} />
-                Back
-            </button>
         </div>
     );
 }

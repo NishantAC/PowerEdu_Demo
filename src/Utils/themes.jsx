@@ -22,6 +22,7 @@ const themes = {
     sideBarText: "#FFF",
     sideBarCollapseButton: "#00369a",
     borderColor: "#e9f7ff",
+    borderColorLight: "#d4d4d4",
     toastColor: "#6A0DAD",
     toastTextColor: "#FFFFFF",
     boxBackground: "#FFF",

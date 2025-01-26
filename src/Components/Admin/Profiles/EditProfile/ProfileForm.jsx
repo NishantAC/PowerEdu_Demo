@@ -22,11 +22,10 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
   const themeProperties = useSelector(selectThemeProperties);
   const { user } = useSelector((state) => state.user);
   const [classesDropdown, setClassesDropdown] = useState([]);
-
   useEffect(() => {
-    if (profiletype && user?.schoolcode !== undefined) {
+    if (profiletype && user?.school_id !== undefined) {
       const body = {
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         userType: profiletype.toLowerCase(),
       };
       authService
@@ -48,19 +47,21 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
         });
 
       if (profiletype == "students") {
-        classService.getDropdownClasses(user?.schoolcode).then((res) => {
+        classService.getDropdownClasses(user?.school_id).then((res) => {
           setClassesDropdown(res);
         });
       }
 
       if (profiletype == "teachers") {
         classService
-          .getAvailableClasses({ school_code: user?.schoolcode })
+          .getAvailableClasses({ school_code: user?.school_id })
           .then((res) => {
             setClassesDropdown(res.data);
           });
       }
     }
+
+    console.log("user", classesDropdown );
   }, [user, profiletype]);
 
   const handleDateChange = (name, selectedDate) => {

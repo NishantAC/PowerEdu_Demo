@@ -32,7 +32,7 @@ const Profile = ({
         >
           {
             image ? 
-            <img src={image} alt={user?.firstname} className="w-full h-full object-cover" />
+            <img src={image} alt={user?.first_name} className="w-full h-full object-cover" />
             :
             <div className="w-full h-full flex items-center justify-center" style={{background: themeProperties?.specialColor, color: themeProperties?.textColorAlt, }}>
 
@@ -85,7 +85,7 @@ const Profile = ({
               </Avatar>
 
               <div>
-                <p className="text-[14px] font-work-sans">{`${user?.firstname} ${user?.middlename} ${user?.lastname}`}</p>
+                <p className="text-[14px] font-work-sans">{`${user?.first_name} ${user?.middle_name || ''} ${user?.last_name}`}</p>
                 <p
                   className="text-[12px] font-work-sans text-end"
                   style={{

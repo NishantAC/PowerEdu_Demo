@@ -186,7 +186,7 @@ function App() {
             <Route path="/principal/student/profile" element={<PrincipalStudents />} />
             <Route path="/principal/student/timetable" element={<StudentTimetable />} />
             <Route path="/principal/student/marks" element={<StudentMarksTable />} />
-            <Route path="/principal/teachers" element={<PrincipalTeachers />} />
+            <Route path="/principal/teacher/:name" element={<PrincipalTeachers />} />
             <Route path="/principal/teacher/attendance" element={<TeachersAttendance />} />
             <Route path="/principal/teacher/profile" element={<TeacherProfile />} />
             <Route path="/principal/exam" element={<PrincipalExam />} />

@@ -27,7 +27,7 @@ function FillUserInfo() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    schoolcode: user?.schoolcode,
+    schoolcode: user?.school_id,
     rekorId: rekorId,
     userType: null,
     imageUrl: "",
@@ -57,9 +57,9 @@ function FillUserInfo() {
   });
 
   useEffect(() => {
-    if (userType && user?.schoolcode !== undefined) {
+    if (userType && user?.school_id !== undefined) {
       const body = {
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         userType: userType.toLowerCase(),
       };
       authService
@@ -82,7 +82,7 @@ function FillUserInfo() {
 
       if (userType === "Student") {
         classService
-          .getDropdownClasses( user?.schoolcode )
+          .getDropdownClasses( user?.school_id )
           .then((res) => {
             setClassesDropdown(res);
           });
@@ -90,7 +90,7 @@ function FillUserInfo() {
 
       if (userType === "Teacher") {
         classService
-          .getAvailableClasses({ school_code: user?.schoolcode })
+          .getAvailableClasses({ school_code: user?.school_id })
           .then((res) => {
             setClassesDropdown(res.data);
           });
@@ -106,9 +106,9 @@ function FillUserInfo() {
   }, [rekorId]);
 
   useEffect(() => {
-    if (userType && user?.schoolcode !== undefined && formValues.class !== "") {
+    if (userType && user?.school_id !== undefined && formValues.class !== "") {
       const body = {
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: formValues.class,
         userType: userType.toLowerCase(),
       };

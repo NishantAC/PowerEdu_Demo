@@ -15,7 +15,7 @@ const login = async (user_id, password, rememberMe) => {
     console.log(response?.data?.data);
     const user = response?.data?.data?.userInfo;
     const accessToken = response?.data?.data?.token;
-    sessionStorage.setItem("powerEduAuthToken", JSON.stringify(accessToken));
+    localStorage.setItem("powerEduAuthToken", JSON.stringify(accessToken));
     return response;
   } catch (error) {
     console.error(error);
@@ -37,7 +37,7 @@ const updateUser = async (user_id, userData) => {
 };
 
 const logout = () => {
-  sessionStorage.removeItem("powerEduAuthToken"); 
+  localStorage.removeItem("powerEduAuthToken"); 
 };
 
 
@@ -48,7 +48,7 @@ const authUser = async () => {
     }, 
       {
         headers: {
-          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("powerEduAuthToken"))}`,
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("powerEduAuthToken"))}`,
         },
     });
     const user = response?.data?.data?.userInfo;
@@ -64,7 +64,7 @@ const authUser = async () => {
 
 const getUniqueRekorId = async (body) => {
   try {
-    const response = await axios.get(`${API_URL}/getuniquerekorid`, {
+    const response = await axios.get(`${API_URL}getuniquerekorid`, {
       params: body,
     });
     // 
@@ -77,7 +77,7 @@ const getUniqueRekorId = async (body) => {
 
 const getUniqueRollNo = async (body) => {
   try {
-    const response = await axios.get(`${API_URL}/getuniquerollno`, {
+    const response = await axios.get(`${API_URL}getuniquerollno`, {
       params: body,
     });
     // 
@@ -90,7 +90,7 @@ const getUniqueRollNo = async (body) => {
 
 const getUniqueAdmissionNo = async (body) => {
   try {
-    const response = await axios.get(`${API_URL}/getuniqueadmissionno`, {
+    const response = await axios.get(`${API_URL}getuniqueadmissionno`, {
       params: body,
     });
     // 
@@ -120,7 +120,7 @@ const register = async (formData) => {
 
 const sendOTP = async (body) => {
   try {
-    const response = axios.post(API_BASE_URL+"auth/sendotp", body);
+    const response = axios.post(API_URL+"auth/sendotp", body);
     return response;
   } catch (error) {
     throw error;

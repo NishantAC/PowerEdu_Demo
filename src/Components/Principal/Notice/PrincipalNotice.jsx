@@ -89,7 +89,7 @@ export default function PrincipalNotice() {
 
   // Fetch principal photo
   const getPhoto = () => {
-    const userId = user.id; // Assuming `user.id` is available in your state
+    const userId = user?.id; // Assuming `user.id` is available in your state
     principalService
       .getPrincipalPhoto({ user_id: userId }) // Pass user_id in the request body
       .then((result) => {

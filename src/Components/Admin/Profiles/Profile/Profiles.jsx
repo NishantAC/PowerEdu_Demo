@@ -55,7 +55,7 @@ function Profiles() {
     if (profileType === "students") {
       dispatch(
         fetchAllStudents({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           class_code: classFilter,
           year: parseInt(academicYearFilter),
           page,
@@ -65,7 +65,7 @@ function Profiles() {
     } else if (profileType === "teachers") {
       dispatch(
         fetchAllTeachers({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "teacher",
           page,
@@ -75,7 +75,7 @@ function Profiles() {
     } else if (profileType === "principal") {
       dispatch(
         fetchAllPrincipal({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "principal",
           page,
@@ -85,7 +85,7 @@ function Profiles() {
     } else if (profileType === "accountant") {
       dispatch(
         fetchAllAccountant({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "accountant",
           page,
@@ -95,7 +95,7 @@ function Profiles() {
     } else if (profileType === "staff") {
       dispatch(
         fetchAllStaff({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "staff",
           page,
@@ -104,7 +104,7 @@ function Profiles() {
       );
     }
     setLoading(false);
-  }, [profileType, currentUser.schoolcode, dispatch]);
+  }, [profileType, currentUser?.school_id, dispatch]);
 
   const { 
     allTeachers, 
@@ -150,7 +150,7 @@ function Profiles() {
     setLoading(true);
     
     const body = {
-      school_code: currentUser.schoolcode,
+      school_code: currentUser?.school_id,
       year: parseInt(academicYearFilter),
       searchTerm: debouncedSearchTerm,
     };
@@ -200,7 +200,7 @@ function Profiles() {
     if (profileType === "students") {
       dispatch(
         fetchAllStudents({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           class_code: classFilter,
           year: parseInt(academicYearFilter),
           page,
@@ -210,7 +210,7 @@ function Profiles() {
     } else if (profileType === "teachers") {
       dispatch(
         fetchAllTeachers({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "teacher",
           page,
@@ -220,7 +220,7 @@ function Profiles() {
     } else if (profileType === "principal") {
       dispatch(
         fetchAllPrincipal({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "principal",
           page,
@@ -230,7 +230,7 @@ function Profiles() {
     } else if (profileType === "accountant") {
       dispatch(
         fetchAllAccountant({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "accountant",
           page,
@@ -240,7 +240,7 @@ function Profiles() {
     } else if (profileType === "staff") {
       dispatch(
         fetchAllStaff({
-          school_code: currentUser.schoolcode,
+          school_code: currentUser?.school_id,
           year: parseInt(academicYearFilter),
           profile: "staff",
           page,
@@ -252,10 +252,10 @@ function Profiles() {
   };
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: currentUser.schoolcode }));
-    dispatch(getAcademicYearsDropdown({ schoolcode: currentUser.schoolcode }));
+    dispatch(getDropdownClasses({ schoolcode: currentUser?.school_id }));
+    dispatch(getAcademicYearsDropdown({ schoolcode: currentUser?.school_id }));
     handleApplyFilter(); 
-  }, [currentUser.schoolcode, dispatch]);
+  }, [currentUser?.school_id, dispatch]);
 
 
   useEffect(() => {

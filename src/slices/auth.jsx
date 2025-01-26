@@ -4,7 +4,7 @@ import AuthService from "../services/auth.service";
 import { setUser, clearUser } from "./user";
 import { useNavigate } from "react-router-dom";
 
-const user = JSON.parse(sessionStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -94,9 +94,9 @@ export const authUser = createAsyncThunk(
 export const handleTokenExpiry = createAsyncThunk(
   "auth/handleLoginExpiry",
   async (_, { dispatch }) => {
-    const user = sessionStorage.getItem("user");
-    const token = sessionStorage.getItem("powerEduAuthToken");
-    const tokenExpiry = sessionStorage.getItem("tokenExpiry");
+    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("powerEduAuthToken");
+    const tokenExpiry = localStorage.getItem("tokenExpiry");
     if (token && tokenExpiry && user) {
       const expiryTime = parseInt(tokenExpiry);
       const currentTime = Date.now();

@@ -25,7 +25,7 @@ const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
 
-    const powerEduAuthToken = sessionStorage.getItem("powerEduAuthToken");
+    const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
     if (powerEduAuthToken) {
       
 
@@ -84,17 +84,14 @@ const Login = () => {
         toast.error("Login Failed", {description: response?.payload});
         return;
       }
-      const schoolCode = response?.payload?.response?.schoolcode;
+      const schoolCode = response?.payload?.response?.school_id;
       const user = response?.payload?.response?.data?.userInfo;
       const userRole = user?.role.toLowerCase();
       console.log(user);
       store.dispatch(setUser(user));
       dispatch(schooldata({ code: schoolCode }));
-
       toast.success("Login Successfull", {description: `Welcome ${user?.first_name} ${user?.middle_name || ''} ${user?.last_name}`});
-      
       navigate(`/${userRole}/dashboard`);
-
       dispatch(handleTokenExpiry());
   
     },

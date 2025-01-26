@@ -64,7 +64,7 @@ function Layout(props) {
             color: themeProperties.textColor,
           }}
         >
-          <div className="z-50 h-[10vh] ">
+          <div className="z-50 h-[7vh] ">
             <NavBar
               toggleSidebar={toggleSidebar}
               toggleOpenIndex={toggleOpenIndex}
