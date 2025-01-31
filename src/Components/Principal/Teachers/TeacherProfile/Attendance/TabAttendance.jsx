@@ -1,40 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import './TabAttendance.css'
 import TabAttendanceTable from './TabAttendanceTable';
 import { fetchUserAttendance } from '../../../../../slices/attendance';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentTeacherData } from '../../../../../slices/subjectteacher';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { selectThemeProperties } from '@/slices/theme';
 
 function TabAttendance({ userId }) {
+    const themeProperties = useSelector(selectThemeProperties);
     const [filterMonth, setFilterMonth] = React.useState('');
     const [filterYear, setFilterYear] = React.useState(parseInt(new Date().getFullYear()));
     const currentteacher = useSelector((state) => state.subjectteacher.currentteacher);
 
-
-    const dispatch = useDispatch()
-    const { userAttendance } = useSelector(state => state.attendance)
-    useEffect(() => {
-
-        dispatch(getCurrentTeacherData({ userId }))
-
-    }, [])
+    const dispatch = useDispatch();
+    const { userAttendance } = useSelector(state => state.attendance);
 
     useEffect(() => {
-        dispatch(fetchUserAttendance({ user_id: userId, year: filterYear, month: filterMonth, isTeacher: true }))
-    }, [currentteacher])
+        dispatch(getCurrentTeacherData({ userId }));
+    }, []);
 
-    const handleMonthChange = (event) => {
-        setFilterMonth(event.target.value);
+    useEffect(() => {
+        dispatch(fetchUserAttendance({ user_id: userId, year: filterYear, month: filterMonth, isTeacher: true }));
+    }, [currentteacher]);
+
+    const handleMonthChange = (value) => {
+        setFilterMonth(value);
     };
-    const handleYearChange = (event) => {
-        const selectedYear = parseInt(event.target.value); // Convert selected value to a number
+
+    const handleYearChange = (value) => {
+        const selectedYear = parseInt(value); // Convert selected value to a number
         setFilterYear(selectedYear);
     };
 
-
     const handleApplyFilter = () => {
-        dispatch(fetchUserAttendance({ user_id: userId, year: filterYear, month: filterMonth, isTeacher: true }))
-    }
+        dispatch(fetchUserAttendance({ user_id: userId, year: filterYear, month: filterMonth, isTeacher: true }));
+    };
 
     let presentCount = 0;
     let absentCount = 0;
@@ -83,7 +91,6 @@ function TabAttendance({ userId }) {
         { value: '12', label: 'December' },
     ];
 
-
     const getYearsArray = () => {
         const currentDate = new Date().getFullYear();
         const initialYear = new Date(currentteacher?.doj || "").getFullYear();
@@ -100,20 +107,36 @@ function TabAttendance({ userId }) {
         <div>
             <div className="prncpltchrattendancefilters">
                 <h4 style={{ margin: 'auto 10px auto 0px' }}>Filters:-</h4>
-                <select value={filterMonth} onChange={handleMonthChange} style={{ borderRadius: '5px', fontSize: '16px', padding: '6px 10px', color: '#414141', width: '120px' }}>
-                    {monthOptions.map((option) => (
-                        <option key={option.value} value={option.value} style={{ fontSize: '20px' }}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
-                <select value={filterYear} onChange={handleYearChange} style={{ borderRadius: '5px', fontSize: '16px', padding: '6px 10px', color: '#414141', width: '120px' }}>
-                    {yearOptions.map((option) => (
-                        <option key={option.value} value={option.value} style={{ fontSize: '20px' }}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
+                <Select onValueChange={handleMonthChange}>
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Months</SelectLabel>
+                            {monthOptions.map((option) => (
+                                <SelectItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </SelectItem>
+                            ))}
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+                <Select onValueChange={handleYearChange}>
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Years</SelectLabel>
+                            {yearOptions.map((option) => (
+                                <SelectItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </SelectItem>
+                            ))}
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
                 <button className="academicsapplybtn" type='button' onClick={handleApplyFilter}>Apply</button>
             </div>
             <div className="prncpltchrattendancediv2">
@@ -143,4 +166,4 @@ function TabAttendance({ userId }) {
     )
 }
 
-export default TabAttendance
+export default TabAttendance;

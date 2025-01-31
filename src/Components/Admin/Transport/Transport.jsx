@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Transport.css";
 import { toast } from "sonner";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";

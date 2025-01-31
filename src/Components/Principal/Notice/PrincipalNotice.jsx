@@ -1,5 +1,5 @@
+// filepath: /C:/Users/nisha/OneDrive/Documents/WorkGit/Rekor_redefined/Frontend/src/Components/Principal/Notice/PrincipalNotice.jsx
 import React, { useContext, useState, useEffect } from "react";
-import styles from "./PrincipleNotice.module.css";
 import { MenuContext } from "../../../context/Menu/MenuContext";
 import Avatar from "@mui/material/Avatar";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,14 +8,11 @@ import principalService from "../../../services/principal.service";
 import Readmore from "../../Student/Home/Readmore";
 import { FaDownload } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-
 import PrincipalDeleteNotice from "./PrincipalDeleteNotice";
 import PrincipalAddNotice from "./PrincipalAddNotice";
 import { Box } from "@mui/material";
 import { getDropdownClasses } from "../../../slices/principal";
-import { saveAs } from "file-saver"; // Importing the FileSaver.js library
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import { saveAs } from "file-saver";
 import { styled } from "@mui/material/styles";
 import { API_BASE_URL } from "@/common/constant";
 
@@ -31,23 +28,22 @@ export default function PrincipalNotice() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user)
   const code = user?.schoolcode;
-  const [principalMsgs, setPrincipalMsgs] = useState([]); // Multiple messages
+  const [principalMsgs, setPrincipalMsgs] = useState([]);
   const [allNotices, setAllNotices] = useState([]);
   const [type, setType] = useState("");
-  const [logo, setLogo] = useState(); // To store principal's image
-  
+  const [logo, setLogo] = useState();
   const [active, setActive] = useState(0);
   const { classes } = useSelector((state) => state.principal);
-  const [selectedMessageId, setSelectedMessageId] = useState(null); // Track selected message ID for editing
-  const [title, setTitle] = useState(""); // Track title input
-  const [description, setDescription] = useState(""); // Track description input
-  const [editing, setEditing] = useState(false); // For tracking edit mode
+  const [selectedMessageId, setSelectedMessageId] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     dispatch(getDropdownClasses({ schoolcode: user?.schoolcode }));
     fetchAllNotices();
-    fetchPrincipalMsgs(); // Fetch all messages
-    getPhoto(); // Fetch principal's image
+    fetchPrincipalMsgs();
+    getPhoto();
   }, []);
 
   const classFunc = () => {
@@ -60,7 +56,6 @@ export default function PrincipalNotice() {
     setActive(1);
   };
 
-  // Fetch all notices
   const fetchAllNotices = () => {
     const body = { school_code: user?.schoolcode };
     ClassNoticeService.getAllNotices(body)
@@ -71,15 +66,12 @@ export default function PrincipalNotice() {
       .catch((err) => console.error(err));
   };
 
-  // Fetch all principal messages (multiple)
   const fetchPrincipalMsgs = () => {
     principalService
       .getPrincipalMessage({ user_id: user?.id })
       .then((res) => {
         if (res) {
-          setPrincipalMsgs([res]); // Wrap response in array if needed
-        } else {
-          
+          setPrincipalMsgs([res]);
         }
       })
       .catch((err) => {
@@ -87,25 +79,21 @@ export default function PrincipalNotice() {
       });
   };
 
-  // Fetch principal photo
   const getPhoto = () => {
-    const userId = user?.id; // Assuming `user.id` is available in your state
+    const userId = user?.id;
     principalService
-      .getPrincipalPhoto({ user_id: userId }) // Pass user_id in the request body
+      .getPrincipalPhoto({ user_id: userId })
       .then((result) => {
-        const imageUrl = result.imageUrl; // Assuming your API response has imageUrl
+        const imageUrl = result.imageUrl;
         if (imageUrl) {
-          setLogo(imageUrl); // Set the image URL in the logo state
-        } else {
-          
+          setLogo(imageUrl);
         }
       })
       .catch((error) => {
-        
+        console.error(error);
       });
   };
 
-  // Handle PDF download
   const handleDownloadButton = async (event, key) => {
     event.preventDefault();
     try {
@@ -120,19 +108,17 @@ export default function PrincipalNotice() {
       const fetchedFilename = match ? match[1] : "file.pdf";
       saveAs(blob, fetchedFilename);
     } catch (error) {
-      
+      console.error(error);
     }
   };
 
-  // Select message for editing
   const handleEditClick = (messageId, messageTitle, messageContent) => {
-    setSelectedMessageId(messageId); // Set the selected message ID
-    setTitle(messageTitle); // Set the selected title
-    setDescription(messageContent); // Set the selected content
-    setEditing(true); // Enable editing mode
+    setSelectedMessageId(messageId);
+    setTitle(messageTitle);
+    setDescription(messageContent);
+    setEditing(true);
   };
 
-  // Save edited message
   const handleSaveEdit = async () => {
     try {
       const updatedMessage = {
@@ -140,7 +126,6 @@ export default function PrincipalNotice() {
         description: description,
       };
 
-      // Call your API to update the message
       await fetch(
         `${API_BASE_URL}principals/editprincipalmessage/${selectedMessageId}/${user.id}`,
         {
@@ -150,10 +135,7 @@ export default function PrincipalNotice() {
         }
       );
 
-      // Refetch principal messages to update the UI
       fetchPrincipalMsgs();
-
-      // Close editor and clear the state
       setEditing(false);
       setDescription("");
       setTitle("");
@@ -166,10 +148,10 @@ export default function PrincipalNotice() {
     <div
       onClick={mycontext.offMenu}
       onScroll={mycontext.offMenu}
-      className={styles.main}
+      className="p-4"
     >
-      <div style={{ display: "flex" }}>
-        <p className={styles.heading}>
+      <div className="flex">
+        <p className="text-lg font-semibold">
           Home &gt;
           <b>
             {" "}
@@ -195,164 +177,128 @@ export default function PrincipalNotice() {
         </Box>
       </div>
 
-      <div className={styles.noticediv}>
-        <div className={styles.noticedivD1}>
-          <div className={styles.clas}>
-            <p className={styles.head}>Notice</p>
-            <div className={styles.button}>
-              <button
-                autoFocus
-                onClick={classFunc}
-                className={`${styles.noticebtn} ${
-                  active === 0 ? styles.noticebtnfocus : ""
-                }`}
-              >
-                Class
-              </button>
-              <button
-                onClick={fetchAllNotices}
-                className={`${styles.noticebtn} ${
-                  active === 1 ? styles.noticebtnfocus : ""
-                }`}
-              >
-                School
-              </button>
-            </div>
-          </div>
-
-          <div className={styles.area}>
-            {allNotices?.map((row) => (
-              <div
-                style={{ display: "flex", margin: "0", width: "100%" }}
-                key={row.id}
-              >
-                <div style={{ width: "80%" }}>
-                  <p>{row?.date?.split("-").reverse().join("-")}</p>
-                  <p>{row.title}</p>
-                  <p>
-                    <Readmore
-                      quote={row.description}
-                      wordLength={150}
-                      underline={true}
-                    />
-                  </p>
-                </div>
-                <div style={{ width: "20%", paddingLeft: "100px" }}>
-                  {row?.file_url && (
-                    <a
-                      onClick={(event) =>
-                        handleDownloadButton(event, row.file_url)
-                      }
-                      href="#"
-                    >
-                      <FaDownload />
-                    </a>
-                  )}
-                  {row?.created_by === user?.id && (
-                    <PrincipalDeleteNotice
-                      title={row.title}
-                      id={row.id}
-                      type={type}
-                      fetchAllNotices={fetchAllNotices}
-                    />
-                  )}
-                  <p>{row?.class_code}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.noticedivD2}>
-          <div className={styles.principal}>
-            {/* Title and Edit button in a single row */}
-            <div className={styles.principalHeader}>
-              <p>Principal Message</p>
-              <MdEdit 
-                onClick={() =>
-                  handleEditClick(
-                    principalMsgs[0].id,
-                    principalMsgs[0].title,
-                    principalMsgs[0].description
-                  )
-                } // Handle edit
-              />
-            </div>
-
-            {/* Edit and Save functionality for Principal Message */}
-            {editing ? (
-              <div
-                style={{
-                  display: "grid",
-                  justifyContent: "flex-start",
-                  gap: 20,
-                  width: "100%",
-                  height: "480px",
-                }}
-              >
-               <CustomAvatar alt="Principal" src={logo} />
-
-                <div
-                  style={{
-                    display: "grid",
-                    flexDirection: "column",
-                    gap: 10,
-                    width: "100%",
-                  }}
+      <div className="mt-4">
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-1/2">
+            <div className="flex justify-between items-center">
+              <p className="text-xl font-bold">Notice</p>
+              <div className="flex space-x-2">
+                <button
+                  autoFocus
+                  onClick={classFunc}
+                  className={`px-4 py-2 rounded ${
+                    active === 0 ? "bg-blue-500 text-white" : "bg-gray-200"
+                  }`}
                 >
-                  <input
-                    style={{ width: "100%" }}
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Edit Title"
-                  />
-
-                  {/* ReactQuill editor for rich text editing */}
-                  {/* <ReactQuill
-                    value={description} 
-                    onChange={(value) => setDescription(value)} 
-                    placeholder="Edit Message"
-                    style={{
-                      width: "100%",
-                      marginBottom: "10px",
-                      height: "150px",
-                    }}
-                  /> */}
-                </div>
-                <button onClick={handleSaveEdit}>Save</button>
+                  Class
+                </button>
+                <button
+                  onClick={fetchAllNotices}
+                  className={`px-4 py-2 rounded ${
+                    active === 1 ? "bg-blue-500 text-white" : "bg-gray-200"
+                  }`}
+                >
+                  School
+                </button>
               </div>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  gap: 20,
-                  width: "100%",
-                  height: "480px",
-                  
-                }}
-              >
-                <Avatar
-                  alt="Principal"
-                  src={logo}
-                  sx={{ width: 132, height: 132 }}
+            </div>
+
+            <div className="mt-4">
+              {allNotices?.map((row) => (
+                <div
+                  className="flex justify-between items-center mb-4"
+                  key={row.id}
+                >
+                  <div className="w-4/5">
+                    <p>{row?.date?.split("-").reverse().join("-")}</p>
+                    <p className="font-semibold">{row.title}</p>
+                    <p>
+                      <Readmore
+                        quote={row.description}
+                        wordLength={150}
+                        underline={true}
+                      />
+                    </p>
+                  </div>
+                  <div className="w-1/5 pl-4">
+                    {row?.file_url && (
+                      <a
+                        onClick={(event) =>
+                          handleDownloadButton(event, row.file_url)
+                        }
+                        href="#"
+                        className="text-blue-500"
+                      >
+                        <FaDownload />
+                      </a>
+                    )}
+                    {row?.created_by === user?.id && (
+                      <PrincipalDeleteNotice
+                        title={row.title}
+                        id={row.id}
+                        type={type}
+                        fetchAllNotices={fetchAllNotices}
+                      />
+                    )}
+                    <p>{row?.class_code}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="w-full md:w-1/2 mt-4 md:mt-0">
+            <div className="bg-white p-4 rounded shadow">
+              <div className="flex justify-between items-center">
+                <p className="text-xl font-bold">Principal Message</p>
+                <MdEdit
+                  onClick={() =>
+                    handleEditClick(
+                      principalMsgs[0].id,
+                      principalMsgs[0].title,
+                      principalMsgs[0].description
+                    )
+                  }
+                  className="cursor-pointer"
                 />
-                {principalMsgs.length > 0 ? (
-                  principalMsgs.map((msg) => (
-                    <div
-                      key={msg.id}
-                      style={{
-                        marginBottom: "20px",
-                        height: "480px",
-                        overflow: "scroll",
-                      }}
-                    >
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <p>
-                          <b>{msg.title || "No title available"}</b>
+              </div>
+
+              {editing ? (
+                <div className="mt-4 space-y-4">
+                  <CustomAvatar alt="Principal" src={logo} />
+
+                  <div className="space-y-2">
+                    <input
+                      className="w-full px-4 py-2 border rounded"
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder="Edit Title"
+                    />
+                  </div>
+                  <button
+                    onClick={handleSaveEdit}
+                    className="px-4 py-2 bg-blue-500 text-white rounded"
+                  >
+                    Save
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-4 flex space-x-4">
+                  <Avatar
+                    alt="Principal"
+                    src={logo}
+                    sx={{ width: 132, height: 132 }}
+                  />
+                  {principalMsgs.length > 0 ? (
+                    principalMsgs.map((msg) => (
+                      <div
+                        key={msg.id}
+                        className="space-y-2 overflow-auto h-60"
+                      >
+                        <p className="font-semibold">
+                          {msg.title || "No title available"}
                         </p>
-                        {/* Rendering message with HTML content */}
                         <div
                           dangerouslySetInnerHTML={{
                             __html:
@@ -360,13 +306,13 @@ export default function PrincipalNotice() {
                           }}
                         />
                       </div>
-                    </div>
-                  ))
-                ) : (
-                  <p>No principal message available.</p>
-                )}
-              </div>
-            )}
+                    ))
+                  ) : (
+                    <p>No principal message available.</p>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
