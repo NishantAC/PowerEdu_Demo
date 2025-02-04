@@ -27,8 +27,8 @@ function StudentAttendance() {
 
     useEffect(() => {
         if (currentUser.classes.length > 0) {
-            dispatch(fetchAcademicYearFilter({ user_id: currentUser.id, school_code: currentUser.schoolcode, class_code: currentUser.classes[0] }))
-            dispatch(fetchAllStudentsOfClass({ school_code: currentUser.schoolcode, class_code: currentUser.classes[0], year: getAcademicYear() }))
+            dispatch(fetchAcademicYearFilter({ user_id: currentUser.id, school_code: currentUser.school_id, class_code: currentUser.classes[0] }))
+            dispatch(fetchAllStudentsOfClass({ school_code: currentUser.school_id, class_code: currentUser.classes[0], year: getAcademicYear() }))
         }
     }, [])
 
@@ -36,7 +36,7 @@ function StudentAttendance() {
         if (filterAcademicYear.length > 0 && currentUser.classes.length > 0) {
             const cls = filterClass.length < 1 ? currentUser.classes[0] : filterClass;
             const year = filterYear.length < 1 ? filterAcademicYear[0] : filterYear;
-            dispatch(fetchAllStudentsOfClass({ school_code: currentUser.schoolcode, class_code: cls, year: year }))
+            dispatch(fetchAllStudentsOfClass({ school_code: currentUser.school_id, class_code: cls, year: year }))
         }
     }
 

@@ -16,7 +16,7 @@ function TopStudents() {
 
     useEffect(() => {
 
-        dispatch(getDropdownClasses({ schoolcode: currentUser?.school_id }))
+        dispatch(getDropdownClasses({ school_id: currentUser?.school_id }))
         dispatch(fetchStudentsWithMarks({ school_code: currentUser?.school_id, class_code: classFilter, performance: value }))
 
 

@@ -4,9 +4,9 @@ import YExamService from "../services/yexam.service";
 
 export const registeryexam = createAsyncThunk(
   "notice/registeryexam",
-  async ({ schoolcode, classname, subjectname, syllabus, examdate, totalmarks, createdby }, thunkAPI) => {
+  async ({ school_id, classname, subjectname, syllabus, examdate, totalmarks, createdby }, thunkAPI) => {
     try {
-      const response = await YExamService.registeryexam(schoolcode, classname, subjectname, syllabus, examdate, totalmarks, createdby);
+      const response = await YExamService.registeryexam(school_id, classname, subjectname, syllabus, examdate, totalmarks, createdby);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {

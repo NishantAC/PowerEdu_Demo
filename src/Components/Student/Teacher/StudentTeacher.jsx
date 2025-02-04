@@ -28,24 +28,24 @@ export default function StudentTeacher() {
     dispatch(
       getSubjectTeacherData({
         classId: currentUser?.classid,
-        schoolcode: currentUser?.schoolcode,
+        school_id: currentUser?.school_id,
       })
     );
     dispatch(
       getFeedbackQuestions({
-        schoolcode: currentUser?.schoolcode,
+        school_id: currentUser?.school_id,
         class_id: currentUser?.classid,
       })
     );
     dispatch(
       getFeedbackResponses({
-        schoolcode: currentUser?.schoolcode,
+        school_id: currentUser?.school_id,
         user_id: currentUser?.id,
       })
     );
     dispatch(
       getFeedbackStatus({
-        schoolcode: currentUser?.schoolcode,
+        school_id: currentUser?.school_id,
       })
     );
   }, [dispatch]);

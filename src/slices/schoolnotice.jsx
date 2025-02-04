@@ -8,10 +8,10 @@ const schoolNotice = JSON.parse(localStorage.getItem("schoolnotice"));
 // Async thunk to register a school notice
 export const registerSchoolNotice = createAsyncThunk(
   "notice/registerschoolnotice",
-  async ({ schoolcode, date, title, createdby, details }, thunk) => {
+  async ({ school_id, date, title, createdby, details }, thunk) => {
     try {
       const response = await SchoolNoticeService.registerSchoolNotice(
-        schoolcode,
+        school_id,
         date,
         title,
         createdby,

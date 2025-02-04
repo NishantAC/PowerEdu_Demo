@@ -15,9 +15,9 @@ const initialState = {
 
 export const registerClassTest = createAsyncThunk(
   "classtest/registerClassTest",
-  async ({ schoolcode, schoolclassId, subjectId, syllabus, testdesc, examdate, totalmarks, createdby}) => {
+  async ({ school_id, schoolclassId, subjectId, syllabus, testdesc, examdate, totalmarks, createdby}) => {
     try {
-      const response = await ClassTestService.registerclasstest(schoolcode, schoolclassId, subjectId, syllabus, testdesc, examdate, totalmarks, createdby);
+      const response = await ClassTestService.registerclasstest(school_id, schoolclassId, subjectId, syllabus, testdesc, examdate, totalmarks, createdby);
       dispatch(setMessage(response.data.message));
       return { data: response.data };
     } catch (error) {

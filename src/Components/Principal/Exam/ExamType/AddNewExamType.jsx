@@ -35,7 +35,7 @@ function AddNewExamForm({ classid }) {
       toast.error('Please select the class first', { autoClose: 1000, position: 'bottom-right' })
       return
     }
-    // dispatch(addExamType({schoolcode: user?.schoolcode, classid, title: examName}))
+    // dispatch(addExamType({school_id: user?.school_id, classid, title: examName}))
     // setExamName('');
     setShowConfirmation(true);
     setShowModal(false);
@@ -51,7 +51,7 @@ function AddNewExamForm({ classid }) {
   };
 
   const handleConfirmSave = () => {
-    dispatch(addExamType({ school_code: user?.schoolcode, class_code: classid, title: examName }))
+    dispatch(addExamType({ school_code: user?.school_id, class_code: classid, title: examName }))
     setExamName('');
     setShowConfirmation(false);
   };

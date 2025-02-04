@@ -6,9 +6,9 @@ const note = JSON.parse(localStorage.getItem("note"));
 
 export const registernote = createAsyncThunk(
   "note/registernote",
-  async ({ schoolcode, classname, subjectname, chaptername, notename, createdby }, thunkAPI) => {
+  async ({ school_id, classname, subjectname, chaptername, notename, createdby }, thunkAPI) => {
     try {
-      const response = await NoteService.registernote(schoolcode, classname, subjectname, chaptername, notename, createdby);
+      const response = await NoteService.registernote(school_id, classname, subjectname, chaptername, notename, createdby);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {

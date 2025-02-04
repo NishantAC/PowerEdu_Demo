@@ -17,7 +17,7 @@ const RegisterLink = () => {
   }, [dispatch]);
 
   const initialValues = {
-    schoolcode: "",
+    school_id: "",
     classname: "",
     subjectname: "",
     chaptername: "",
@@ -27,7 +27,7 @@ const RegisterLink = () => {
 
 
   const validationSchema = Yup.object().shape({
-    schoolcode: Yup.string()
+    school_id: Yup.string()
       .required("This field is required!"),
     classname: Yup.string()
       .required("This field is required!"),
@@ -43,11 +43,11 @@ const RegisterLink = () => {
 
   const handleRegisterLink = (formValue) => {
 
-    const { schoolcode, classname, subjectname, chaptername, linkname, createdby } = formValue;
+    const { school_id, classname, subjectname, chaptername, linkname, createdby } = formValue;
 
     setSuccessful(false);
 
-    dispatch(registerlink({ schoolcode, classname, subjectname, chaptername, linkname, createdby }))
+    dispatch(registerlink({ school_id, classname, subjectname, chaptername, linkname, createdby }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -70,10 +70,10 @@ const RegisterLink = () => {
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="schoolcode">School Code</label>
-                  <Field name="schoolcode" type="text" className="form-control" />
+                  <label htmlFor="school_id">School Code</label>
+                  <Field name="school_id" type="text" className="form-control" />
                   <ErrorMessage
-                    name="schoolcode"
+                    name="school_id"
                     component="div"
                     className="alert alert-danger"
                   />

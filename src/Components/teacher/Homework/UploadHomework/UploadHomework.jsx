@@ -84,7 +84,7 @@ function UploadHomework(props) {
         };
         formData.append("hwDetails", JSON.stringify(json));
         formData.append("file", data?.file[0]);
-        formData.append("school_code", user?.schoolcode);
+        formData.append("school_code", user?.school_id);
         formData.append("class_code", data.class_code);
         formData.append("userid", user.id);
 

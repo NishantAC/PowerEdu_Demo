@@ -4,7 +4,7 @@ import axios from "axios";
 const API_URL = API_BASE_URL+"question-paper/";
 
 const addPaper = async (
-  schoolcode,
+  school_id,
   classid,
   examtype,
   subject,
@@ -14,7 +14,7 @@ const addPaper = async (
 ) => {
   try {
     const formData = new FormData();
-    formData.append("schoolcode", schoolcode);
+    formData.append("school_id", school_id);
     formData.append("classid", classid);
     formData.append("examtype", examtype);
     formData.append("subject", subject);
@@ -35,10 +35,10 @@ const addPaper = async (
   }
 };
 
-const fetchPapers = async (schoolcode, classid, subject) => {
+const fetchPapers = async (school_id, classid, subject) => {
   try {
     const response = await axios.post(`${API_URL}get`, {
-      schoolcode,
+      school_id,
       classid,
       subject,
     });
@@ -49,9 +49,9 @@ const fetchPapers = async (schoolcode, classid, subject) => {
   }
 };
 
-const fetchAllPapers = async (schoolcode) => {
+const fetchAllPapers = async (school_id) => {
   try {
-    const response = await axios.post(`${API_URL}getAll`, { schoolcode });
+    const response = await axios.post(`${API_URL}getAll`, { school_id });
     return response.data;
   } catch (error) {
     console.error(error);

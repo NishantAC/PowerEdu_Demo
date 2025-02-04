@@ -4,7 +4,7 @@ import axios from "axios";
 const API_URL = API_BASE_URL+"class-tests/";
 
 const registerclasstest = async ({
-  schoolcode,
+  school_id,
   schoolclassId,
   subjectId,
   syllabus,
@@ -15,7 +15,7 @@ const registerclasstest = async ({
 }) => {
   try {
     const response = await axios.post(API_URL + "create", {
-      schoolcode,
+      school_id,
       schoolclassId,
       subjectId,
       testdesc,

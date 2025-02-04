@@ -129,7 +129,7 @@ function Calendar() {
   const years = Array.from({ length: 21 }, (_, i) => (new Date().getFullYear() - 10 + i).toString());
 
   const getEvents = () => {
-    const dbEventsPromise = CalendarServices.getEventsForManagement(currentUser.schoolcode);
+    const dbEventsPromise = CalendarServices.getEventsForManagement(currentUser.school_id);
     const googleEventsPromise = dispatch(getGoogleEvents());
 
     Promise.all([dbEventsPromise, googleEventsPromise])

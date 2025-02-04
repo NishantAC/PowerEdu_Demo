@@ -4,10 +4,10 @@ import FeedbackQuestionService from "../services/feedbackquestions.service";
 
 export const registerFeedbackQuestions = createAsyncThunk(
   "feeback/registerquestions",
-  async ({  schoolcode, questions, subject_id, teacher_id, class_id }, thunkAPI) => {
+  async ({  school_id, questions, subject_id, teacher_id, class_id }, thunkAPI) => {
     try {
-      const response = await FeedbackQuestionService.registerFeedbackQuestions( schoolcode, questions, subject_id, teacher_id, class_id);
-      // thunkAPI.dispatch(getFeedbackQuestions({class_id, schoolcode}))
+      const response = await FeedbackQuestionService.registerFeedbackQuestions( school_id, questions, subject_id, teacher_id, class_id);
+      // thunkAPI.dispatch(getFeedbackQuestions({class_id, school_id}))
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -25,9 +25,9 @@ export const registerFeedbackQuestions = createAsyncThunk(
 
 export const getFeedbackQuestions = createAsyncThunk(
   "feedback/getquestions",
-  async ({ class_id, schoolcode }, {dispatch, rejectWithValue}) => {
+  async ({ class_id, school_id }, {dispatch, rejectWithValue}) => {
     try {
-      const response = await FeedbackQuestionService.getFeedbackQuestions(class_id, schoolcode);
+      const response = await FeedbackQuestionService.getFeedbackQuestions(class_id, school_id);
       // thunkAPI.dispatch(setMessage(response.data.message));
       // 
       return response;

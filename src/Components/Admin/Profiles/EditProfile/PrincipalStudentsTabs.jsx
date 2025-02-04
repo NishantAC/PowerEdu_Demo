@@ -46,7 +46,7 @@ function PrincipalStudentsTabs() {
     useEffect(() => {
         if (userId && userType === "students") {
             dispatch(fetchStudentDetails({ user_id: userId }));
-            dispatch(getDropdownClasses({ schoolcode: userId }));
+            dispatch(getDropdownClasses({ school_id: userId }));
         }
     }, [dispatch, userId, userType]);
 

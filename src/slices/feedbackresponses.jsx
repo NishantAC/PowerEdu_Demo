@@ -7,7 +7,7 @@ export const submitFeedback = createAsyncThunk(
   async ({ user_id, question_id, teacher_id, responses, comment }, thunkAPI) => {
     try {
       const response = await FeedbackRepsonseService.registerFeedbackResponses(user_id, question_id, teacher_id, responses, comment);
-      // thunkAPI.dispatch(getFeedbackResponses(user_id, schoolcode, teacher_id))
+      // thunkAPI.dispatch(getFeedbackResponses(user_id, school_id, teacher_id))
       return response.data;
     } catch (error) {
       const message =
@@ -27,7 +27,7 @@ export const updateFeedback = createAsyncThunk(
   async ({ response_id, responses, comment }, thunkAPI) => {
     try {
       const response = await FeedbackRepsonseService.updateFeedbackResponses(response_id, responses, comment);
-      // thunkAPI.dispatch(getFeedbackResponses(user_id, schoolcode, teacher_id))
+      // thunkAPI.dispatch(getFeedbackResponses(user_id, school_id, teacher_id))
       return response.data;
     } catch (error) {
       const message =
@@ -44,9 +44,9 @@ export const updateFeedback = createAsyncThunk(
 
 export const getFeedbackResponses = createAsyncThunk(
   "feedback/getresponses",
-  async ({ user_id, schoolcode, teacher_id }, { dispatch, rejectWithValue }) => {
+  async ({ user_id, school_id, teacher_id }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await FeedbackRepsonseService.getFeedbackResponses(user_id, schoolcode, teacher_id);
+      const response = await FeedbackRepsonseService.getFeedbackResponses(user_id, school_id, teacher_id);
       // thunkAPI.dispatch(setMessage(response.data.message));
       return response;
     } catch (error) {

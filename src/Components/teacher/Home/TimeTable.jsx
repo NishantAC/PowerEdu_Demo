@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 
 export default function TimeTable() {
   const user_id = useSelector((state) => state.user.user.id);
-  const school_code = useSelector((state) => state.user.user?.schoolcode);
+  const school_code = useSelector((state) => state.user.user?.school_id);
 
   const [value, setValue] = useState(new Date());
   const [schedules, setSchedules] = useState([]);

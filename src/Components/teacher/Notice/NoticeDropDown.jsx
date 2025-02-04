@@ -13,7 +13,7 @@ const NoticeDropDown = ({ user, fetchClassNotices,filterClass, setFilterClass}) 
     const noticeDropdownclasses = useSelector(state => state.classnotice.noticeDropdownclasses);
 
 useEffect(()=>{
-dispatch(getNoticeDropdownClasses({school_code:user?.schoolcode})).then((result) => {
+dispatch(getNoticeDropdownClasses({school_code:user?.school_id})).then((result) => {
 setFilterClass(result.payload.data.class_codes[0])
 fetchClassNotices(result.payload.data.class_codes[0])
 })

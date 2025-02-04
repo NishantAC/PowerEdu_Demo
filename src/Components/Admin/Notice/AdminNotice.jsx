@@ -27,7 +27,7 @@ export default function AdminNotice() {
   const mycontext = useContext(MenuContext);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const code = user?.schoolcode;
+  const code = user?.school_id;
   const [principalMsg, setPrincipalMsg] = useState({});
   // const allNotices = useRef([]);
   const [allNotices, setAllNotices] = useState()
@@ -47,7 +47,7 @@ export default function AdminNotice() {
   // }, [principalMsg])
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: user?.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: user?.school_id }));
   }, []);
 
 
@@ -69,7 +69,7 @@ export default function AdminNotice() {
 
   //fetch class notice and overall
   const fetchClassNotices = (cls) => {
-    const body = { school_code: user?.schoolcode, class_code: cls };
+    const body = { school_code: user?.school_id, class_code: cls };
     ClassNoticeService.getClassNotices(body)
       .then((res) => {
         setAllNotices(res.data)
@@ -79,7 +79,7 @@ export default function AdminNotice() {
   };
 
   const fetchAllNotices = () => {
-    const body = { school_code: user?.schoolcode };
+    const body = { school_code: user?.school_id };
     ClassNoticeService.getAllNotices(body)
       .then((res) => {
         setAllNotices(res.data)
@@ -91,7 +91,7 @@ export default function AdminNotice() {
   //fetch principal msg
   const fetchPrincipalMsg = () => {
     principalService
-      .getPrincipalMessage({ school_code: user?.schoolcode })
+      .getPrincipalMessage({ school_code: user?.school_id })
       .then((res) => {
         setPrincipalMsg(res);
       })
@@ -101,7 +101,7 @@ export default function AdminNotice() {
   };
 
   const getPhoto = () => {
-    principalService.getPrincipalPhoto({ "schoolcode": code })
+    principalService.getPrincipalPhoto({ "school_id": code })
       .then((result) => {
         const url = URL.createObjectURL(new Blob([result], { type: "image/jpeg" }))
         // 
@@ -217,7 +217,7 @@ export default function AdminNotice() {
             </div>
             <div style={{display:"flex"}}>
               <AddPrincipalMsg fetchPrincipalMsg={fetchPrincipalMsg} getPhoto={getPhoto} user={user}/>
-              <EditNotice fetchPrincipalMsg={fetchPrincipalMsg} getPhoto={getPhoto} initialData={principalMsg} schoolcode={code}/>
+              <EditNotice fetchPrincipalMsg={fetchPrincipalMsg} getPhoto={getPhoto} initialData={principalMsg} school_id={code}/>
             </div>
           </div>
         </div> */}

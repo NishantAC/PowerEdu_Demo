@@ -11,9 +11,9 @@ const initialState = {
 
 export const addPaper = createAsyncThunk(
   "questionpaper/addPaper",
-  async ({ schoolcode, classid, examtype, subject, academicyear, paperFile, createdby }, { rejectWithValue, dispatch }) => {
+  async ({ school_id, classid, examtype, subject, academicyear, paperFile, createdby }, { rejectWithValue, dispatch }) => {
     try {
-      const response = await QuestionPaperService.addPaper(schoolcode, classid, examtype, subject, academicyear, paperFile, createdby);
+      const response = await QuestionPaperService.addPaper(school_id, classid, examtype, subject, academicyear, paperFile, createdby);
       return response;
     } catch (error) {
         return rejectWithValue(error.response.data);
@@ -23,9 +23,9 @@ export const addPaper = createAsyncThunk(
 
 export const fetchPapers = createAsyncThunk(
   "questionpaper/fetchPapers",
-  async ({ schoolcode, classid, subject }, { rejectWithValue }) => {
+  async ({ school_id, classid, subject }, { rejectWithValue }) => {
     try {
-      const response = await QuestionPaperService.fetchPapers(schoolcode, classid, subject);
+      const response = await QuestionPaperService.fetchPapers(school_id, classid, subject);
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -35,9 +35,9 @@ export const fetchPapers = createAsyncThunk(
 
 export const fetchAllPapers = createAsyncThunk(
   "questionpaper/fetchAllPapers",
-  async ({ schoolcode }, { rejectWithValue }) => {
+  async ({ school_id }, { rejectWithValue }) => {
     try {
-      const response = await QuestionPaperService.fetchAllPapers(schoolcode);
+      const response = await QuestionPaperService.fetchAllPapers(school_id);
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);

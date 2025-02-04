@@ -12,7 +12,7 @@ function ClassTestMarks() {
 
   useEffect(() => {
     dispatch(
-      fetchClassTestsByTeacher({ user_id: user.id, school_code: user?.schoolcode, classes: user.classes })
+      fetchClassTestsByTeacher({ user_id: user.id, school_code: user?.school_id, classes: user.classes })
     );
   }, []);
     return (

@@ -27,7 +27,7 @@ export default function PrincipalNotice() {
   const mycontext = useContext(MenuContext);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user)
-  const code = user?.schoolcode;
+  const code = user?.school_id;
   const [principalMsgs, setPrincipalMsgs] = useState([]);
   const [allNotices, setAllNotices] = useState([]);
   const [type, setType] = useState("");
@@ -40,7 +40,7 @@ export default function PrincipalNotice() {
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: user?.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: user?.school_id }));
     fetchAllNotices();
     fetchPrincipalMsgs();
     getPhoto();
@@ -57,7 +57,7 @@ export default function PrincipalNotice() {
   };
 
   const fetchAllNotices = () => {
-    const body = { school_code: user?.schoolcode };
+    const body = { school_code: user?.school_id };
     ClassNoticeService.getAllNotices(body)
       .then((res) => {
         setAllNotices(res.data);

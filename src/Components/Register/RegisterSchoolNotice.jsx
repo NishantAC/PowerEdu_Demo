@@ -17,7 +17,7 @@ const RegisterSchoolNotice = () => {
   }, [dispatch]);
 
   const initialValues = {
-    schoolcode: "",
+    school_id: "",
     title: "",
     createdby: "",
     details: ""
@@ -25,7 +25,7 @@ const RegisterSchoolNotice = () => {
 
 
   const validationSchema = Yup.object().shape({
-    schoolcode: Yup.string()
+    school_id: Yup.string()
       .required("This field is required!"),
     title: Yup.string()
       .required("This field is required!"),
@@ -38,11 +38,11 @@ const RegisterSchoolNotice = () => {
   const handleRegisterSchoolNotice = (formValue) => {
     const date = new Date().toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}).replace(/ /g, '-');
 
-    const { schoolcode, title, createdby, details } = formValue;
+    const { school_id, title, createdby, details } = formValue;
 
     setSuccessful(false);
 
-    dispatch(registerSchoolNotice({ schoolcode, date, title, createdby, details }))
+    dispatch(registerSchoolNotice({ school_id, date, title, createdby, details }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -65,10 +65,10 @@ const RegisterSchoolNotice = () => {
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="schoolcode">School Code</label>
-                  <Field name="schoolcode" type="text" className="form-control" />
+                  <label htmlFor="school_id">School Code</label>
+                  <Field name="school_id" type="text" className="form-control" />
                   <ErrorMessage
-                    name="schoolcode"
+                    name="school_id"
                     component="div"
                     className="alert alert-danger"
                   />

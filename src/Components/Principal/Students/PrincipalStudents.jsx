@@ -36,7 +36,7 @@ function PrincipalStudents() {
   const handleApplyFilter = () => {
     dispatch(
       fetchAllStudents({
-        school_code: currentUser.schoolcode,
+        school_code: currentUser.school_id,
         class_code: classFilter,
         year: currentYear,
         searchTerm: debouncedSearchTerm,
@@ -47,9 +47,9 @@ function PrincipalStudents() {
   };
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: currentUser.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: currentUser.school_id }));
     handleApplyFilter();
-  }, [dispatch, currentUser.schoolcode]);
+  }, [dispatch, currentUser.school_id]);
 
   useEffect(() => {
     handleApplyFilter();

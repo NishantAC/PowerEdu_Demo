@@ -73,10 +73,10 @@ function NotesBtn({ id,chapterDesc, setChapterNotes, chapterNotes, getAssignedSu
 
     // user.userid ,chapterId,
     //notedesc, chapterId, createdby
-    if (chapterDesc.chapter_id && user?.schoolcode) {
+    if (chapterDesc.chapter_id && user?.school_id) {
       formData.append("chapter_id", chapterDesc.chapter_id);
       formData.append("chapter_number", chapterDesc.chapter_number);
-      formData.append("schoolcode", user?.schoolcode);
+      formData.append("school_id", user?.school_id);
       formData.append("id", id);
 
 

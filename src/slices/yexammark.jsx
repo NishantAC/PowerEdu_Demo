@@ -6,9 +6,9 @@ const yexammark = JSON.parse(localStorage.getItem("yexammark"));
 
 export const registeryexammark = createAsyncThunk(
   "notice/registeryexammark",
-  async ({ schoolcode, classname, subjectname, studentname, examdate, obtainedmarks, createdby }, { rejectWithValue }) => {
+  async ({ school_id, classname, subjectname, studentname, examdate, obtainedmarks, createdby }, { rejectWithValue }) => {
     try {
-      const response = await YExamMarkService.registeryexammark(schoolcode, classname, subjectname, studentname, examdate, obtainedmarks, createdby);
+      const response = await YExamMarkService.registeryexammark(school_id, classname, subjectname, studentname, examdate, obtainedmarks, createdby);
       setMessage(response.data.message);
       return response.data;
     } catch (error) {

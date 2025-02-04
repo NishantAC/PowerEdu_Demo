@@ -14,7 +14,7 @@ export default function StudentExam() {
   const {user: currentUser} = useSelector(state => state.user)
 
   useEffect(() => {
-    const body = { userid: currentUser?.userid, class_id: currentUser?.classid, schoolcode: currentUser?.schoolcode }
+    const body = { userid: currentUser?.userid, class_id: currentUser?.classid, school_id: currentUser?.school_id }
     dispatch(fetchExamMarks(body))
     dispatch(fetchClassTestMarks(body))
   }, []);

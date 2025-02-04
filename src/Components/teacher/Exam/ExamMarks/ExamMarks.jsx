@@ -13,7 +13,7 @@ function ExamMarks() {
 
   useEffect(() => {
     dispatch(
-      fetchExamDetailsByTeacher({ schoolcode: user?.schoolcode, classes: user.classes, userId: user.id })
+      fetchExamDetailsByTeacher({ school_id: user?.school_id, classes: user.classes, userId: user.id })
     );
   }, []);
 

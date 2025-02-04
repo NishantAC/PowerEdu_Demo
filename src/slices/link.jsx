@@ -7,9 +7,9 @@ const link = JSON.parse(localStorage.getItem("link"));
 
 export const registerlink = createAsyncThunk(
   "link/registerlink",
-  async ({ schoolcode, classname, subjectname, chaptername, linkname, createdby }, thunkAPI) => {
+  async ({ school_id, classname, subjectname, chaptername, linkname, createdby }, thunkAPI) => {
     try {
-      const response = await LinkService.registerlink(schoolcode, classname, subjectname, chaptername, linkname, createdby);
+      const response = await LinkService.registerlink(school_id, classname, subjectname, chaptername, linkname, createdby);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {

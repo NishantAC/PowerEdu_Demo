@@ -67,10 +67,10 @@ const getPrincipalData = async (code) => {
   }
 };
 
-const getStudentsProfile = async (schoolcode) => {
+const getStudentsProfile = async (school_id) => {
   try {
     const response = await axios.post(`${API_URL}getStudentsProfile`, {
-      schoolcode,
+      school_id,
     });
     return response.data;
   } catch (error) {
@@ -79,10 +79,10 @@ const getStudentsProfile = async (schoolcode) => {
   }
 };
 
-const getTeachersProfile = async (schoolcode) => {
+const getTeachersProfile = async (school_id) => {
   try {
     const response = await axios.post(`${API_URL}getTeachersProfile`, {
-      schoolcode,
+      school_id,
     });
     return response.data;
   } catch (error) {

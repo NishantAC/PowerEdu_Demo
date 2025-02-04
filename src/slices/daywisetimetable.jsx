@@ -4,11 +4,11 @@ import { setMessage } from "./message";
 
 export const getDayWiseSubject = createAsyncThunk(
   "timetable/getDayWiseSubjects",
-  async ({ class_id, schoolcode, day }, thunkAPI) => {
+  async ({ class_id, school_id, day }, thunkAPI) => {
     try {
       const response = await TimeTableService.getDayWiseSubjects(
         class_id,
-        schoolcode,
+        school_id,
         day
       );
       return response;

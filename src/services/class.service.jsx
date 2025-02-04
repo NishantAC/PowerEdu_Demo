@@ -25,8 +25,8 @@ export const getAcedemicYears = async (body) => {
   }
 };
 
-const getDropdownClasses = async (schoolcode) => {
-  const res = await axios.get(`${API_URL}/dropdownclasses/${schoolcode}`);
+const getDropdownClasses = async (school_id) => {
+  const res = await axios.get(`${API_URL}/dropdownclasses/${school_id}`);
   return res.data;
 };
 

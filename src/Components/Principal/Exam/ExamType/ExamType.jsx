@@ -64,7 +64,7 @@ function ExamType({ setActiveKey, activeKey, examtype, copyData }) {
       updateExamType({
         id: examtype.id,
         title: title,
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: examtype.class_code
       })
     ).then((result) => {
@@ -95,7 +95,7 @@ function ExamType({ setActiveKey, activeKey, examtype, copyData }) {
 
   const confirmDelete = () => {
     setIsDeleteDialogOpen(false);
-    dispatch(deleteExamType({ id: examtype.id, school_code: user?.schoolcode, class_code: examtype.class_code })).then((result) => {
+    dispatch(deleteExamType({ id: examtype.id, school_code: user?.school_id, class_code: examtype.class_code })).then((result) => {
       if (result.payload) {
         // Dispatch succeeded, show success message
         toast.success(result.payload.message, { autoClose: 1000, position: "bottom-right" });

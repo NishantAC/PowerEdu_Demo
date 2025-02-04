@@ -27,8 +27,8 @@ function PrincipalFees() {
   const [pendingData, setPendingData] = useState([]);
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: user?.schoolcode }));
-    dispatch(getAcademicYears({ code: user?.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: user?.school_id }));
+    dispatch(getAcademicYears({ code: user?.school_id }));
   }, []);
 
   /**
@@ -45,39 +45,39 @@ function PrincipalFees() {
     }
     if (tabType === "Academic") {
       const allFee = await AcademicFeesService.getAllFees({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: class_code,
         year: academicYear,
       });
       setFeesData(allFee);
       const pendingFee = await AcademicFeesService.getPendingFees({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: class_code,
         year: academicYear,
       });
       setPendingData(pendingFee);
     } else if (tabType === "Transport") {
       const allFee = await TransportFeesService.getAllFees({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: class_code,
         year: academicYear,
       });
       setFeesData(allFee);
       const pendingFee = await TransportFeesService.getPendingFees({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: class_code,
         year: academicYear,
       });
       setPendingData(pendingFee);
     } else {
       const allFee = await ExtracurricularFeesService.getAllFees({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: class_code,
         year: academicYear,
       });
       setFeesData(allFee);
       const pendingFee = await ExtracurricularFeesService.getPendingFees({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: class_code,
         year: academicYear,
       });

@@ -7,8 +7,8 @@ const hyexam = JSON.parse(localStorage.getItem("hyexam"));
 
 export const registerhyexam = createAsyncThunk(
   "notice/registerhyexam",
-  async ({ schoolcode, classname, subjectname, syllabus, examdate, totalmarks, createdby }, thunkAPI) => {
-    const response = await HYExamService.registerhyexam(schoolcode, classname, subjectname, syllabus, examdate, totalmarks, createdby);
+  async ({ school_id, classname, subjectname, syllabus, examdate, totalmarks, createdby }, thunkAPI) => {
+    const response = await HYExamService.registerhyexam(school_id, classname, subjectname, syllabus, examdate, totalmarks, createdby);
     thunkAPI.dispatch(setMessage(response.data.message));
     return response.data;
   }

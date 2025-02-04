@@ -14,9 +14,9 @@ const createCircular = async (body) => {
   }
 };
 
-const getCirculars = async (schoolcode) => {
+const getCirculars = async (school_id) => {
   try {
-    const response = await axios.get(`${API_URL}get/${schoolcode}`);
+    const response = await axios.get(`${API_URL}get/${school_id}`);
     return response.data;
   } catch (error) {
     console.error(error);

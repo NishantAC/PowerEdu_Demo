@@ -22,10 +22,10 @@ export const registersyllabus = createAsyncThunk(
 
 export const fetchSyllabusBySubject = createAsyncThunk(
   "syllabus/fetchSyllabusBySubject",
-  async ({ schoolcode, classid, subjectid }, thunkAPI) => {
+  async ({ school_id, classid, subjectid }, thunkAPI) => {
     try {
       
-      const data = await SyllabusService.getSyllabusBySubject(schoolcode, classid, parseInt(subjectid));
+      const data = await SyllabusService.getSyllabusBySubject(school_id, classid, parseInt(subjectid));
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

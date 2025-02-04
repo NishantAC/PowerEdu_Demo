@@ -75,7 +75,7 @@ function TeacherStudent(props) {
 	const handleApplyFilter = () => {
 		dispatch(
 			fetchAllStudents({
-				school_code: currentUser.schoolcode,
+				school_code: currentUser.school_id,
 				class_code: filterClass,
 			}),
 		);
@@ -85,7 +85,7 @@ function TeacherStudent(props) {
 		if (currentUser.classes.length > 0) {
 			dispatch(
 				fetchAllStudents({
-					school_code: currentUser.schoolcode,
+					school_code: currentUser.school_id,
 					class_code: currentUser.classes[0],
 				}),
 			);

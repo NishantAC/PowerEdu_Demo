@@ -9,12 +9,12 @@ const school = JSON.parse(localStorage.getItem("school"));
 export const registerschool = createAsyncThunk(
   "school/registerschool",
   async (
-    { schoolcode, schoolname, status, view_performance_button },
+    { school_id, schoolname, status, view_performance_button },
     thunkAPI
   ) => {
     try {
       const response = await SchoolService.registerschool(
-        schoolcode,
+        school_id,
         schoolname,
         status,
         view_performance_button

@@ -22,7 +22,7 @@ const style = {
 };
 
 
-function EditNotice({ fetchPrincipalMsg, getPhoto, initialData, schoolcode }) {
+function EditNotice({ fetchPrincipalMsg, getPhoto, initialData, school_id }) {
 
     //modal 
     const [open, setOpen] = useState(false);

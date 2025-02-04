@@ -38,10 +38,10 @@ const getAllSubjectsDetails = async (class_code, school_code, subject_code) => {
   }
 };
 
-const getAllSubjectsBySchool = async (schoolcode) => {
+const getAllSubjectsBySchool = async (school_id) => {
   try {
     const response = await axios.post(`${API_URL}school-subjects`, {
-      schoolcode,
+      school_id,
     });
     // 
     return response.data;
@@ -77,13 +77,13 @@ const updateStatus = async (chapterId, status, chapter_number) => {
 };
 
 const getDropdownSubjectsByClass = async (
-  schoolcode,
+  school_id,
   class_code,
   timetable
 ) => {
   try {
     const response = await axios.post(`${API_URL}class-subjects-dropdown`, {
-      schoolcode,
+      school_id,
       class_code,
       timetable,
     });

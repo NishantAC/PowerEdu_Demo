@@ -20,9 +20,9 @@ const registerSubjectTeacher = async (schoolCode, className, firstName, lastName
   }
 };
 
-const getSubjectTeacherData = async (classId, schoolcode) => {
+const getSubjectTeacherData = async (classId, school_id) => {
   try {
-    const response = await axios.post(`${API_URL}subject-teachers`, { classId, schoolcode });
+    const response = await axios.post(`${API_URL}subject-teachers`, { classId, school_id });
     return response.data;
   } catch (error) {
     console.error(error);

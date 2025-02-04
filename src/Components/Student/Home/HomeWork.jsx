@@ -22,7 +22,7 @@ export default function HomeWork() {
   useEffect(() => {
     HomeWorkService.getClassHomework({
       class_code: currentUser.classname,
-      school_code: currentUser.schoolcode,
+      school_code: currentUser.school_id,
       date: startDate,
     })
       .then((res) => {

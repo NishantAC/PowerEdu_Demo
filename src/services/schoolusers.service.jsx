@@ -3,10 +3,10 @@ import axios from "axios";
 
 const API_URL = API_BASE_URL+"schoolusers/";
 
-const getTotalStudentsNumber = async (schoolcode) => {
+const getTotalStudentsNumber = async (school_id) => {
   try {
     const response = await axios.get(
-      `${API_URL}get/totalstudents/${schoolcode}`
+      `${API_URL}get/totalstudents/${school_id}`
     );
     return response.data;
   } catch (error) {
@@ -15,10 +15,10 @@ const getTotalStudentsNumber = async (schoolcode) => {
   }
 };
 
-const getTotalTeachersNumber = async (schoolcode) => {
+const getTotalTeachersNumber = async (school_id) => {
   try {
     const response = await axios.get(
-      `${API_URL}get/totalteachers/${schoolcode}`
+      `${API_URL}get/totalteachers/${school_id}`
     );
     return response.data;
   } catch (error) {
@@ -27,9 +27,9 @@ const getTotalTeachersNumber = async (schoolcode) => {
   }
 };
 
-const getTotalStaffNumber = async (schoolcode) => {
+const getTotalStaffNumber = async (school_id) => {
   try {
-    const response = await axios.get(`${API_URL}get/totalstaff/${schoolcode}`);
+    const response = await axios.get(`${API_URL}get/totalstaff/${school_id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -37,10 +37,10 @@ const getTotalStaffNumber = async (schoolcode) => {
   }
 };
 
-const newlyAddedUsers = async (schoolcode) => {
+const newlyAddedUsers = async (school_id) => {
   try {
     const response = await axios.get(
-      `${API_URL}get/newlyaddedusers/${schoolcode}`
+      `${API_URL}get/newlyaddedusers/${school_id}`
     );
     return response.data;
   } catch (error) {
@@ -49,10 +49,10 @@ const newlyAddedUsers = async (schoolcode) => {
   }
 };
 
-const getStudentGenderCounts = async (schoolcode) => {
+const getStudentGenderCounts = async (school_id) => {
   try {
     const response = await axios.get(
-      `${API_URL}get/studentgendercounts/${schoolcode}`
+      `${API_URL}get/studentgendercounts/${school_id}`
     );
     return response.data;
   } catch (error) {
@@ -61,10 +61,10 @@ const getStudentGenderCounts = async (schoolcode) => {
   }
 };
 
-const getAcademicYearsDropdown = async (schoolcode) => {
+const getAcademicYearsDropdown = async (school_id) => {
   try {
     const response = await axios.get(
-      `${API_URL}/academicyearsdropdown/${schoolcode}`
+      `${API_URL}/academicyearsdropdown/${school_id}`
     );
     return response.data;
   } catch (error) {

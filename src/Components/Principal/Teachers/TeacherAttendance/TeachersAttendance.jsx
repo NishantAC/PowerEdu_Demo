@@ -24,7 +24,7 @@ function TeachersAttendance() {
   const [attendanceList, setAttendanceList] = useState([]);
 
   useEffect(() => {
-    if (user?.school_id && !subjectteachers) dispatch(fetchAllTeachersBySchool({ schoolcode: user?.school_id }));
+    if (user?.school_id && !subjectteachers) dispatch(fetchAllTeachersBySchool({ school_id: user?.school_id }));
   }, [user]);
 
   useEffect(() => {

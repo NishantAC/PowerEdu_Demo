@@ -43,7 +43,7 @@ function Circulars() {
 
 
   useEffect(() => {
-    CircularService.getCirculars(user?.schoolcode).then(res => setRows(res))
+    CircularService.getCirculars(user?.school_id).then(res => setRows(res))
   }, [user])
 
   // const sortedRows = [...rows].sort((a, b) => new Date(b.date) - new Date(a.date));

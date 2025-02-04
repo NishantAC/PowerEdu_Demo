@@ -85,7 +85,7 @@ function TeacherProfile() {
     const {teachers, profile, classes, subjects} = useSelector(state => state.principal)
 
     useEffect(() => {
-      dispatch(fetchTeachersProfile({schoolcode: user?.schoolcode}))
+      dispatch(fetchTeachersProfile({school_id: user?.school_id}))
     }, [user])
   
     return (

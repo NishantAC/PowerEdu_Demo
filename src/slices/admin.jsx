@@ -6,10 +6,10 @@ const classTest = JSON.parse(localStorage.getItem("classTest"));
 
 export const getAcademicYearsDropdown = createAsyncThunk(
   "admin/getAcademicYearsDropdown",
-  async ({ schoolcode }, { dispatch, rejectWithValue }) => {
+  async ({ school_id }, { dispatch, rejectWithValue }) => {
     try {
       const data = await SchoolUsersService.getAcademicYearsDropdown(
-        schoolcode
+        school_id
       );
       return data;
     } catch (error) {

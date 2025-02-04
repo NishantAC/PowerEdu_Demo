@@ -47,7 +47,7 @@ export default function StudentAssignment() {
         body: {
           user_id: currentUser.id,
           class_code: currentUser.classname,
-          school_code: currentUser.schoolcode,
+          school_code: currentUser.school_id,
         },
       })
     );

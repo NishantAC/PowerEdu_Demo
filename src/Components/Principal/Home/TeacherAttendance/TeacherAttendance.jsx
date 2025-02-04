@@ -18,8 +18,8 @@ function TeacherAttendance() {
   const [attendanceList, setAttendanceList] = useState(teachersWithAttendance);
 
   useEffect(() => {
-    // dispatch(fetchTeachersProfile({schoolcode: user?.schoolcode}))
-    dispatch(fetchTeachersWithAttendance({ school_code: user?.schoolcode, value }));
+    // dispatch(fetchTeachersProfile({school_id: user?.school_id}))
+    dispatch(fetchTeachersWithAttendance({ school_code: user?.school_id, value }));
   }, [user, value]);
 
   useEffect(() => {

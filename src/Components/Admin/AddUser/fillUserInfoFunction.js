@@ -44,7 +44,7 @@ export const handleSubmit = (e, formValues, setErrorMsg, setUserId, setPassword,
     const formData = new FormData();
     formData.append("file", formValues.image);
     formData.append("status", "true");
-    formData.append("school_code", formValues.schoolcode);
+    formData.append("school_code", formValues.school_id);
     formData.append("user_id", formValues.rekorId);
     formData.append("admissionno", parseInt(formValues.admissionNo));
     formData.append(

@@ -21,8 +21,8 @@ function AcademicsDetails({stud}) {
   // const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchExamTypes({ schoolcode: user?.schoolcode }));
-    dispatch(getAllSubjectsBySchool({ schoolcode: user?.schoolcode }));
+    dispatch(fetchExamTypes({ school_id: user?.school_id }));
+    dispatch(getAllSubjectsBySchool({ school_id: user?.school_id }));
   }, [])
 
   // useEffect(() => {

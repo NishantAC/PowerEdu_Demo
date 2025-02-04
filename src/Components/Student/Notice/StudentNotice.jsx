@@ -16,7 +16,7 @@ export default function StudentNotice() {
   const mycontext = useContext(MenuContext);
   const { user: currentUser } =
     useSelector((state) => state.user);
-  const code = currentUser.schoolcode;
+  const code = currentUser.school_id;
 
   const [principalMsg, setPrincipalMsg] = useState({});
 
@@ -48,7 +48,7 @@ export default function StudentNotice() {
 
   const fetchClassNotices = (cls) => {
     const body = {
-      school_code: currentUser.schoolcode,
+      school_code: currentUser.school_id,
       class_code: currentUser.classname,
     };
     ClassNoticeService.getClassNotices(body)
@@ -60,7 +60,7 @@ export default function StudentNotice() {
   };
 
   const fetchAllNotices = () => {
-    const body = { school_code: currentUser.schoolcode };
+    const body = { school_code: currentUser.school_id };
     ClassNoticeService.getAllNotices(body)
       .then((res) => {
         setNotices(res.data);
@@ -84,7 +84,7 @@ export default function StudentNotice() {
 
   const getPhoto = () => {
     principalService
-      .getPrincipalPhoto({ schoolcode: code })
+      .getPrincipalPhoto({ school_id: code })
       .then((result) => {
         const url = URL.createObjectURL(
           new Blob([result], { type: "image/jpeg" })

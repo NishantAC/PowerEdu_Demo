@@ -17,7 +17,7 @@ const RegisterYExamMark = () => {
   }, [dispatch]);
 
   const initialValues = {
-    schoolcode: "",
+    school_id: "",
     classname: "",
     subjectname: "",
     studentname: "",
@@ -28,7 +28,7 @@ const RegisterYExamMark = () => {
 
 
   const validationSchema = Yup.object().shape({
-    schoolcode: Yup.string()
+    school_id: Yup.string()
       .required("This field is required!"),
     classname: Yup.string()
       .required("This field is required!"),
@@ -46,11 +46,11 @@ const RegisterYExamMark = () => {
 
   const handleregisteryexammark = (formValue) => {
 
-    const { schoolcode, classname, subjectname, studentname, examdate, obtainedmarks, createdby } = formValue;
+    const { school_id, classname, subjectname, studentname, examdate, obtainedmarks, createdby } = formValue;
 
     setSuccessful(false);
 
-    dispatch(registeryexammark({ schoolcode, classname, subjectname, studentname, examdate, obtainedmarks, createdby }))
+    dispatch(registeryexammark({ school_id, classname, subjectname, studentname, examdate, obtainedmarks, createdby }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -73,10 +73,10 @@ const RegisterYExamMark = () => {
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="schoolcode">School Code</label>
-                  <Field name="schoolcode" type="text" className="form-control" />
+                  <label htmlFor="school_id">School Code</label>
+                  <Field name="school_id" type="text" className="form-control" />
                   <ErrorMessage
-                    name="schoolcode"
+                    name="school_id"
                     component="div"
                     className="alert alert-danger"
                   />

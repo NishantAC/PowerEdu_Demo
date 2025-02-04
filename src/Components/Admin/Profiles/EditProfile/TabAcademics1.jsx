@@ -25,7 +25,7 @@ function TabAcademics1({ userId }) {
   });
 
   const { user: currentUser } = useSelector((state) => state.user) ;
-  const schoolCode = currentUser.schoolcode;
+  const schoolCode = currentUser.school_id;
 
   useEffect(() => {
     const fetchClassCodeAndExamData = async () => {

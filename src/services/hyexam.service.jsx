@@ -3,9 +3,9 @@ import axios from "axios";
 
 const API_URL = API_BASE_URL+"hy-exams/";
 
-const registerHYExam = async (schoolcode, schoolclassId, subjectId, syllabus, examdate, totalmarks, createdby) => {
+const registerHYExam = async (school_id, schoolclassId, subjectId, syllabus, examdate, totalmarks, createdby) => {
   try {
-    const response = await axios.post(`${API_URL}exams`, {schoolcode, schoolclassId, subjectId, syllabus, examdate, totalmarks, createdby});
+    const response = await axios.post(`${API_URL}exams`, {school_id, schoolclassId, subjectId, syllabus, examdate, totalmarks, createdby});
     return response.data;
   } catch (error) {
     console.error(error);

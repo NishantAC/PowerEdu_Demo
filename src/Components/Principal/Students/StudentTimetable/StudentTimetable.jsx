@@ -93,15 +93,15 @@ function StudentTimetable() {
   };
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: user?.schoolcode }));
-    dispatch(getDropdownTeachers({ school_code: user?.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: user?.school_id }));
+    dispatch(getDropdownTeachers({ school_code: user?.school_id }));
   }, []);
 
   useEffect(() => {
     if (classid) {
       dispatch(
         getDropdownSubjectsByClass({
-          schoolcode: user?.schoolcode,
+          school_id: user?.school_id,
           class_code: classid,
           timetable: true,
         })
@@ -109,7 +109,7 @@ function StudentTimetable() {
         dispatch(
           getTimetableByClass({
             class_code: classid,
-            school_code: user?.schoolcode,
+            school_code: user?.school_id,
           })
         ).then((result) => {
           if (result.payload && result.payload.timetable) {
@@ -208,14 +208,14 @@ function StudentTimetable() {
     // Send timetableData to backend
     
     TimeTableService.createTimetable({
-      school_code: user?.schoolcode,
+      school_code: user?.school_id,
       class_code: classid,
       timetable: timetableData,
     }).then((res) => {
       dispatch(
         getTimetableByClass({
           class_code: classid,
-          school_code: user?.schoolcode,
+          school_code: user?.school_id,
         })
       ).then((result) => {
         if (result.payload) {
@@ -244,7 +244,7 @@ function StudentTimetable() {
     dispatch(
       getTimetableByClass({
         class_code: classid,
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
       })
     ).then((result) => {
       if (result.payload) {

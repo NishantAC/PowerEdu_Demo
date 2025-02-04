@@ -7,9 +7,9 @@
 
 // export const registerPrincipal = createAsyncThunk(
 //   "principal/registerPrincipal",
-//   async ({ schoolcode, principalname, principalmessage }, { dispatch, rejectWithValue }) => {
+//   async ({ school_id, principalname, principalmessage }, { dispatch, rejectWithValue }) => {
 //     try {
-//       const response = await PrincipalService.registerprincipal(schoolcode, principalname, principalmessage);
+//       const response = await PrincipalService.registerprincipal(school_id, principalname, principalmessage);
 //       dispatch(setMessage(response.data.message));
 //       return response.data;
 //     } catch (error) {
@@ -36,9 +36,9 @@
 
 // export const fetchStudentsProfile = createAsyncThunk(
 //   "principal/fetchStudentsProfile",
-//   async ({ schoolcode }, { dispatch, rejectWithValue }) => {
+//   async ({ school_id }, { dispatch, rejectWithValue }) => {
 //     try {
-//       const data = await PrincipalService.getStudentsProfile(schoolcode);
+//       const data = await PrincipalService.getStudentsProfile(school_id);
 //       return data;
 //     } catch (error) {
 //       const message = error.response?.data?.message || "Something went wrong.";
@@ -50,9 +50,9 @@
 
 // export const getDropdownClasses = createAsyncThunk(
 //   "principal/getDropdownClasses",
-//   async ({ schoolcode }, { dispatch, rejectWithValue }) => {
+//   async ({ school_id }, { dispatch, rejectWithValue }) => {
 //     try {
-//       const data = await classService.getDropdownClasses(schoolcode);
+//       const data = await classService.getDropdownClasses(school_id);
 //       return data;
 //     } catch (error) {
 //       const message = error.response?.data?.message || "Something went wrong.";
@@ -64,9 +64,9 @@
 
 // export const fetchTeachersProfile = createAsyncThunk(
 //   "principal/fetchTeachersProfile",
-//   async ({ schoolcode }, { dispatch, rejectWithValue }) => {
+//   async ({ school_id }, { dispatch, rejectWithValue }) => {
 //     try {
-//       const data = await PrincipalService.getTeachersProfile(schoolcode);
+//       const data = await PrincipalService.getTeachersProfile(school_id);
 //       return data;
 //     } catch (error) {
 //       const message = error.response?.data?.message || "Something went wrong.";
@@ -154,12 +154,12 @@ const principal = JSON.parse(localStorage.getItem("principal"));
 export const registerPrincipal = createAsyncThunk(
   "principal/registerPrincipal",
   async (
-    { schoolcode, principalname, principalmessage },
+    { school_id, principalname, principalmessage },
     { dispatch, rejectWithValue }
   ) => {
     try {
       const response = await PrincipalService.registerprincipal(
-        schoolcode,
+        school_id,
         principalname,
         principalmessage
       );
@@ -189,9 +189,9 @@ export const fetchPrincipalData = createAsyncThunk(
 
 export const fetchStudentsProfile = createAsyncThunk(
   "principal/fetchStudentsProfile",
-  async ({ schoolcode }, { dispatch, rejectWithValue }) => {
+  async ({ school_id }, { dispatch, rejectWithValue }) => {
     try {
-      const data = await PrincipalService.getStudentsProfile(schoolcode);
+      const data = await PrincipalService.getStudentsProfile(school_id);
       return data;
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong.";
@@ -203,9 +203,9 @@ export const fetchStudentsProfile = createAsyncThunk(
 
 export const getDropdownClasses = createAsyncThunk(
   "principal/getDropdownClasses",
-  async ({ schoolcode }, { dispatch, rejectWithValue }) => {
+  async ({ school_id }, { dispatch, rejectWithValue }) => {
     try {
-      const data = await classService.getDropdownClasses(schoolcode);
+      const data = await classService.getDropdownClasses(school_id);
       return data;
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong.";
@@ -231,9 +231,9 @@ export const getDropdownTeachers = createAsyncThunk(
 
 export const fetchTeachersProfile = createAsyncThunk(
   "principal/fetchTeachersProfile",
-  async ({ schoolcode }, { dispatch, rejectWithValue }) => {
+  async ({ school_id }, { dispatch, rejectWithValue }) => {
     try {
-      const data = await PrincipalService.getTeachersProfile(schoolcode);
+      const data = await PrincipalService.getTeachersProfile(school_id);
       return data;
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong.";

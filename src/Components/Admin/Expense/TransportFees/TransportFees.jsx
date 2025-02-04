@@ -28,7 +28,7 @@ function AcademicFees() {
   };
 
   const [formValues, setFormValues] = useState({
-    school_code: user?.schoolcode,
+    school_code: user?.school_id,
     academic_year: null,
     region: "",
     route_name: "",
@@ -44,7 +44,7 @@ function AcademicFees() {
 
   const clearForm = () => {
     setFormValues({
-      school_code: user?.schoolcode,
+      school_code: user?.school_id,
       academic_year: null,
       region: "",
       route_name: "",
@@ -63,9 +63,9 @@ function AcademicFees() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (user && user?.schoolcode !== undefined) {
-      dispatch(getAcademicYearsDropdown({ schoolcode: user?.schoolcode }));
-      TransportFeesService.getAllFees({ school_code: user?.schoolcode,page,limit  }).then(
+    if (user && user?.school_id !== undefined) {
+      dispatch(getAcademicYearsDropdown({ school_id: user?.school_id }));
+      TransportFeesService.getAllFees({ school_code: user?.school_id,page,limit  }).then(
         (res) => {
           setAllFees(res);
         }
@@ -78,7 +78,7 @@ function AcademicFees() {
 
   const handleApplyFilter = () => {
     TransportFeesService.getAllFees({
-      school_code: user?.schoolcode,
+      school_code: user?.school_id,
       page,
       limit,
       year:
@@ -529,7 +529,6 @@ function AcademicFees() {
           style={{
             width: "100%",
             height: "300px",
-            backgroundColor: "red",
           }}
         >
           <ExpenseTable

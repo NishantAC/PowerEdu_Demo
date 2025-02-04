@@ -15,10 +15,10 @@ const registerFeedbackResponses = async (user_id, question_id, teacher_id, respo
   }
 };
 
-const getFeedbackResponses = async (user_id, schoolcode) => {
+const getFeedbackResponses = async (user_id, school_id) => {
   try {
     const response = await axios.post(`${API_URL}list`, {
-      schoolcode, user_id
+      school_id, user_id
     });
     return response.data;
   } catch (error) {

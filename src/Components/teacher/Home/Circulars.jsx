@@ -40,7 +40,7 @@ function Circulars() {
   const handleClose = () => setOpen(false);
 
     useEffect(() => {
-      CircularService.getCirculars(user?.schoolcode).then(res => {
+      CircularService.getCirculars(user?.school_id).then(res => {
         setRows(res)
         
       })

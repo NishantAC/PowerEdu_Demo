@@ -53,7 +53,7 @@ const AddEventModal = ({
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: currentUser.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: currentUser.school_id }));
   }, []);
 
   const handleClose = () => {
@@ -86,7 +86,7 @@ const AddEventModal = ({
       end_date: values.endDate,
       event_type: values.selectedClass ? "class" : "school",
       class_code: values.selectedClass,
-      school_code: currentUser.schoolcode,
+      school_code: currentUser.school_id,
       isHoliday: holiday,
     };
 

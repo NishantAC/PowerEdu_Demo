@@ -195,10 +195,10 @@ export const replyToMail = async (formData) => {
   }
 };
 
-export const fetchAllUsername = async ({ name, schoolcode }) => {
+export const fetchAllUsername = async ({ name, school_id }) => {
   try {
     const result = await axios.get(
-      `${API_URL}fetchallname/${name}/?schoolcode=${schoolcode}`
+      `${API_URL}fetchallname/${name}/?school_id=${school_id}`
     );
     return result.data;
   } catch (err) {

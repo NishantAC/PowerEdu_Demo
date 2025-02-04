@@ -41,7 +41,7 @@ function CircularModal({ rows, row, open, handleClose, edit, setRows }) {
   };
 
   useEffect(() => {
-    schoolService.getSchoolData(user?.schoolcode)
+    schoolService.getSchoolData(user?.school_id)
       .then((result) => {
         setData(result.data);
       })
@@ -49,7 +49,7 @@ function CircularModal({ rows, row, open, handleClose, edit, setRows }) {
         console.log(error);
       });
 
-    schoolService.getSchoolLogo(user?.schoolcode)
+    schoolService.getSchoolLogo(user?.school_id)
       .then((result) => {
         const url = URL.createObjectURL(new Blob([result], { type: "image/jpeg" }));
         setLogo(url);
@@ -62,7 +62,7 @@ function CircularModal({ rows, row, open, handleClose, edit, setRows }) {
   const handleEdit = (e) => {
     e.preventDefault()
     const circularData = {
-      schoolcode: user?.schoolcode,
+      school_id: user?.school_id,
       title: editData.title,
       message: editData.message,
       date: editData.date,

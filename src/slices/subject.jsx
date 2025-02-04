@@ -7,10 +7,10 @@ const subject = JSON.parse(localStorage.getItem("subject"));
 
 export const registersubject = createAsyncThunk(
   "subject/registersubject",
-  async ({ schoolcode, classname, subjectname, createdby }, thunkAPI) => {
+  async ({ school_id, classname, subjectname, createdby }, thunkAPI) => {
     try {
       const { data } = await SubjectService.registerSubject(
-        schoolcode,
+        school_id,
         classname,
         subjectname,
         createdby
@@ -57,9 +57,9 @@ export const getAllSubjectDetails = createAsyncThunk(
 
 export const getAllSubjectsBySchool = createAsyncThunk(
   "subject/getAllSubjectsBySchool",
-  async ({ schoolcode }, thunkAPI) => {
+  async ({ school_id }, thunkAPI) => {
     try {
-      const response = await SubjectService.getAllSubjectsBySchool(schoolcode);
+      const response = await SubjectService.getAllSubjectsBySchool(school_id);
       // thunkAPI.dispatch(setMessage(data.message));
       // 
       return response;
@@ -78,10 +78,10 @@ export const getAllSubjectsBySchool = createAsyncThunk(
 
 export const getDropdownSubjectsByClass = createAsyncThunk(
   "subject/getDropdownSubjectsByClass",
-  async ({ schoolcode, class_code, timetable }, thunkAPI) => {
+  async ({ school_id, class_code, timetable }, thunkAPI) => {
     try {
       const response = await SubjectService.getDropdownSubjectsByClass(
-        schoolcode,
+        school_id,
         class_code,
         timetable
       );

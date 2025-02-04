@@ -27,7 +27,7 @@ function FillUserInfo() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    schoolcode: user?.school_id,
+    school_id: user?.school_id,
     rekorId: rekorId,
     userType: null,
     imageUrl: "",

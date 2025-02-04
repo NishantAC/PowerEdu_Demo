@@ -38,7 +38,7 @@ function ForwardMessage({ email, attachments, setAttachments, themeProperties , 
       if (recipient.length > 0) {
         const data = await fetchAllUsername({
           name: recipient.split(" ")[0],
-          schoolcode: user?.schoolcode,
+          school_id: user?.school_id,
         });
         if (data) {
           setUserNames(data);

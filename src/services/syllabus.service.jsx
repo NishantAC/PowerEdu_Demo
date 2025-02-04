@@ -20,10 +20,10 @@ const registerSyllabus = async (schoolCode, className, subjectName, chapterName,
   }
 };
 
-const getSyllabusBySubject = async (schoolcode, classid, subjectid) => {
+const getSyllabusBySubject = async (school_id, classid, subjectid) => {
   try {
     const response = await axios.post(`${API_URL}get`, {
-      schoolcode,
+      school_id,
       classid,
       subjectid
     });

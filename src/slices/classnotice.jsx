@@ -7,9 +7,9 @@ const classnotice = JSON.parse(localStorage.getItem("classnotice"));
 
 export const registerclassnotice = createAsyncThunk(
   "notice/registerclassnotice",
-  async ({ schoolcode, date, classname, title, createdby, details }, thunkAPI) => {
+  async ({ school_id, date, classname, title, createdby, details }, thunkAPI) => {
     try {
-      const response = await ClassNoticeService.registerclassnotice(schoolcode, date, classname, title, createdby, details);
+      const response = await ClassNoticeService.registerclassnotice(school_id, date, classname, title, createdby, details);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {

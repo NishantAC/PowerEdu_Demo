@@ -12,7 +12,7 @@ function TeacherExam() {
   const [filteredPapers, setFilteredPapers] = useState(papers)
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchAllPapers({ schoolcode: user?.schoolcode }));
+    dispatch(fetchAllPapers({ school_id: user?.school_id }));
   }, [dispatch, user]);
 
   useEffect(() => {

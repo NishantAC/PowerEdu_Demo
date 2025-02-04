@@ -252,8 +252,8 @@ function Profiles() {
   };
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: currentUser?.school_id }));
-    dispatch(getAcademicYearsDropdown({ schoolcode: currentUser?.school_id }));
+    dispatch(getDropdownClasses({ school_id: currentUser?.school_id }));
+    dispatch(getAcademicYearsDropdown({ school_id: currentUser?.school_id }));
     handleApplyFilter(); 
   }, [currentUser?.school_id, dispatch]);
 

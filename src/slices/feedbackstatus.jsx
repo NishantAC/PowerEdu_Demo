@@ -22,9 +22,9 @@ export const registerFeedbackStatus = createAsyncThunk(
 
 export const getFeedbackStatus = createAsyncThunk(
   "feedback/getFeedbackStatus",
-  async ({ schoolcode }, thunkAPI) => {
+  async ({ school_id }, thunkAPI) => {
     try {
-      const response = await FeedbackStatusService.getFeedbackStatusData(schoolcode);
+      const response = await FeedbackStatusService.getFeedbackStatusData(school_id);
       return response;
     } catch (error) {
       const { response: { data: { message } = {} } = {}, message: errorMessage } = error;

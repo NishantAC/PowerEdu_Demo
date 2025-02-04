@@ -3,11 +3,11 @@ import axios from "axios";
 
 const API_URL = API_BASE_URL+"timetable/";
 
-const getDayWiseSubjects = async (classid, schoolcode, day) => {
+const getDayWiseSubjects = async (classid, school_id, day) => {
   try {
     const response = await axios.post(`${API_URL}day-subjects`, {
       classid,
-      schoolcode,
+      school_id,
       day,
     });
     

@@ -17,13 +17,13 @@ const RegisterFeedbackStatus = () => {
   }, [dispatch]);
 
   const initialValues = {
-    schoolcode: "",
+    school_id: "",
     status: "",
   };
 
 
   const validationSchema = Yup.object().shape({
-    schoolcode: Yup.string()
+    school_id: Yup.string()
       .required("This field is required!"),
     status: Yup.string()
       .required("This field is required!"),
@@ -31,11 +31,11 @@ const RegisterFeedbackStatus = () => {
 
   const handleRegisterFeedbackStatus = (formValue) => {
 
-    const { schoolcode, status } = formValue;
+    const { school_id, status } = formValue;
 
     setSuccessful(false);
 
-    dispatch(registerFeedbackStatus({ schoolcode, status }))
+    dispatch(registerFeedbackStatus({ school_id, status }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -58,10 +58,10 @@ const RegisterFeedbackStatus = () => {
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="schoolcode">School Code</label>
-                  <Field name="schoolcode" type="text" className="form-control" />
+                  <label htmlFor="school_id">School Code</label>
+                  <Field name="school_id" type="text" className="form-control" />
                   <ErrorMessage
-                    name="schoolcode"
+                    name="school_id"
                     component="div"
                     className="alert alert-danger"
                   />

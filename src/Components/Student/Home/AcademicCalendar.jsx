@@ -16,7 +16,7 @@ export default function AcademicCalendar() {
   // Fetch events from the calendar service
   const getEvents = () => {
     const body = {
-      schoolcode: currentUser.schoolcode,
+      school_id: currentUser.school_id,
       classid: currentUser.classname,
     };
     CalendarServices.getEvents(body)

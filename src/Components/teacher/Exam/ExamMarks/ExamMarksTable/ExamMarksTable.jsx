@@ -51,7 +51,7 @@ function ExamMarksTable({ examdetails, examSubject, setExamSubject }) {
       setExamSubject(exam.subjectname)
       show()
     }
-    dispatch(fetchExamMarks({ schoolcode: user?.schoolcode ,examid: exam.id, academicyear: exam.academicyear}))
+    dispatch(fetchExamMarks({ school_id: user?.school_id ,examid: exam.id, academicyear: exam.academicyear}))
   }
 
   const handleFilter = () => {

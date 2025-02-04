@@ -30,7 +30,7 @@ function AddCircularModal() {
   const [editorValue, setEditorValue] = useState('');
 
   useEffect(() => {
-    schoolService.getSchoolData(user?.schoolcode)
+    schoolService.getSchoolData(user?.school_id)
       .then((result) => {
         setData(result.data);
       })
@@ -38,7 +38,7 @@ function AddCircularModal() {
         
       });
 
-    schoolService.getSchoolLogo(user?.schoolcode)
+    schoolService.getSchoolLogo(user?.school_id)
       .then((result) => {
         const url = URL.createObjectURL(new Blob([result], { type: 'image/jpeg' }));
         setLogo(url);

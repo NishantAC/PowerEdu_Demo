@@ -6,9 +6,9 @@ const subjectteacher = JSON.parse(localStorage.getItem("subjectteacher"));
 
 export const registersubjectteacher = createAsyncThunk(
   "teacher/registersubjectteacher",
-  async ({ schoolcode, classname, firstname, lastname, subjectname, details }, thunkAPI) => {
+  async ({ school_id, classname, firstname, lastname, subjectname, details }, thunkAPI) => {
     try {
-      const response = await SubjectTeacherService.registersubjectteacher(schoolcode, classname, firstname, lastname, subjectname, details);
+      const response = await SubjectTeacherService.registersubjectteacher(school_id, classname, firstname, lastname, subjectname, details);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -26,9 +26,9 @@ export const registersubjectteacher = createAsyncThunk(
 
 export const getSubjectTeacherData = createAsyncThunk(
   "teacher/getsubjectteachers",
-  async ({ classId, schoolcode }, {dispatch, rejectWithValue}) => {
+  async ({ classId, school_id }, {dispatch, rejectWithValue}) => {
     try {
-      const response = await SubjectTeacherService.getSubjectTeacherData(classId, schoolcode);
+      const response = await SubjectTeacherService.getSubjectTeacherData(classId, school_id);
       // thunkAPI.dispatch(setMessage(response.data.message));
       return response;
     } catch (error) {

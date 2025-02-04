@@ -20,9 +20,9 @@ export const fetchClassTestMarks = createAsyncThunk(
 
 export const registerclasstestmark = createAsyncThunk(
   "classtestmark/registerclasstestmark",
-  async ({ schoolcode, classname, subjectname, studentname, examdate, obtainedmarks, createdby }, thunkAPI) => {
+  async ({ school_id, classname, subjectname, studentname, examdate, obtainedmarks, createdby }, thunkAPI) => {
     try {
-      const response = await ClassTestMarkService.registerClassTestMark(schoolcode, classname, subjectname, studentname, examdate, obtainedmarks, createdby);
+      const response = await ClassTestMarkService.registerClassTestMark(school_id, classname, subjectname, studentname, examdate, obtainedmarks, createdby);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {

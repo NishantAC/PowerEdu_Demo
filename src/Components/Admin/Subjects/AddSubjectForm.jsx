@@ -79,7 +79,7 @@ const AddSubjectForm = ({
           className="w-24 h-9 bg-blue-600 text-white border-none rounded-md"
           onClick={() => {
             const body = {
-              school_code: user?.schoolcode,
+              school_code: user?.school_id,
               class_code: formValues.class,
               newSubjects: formValues.subjectCode,
             };
@@ -92,7 +92,7 @@ const AddSubjectForm = ({
               });
               dispatch(
                 getSubjectsOfClasses({
-                  school_code: user?.schoolcode,
+                  school_code: user?.school_id,
                   page,
                   limit,
                 })

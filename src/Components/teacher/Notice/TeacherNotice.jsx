@@ -39,7 +39,7 @@ export default function TeacherNotice() {
 
   //fetch class notice and overall
   const fetchClassNotices = (cls) => {
-    const body = { school_code: user?.schoolcode, class_code: cls };
+    const body = { school_code: user?.school_id, class_code: cls };
     ClassNoticeService.getClassNotices(body)
       .then((res) => {
         setAllNotices(res.data)
@@ -49,7 +49,7 @@ export default function TeacherNotice() {
   };
 
   const fetchAllNotices = () => {
-    const body = { school_code: user?.schoolcode };
+    const body = { school_code: user?.school_id };
     ClassNoticeService.getAllNotices(body)
       .then((res) => {
         setAllNotices(res.data)
@@ -61,7 +61,7 @@ export default function TeacherNotice() {
   //fetch principal msg
   const fetchPrincipalMsg = () => {
     principalService
-      .getPrincipalMessage({ school_code: user?.schoolcode })
+      .getPrincipalMessage({ school_code: user?.school_id })
       .then((res) => {
         setPrincipalMsg(res);
       })

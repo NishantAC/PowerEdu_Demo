@@ -6,9 +6,9 @@ const assignmentstatus = JSON.parse(localStorage.getItem("assignmentstatus"));
 
 export const registerassignmentstatus = createAsyncThunk(
   "assignment/registerassignmentstatus",
-  async ({ schoolcode, classname, subjectname, studentname, assigndate, submitdate, status }, thunkAPI) => {
+  async ({ school_id, classname, subjectname, studentname, assigndate, submitdate, status }, thunkAPI) => {
     try {
-      const response = await AssignmentStatusService.registerassignmentstatus(schoolcode, classname, subjectname, studentname, assigndate, submitdate, status);
+      const response = await AssignmentStatusService.registerassignmentstatus(school_id, classname, subjectname, studentname, assigndate, submitdate, status);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {

@@ -36,15 +36,15 @@ function PrincipalExam() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchExamTypes({ school_code: user?.schoolcode, class_code: classid }));
+    dispatch(fetchExamTypes({ school_code: user?.school_id, class_code: classid }));
   }, [dispatch, user, classid]);
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: user?.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: user?.school_id }));
   }, []);
 
   useEffect(() => {
-    dispatch(getDropdownSubjectsByClass({ schoolcode: user?.schoolcode, class_code: classid }));
+    dispatch(getDropdownSubjectsByClass({ school_id: user?.school_id, class_code: classid }));
   }, [classid]);
 
   const fetchCopyData = async () => {
@@ -52,7 +52,7 @@ function PrincipalExam() {
       toast.error("Please select a different class", { autoClose: 1000, position: 'bottom-right' });
       return;
     }
-    const examtype = await ExamTypeService.fetchExamTypes({ school_code: user?.schoolcode, class_code: copyClass });
+    const examtype = await ExamTypeService.fetchExamTypes({ school_code: user?.school_id, class_code: copyClass });
     setCopyData(examtype);
     setExamTypesData(prevExamTypesData => [...prevExamTypesData, ...examtype]);
   };

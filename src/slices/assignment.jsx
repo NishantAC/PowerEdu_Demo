@@ -7,10 +7,10 @@ const assignment = localStorage.getItem("assignment") ?? null;
 
 export const registerOrGetAssignments = createAsyncThunk(
   "assignment/registerOrGetAssignments",
-  async ({ isRegister, schoolcode, classname, subjectname, assigndate, duedate, title, createdby, body }, thunkAPI) => {
+  async ({ isRegister, school_id, classname, subjectname, assigndate, duedate, title, createdby, body }, thunkAPI) => {
     try {
       const response = isRegister
-        ? await AssignmentService.saveAssignment(schoolcode, classname, subjectname, assigndate, duedate, title, createdby)
+        ? await AssignmentService.saveAssignment(school_id, classname, subjectname, assigndate, duedate, title, createdby)
         : await AssignmentService.getClassAssignments(body);
 
       thunkAPI.dispatch(setMessage(response.data.message));

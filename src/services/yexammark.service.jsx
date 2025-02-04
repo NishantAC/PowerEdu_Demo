@@ -3,10 +3,10 @@ import axios from "axios";
 
 const API_URL = API_BASE_URL+"exammark/";
 
-const registeryexammark = async (schoolcode, classname, subjectname, studentname, examdate, obtainedmarks, createdby) => {
+const registeryexammark = async (school_id, classname, subjectname, studentname, examdate, obtainedmarks, createdby) => {
   try {
     const response = await axios.post(`${API_URL}registeryexammark`, {
-      schoolcode,
+      school_id,
       classname,
       subjectname,
       studentname,

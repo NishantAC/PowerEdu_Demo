@@ -107,7 +107,7 @@ const StudentProgress = () => {
         } else {
           dispatch(
             getStudentProgressData({
-              school_code: currentUser.schoolcode,
+              school_code: currentUser.school_id,
               class_code: classFilter,
               examtypeid: examType,
               subject_code: subject,
@@ -144,12 +144,12 @@ const StudentProgress = () => {
   }, [examType]);
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ schoolcode: currentUser.schoolcode }));
+    dispatch(getDropdownClasses({ school_id: currentUser.school_id }));
   }, [classFilter]);
   const handleApplyFilter = () => {
     dispatch(
       getStudentProgressData({
-        school_code: currentUser.schoolcode,
+        school_code: currentUser.school_id,
         class_code: classFilter,
         examtypeid: examType,
         subject_code: subject,
@@ -190,7 +190,7 @@ const StudentProgress = () => {
     // Dispatch the action and wait for it to complete
     dispatch(
       fetchDropdownExamTypes({
-        school_code: currentUser.schoolcode,
+        school_code: currentUser.school_id,
         class_code: value,
       })
     )

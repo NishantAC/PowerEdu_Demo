@@ -22,11 +22,11 @@ function AccountsHome() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user && user?.schoolcode !== undefined) {
+    if (user && user?.school_id !== undefined) {
       classService
-        .getDropdownClasses(user?.schoolcode)
+        .getDropdownClasses(user?.school_id)
         .then((res) => setClassesDropdown(res));
-      dispatch(getAcademicYearsDropdown({ schoolcode: user?.schoolcode }));
+      dispatch(getAcademicYearsDropdown({ school_id: user?.school_id }));
     }
   }, [user]);
 
@@ -41,12 +41,12 @@ function AccountsHome() {
   useEffect(() => {
     if (
       user &&
-      user?.schoolcode !== undefined &&
+      user?.school_id !== undefined &&
       classFilter &&
       academicYearFilter
     ) {
       AcademicFeesService.uniqueFrequencies({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: classFilter === "all" ? null : classFilter,
         year: academicYearFilter === "all" ? null : academicYearFilter,
       }).then((data) => {
@@ -60,7 +60,7 @@ function AccountsHome() {
   const handleApplyFilter = () => {
     if (selectedFeeType === "academic") {
       AcademicFeePaidService.getAllFeesPaid({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: classFilter === "all" ? null : classFilter,
         year:
           academicYearFilter === "all" ? null : parseInt(academicYearFilter),
@@ -73,7 +73,7 @@ function AccountsHome() {
 
     if (selectedFeeType === "transport") {
       TransportFeePaidService.getAllFeesPaid({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         year:
           academicYearFilter === "all" ? null : parseInt(academicYearFilter),
         interval: intervalFilter === "all" ? null : intervalFilter,
@@ -85,7 +85,7 @@ function AccountsHome() {
 
     if (selectedFeeType === "extracurricular") {
       ExtracurricularFeePaidService.getAllFeesPaid({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         class_code: classFilter === "all" ? null : classFilter,
         year:
           academicYearFilter === "all" ? null : parseInt(academicYearFilter),

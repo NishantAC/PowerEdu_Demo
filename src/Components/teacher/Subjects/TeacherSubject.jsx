@@ -24,7 +24,7 @@ function TeacherSubject() {
     dispatch(
       getAllSubjectDetails({
         class_code,
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         subject_code: classSubjects,
       })
     );

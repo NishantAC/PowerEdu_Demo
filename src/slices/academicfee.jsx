@@ -7,9 +7,9 @@ const academicFee = JSON.parse(localStorage.getItem("academicfee"));
 
 export const registerAcademicFee = createAsyncThunk(
   "fee/registerAcademicFee",
-  async ({ schoolcode, classname, feetype, amount, duedate }, thunkAPI) => {
+  async ({ school_id, classname, feetype, amount, duedate }, thunkAPI) => {
     try {
-      const response = await AcademicFeeService.registerAcademicFee(schoolcode, classname, feetype, amount, duedate);
+      const response = await AcademicFeeService.registerAcademicFee(school_id, classname, feetype, amount, duedate);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {

@@ -16,11 +16,11 @@ export default function StudentSubject() {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    // getting data with classid and schoolcode
+    // getting data with classid and school_id
     dispatch(
       getAllSubjectDetails({
         class_code: currentUser.classname,
-        school_code: currentUser.schoolcode,
+        school_code: currentUser.school_id,
       })
     );
   }, []);

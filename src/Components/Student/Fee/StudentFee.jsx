@@ -31,19 +31,19 @@ export default function StudentTeacher() {
     if (tabType === "Academic") {
       
       const allFee = await AcademicFeesService.getAllFees({
-        school_code: currentUser.schoolcode,
+        school_code: currentUser.school_id,
         class_code: currentUser.classname,
       });
       setFeesData(allFee);
     } else if (tabType === "Transport") {
       const allFee = await TransportFeesService.getAllFees({
-        school_code: currentUser.schoolcode,
+        school_code: currentUser.school_id,
         class_code: currentUser.classname,
       });
       setFeesData(allFee);
     } else {
       const allFee = await ExtracurricularFeesService.getAllFees({
-        school_code: currentUser.schoolcode,
+        school_code: currentUser.school_id,
         class_code: currentUser.classname,
       });
       setFeesData(allFee);

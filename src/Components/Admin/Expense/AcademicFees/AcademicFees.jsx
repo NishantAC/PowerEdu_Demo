@@ -27,7 +27,7 @@ function AcademicFees() {
   };
 
   const [formValues, setFormValues] = useState({
-    school_code: user?.schoolcode,
+    school_code: user?.school_id,
     academic_year: null,
     class_code: "",
     start_date: null,
@@ -42,7 +42,7 @@ function AcademicFees() {
 
   const clearForm = () => {
     setFormValues({
-      school_code: user?.schoolcode,
+      school_code: user?.school_id,
       academic_year: null,
       class_code: "",
       start_date: null,
@@ -63,12 +63,12 @@ function AcademicFees() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (user && user?.schoolcode !== undefined) {
+    if (user && user?.school_id !== undefined) {
       classService
-        .getDropdownClasses(user.schoolcode,page,limit)
+        .getDropdownClasses(user.school_id,page,limit)
         .then((res) => setClassesDropdown(res));
 
-      // classService.getDropdownClasses(user?.schoolcode).then((res) => {
+      // classService.getDropdownClasses(user?.school_id).then((res) => {
       //   const uniqueClasses = [
       //     ...new Set(res.map((cls) => cls.replace(/[A-Z]/g, ""))),
       //   ];
@@ -76,10 +76,10 @@ function AcademicFees() {
       // });
 
       dispatch(
-        getAcademicYearsDropdown({ schoolcode: user?.schoolcode, page, limit })
+        getAcademicYearsDropdown({ school_id: user?.school_id, page, limit })
       );
       AcademicFeesService.getAllFees({
-        school_code: user?.schoolcode,
+        school_code: user?.school_id,
         page,
         limit,
       }).then((res) => {
@@ -95,7 +95,7 @@ function AcademicFees() {
 
   const handleApplyFilter = () => {
     AcademicFeesService.getAllFees({
-      school_code: user?.schoolcode,
+      school_code: user?.school_id,
       class_code: classFilter === "all" ? null : classFilter,
       year:
         parseInt(academicYearFilter) === "all"

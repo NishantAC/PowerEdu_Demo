@@ -21,7 +21,7 @@ const getFeedbackStatusData = async (code) => {
     const response = await axios.post(`${API_URL}list`, {
       code,
     });
-    // if (response.data[0].schoolcode) {
+    // if (response.data[0].school_id) {
     //   localStorage.setItem("feedbackStatus", JSON.stringify(response.data[0]));
     // }
     return response?.data[0];

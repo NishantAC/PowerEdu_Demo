@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,299 +6,161 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useMediaQuery, Skeleton, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const TransportTable = ({
   transportList,
   setDeleteItemId,
-  showDeleteConfirmationModal,
   setShowDeleteConfirmationModal,
   page,
   limit,
   total,
-  onPageChange
-  
+  onPageChange,
+  themeProperties,
+  isLoading,
 }) => {
   return (
-    <>
-    <TableContainer component={Paper} style={{ height: "370px" }}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow
-            style={{
-              position: "sticky",
-              top: "0",
-              paddingLeft: "10px",
-              background:
-                "linear-gradient(180deg, #FDFDFD 0%, rgba(245, 245, 245, 0.92) 100%)",
-              border: "2px solid #A4A4A4",
-              boxSizing: "border-box",
-              borderRadius: "5px",
-              zIndex: "10",
-            }}
-          >
-            <TableCell
-              style={{
-                paddingTop: "18px",
-                paddingBottom: "18px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "20px",
-                color: "#545454",
-                borderBottom: "none",
-                textAlign: "left",
-              }}
-            >
-              Zone
-            </TableCell>
-            <TableCell
-              align="left"
-              style={{
-                paddingTop: "18px",
-                paddingBottom: "18px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "20px",
-                color: "#545454",
-                borderBottom: "none",
-              }}
-            >
-              Route Name
-            </TableCell>
-            <TableCell
-              align="left"
-              style={{
-                paddingTop: "18px",
-                paddingBottom: "18px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "20px",
-                color: "#545454",
-                borderBottom: "none",
-              }}
-            >
-              Vehicle No.
-            </TableCell>
-            <TableCell
-              align="left"
-              style={{
-                paddingTop: "18px",
-                paddingBottom: "18px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "20px",
-                color: "#545454",
-                borderBottom: "none",
-              }}
-            >
-              Driver Name
-            </TableCell>
-            <TableCell
-              align="left"
-              style={{
-                paddingTop: "18px",
-                paddingBottom: "18px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "20px",
-                color: "#545454",
-                borderBottom: "none",
-              }}
-            >
-              License No.
-            </TableCell>
-            <TableCell
-              align="left"
-              style={{
-                paddingTop: "18px",
-                paddingBottom: "18px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "20px",
-                color: "#545454",
-                borderBottom: "none",
-              }}
-            >
-              Contact No.
-            </TableCell>
-            <TableCell
-              align="left"
-              style={{
-                paddingTop: "18px",
-                paddingBottom: "18px",
-                fontFamily: "Poppins",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "20px",
-                color: "#545454",
-                borderBottom: "none",
-              }}
-            >
-              Action
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #A5A5A5",
-            boxSizing: "border-box",
-            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            borderRadius: "5px",
+    <div className="flex flex-col justify-between h-full">
+      <TableContainer
+        component={Paper}
+        sx={{
+          boxShadow: "none",
+          borderRadius: 3,
+          overflow: "hidden",
+          backgroundColor: themeProperties?.boxBackgroundSolid || "#ffffff",
+        }}
+        style={{ height: "370px" }}
+      >
+        <Table>
+          {isLoading ? (
+            <TableHead>
+              <TableRow>
+                <TableCell colSpan={7} align="center" sx={{ color: themeProperties?.textColor }}>
+                  Loading...
+                </TableCell>
+              </TableRow>
+            </TableHead>
+          ) : (
+            <TableHead>
+              <TableRow sx={{ backgroundColor: themeProperties?.boxBackgroundTop || "#f5f5f5" }}>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  Zone
+                </TableCell>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  Route Name
+                </TableCell>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  Vehicle No.
+                </TableCell>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  Driver Name
+                </TableCell>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  License No.
+                </TableCell>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
+                  Contact No.
+                </TableCell>
+                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt, textAlign: "end", paddingRight: "30px" }}>
+                  Action
+                </TableCell>
+              </TableRow>
+            </TableHead>
+          )}
+
+          {isLoading ? (
+            <TableBody>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell colSpan={7} align="center">
+                    <Skeleton height={50} variant="rectangular" />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          ) : (
+            <TableBody>
+              {transportList.count > 0 &&
+                transportList.rows?.map((transport, index) => (
+                  <TableRow key={index} hover>
+                    <TableCell>{transport?.zone}</TableCell>
+                    <TableCell>{transport?.route_name}</TableCell>
+                    <TableCell>{transport?.vehicle_no}</TableCell>
+                    <TableCell>{transport?.users_management?.firstname}</TableCell>
+                    <TableCell>{transport?.license_no}</TableCell>
+                    <TableCell>{transport?.contact}</TableCell>
+                    <TableCell sx={{ textAlign: "end" }}>
+                      <Dialog>
+                        <DialogTrigger as={Button} variant="contained" color="primary"
+                          className="px-4 py-2 rounded-lg"
+                          style={{
+                            backgroundColor: themeProperties?.logoutColor,
+                            color: themeProperties?.textColorAlt,
+                          }}
+                        >
+                          Delete
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogTitle>
+                            Are you sure you want to delete this transport?
+                          </DialogTitle>
+                          <DialogDescription>
+                            This action cannot be undone.
+                          </DialogDescription>
+                          <button
+                            className="px-4 py-2 w-fit rounded-lg"
+                            style={{
+                              backgroundColor: themeProperties?.logoutColor,
+                              color: themeProperties?.textColorAlt,
+                            }}
+                            onClick={() => {
+                              setDeleteItemId(transport.id);
+                              setShowDeleteConfirmationModal(true);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </DialogContent>
+                      </Dialog>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          )}
+        </Table>
+      </TableContainer>
+
+      <Stack alignItems="center" spacing={2} sx={{ marginTop: 2, padding: 2 }}>
+        <Pagination
+          count={Math.ceil(total / limit)}
+          page={page}
+          onChange={onPageChange}
+          sx={{
+            '& .MuiPaginationItem-root': {
+              color: themeProperties?.textColor,
+              '&.Mui-selected': {
+                backgroundColor: themeProperties?.normal1,
+                color: themeProperties?.textColorAlt,
+              },
+              '&:hover': {
+                backgroundColor: themeProperties?.normal1,
+                color: themeProperties?.textColorAlt,
+              },
+            },
           }}
-        >
-            {/* {transportList && Array.isArray(transportList) && transportList?.rows?.map((transport) => ( */}
-
-{transportList.count>0 &&
-  transportList.rows?.map((transport, index) => (
-          // {transportList?.map((transport, index) => (
-            <TableRow
-              key={transport.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              style={{ paddingLeft: "10px" }}
-            >
-              <TableCell
-                style={{
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  flex: "0.05",
-                  fontFamily: "Lato",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#000000",
-                  textAlign: "left",
-                }}
-              >
-                {transport?.zone}
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  fontFamily: "Lato",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#000000",
-                }}
-              >
-                {transport?.route_name}
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  fontFamily: "Lato",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#000000",
-                }}
-              >
-                {transport?.vehicle_no}
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  fontFamily: "Lato",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#000000",
-                }}
-              >
-                {`${transport?.users_management?.firstname} ${transport?.users_management?.middlename} ${transport?.users_management?.lastname}`}
-              </TableCell>
-              <TableCell
-                align="left"
-                style={{
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  fontFamily: "Lato",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#000000",
-                }}
-              >
-                {transport?.license_no}
-              </TableCell>
-
-              <TableCell
-                align="left"
-                style={{
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  fontFamily: "Lato",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#000000",
-                }}
-              >
-                {transport?.contact}
-              </TableCell>
-
-              <TableCell
-                align="left"
-                style={{
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  fontFamily: "Rubik",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#000000",
-                  margin: "auto",
-                }}
-              >
-                <button
-                  type="submit"
-                  style={{
-                    width: "133px",
-                    height: "42px",
-                    backgroundColor: "#DB212B",
-                    color: "white",
-                    border: "none",
-                  }}
-                  onClick={() => {
-                    setDeleteItemId(transport?.id);
-                    setShowDeleteConfirmationModal(true);
-                  }}
-                >
-                  Delete
-                </button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-     <Stack spacing={2} alignItems="center" marginTop={2}>
-     <Pagination
-       count={Math.ceil(total / limit)}
-       page={page}
-       onChange={onPageChange}
-       color="primary"
-     />
-   </Stack>
-   <div style={{ textAlign: "center", marginTop: "10px", fontFamily: "Poppins", fontSize: "16px", color: "#545454", fontWeight:"bold"}}>
-     {`You are on page ${page}`}
-   </div>
-   </>
+        />
+      </Stack>
+    </div>
   );
 };
 

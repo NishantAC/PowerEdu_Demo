@@ -13,7 +13,7 @@ export default function FeesStructure(props) {
 
   const { user: currentUser } = useSelector((state) => state.user);
   const { schooldetail: userSchool } = useSelector((state) => state.schooldetail);
-  const code = currentUser.schoolcode;
+  const code = currentUser.school_id;
   const [logo, setLogo] = useState(null);
 
   /**

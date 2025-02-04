@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 
 function AssignTable(props) {
 
-    const school_code = useSelector((state) => state.user.user?.schoolcode);
+    const school_code = useSelector((state) => state.user.user?.school_id);
 
     const [open, setOpen] = React.useState(false);
     const [checkbox, setCheckbox] = useState([]);

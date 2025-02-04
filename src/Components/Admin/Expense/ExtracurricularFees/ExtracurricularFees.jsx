@@ -27,7 +27,7 @@ function AcademicFees() {
   };
 
   const [formValues, setFormValues] = useState({
-    school_code: user?.schoolcode,
+    school_code: user?.school_id,
     academic_year: null,
     class_code: "",
     fee_type: "",
@@ -43,7 +43,7 @@ function AcademicFees() {
 
   const clearForm = () => {
     setFormValues({
-      school_code: user?.schoolcode,
+      school_code: user?.school_id,
       academic_year: null,
       class_code: "",
       fee_type: "",
@@ -63,13 +63,13 @@ function AcademicFees() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (user && user?.schoolcode !== undefined) {
+    if (user && user?.school_id !== undefined) {
       classService
-        .getDropdownClasses(user?.schoolcode)
+        .getDropdownClasses(user?.school_id)
         .then((res) => setClassesDropdown(res));
 
-      dispatch(getAcademicYearsDropdown({ schoolcode: user?.schoolcode }));
-      ExtracurricularFeesService.getAllFees({ school_code: user?.schoolcode,page,limit }).then(
+      dispatch(getAcademicYearsDropdown({ school_id: user?.school_id }));
+      ExtracurricularFeesService.getAllFees({ school_code: user?.school_id,page,limit }).then(
         (res) => {
           setAllFees(res);
         }
@@ -84,7 +84,7 @@ function AcademicFees() {
 
   const handleApplyFilter = () => {
     ExtracurricularFeesService.getAllFees({
-      school_code: user?.schoolcode,
+      school_code: user?.school_id,
       class_code: classFilter === "all" ? null : classFilter,
       page,
       limit,

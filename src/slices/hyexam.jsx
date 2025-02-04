@@ -92,7 +92,7 @@ export const registerhyexam = createAsyncThunk(
   "hyexams/registerhyexam",
   async (
     {
-      schoolcode,
+      school_id,
       schoolclassId,
       subjectId,
       syllabus,
@@ -104,7 +104,7 @@ export const registerhyexam = createAsyncThunk(
   ) => {
     try {
       const response = await HYExamService.registerHYExam(
-        schoolcode,
+        school_id,
         schoolclassId,
         subjectId,
         syllabus,

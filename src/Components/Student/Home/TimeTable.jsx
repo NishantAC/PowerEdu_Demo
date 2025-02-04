@@ -28,7 +28,7 @@ export default function TimeTable() {
     //     dispatch(
     //         getDayWiseSubject({
     //             class_id: classid,
-    //             schoolcode,
+    //             school_id,
     //             day: startDate.getDay(),
     //         })
     //     );

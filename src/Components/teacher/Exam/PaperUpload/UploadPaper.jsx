@@ -36,9 +36,9 @@ function UploadPaper() {
   const { currentteacher } = useSelector((state) => state.subjectteacher);
   // 
   useEffect(() => {
-    dispatch(fetchExamTypes({ schoolcode: user?.schoolcode }));
+    dispatch(fetchExamTypes({ school_id: user?.school_id }));
     dispatch(getCurrentTeacherData({ userId: user?.id }));
-    dispatch(getAllSubjectsBySchool({ schoolcode: user?.schoolcode }));
+    dispatch(getAllSubjectsBySchool({ school_id: user?.school_id }));
   }, []);
 
   const [classid, setClassid] = useState("");
@@ -73,7 +73,7 @@ function UploadPaper() {
     }
     dispatch(
       addPaper({
-        schoolcode: user?.schoolcode,
+        school_id: user?.school_id,
         classid,
         examtype,
         subject: subjectname,

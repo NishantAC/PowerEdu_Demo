@@ -24,7 +24,7 @@ const Register = () => {
     admissionno: "",
     rollno: "",
     parentname: "",
-    schoolcode: "",
+    school_id: "",
     status: "true",
     classname: "",
     password: "",
@@ -47,7 +47,7 @@ const Register = () => {
       .required("This field is required"),
     parentname: Yup.string()
       .required("This field is required"),
-    schoolcode: Yup.string()
+    school_id: Yup.string()
       .required("This field is required"),
     status: Yup.string()
       .required("This field is required"),
@@ -70,11 +70,11 @@ const Register = () => {
   });
 
   const handleRegister = (formValue) => {
-    const { userid, email, firstname, lastname, admissionno, rollno, parentname, schoolcode, status, classname, password, roles } = formValue;
+    const { userid, email, firstname, lastname, admissionno, rollno, parentname, school_id, status, classname, password, roles } = formValue;
 
     setSuccessful(false);
 
-    dispatch(register({ userid, email, firstname, lastname, admissionno, rollno, parentname, schoolcode, status, classname, password, roles }))
+    dispatch(register({ userid, email, firstname, lastname, admissionno, rollno, parentname, school_id, status, classname, password, roles }))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -166,10 +166,10 @@ const Register = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="schoolcode">School Code</label>
-                  <Field name="schoolcode" type="text" className="form-control" />
+                  <label htmlFor="school_id">School Code</label>
+                  <Field name="school_id" type="text" className="form-control" />
                   <ErrorMessage
-                    name="schoolcode"
+                    name="school_id"
                     component="div"
                     className="alert alert-danger"
                   />

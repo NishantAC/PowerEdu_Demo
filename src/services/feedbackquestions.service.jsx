@@ -3,10 +3,10 @@ import { API_BASE_URL } from "../common/constant";
 
 const API_URL = `${API_BASE_URL}feedback-questions/`;
 
-const registerFeedbackQuestions = async (schoolcode, questions, subject_id, teacher_id) => {
+const registerFeedbackQuestions = async (school_id, questions, subject_id, teacher_id) => {
   try {
     const response = await axios.post(`${API_URL}create`, {
-      schoolcode, questions, subject_id, teacher_id
+      school_id, questions, subject_id, teacher_id
     });
     return response.data;
   } catch (error) {
@@ -15,10 +15,10 @@ const registerFeedbackQuestions = async (schoolcode, questions, subject_id, teac
   }
 };
 
-const getFeedbackQuestions = async (class_id, schoolcode) => {
+const getFeedbackQuestions = async (class_id, school_id) => {
   try {
     const response = await axios.post(`${API_URL}list`, {
-      schoolcode, class_id
+      school_id, class_id
     });
     // 
     return response.data;

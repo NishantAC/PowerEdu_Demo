@@ -95,7 +95,7 @@ export default function ExamRow({
       max_marks: maxMarks,
       passing_marks: passMarks,
     };
-    dispatch(updateExam({ updatedRow, school_code: user?.schoolcode, class_code: examtype.class_code }))
+    dispatch(updateExam({ updatedRow, school_code: user?.school_id, class_code: examtype.class_code }))
 
     setEditId(null);
   };
@@ -112,7 +112,7 @@ export default function ExamRow({
 
   const confirmDelete = () => {
     setIsDeleteDialogOpen(false);
-    dispatch(deleteExam({ id: row.id, school_code: user?.schoolcode, class_code: examtype.class_code })).then((result) => {
+    dispatch(deleteExam({ id: row.id, school_code: user?.school_id, class_code: examtype.class_code })).then((result) => {
       if (result.payload) {
         // Dispatch succeeded, show success message
         toast.success(result.payload.message, { autoClose: 1000, position: "bottom-right" });

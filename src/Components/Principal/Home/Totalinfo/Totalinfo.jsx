@@ -16,19 +16,19 @@ function Totalinfo() {
   const pendingFeesStudents = 820; // This is now a static value
 
   useEffect(() => {
-    if (user?.schoolcode) {
+    if (user?.school_id) {
       // Fetch total students
-      SchoolUsersService.getTotalStudentsNumber(user.schoolcode).then((res) =>
+      SchoolUsersService.getTotalStudentsNumber(user.school_id).then((res) =>
         setTotalStudents(res.totalStudentsNumber)
       );
 
       // Fetch total teachers
-      SchoolUsersService.getTotalTeachersNumber(user.schoolcode).then((res) =>
+      SchoolUsersService.getTotalTeachersNumber(user.school_id).then((res) =>
         setTotalTeachers(res.totalTeachersNumber)
       );
 
       // Fetch total staff
-      SchoolUsersService.getTotalStaffNumber(user.schoolcode).then((res) =>
+      SchoolUsersService.getTotalStaffNumber(user.school_id).then((res) =>
         setTotalStaff(res.totalStaffNumber)
       );
     }

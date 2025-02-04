@@ -63,7 +63,7 @@ function PrincipalAddNotice(props) {
         }
         delete data?.file;
         //school_code, class_code, title, createdby, description 
-        formData.append("school_code", props?.user?.schoolcode);
+        formData.append("school_code", props?.user?.school_id);
         formData.append("createdBy", props?.user?.id);
         formData.append("class_code", data?.classcode);
         formData.append("title", data?.title);
