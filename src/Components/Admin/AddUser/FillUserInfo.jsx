@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import UserProfileImage from "./UserProfileImage";
 import UserTypeSelection from "./UserTypeSelection";
 import UserDetailsForm from "./UserDetailsForm";
+import { toast } from "sonner";
 function FillUserInfo() {
 
   const { user } = useSelector((state) => state.user);
@@ -68,7 +69,7 @@ function FillUserInfo() {
           setRekorId(res.id);
         })
         .catch((error) => {
-          
+          toast.error("Error in fetching Rekor Id");
         });
 
       authService
@@ -77,7 +78,7 @@ function FillUserInfo() {
           setAdmissionNoPlaceholder(res.admissionNo);
         })
         .catch((error) => {
-          
+          toast.error("Error in fetching Admission No");
         });
 
       if (userType === "Student") {

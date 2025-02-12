@@ -93,6 +93,7 @@ import StudentProgress from "./components/Principal/Exam/StudentsProgress/Studen
 import PrincipalStudentsTabs from "./components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
 import MainLayout from "./MainLayout/MainLayout";
 import { Toaster } from "@/components/ui/sonner"
+import Classes from "./Components/Admin/School/Classes/Classes";
 
 
 function App() {
@@ -151,6 +152,7 @@ function App() {
           <Route path="/admin/extracurricular" element={<ExtracurricularFees />} />
           <Route path="/admin/transport-fees" element={<TransportFees />} />
           <Route path="/admin/school" element={<School />} />
+          <Route path="/admin/manage-classes" element={<Classes />} />
 
 
           {/*  Teacher layout  */}

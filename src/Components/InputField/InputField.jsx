@@ -16,7 +16,9 @@ const InputField = ({ value, htmlFor, placeholder, name, handleChange, required,
         value={value}
         onChange={handleChange}
         disabled={disable}
-        className={` px-3 overflow-hidden py-[9px] ${address ? ' min-w-[480px]':'w-[192px]'} border rounded-lg focus:outline-none peer ${type === 'number' ? 'no-spinner' : ''}`}
+        className={` px-3 overflow-hidden py-[9px] ${address ? ' min-w-[480px]':'w-[192px]'} border rounded-lg focus:outline-none peer ${type === 'number' ? 'no-spinner' : ''}
+        ${disable ? 'opacity-50' : ''} `
+      }
         style={{
           background : themeProperties.inputBackground,
           color : themeProperties.inputTextColor,

@@ -31,6 +31,7 @@ import admin from "./slices/admin";
 import calendarSlice from "./slices/calendar";
 import theme from "./slices/theme";
 import mailReducer from "./slices/mailSlice";
+import manageClasses from "./slices/manageClasses";
 
 const reducer = {
   auth,
@@ -65,6 +66,7 @@ const reducer = {
   calendarSlice,
   theme,
   mail : mailReducer,
+  manageClasses,
 
 };
 

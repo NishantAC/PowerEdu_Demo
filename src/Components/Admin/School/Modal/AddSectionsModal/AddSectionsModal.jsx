@@ -19,7 +19,7 @@ const AddSectionsModal = ({
         overflowY: "auto",
       }}
     >
-      {updatedClasses.map((classElement, index) => (
+      {updatedClasses?.map((classElement, index) => (
         <div key={index}>
           <Section
             classNo={classElement.classNumber}

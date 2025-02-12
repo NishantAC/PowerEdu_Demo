@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import WestIcon from "@mui/icons-material/West";
-import { Link } from "react-router-dom";
-import InputParent from "../Profiles/EditProfile/InputParent";
 import TransportTable from "./Table/TransportTable";
 import DeleteConfirmationModal from "./Modal/DeleteConfirmationModal";
 import TransportService from "../../../services/transport.service";
 import { useSelector } from "react-redux";
-import SelectBox from "./SelectBox";
 import AddRouteForm from "./AddRouteForm"; // Import the new component
 import { selectThemeProperties } from "@/slices/theme";
 

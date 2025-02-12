@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import BackupIcon from "@mui/icons-material/Backup";
 import { Link } from "react-router-dom";
 import "./ClassesUpdateConfirmationModal.css";
 import classService from "../../../../../services/class.service";
