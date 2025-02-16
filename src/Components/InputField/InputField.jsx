@@ -1,7 +1,7 @@
 import React from "react";
 import { selectThemeProperties } from "@/slices/theme";
 import { useSelector } from "react-redux";
-const InputField = ({ value, htmlFor, placeholder, name, handleChange, required, type = "text", pattern , address = false , disable = false}) => {
+const InputField = ({ value, htmlFor, placeholder, name, handleChange, required, type = "text", pattern , address = false , disable = false }) => {
 
   const themeProperties = useSelector(selectThemeProperties);
 
@@ -17,7 +17,7 @@ const InputField = ({ value, htmlFor, placeholder, name, handleChange, required,
         onChange={handleChange}
         disabled={disable}
         className={` px-3 overflow-hidden py-[9px] ${address ? ' min-w-[480px]':'w-[192px]'} border rounded-lg focus:outline-none peer ${type === 'number' ? 'no-spinner' : ''}
-        ${disable ? 'opacity-50' : ''} `
+        `
       }
         style={{
           background : themeProperties.inputBackground,

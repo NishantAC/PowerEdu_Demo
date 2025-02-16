@@ -1,14 +1,10 @@
 import axios from "axios";
 import { API_BASE_URL } from "../common/constant";
 
-// const API_URL = API_BASE_URL + "schools/schools";
+const API_URL = API_BASE_URL + 'admin/schools';
 
-const API_URL = API_BASE_URL+'schools/schools/'
-
-const API_URL1 = API_BASE_URL+'schools/school';
-
-
-const API_URL2 = API_BASE_URL+'schools'
+const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
+const token = "Bearer " + JSON.parse(powerEduAuthToken);
 
 const registerSchool = async (
   schoolCode,
@@ -19,9 +15,13 @@ const registerSchool = async (
   try {
     const response = await axios.post(`${API_URL}register-school`, {
       schoolCode,
-      schoolName,
+      schoolName, 
       status,
       view_performance_button,
+    }, {
+      headers: {
+        Authorization: token,
+      },
     });
     return response.data;
   } catch (error) {
@@ -34,6 +34,10 @@ const getAcademicYears = async (school_code) => {
   try {
     const response = await axios.post(`${API_URL}academic-years`, {
       school_code,
+    }, {
+      headers: {
+        Authorization: token,
+      },
     });
     return response.data;
   } catch (error) {
@@ -42,12 +46,13 @@ const getAcademicYears = async (school_code) => {
   }
 };
 
-const getSchoolData = async (code) => {
+const getSchoolData = async (school_id) => {
   try {
-    
-
-    // const response = await axios.post(`${API_URL}school`, { code: code });
-    const response = await axios.post(`${API_URL1}`,{code:code});
+    const response = await axios.post(`${API_URL}/${school_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     if (response.data.school_code) {
       localStorage.setItem("school", JSON.stringify(response.data));
@@ -61,19 +66,10 @@ const getSchoolData = async (code) => {
 
 const fetchSchoolClasses = async (code) => {
   try {
-    const response = await axios.get(`${API_URL}schools/${code}/classes/`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-const getSchoolLogo = async (code) => {
-  
-  try {
-    const response = await axios.get(`${API_URL2}/schoollogo/${code}`, {
-      responseType: "arraybuffer",
+    const response = await axios.get(`${API_URL}schools/${code}/classes/`, {
+      headers: {
+        Authorization: token,
+      },
     });
     return response.data;
   } catch (error) {
@@ -82,9 +78,28 @@ const getSchoolLogo = async (code) => {
   }
 };
 
-const getSchoolStatus = async (code) => {
+const getSchoolLogo = async (school_id) => {
   try {
-    const response = await axios.get(`${API_URL}schoolstatus/${code}`);
+    const response = await axios.post(`${API_URL}/${school_id}`, {
+      responseType: "arraybuffer",
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const getSchoolStatus = async (school_id) => {
+  try {
+    const response = await axios.post(`${API_URL}/${school_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -94,7 +109,11 @@ const getSchoolStatus = async (code) => {
 
 const getManagementProfileDetails = async (body) => {
   try {
-    const response = await axios.post(API_URL + "all", body);
+    const response = await axios.post(API_URL + "all", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return { response, error: null };
   } catch (error) {
     console.error(error);
@@ -109,6 +128,7 @@ const schoolService = {
   fetchSchoolClasses,
   getSchoolLogo,
   getSchoolStatus,
+  getManagementProfileDetails,
 };
 
 export default schoolService;

@@ -37,6 +37,8 @@ import { Link } from "react-router-dom";
 
 const Classes = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const school_id = user?.school_id;
 
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(5);
@@ -47,7 +49,7 @@ const Classes = () => {
   const themeProperties = useSelector(selectThemeProperties);
 
   useEffect(() => {
-    dispatch(fetchClasses({ school_id: 1, academic_year_id: 1 }));
+    dispatch(fetchClasses({ school_id, academic_year_id: 1 }));
   }, [dispatch]);
 
   const handleCreateClass = (values) => {
@@ -63,7 +65,7 @@ const Classes = () => {
     setPage(0);
   };
 
-  const handleSubmit =(values) => {
+  const handleSubmit = (values) => {
     dispatch(
       updateClass({
         id: values.id,
@@ -147,7 +149,7 @@ const Classes = () => {
                   color: themeProperties?.textColorAlt,
                 }}
               >
-                Class Name
+                Class Code
               </TableCell>
               <TableCell
                 sx={{
@@ -155,8 +157,9 @@ const Classes = () => {
                   color: themeProperties?.textColorAlt,
                 }}
               >
-                Class Code
+                Class Name
               </TableCell>
+
               <TableCell
                 sx={{
                   fontWeight: "normal",
@@ -182,8 +185,8 @@ const Classes = () => {
               paginatedClasses.map((classItem) => (
                 <TableRow key={classItem?.id} hover>
                   <TableCell>{classItem?.pclass}</TableCell>
-                  <TableCell>{classItem?.class_name}</TableCell>
                   <TableCell>{classItem?.class_code}</TableCell>
+                  <TableCell>{classItem?.class_name}</TableCell>
                   <TableCell>{classItem?.capacity}</TableCell>
                   <TableCell sx={{ textAlign: "end" }}>
                     <Dialog>

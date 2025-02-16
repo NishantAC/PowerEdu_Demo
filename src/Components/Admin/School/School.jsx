@@ -1,82 +1,40 @@
 import React, { useEffect, useState } from "react";
-import "./School.css";
 import { toast } from "sonner";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import WestIcon from "@mui/icons-material/West";
 import { Link } from "react-router-dom";
-import InputParent from "./InputParent";
-import DeleteConfirmationModal from "./Modal/DeleteConfirmationModal";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import FolderIcon from "@mui/icons-material/Folder";
-import FolderBox from "./FolderBox";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import AddNewFolderModal from "./Modal/AddNewFolderModal";
-import UploadPicturesModal from "./Modal/UploadPictureModal/UploadPicturesModal";
-import "./School.css";
-import Album from "./Album/Album";
-import AddSectionsModal from "./Modal/AddSectionsModal/AddSectionsModal";
-import classService from "../../../services/class.service";
 import SpSchoolInfoService from "../../../services/sp_schoolinfo.service";
-import ClassesUpdateConfirmationModal from "./Modal/ClassesUpdateConfirmationModal/ClassesUpdateConfirmationModal";
 import { useSelector } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
+import InputField from "@/Components/InputField/InputField";
+import { MdEdit } from "react-icons/md";
+import SchoolProfileImage from "./SchoolProfileImage";
 
 function Schools() {
-  const school = JSON.parse(localStorage.getItem("school"));
+  const { user } = useSelector((state) => state.user);
+  const school_id = user?.school_id;
+  const [profile_pic, setProfilePic] = useState(null);
   const [formValues, setFormValues] = useState({
     name: "",
     address: "",
-    address1: "",
     email: "",
-    phNo: "",
-    altNo: "",
+    phone_number: "",
     license: "",
     board: "",
+    profile_pic: "",
   });
 
-  const [classes, setClasses] = useState(null);
-  const [isClassesModalOn, setClassesModalOn] = useState(false);
-  const [updatedClasses, setUpdatedClasses] = useState([]);
-
   useEffect(() => {
-    SpSchoolInfoService.getInfoSchool()
+    SpSchoolInfoService.getInfoSchool(school_id)
       .then((data) => {
-        setFormValues((prev) => ({
-          ...prev,
-          name: data[0]?.name,
-        }));
-        setFormValues((prev) => ({
-          ...prev,
-          address: `${data[0]?.address?.line1 || ""}${
-            data[0]?.address?.line2 ? ", " + data[0]?.address?.line2 : ""
-          }, ${data[0]?.address?.city || ""}, ${
-            data[0]?.address?.state || ""
-          } ${data[0]?.address?.postal_code || ""}, ${
-            data[0]?.address?.country || ""
-          }`,
-        }));
-        setFormValues((prev) => ({
-          ...prev,
-          address1: data[0]?.address1,
-        }));
-        setFormValues((prev) => ({
-          ...prev,
-          email: data[0]?.email,
-        }));
-        setFormValues((prev) => ({
-          ...prev,
-          phNo: data[0]?.phone_no,
-        }));
-        setFormValues((prev) => ({
-          ...prev,
-          license: data[0]?.license_no,
-        }));
-        setFormValues((prev) => ({
-          ...prev,
-          board: data[0]?.board,
-        }));
+        setProfilePic(data?.profile_pic);
+        setFormValues({
+          name: data?.name,
+          address: data?.address,
+          email: data?.email,
+          phone_number: data?.phone_number,
+          license: data?.license,
+          board: data?.board,
+          profile_pic: data?.profile_pic,
+        });
       })
       .catch((error) => {
         console.error("Error fetching school info:", error);
@@ -84,28 +42,17 @@ function Schools() {
       });
   }, []);
 
-  useEffect(() => {
-    classService
-      .getAllClasses({ school_code: 1 })
-      .then((res) => {
-        setClasses(res.data);
-        setUpdatedClasses(res.data); // Update updatedClasses when classes are fetched
-      })
-      .catch((error) => {
-        console.error("Error fetching classes:", error);
-      });
-  }, []); // Empty dependency array, runs once on mount
-
-  useEffect(() => {
-    if (classes !== null) {
-      setUpdatedClasses(classes);
-    }
-  }, [classes]);
-
-  const [showClassesUpdateModal, setShowClassesUpdateModal] = useState(false);
-  const themeProperties = useSelector( selectThemeProperties);
+  const themeProperties = useSelector(selectThemeProperties);
 
   const [isEditingEnabled, setEditingEnabled] = useState(false);
+
+  const changeEditingStatus = () => {
+    setEditingEnabled(true);
+    toast.info("Editing Enabled", {
+      description: "You can now edit the school information",
+    });
+  };
+
   const handleChange = (e, key) => {
     setFormValues((prev) => ({
       ...prev,
@@ -113,10 +60,10 @@ function Schools() {
     }));
   };
 
-  const updateSchoolInfo = (school_code) => {
-    SpSchoolInfoService.updateSchoolInfo(formValues, school_code)
+  const updateSchoolInfo = (school_id) => {
+    SpSchoolInfoService.updateSchoolInfo(formValues, school_id)
       .then((response) => {
-        toast.success("School Information Updated SuccessFully");
+        toast.success("School Information Updated Successfully");
         setEditingEnabled(false); // Disable editing after save
       })
       .catch((error) => {
@@ -125,286 +72,166 @@ function Schools() {
       });
   };
 
+  const handleCancel = () => {
+    setEditingEnabled(false);
+    SpSchoolInfoService.getInfoSchool(school_id)
+    .then((data) => {
+      setProfilePic(data?.profile_pic);
+      setFormValues({
+        name: data?.name,
+        address: data?.address,
+        email: data?.email,
+        phone_number: data?.phone_number,
+        license: data?.license,
+        board: data?.board,
+        profile_pic: data?.profile_pic,
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching school info:", error);
+      toast.error("Failed to fetch school info.");
+    });
+  };
+
   return (
-    <div className="subjectsContainer">
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        <div>
-          <h3
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "600",
-              marginTop: "30px",
-              fontSize: "25px",
-            }}
-          >
-            School
-          </h3>
-        </div>
+    <div className=" p-6">
+      <div className="flex flex-col gap-4">
         <div
+          className="shadow-sm rounded-[15px] overflow-hidden relative"
           style={{
-            width: "100%",
-            height: "260px",
-            boxShadow: "0 2px 7px 0 rgba(52, 52, 52, 0.35)",
-            borderRadius: "5px",
-            position: "relative",
+            backgroundColor: themeProperties?.boxBackgroundSolid,
+            color: themeProperties?.textColor,
           }}
         >
           <div
+            className="h-16 rounded-t-md px-4 flex items-center justify-between"
             style={{
-              height: "64px",
-              backgroundColor: "#F9F9F9",
-              borderRadius: "5px 5px 0px 0px",
-              paddingLeft: "10px",
-              paddingRight: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              backgroundColor: themeProperties?.normal1,
+              color: themeProperties?.textColorAlt,
             }}
           >
-            <div
-              style={{
-                fontFamily: "Poppins",
-                fontSize: "20px",
-                fontWeight: "600",
-              }}
-            >
-              School Details
-            </div>
-            <button
-              style={{
-                width: "100px",
-                height: "46px",
-                backgroundColor: "#204DF9",
-                borderRadius: "5px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                color: "white",
-                gap: "2px",
-                border: "none",
-                outline: "none",
-              }}
-              onClick={() => setEditingEnabled(!isEditingEnabled)}
-            >
-              <div
-                style={{
-                  fontFamily: "Rubik",
-                  fontSize: "18px",
-                  fontWeight: "500",
-                }}
-              >
-                Edit
-              </div>
-              <div
-                style={{
-                  display: "grid",
-                  placeContent: "center",
-                }}
-              >
-                <EditOutlinedIcon style={{ width: "20px", height: "20px" }} />
-              </div>
-            </button>
+            <div className="">School Details</div>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "20px",
-              padding: "20px 20px 0px 20px",
-            }}
-          >
-            <div className="name">
-              <InputParent text="Name">
-                <input
-                  className="inputBox"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    color: isEditingEnabled ? "red" : "black",
-                  }}
-                  disabled={!isEditingEnabled}
-                  // onChange={handleChange(e,'address')}
-                  onChange={(e) => {
-                    handleChange(e, "name");
-                  }}
+          <div className=" flex justify-between items-center p-10 mt-10">
+            <div>
+              <SchoolProfileImage
+                formValues={formValues}
+                setFormValues={setFormValues}
+                themeProperties={themeProperties}
+                profile_pic={profile_pic}
+                isEditingEnabled={isEditingEnabled}
+              />
+            </div>
+            <div>
+              <div className="flex flex-wrap gap-10 p-5">
+                <InputField
+                  placeholder={"School Name"}
+                  label="Name"
                   value={formValues.name}
-                ></input>
-              </InputParent>
-            </div>
+                  handleChange={(e) => handleChange(e, "name")}
+                  disable={!isEditingEnabled}
+                />
 
-            <div className="address">
-              <InputParent text="Address">
-                <input
-                  className="inputBox"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    color: isEditingEnabled ? "red" : "black",
-                  }}
-                  disabled={!isEditingEnabled}
-                  // onChange={handleChange(e,'address')}
-                  onChange={(e) => {
-                    handleChange(e, "address1");
-                  }}
-                  value={formValues.address1}
-                ></input>
-              </InputParent>
-            </div>
+                <InputField
+                  placeholder={"Address"}
+                  label="Address"
+                  value={formValues.address}
+                  handleChange={(e) => handleChange(e, "address")}
+                  disable={!isEditingEnabled}
+                />
 
-            <div className="email">
-              <InputParent text="E-mail">
-                <input
-                  className="inputBox"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    color: isEditingEnabled ? "red" : "black",
-                  }}
-                  disabled={!isEditingEnabled}
-                  onChange={(e) => {
-                    handleChange(e, "email");
-                  }}
+                <InputField
+                  label="E-mail"
+                  placeholder={"Email"}
                   value={formValues.email}
-                ></input>
-              </InputParent>
-            </div>
+                  handleChange={(e) => handleChange(e, "email")}
+                  disable={!isEditingEnabled}
+                />
+              </div>
+              <div className="flex flex-wrap gap-10 p-5">
+                <InputField
+                  label="Phone No."
+                  placeholder={"Phone Number"}
+                  value={formValues.phone_number}
+                  handleChange={(e) => handleChange(e, "phNo")}
+                  disable={!isEditingEnabled}
+                />
 
-            <div className="phoneNo">
-              <InputParent text="Phone No.">
-                <input
-                  className="inputBox"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    color: isEditingEnabled ? "red" : "black",
-                  }}
-                  disabled={!isEditingEnabled}
-                  onChange={(e) => {
-                    handleChange(e, "phNo");
-                  }}
-                  value={formValues.phNo}
-                ></input>
-              </InputParent>
-            </div>
-
-            <div className="licenses">
-              <InputParent text="No. of License">
-                <input
-                  className="inputBox"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    color: isEditingEnabled ? "red" : "black",
-                  }}
-                  disabled={!isEditingEnabled}
-                  onChange={(e) => {
-                    handleChange(e, "license");
-                  }}
+                <InputField
+                  label="No. of License"
+                  placeholder={"License"}
                   value={formValues.license}
-                ></input>
-              </InputParent>
-            </div>
+                  handleChange={(e) => handleChange(e, "license")}
+                  disable={!isEditingEnabled}
+                />
 
-            <div className="board">
-              <InputParent text="Board">
-                <input
-                  className="inputBox"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    color: isEditingEnabled ? "red" : "black",
-                  }}
-                  disabled={!isEditingEnabled}
-                  onChange={(e) => {
-                    handleChange(e, "board");
-                  }}
+                <InputField
+                  label="Board"
+                  placeholder={"Board"}
                   value={formValues.board}
-                ></input>
-              </InputParent>
-            </div>
-
-            <div className="class-and-sections">
-              <InputParent text="Class & Sections">
-                <div
-                  className="inputBox"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  {updatedClasses?.length || ""}
-                </div>
-                <button
-                  style={{
-                    position: "absolute",
-                    height: "80%",
-                    width: "60px",
-                    borderRadius: "5px",
-                    right: "3%",
-                    top: "5px",
-                    backgroundColor: "#204DF9",
-                    color: "white",
-                    border: "none",
-                    outline: "none",
-                    fontFamily: "Rubik",
-                    fontSize: "18px",
-                    fontWeight: "500",
-                  }}
-                  onClick={() => {
-                    setClassesModalOn((prev) => !prev);
-                    if (isClassesModalOn && updatedClasses != classes) {
-                      setShowClassesUpdateModal(true);
-                    }
-                  }}
-                >
-                  Set
-                </button>
-                {isClassesModalOn && (
-                  <AddSectionsModal
-                    isClassesModalOn={isClassesModalOn}
-                    updatedClasses={updatedClasses}
-                    setUpdatedClasses={setUpdatedClasses}
-                  />
-                )}
-              </InputParent>
+                  handleChange={(e) => handleChange(e, "board")}
+                  disable={!isEditingEnabled}
+                />
+              </div>
             </div>
           </div>
+
           <div
+            className="flex justify-end gap-4 p-5"
             style={{
-              position: "absolute",
-              bottom: "10px",
-              right: "40px",
-              display: "flex",
-              justifyContent: "center",
-              gap: "20px",
-              fontFamily: "Rubik",
-              fontSize: "18px",
-              fontWeight: "500",
+              display: isEditingEnabled ? "none" : "flex",
             }}
           >
             <button
+              className="px-6 py-2 rounded-md flex justify-center items-center gap-5 border-none outline-none "
+              onClick={() => changeEditingStatus()}
               style={{
-                width: "96px",
-                height: "36px",
-                backgroundColor: "#204DF9",
-                border: "none",
-                color: "white",
-                borderRadius: "5px",
-              }}
-              onClick={() => {
-                updateSchoolInfo(school.school_code);
+                backgroundColor: themeProperties?.normal1,
+                color: themeProperties?.textColorAlt,
               }}
             >
-              Rename
+              <div className="">Edit</div>
+              <MdEdit size={20} color={themeProperties?.textColorAlt} />
             </button>
           </div>
+
+          {isEditingEnabled && (
+            <div className="flex justify-end gap-4 p-5">
+              <button
+                className="px-6 py-2 rounded-md"
+                onClick={() => updateSchoolInfo(school_id)}
+                style={{
+                  backgroundColor: themeProperties?.normal1,
+                  color: themeProperties?.textColorAlt,
+                }}
+              >
+                Update
+              </button>
+              <button
+                className="px-6 py-2 rounded-md"
+                onClick={handleCancel}
+                style={{
+                  backgroundColor: themeProperties?.logoutColor,
+                  color: themeProperties?.textColorAlt,
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       </div>
-      <Link to="/admin/manage-classes"
-        className=" absolute bottom-5 right-5 px-6 rounded-lg py-2"
+      <Link
+        to="/admin/manage-classes"
+        className="absolute bottom-5 right-5 px-6 rounded-lg py-2"
         style={{
           backgroundColor: themeProperties?.normal1,
           color: themeProperties?.textColorAlt,
-         }}
-      >Manage Classes</Link>
+        }}
+      >
+        Manage Classes
+      </Link>
     </div>
   );
 }

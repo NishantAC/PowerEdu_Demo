@@ -143,13 +143,13 @@ const Profile = ({
                         color: themeProperties?.textColorAlt,
                       }}
                     >
-                      {schoolData?.school_name[0] ?? "S"}
+                      {schoolData?.name[0] ?? "S"}
                     </AvatarFallback>
                   </Avatar>
                 </div>
                 <div className="text-nowrap">
                   <p className="text-[12px] font-work-sans">
-                    {schoolData?.school_name ?? "School Name"}
+                    {schoolData?.name ?? "School Name"}
                   </p>
                   <p className="text-[10px] font-work-sans italic text-end">
                     - Powered By PowerEdu

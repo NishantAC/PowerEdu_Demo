@@ -2,30 +2,24 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getImageUrl } from "@/slices/image";
-import schoolService from "@/services/school.service";
 import { MenuContext } from "@/context/Menu/MenuContext";
-import checkUserType from "@/common/checkUserType";
 import NotificationModal from "./NotificationModal";
 import { selectThemeProperties } from "@/slices/theme";
 import Profile from "./Profile";
 import Clock from "./Clock";
+import SpSchoolInfoService from "@/services/sp_schoolinfo.service";
 
 function Navbar({ toggleSidebar }) {
   const [data, setData] = useState({});
-  const [newMail, setNewMail] = useState(true);
-  const [logo, setLogo] = useState("");
-  const [toggleMenu, setToggleMenu] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
   const user = useSelector((state) => state?.user?.user);
-  const code = user?.school_id;
   const dispatch = useDispatch();
   const image = useSelector((state) => state.image);
   const initial = user?.first_name ? user.first_name[0].toUpperCase() : "T";
-  const schooldata = JSON.parse(localStorage.getItem("school"));
+  const [schooldata, setSchoolData] = useState();
   const themeProperties = useSelector(selectThemeProperties);
   const navbarRef = useRef(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -37,21 +31,17 @@ function Navbar({ toggleSidebar }) {
     }
   }, [dispatch, user]);
 
-  const messages = [];
-
   useEffect(() => {
-    if (code) {
-      schoolService
-        .getSchoolData(code)
-        .then((result) => {
-          setData(result.data);
-          setLogo(result?.data?.school_logo);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [code]);
+    console.log("user", user?.school_id);
+    SpSchoolInfoService.getInfoSchool(user?.school_id)
+      .then((data) => {
+        setSchoolData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching school info:", error);
+        toast.error("Failed to fetch school info.");
+      });
+  }, [user]);
 
   useEffect(() => {
     const changeWidth = () => {
@@ -144,15 +134,15 @@ function Navbar({ toggleSidebar }) {
               </div>
             </div>
             <NotificationModal />
-            <Profile
+            { schooldata && <Profile
               initial={initial}
               image={image}
               themeProperties={themeProperties}
               schoolData={schooldata}
-              logo={logo}
+              logo={schooldata?.profile_pic}
               data={data}
               user={user}
-            />
+            />}
           </div>
         </div>
       </div>

@@ -4,7 +4,6 @@ import { API_BASE_URL } from "../common/constant";
 const API_URL = API_BASE_URL + "admin/classes/";
 const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
 const token = "Bearer " + JSON.parse(powerEduAuthToken);
-console.log(token);
 
 const createClass = async (classData) => {
   const response = await axios.post(API_URL, classData, {
