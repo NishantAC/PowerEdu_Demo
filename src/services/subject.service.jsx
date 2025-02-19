@@ -1,7 +1,9 @@
 import { API_BASE_URL } from "@/common/constant";
 import axios from "axios";
 
-const API_URL = API_BASE_URL+"subjects/";
+const API_URL = API_BASE_URL + "admin/subjects";
+const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
+const token = "Bearer " + JSON.parse(powerEduAuthToken);
 
 const registerSubject = async (
   schoolCode,
@@ -30,7 +32,7 @@ const getAllSubjectsDetails = async (class_code, school_code, subject_code) => {
       school_code,
       subject_code,
     });
-    // 
+    //
     return response.data;
   } catch (error) {
     console.error(error);
@@ -43,7 +45,7 @@ const getAllSubjectsBySchool = async (school_id) => {
     const response = await axios.post(`${API_URL}school-subjects`, {
       school_id,
     });
-    // 
+    //
     return response.data;
   } catch (error) {
     console.error(error);
@@ -64,11 +66,12 @@ const getAssignedSubjects = async (userId) => {
 //args(clsid,shclcode,subjectid)
 const updateStatus = async (chapterId, status, chapter_number) => {
   try {
-    // 
-    const response = await axios.put(
-      `${API_BASE_URL}chapters/status`,
-      { chapterId, status, chapter_number }
-    );
+    //
+    const response = await axios.put(`${API_BASE_URL}chapters/status`, {
+      chapterId,
+      status,
+      chapter_number,
+    });
     return response;
   } catch (error) {
     console.error(error);
@@ -76,18 +79,14 @@ const updateStatus = async (chapterId, status, chapter_number) => {
   }
 };
 
-const getDropdownSubjectsByClass = async (
-  school_id,
-  class_code,
-  timetable
-) => {
+const getDropdownSubjectsByClass = async (school_id, class_code, timetable) => {
   try {
     const response = await axios.post(`${API_URL}class-subjects-dropdown`, {
       school_id,
       class_code,
       timetable,
     });
-    // 
+    //
     return response.data;
   } catch (error) {
     console.error(error);
@@ -100,7 +99,7 @@ const getAllDropdownSubjectsByClass = async (class_code) => {
     const response = await axios.post(`${API_URL}class-all-subjects-dropdown`, {
       class_code,
     });
-    // 
+    //
     return response.data;
   } catch (error) {
     console.error(error);
@@ -114,7 +113,7 @@ const updateSubjectsOfClasses = async (body) => {
       `${API_URL}update-subjects-of-classes`,
       body
     );
-    // 
+    //
     return response.data;
   } catch (error) {
     console.error(error);
@@ -122,14 +121,16 @@ const updateSubjectsOfClasses = async (body) => {
   }
 };
 
-const getSubjectsOfClasses = async (body) => {
+const getSubjectsOfClasses = async (class_code) => {
   try {
-    const response = await axios.post(
-      `${API_URL}get-subjects-of-classes`,
-      body
+    const response = await axios.get(
+      `${API_URL}/?class=${class_code}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
     );
-    // 
-    
 
     return response.data;
   } catch (error) {
@@ -144,8 +145,7 @@ const getSearchSubjectsOfClasses = async (body) => {
       `${API_URL}get-search-subject-classes`,
       body
     );
-    // 
-    
+    //
 
     return response.data;
   } catch (error) {
@@ -154,14 +154,13 @@ const getSearchSubjectsOfClasses = async (body) => {
   }
 };
 
-
 const deleteSubjectsOfClasses = async (body) => {
   try {
     const response = await axios.post(
       `${API_URL}delete-subjects-of-classes`,
       body
     );
-    // 
+    //
     return response.data;
   } catch (error) {
     console.error(error);
@@ -180,7 +179,7 @@ const SubjectService = {
   updateSubjectsOfClasses,
   getSubjectsOfClasses,
   deleteSubjectsOfClasses,
-  getSearchSubjectsOfClasses
+  getSearchSubjectsOfClasses,
 };
 
 export default SubjectService;

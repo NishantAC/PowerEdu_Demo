@@ -11,6 +11,8 @@ import SchoolProfileImage from "./SchoolProfileImage";
 function Schools() {
   const { user } = useSelector((state) => state.user);
   const school_id = user?.school_id;
+  const {schooldetail} = useSelector((state) => state?.schooldetail);
+
   const [profile_pic, setProfilePic] = useState(null);
   const [formValues, setFormValues] = useState({
     name: "",
@@ -23,24 +25,18 @@ function Schools() {
   });
 
   useEffect(() => {
-    SpSchoolInfoService.getInfoSchool(school_id)
-      .then((data) => {
-        setProfilePic(data?.profile_pic);
-        setFormValues({
-          name: data?.name,
-          address: data?.address,
-          email: data?.email,
-          phone_number: data?.phone_number,
-          license: data?.license,
-          board: data?.board,
-          profile_pic: data?.profile_pic,
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching school info:", error);
-        toast.error("Failed to fetch school info.");
-      });
-  }, []);
+    console.log("school", schooldetail);
+    setProfilePic(schooldetail?.profile_pic);
+    setFormValues({
+      name: schooldetail?.name,
+      address: schooldetail?.address,
+      email: schooldetail?.email,
+      phone_number: schooldetail?.phone_number,
+      license: schooldetail?.license,
+      board: schooldetail?.board,
+      profile_pic: schooldetail?.profile_pic,
+    });
+  }, [schooldetail]);
 
   const themeProperties = useSelector(selectThemeProperties);
 
@@ -75,22 +71,22 @@ function Schools() {
   const handleCancel = () => {
     setEditingEnabled(false);
     SpSchoolInfoService.getInfoSchool(school_id)
-    .then((data) => {
-      setProfilePic(data?.profile_pic);
-      setFormValues({
-        name: data?.name,
-        address: data?.address,
-        email: data?.email,
-        phone_number: data?.phone_number,
-        license: data?.license,
-        board: data?.board,
-        profile_pic: data?.profile_pic,
+      .then((data) => {
+        setProfilePic(data?.profile_pic);
+        setFormValues({
+          name: data?.name,
+          address: data?.address,
+          email: data?.email,
+          phone_number: data?.phone_number,
+          license: data?.license,
+          board: data?.board,
+          profile_pic: data?.profile_pic,
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching school info:", error);
+        toast.error("Failed to fetch school info.");
       });
-    })
-    .catch((error) => {
-      console.error("Error fetching school info:", error);
-      toast.error("Failed to fetch school info.");
-    });
   };
 
   return (

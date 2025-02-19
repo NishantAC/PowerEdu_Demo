@@ -33,7 +33,9 @@ const fetchClasses = async (school_id, academic_year_id) => {
     }
   );
 
-  return response.data;
+
+
+  return response?.data;
 };
 
 const fetchClassDetail = async (id) => {

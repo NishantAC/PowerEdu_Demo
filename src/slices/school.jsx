@@ -4,7 +4,7 @@ import { setSchoolDetail } from "./schooldetail";
 
 import SchoolService from "../services/school.service";
 
-const school = JSON.parse(localStorage.getItem("school"));
+const school = "";
 
 export const registerschool = createAsyncThunk(
   "school/registerschool",
@@ -43,7 +43,7 @@ export const schooldata = createAsyncThunk(
       const { data } = await SchoolService.getSchoolData(code);
       
 
-      dispatch(setSchoolDetail(data));
+      dispatch(setSchoolDetail(data?.data));
 
     } catch (error) {
       const message =

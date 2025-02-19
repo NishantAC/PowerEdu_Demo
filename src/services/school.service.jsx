@@ -1,8 +1,9 @@
+import { API_BASE_URL } from "@/common/constant";
 import axios from "axios";
-import { API_BASE_URL } from "../common/constant";
+import { setSchoolDetail } from "@/slices/schooldetail"; // Import the action
+import store from "../store";
 
-const API_URL = API_BASE_URL + 'admin/schools';
-
+const API_URL = API_BASE_URL;
 const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
 const token = "Bearer " + JSON.parse(powerEduAuthToken);
 
@@ -11,7 +12,7 @@ const registerSchool = async (
   schoolName,
   status,
   view_performance_button
-) => {
+) => { 
   try {
     const response = await axios.post(`${API_URL}register-school`, {
       schoolCode,
@@ -48,7 +49,7 @@ const getAcademicYears = async (school_code) => {
 
 const getSchoolData = async (school_id) => {
   try {
-    const response = await axios.post(`${API_URL}/${school_id}`, {
+    const response = await axios.get(`${API_URL}admin/schools/${school_id}`, {
       headers: {
         Authorization: token,
       },
@@ -56,6 +57,7 @@ const getSchoolData = async (school_id) => {
 
     if (response.data.school_code) {
       localStorage.setItem("school", JSON.stringify(response.data));
+      store.dispatch(setSchoolDetail(response.data)); // Dispatch the action with the fetched data
     }
     return response;
   } catch (error) {

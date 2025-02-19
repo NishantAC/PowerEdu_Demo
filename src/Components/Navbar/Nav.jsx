@@ -8,6 +8,7 @@ import { selectThemeProperties } from "@/slices/theme";
 import Profile from "./Profile";
 import Clock from "./Clock";
 import SpSchoolInfoService from "@/services/sp_schoolinfo.service";
+import { fetchClasses } from "@/slices/manageClasses";
 
 function Navbar({ toggleSidebar }) {
   const [data, setData] = useState({});
@@ -16,6 +17,7 @@ function Navbar({ toggleSidebar }) {
     new Date().toLocaleTimeString()
   );
   const user = useSelector((state) => state?.user?.user);
+  const {schooldetail} = useSelector((state) => state?.schooldetail);
   const dispatch = useDispatch();
   const image = useSelector((state) => state.image);
   const initial = user?.first_name ? user.first_name[0].toUpperCase() : "T";
@@ -24,24 +26,13 @@ function Navbar({ toggleSidebar }) {
   const navbarRef = useRef(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentSection, setCurrentSection] = useState("Dashboard");
+  const school_id = user?.school_id;
 
   useEffect(() => {
     if (user?.image) {
       dispatch(getImageUrl({ path: user?.image }));
     }
   }, [dispatch, user]);
-
-  useEffect(() => {
-    console.log("user", user?.school_id);
-    SpSchoolInfoService.getInfoSchool(user?.school_id)
-      .then((data) => {
-        setSchoolData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching school info:", error);
-        toast.error("Failed to fetch school info.");
-      });
-  }, [user]);
 
   useEffect(() => {
     const changeWidth = () => {
@@ -63,6 +54,12 @@ function Navbar({ toggleSidebar }) {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    if ( user && school_id) {
+    dispatch(fetchClasses({ school_id, academic_year_id: 1 }));
+    }
+  }, [user]);
 
   const timeParts = currentTime.split(" ");
   const timeWithoutPeriod = timeParts[0];
@@ -134,12 +131,12 @@ function Navbar({ toggleSidebar }) {
               </div>
             </div>
             <NotificationModal />
-            { schooldata && <Profile
+            { schooldetail && <Profile
               initial={initial}
               image={image}
               themeProperties={themeProperties}
-              schoolData={schooldata}
-              logo={schooldata?.profile_pic}
+              schoolData={schooldetail}
+              logo={schooldetail?.profile_pic}
               data={data}
               user={user}
             />}

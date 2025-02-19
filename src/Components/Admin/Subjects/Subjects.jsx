@@ -11,39 +11,49 @@ import {
   getSubjectsOfClasses,
 } from "../../../slices/subject";
 import SubjectService from "../../../services/subject.service";
-import SubjectsListClassService from "../../../services/subjectslist_class.service";
-import { resetSubjectsDropdown } from "../../../slices/subject";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import useDebounce from "../../../Utils/debounce";
 import AddSubjectForm from "./AddSubjectForm"; // Import the new component
 import SearchBarComponent from "@/Components/SearcBar/SearchBar";
-import SelectBox from "../../InputField/SelectBox";
 import { selectThemeProperties } from "@/slices/theme";
-
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import InputField from "@/Components/InputField/InputField";
 
 function Subjects() {
   const { user } = useSelector((state) => state.user);
   const [totalSubjects, setTotalSubjects] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce delay
-  const { alldropdownClassSubjects, subjects } = useSelector(
-    (state) => state.subject
-  );
+  const { subjects, status } = useSelector((state) => state.subject);
+  const { classes } = useSelector((state) => state.manageClasses);
   const themeProperties = useSelector(selectThemeProperties);
-
   const [filteredSubjects, setFilteredSubjects] = useState(subjects);
+  const [classFilter, setClassFilter] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // Perform the API call only when debouncedSearchTerm changes
     if (debouncedSearchTerm) {
       const searchSubjectsAPI = async () => {
         try {
           const body = {
             school_code: user?.school_id,
             searchTerm: debouncedSearchTerm,
-            limit
+            limit,
           };
           const result = await SubjectService.getSearchSubjectsOfClasses(body);
           setFilteredSubjects(result); // Update the filtered subjects with API response
@@ -51,102 +61,33 @@ function Subjects() {
           console.error("Error fetching subjects:", error);
         }
       };
-
       searchSubjectsAPI();
     }
   }, [debouncedSearchTerm, user]);
 
-  const [formValues, setFormValues] = useState({
-    class: "",
-    subjectName: [],
-    subjectCode: [],
-    noOfChapters: [],
-  });
-
-
   const getLimit = () => {
     const height = window.innerHeight;
-    const intHeight = parseInt(height/100);
+    const intHeight = parseInt(height / 100);
     return intHeight - 1;
   };
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(getLimit());
 
-
   useEffect(() => {
     const intHeight = getLimit();
     setLimit(intHeight);
   }, [window.innerHeight, page, totalSubjects]);
 
-
   const handlePageChange = (event, value) => {
     setPage(value);
   };
-  const [classesDropdown, setClassesDropdown] = useState([]);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user && user?.school_id !== undefined) {
-      classService
-        .getDropdownClasses(user?.school_id)
-        .then((res) => setClassesDropdown(res));
-
-      dispatch(
-        getSubjectsOfClasses({
-          school_code: user?.school_id,
-          page,
-          limit,
-        })
-      );
+    if (user && user?.school_id !== undefined && classFilter !== null) {
+      dispatch(getSubjectsOfClasses(classFilter));
     }
-  }, [user, page]);
-
-  useEffect(() => {
-    if (formValues.class.length > 0) {
-      setFormValues({
-        ...formValues,
-        subjectName: [],
-        subjectCode: [],
-        noOfChapters: [],
-      });
-
-      dispatch(
-        getAllDropdownSubjectsByClass({
-          class_code: formValues.class,
-        })
-      );
-
-      dispatch(
-        getSubjectsOfClasses({
-          school_code: user?.school_id,
-          page,
-          limit,
-        })
-      );
-    }
-  }, [formValues.class, user, page]);
-
-
-  const handleGetSubjects = (classCode) => {
-    dispatch(
-      getSubjectsOfClasses({
-        school_code: user?.school_id,
-        class_code: classCode,
-        page,
-        limit,
-      })
-    );
-  };
-  
-
-  useEffect(() => {
-    if (subjects) {
-      setFilteredSubjects(subjects);
-      setTotalSubjects(subjects.length); // Set total length here
-    }
-  }, [subjects, page]);
+  }, [user, classFilter]);
 
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
@@ -156,23 +97,38 @@ function Subjects() {
     subject_code: null,
   });
 
-  const [classFilter, setClassFilter] = useState("All");
-
-  const handleApplyFilter = () => {
-    setPage(1); // Reset page to 1 when applying a new filter
-
-    dispatch(
-      getSubjectsOfClasses({
-        school_code: user?.school_id,
-        class_code: classFilter === "All" ? null : classFilter,
-        page,
-        limit,
-      })
-    );
-  };
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value); // Update search term as user types
+  };
+
+  const sortClassCodes = (a, b) => {
+    const regex = /^(\d+)([A-Za-z]*)$/;
+    const aMatch = a.class_code.match(regex);
+    const bMatch = b.class_code.match(regex);
+
+    if (aMatch && bMatch) {
+      const aNum = parseInt(aMatch[1], 10);
+      const bNum = parseInt(bMatch[1], 10);
+
+      if (aNum !== bNum) {
+        return aNum - bNum;
+      }
+
+      return aMatch[2].localeCompare(bMatch[2]);
+    }
+
+    return a.class_code.localeCompare(b.class_code);
+  };
+
+  useEffect(() => {
+    if (classes?.data) {
+      const sortedClasses = classes.data.slice().sort(sortClassCodes);
+      setClassFilter(sortedClasses[0]?.class_code);
+    }
+  }, [classes]);
+
+  const handleClassChange = (value) => {
+    setClassFilter(value);
   };
 
   return (
@@ -187,18 +143,28 @@ function Subjects() {
             gap: "10px",
           }}
         >
-            <div className="">
-              
-              <SelectBox
-                options={classesDropdown}
-                info={formValues.class} 
-                setInfo={(selectedValue) =>
-                  handleGetSubjects(selectedValue)
-                }
-                placeHolder="Select Class"
-              />
-             
-            </div>
+          <div className="">
+            <Select onValueChange={handleClassChange}>
+              <SelectTrigger>
+                <SelectValue placeholder={classFilter} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {classes?.data
+                    ?.slice() // Create a shallow copy of the array
+                    .sort(sortClassCodes)
+                    .map((classItem) => (
+                      <SelectItem
+                        key={classItem.class_code}
+                        value={classItem.class_code}
+                      >
+                        {classItem.class_code}
+                      </SelectItem>
+                    ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
           <div className="fixed left-1/2 top-0 transform -translate-x-1/2 z-[10000]">
             <SearchBarComponent
               searchTerm={searchTerm}
@@ -213,21 +179,21 @@ function Subjects() {
             width: "100%",
           }}
         >
-          <SubjectsTable
-            showDeleteConfirmationModal={showDeleteConfirmationModal}
-            setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
-            setItemToDelete={setItemToDelete}
-            subjects={filteredSubjects}
-            // serachSubjects={filteredSubjectsSearch}
-            page={page}
-            limit={limit}
-            total={subjects.count}
-            onPageChange={handlePageChange}
-            themeProperties={themeProperties}
-          />
+     
+            <SubjectsTable
+              showDeleteConfirmationModal={showDeleteConfirmationModal}
+              setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
+              setItemToDelete={setItemToDelete}
+              subjects={subjects?.data}
+              page={page}
+              limit={limit}
+              total={subjects.count}
+              onPageChange={handlePageChange}
+              themeProperties={themeProperties}
+              isLoading={status === "loading"}
+            />
         </div>
       </div>
-
     </div>
   );
 }
