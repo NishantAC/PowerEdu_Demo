@@ -82,6 +82,25 @@ const Classes = () => {
     dispatch(deleteClass(id));
   };
 
+  const sortClassCodes = (a, b) => {
+    const regex = /^(\d+)([A-Za-z]*)$/;
+    const aMatch = a.class_code.match(regex);
+    const bMatch = b.class_code.match(regex);
+
+    if (aMatch && bMatch) {
+      const aNum = parseInt(aMatch[1], 10);
+      const bNum = parseInt(bMatch[1], 10);
+
+      if (aNum !== bNum) {
+        return aNum - bNum;
+      }
+
+      return aMatch[2].localeCompare(bMatch[2]);
+    }
+
+    return a.class_code.localeCompare(b.class_code);
+  };
+
   if (loading)
     return (
       <div className="flex items-center justify-center h-full">
@@ -97,10 +116,9 @@ const Classes = () => {
       </div>
     );
 
-  const paginatedClasses = classes?.data?.slice(
-    page * limit,
-    page * limit + limit
-  );
+  const paginatedClasses = classes?.data
+    ?.slice(page * limit, page * limit + limit)
+    .sort(sortClassCodes);
 
   return (
     <div className="flex flex-col h-full p-4 relative">
@@ -108,16 +126,6 @@ const Classes = () => {
         onCreate={handleCreateClass}
         themeProperties={themeProperties}
       />
-      <Link
-        className="mb-4 px-6 py-2 rounded-lg absolute bottom-5"
-        style={{
-          backgroundColor: themeProperties?.normal2,
-          color: themeProperties?.textColorAlt,
-        }}
-        to="/admin/school"
-      >
-        Go Back
-      </Link>
       <TableContainer
         component={Paper}
         sx={{
@@ -272,7 +280,7 @@ const Classes = () => {
                                   <InputField
                                     value={values.class_code}
                                     htmlFor="class_code"
-                                    placeholder="Class Code"
+                                    placeholder="Class Code (Read Only)"
                                     name="class_code"
                                     disable={true}
                                   />

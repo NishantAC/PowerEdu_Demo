@@ -8,7 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useMediaQuery, Skeleton, Button } from "@mui/material";
+import { useMediaQuery, Button } from "@mui/material";
+import { Skeleton } from "@/components/ui/skeleton";
+
 import {
   Dialog,
   DialogContent,
@@ -17,6 +19,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import InputField from "@/Components/InputField/InputField";
+import SubjectService from "@/services/subject.service";
 
 const SubjectsTable = ({
   subjects,
@@ -28,6 +32,24 @@ const SubjectsTable = ({
   themeProperties,
   isLoading,
 }) => {
+  const [updatedSubject, setUpdatedSubject] = React.useState({});
+
+  const handleUpdateSubject = (subject_name, description, subject_code) => {
+    SubjectService.updateSubjectsOfClasses({
+      subject_name,
+      description,
+      subject_code,
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedSubject((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="flex flex-col justify-between h-full">
       <TableContainer
@@ -86,19 +108,15 @@ const SubjectsTable = ({
             <TableBody>
               {Array.from({ length: 4 }).map((_, index) => (
                 <TableRow key={index}>
-                  <TableCell colSpan={4} align="center">
-                    <Skeleton
-                      height={50}
-                      variant="rectangular"
-                      className=" opacity-50"
-                    />
+                  <TableCell colSpan={5} align="center">
+                    <Skeleton className="h-10 w-full" />
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           ) : (
             <TableBody>
-              {subjects.length == 0 ? (
+              {subjects && subjects.length == 0 ? (
                 <TableRow>
                   <TableCell
                     colSpan={4}
@@ -152,28 +170,125 @@ const SubjectsTable = ({
                               Delete
                             </DialogTrigger>
                             <DialogContent>
-                              <DialogTitle className="text-[16px] font-normal" style={{ color: themeProperties?.textColor }}>
+                              <DialogTitle
+                                className="text-[16px] font-normal"
+                                style={{ color: themeProperties?.textColor }}
+                              >
                                 Are you sure you want to delete this subject?
                               </DialogTitle>
-                              <DialogDescription>
-                              </DialogDescription>
-                             <div className="flex justify-end space-x-4">
-                             <button
-                                className="px-4 py-2 w-fit rounded-lg"
+                              <DialogDescription></DialogDescription>
+                              <div className="flex justify-end space-x-4">
+                                <button
+                                  className="px-4 py-2 w-fit rounded-lg"
+                                  style={{
+                                    backgroundColor:
+                                      themeProperties?.logoutColor,
+                                    color: themeProperties?.textColorAlt,
+                                  }}
+                                  onClick={() => {
+                                    setItemToDelete({
+                                      class_code: subject.class,
+                                      subject_code: subject.subjectCode,
+                                    });
+                                  }}
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <button
                                 style={{
-                                  backgroundColor: themeProperties?.logoutColor,
+                                  backgroundColor: themeProperties?.normal1,
                                   color: themeProperties?.textColorAlt,
                                 }}
-                                onClick={() => {
-                                  setItemToDelete({
-                                    class_code: subject.class,
-                                    subject_code: subject.subjectCode,
-                                  });
+                                className="px-4 py-2 rounded-md"
+                              >
+                                Update
+                              </button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Create New Subject</DialogTitle>
+                                <DialogDescription></DialogDescription>
+                              </DialogHeader>
+                              <div className="space-y-6 mt-10">
+                                <div className="flex w-full justify-between items-center">
+                                  <InputField
+                                    value={subject?.subject_code}
+                                    htmlFor="subject_code"
+                                    placeholder="Subject Code ( Read only )"
+                                    name="subject_code"
+                                    required
+                                    disable
+                                  />
+
+                                  <InputField
+                                    value={
+                                      updatedSubject.subject_name ||
+                                      subject.subject_name
+                                    }
+                                    htmlFor="subject_name"
+                                    placeholder="Subject Name"
+                                    name="subject_name"
+                                    required
+                                    handleChange={handleChange}
+                                  />
+                                </div>
+
+                                <div className="flex w-full justify-between items-center">
+                                  <InputField
+                                    value={subject?.class}
+                                    htmlFor="class"
+                                    placeholder="Class ( Read only )"
+                                    name="class"
+                                    required
+                                    disable
+                                  />
+
+                                  <InputField
+                                    value={subject?.pclass}
+                                    htmlFor="pclass"
+                                    placeholder="Grade ( Read only ) "
+                                    name="pclass"
+                                    required
+                                    disable
+                                  />
+                                </div>
+
+                                <InputField
+                                  value={
+                                    updatedSubject.description ||
+                                    subject?.description
+                                  }
+                                  htmlFor="description"
+                                  placeholder="Description"
+                                  name="description"
+                                  handleChange={handleChange}
+                                  required
+                                  type="textarea"
+                                />
+                              </div>
+                              <button
+                                onClick={() =>
+                                  handleUpdateSubject(
+                                    updatedSubject.subject_name ||
+                                      subject.subject_name,
+                                    updatedSubject.description ||
+                                      subject.description,
+                                    subject.subject_code
+                                  )
+                                }
+                                className="px-4 py-2 w-fit rounded-lg"
+                                style={{
+                                  backgroundColor: themeProperties?.normal1,
+                                  color: themeProperties?.textColorAlt,
                                 }}
                               >
-                                Delete
+                                Update
                               </button>
-                             </div>
                             </DialogContent>
                           </Dialog>
                         </TableCell>
@@ -185,27 +300,6 @@ const SubjectsTable = ({
           )}
         </Table>
       </TableContainer>
-
-      <Stack alignItems="center" spacing={2} sx={{ marginTop: 2, padding: 2 }}>
-        <Pagination
-          count={Math.ceil(total / limit)}
-          page={page}
-          onChange={onPageChange}
-          sx={{
-            "& .MuiPaginationItem-root": {
-              color: themeProperties?.textColor,
-              "&.Mui-selected": {
-                backgroundColor: themeProperties?.normal1,
-                color: themeProperties?.textColorAlt,
-              },
-              "&:hover": {
-                backgroundColor: themeProperties?.normal1,
-                color: themeProperties?.textColorAlt,
-              },
-            },
-          }}
-        />
-      </Stack>
     </div>
   );
 };

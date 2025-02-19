@@ -6,18 +6,28 @@ const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
 const token = "Bearer " + JSON.parse(powerEduAuthToken);
 
 const registerSubject = async (
-  schoolCode,
-  className,
-  subjectName,
-  createdBy
+  subject_code,
+  subject_name,
+  class_code,
+  pclass,
+  description
 ) => {
   try {
-    const response = await axios.post(`${API_URL}register-subject`, {
-      schoolCode,
-      className,
-      subjectName,
-      createdBy,
-    });
+    const response = await axios.post(
+      `${API_URL}`,
+      {
+        subject_code,
+        subject_name,
+        class: class_code,
+        pclass,
+        description,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -107,13 +117,24 @@ const getAllDropdownSubjectsByClass = async (class_code) => {
   }
 };
 
-const updateSubjectsOfClasses = async (body) => {
+const updateSubjectsOfClasses = async ({
+  subject_name,
+  description,
+  subject_code,
+}) => {
   try {
-    const response = await axios.post(
-      `${API_URL}update-subjects-of-classes`,
-      body
+    const response = await axios.put(
+      `${API_URL}/${subject_code}`,
+      {
+        subject_name,
+        description,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
     );
-    //
     return response.data;
   } catch (error) {
     console.error(error);
@@ -123,14 +144,11 @@ const updateSubjectsOfClasses = async (body) => {
 
 const getSubjectsOfClasses = async (class_code) => {
   try {
-    const response = await axios.get(
-      `${API_URL}/?class=${class_code}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axios.get(`${API_URL}/?class=${class_code}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     return response.data;
   } catch (error) {
