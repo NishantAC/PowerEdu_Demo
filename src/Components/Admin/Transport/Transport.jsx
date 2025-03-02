@@ -11,39 +11,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import SelectBox from "@/Components/InputField/SelectBox";
 import {
   getDriversList,
   getBusesList,
   getTransportRoutesList,
   getTransportZonesList,
-  createTransportZone,
-  createBusRoutesRoute,
-  createBus,
-  createBusDriverRoute,
   deleteTransportZone,
   deleteBusRouter,
   deleteBus,
   deleteDrivers,
-  updateTransportZoneRoutes,
   updateBusRouter,
   updateBus,
   updateDrivers,
 } from "@/slices/transport";
 import { selectThemeProperties } from "@/slices/theme";
-import SelectBox from "@/Components/InputField/SelectBox";
+import CreateTransportForm from "./CreateTransportForm";
+
 const Transport = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -53,15 +37,7 @@ const Transport = () => {
   );
 
   const [activeTab, setActiveTab] = useState("Zones");
-  const [formValues, setFormValues] = useState({
-    school_code: user?.school_id,
-    user_id: "",
-    zone: "",
-    route_name: "",
-    vehicle_no: "",
-    license_no: "",
-    contact: "",
-  });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -72,40 +48,23 @@ const Transport = () => {
     }
   }, [dispatch]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  const handleCreate = () => {
-    switch (activeTab) {
-      case "Zones":
-        dispatch(createTransportZone(formValues));
-        break;
-      case "Routes":
-        dispatch(createBusRoutesRoute(formValues));
-        break;
-      case "Buses":
-        dispatch(createBus(formValues));
-        break;
-      case "Drivers":
-        dispatch(createBusDriverRoute(formValues));
-        break;
-      default:
-        break;
-    }
-  };
-
   const handleDelete = (id) => {
     switch (activeTab) {
       case "Zones":
+
         dispatch(deleteTransportZone(id));
+        dispatch(getDriversList());
+        dispatch(getBusesList());
+        dispatch(getTransportRoutesList());
         break;
       case "Routes":
         dispatch(deleteBusRouter(id));
+        dispatch(getDriversList());
+        dispatch(getBusesList());
         break;
       case "Buses":
         dispatch(deleteBus(id));
+        dispatch(getDriversList());
         break;
       case "Drivers":
         dispatch(deleteDrivers(id));
@@ -137,9 +96,7 @@ const Transport = () => {
   return (
     <div className="px-10">
       <div className="flex gap-10  items-center justify-end mb-5">
-        <p className="text-sm"> 
-          Showing {activeTab}
-        </p>
+        <p className="text-sm">Showing {activeTab}</p>
         <SelectBox
           options={["Zones", "Routes", "Buses", "Drivers"]}
           info={activeTab}
@@ -152,90 +109,79 @@ const Transport = () => {
         {activeTab === "Zones" && (
           <TransportTable
             transportList={zones}
-            handleDelete={handleDelete}
-            handleUpdate={handleUpdate}
             type="Zone"
+            busData={buses}
+            routeData={routes}
+            zoneData={zones}
+            handleDelete={handleDelete}
           />
         )}
         {activeTab === "Routes" && (
           <TransportTable
             transportList={routes}
-            handleDelete={handleDelete}
-            handleUpdate={handleUpdate}
             type="Route"
+            busData={buses}
+            routeData={routes}
+            zoneData={zones}
+            handleDelete={handleDelete}
+
           />
         )}
         {activeTab === "Buses" && (
           <TransportTable
             transportList={buses}
-            handleDelete={handleDelete}
-            handleUpdate={handleUpdate}
             type="Bus"
+            busData={buses}
+            routeData={routes}
+            zoneData={zones}
+            handleDelete={handleDelete}
+
           />
         )}
         {activeTab === "Drivers" && (
           <TransportTable
             transportList={drivers}
-            handleDelete={handleDelete}
-            handleUpdate={handleUpdate}
             type="Driver"
+            busData={buses}
+            routeData={routes}
+            zoneData={zones}
+            handleDelete={handleDelete}
+
           />
         )}
       </div>
 
-      <Dialog>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
-          <button 
+          <button
             className="px-4 py-2 rounded-lg capitalize bottom-5 right-5 fixed"
             style={{
               backgroundColor: themeProperties?.buttonColor,
               color: themeProperties?.textColorAlt,
             }}
-          >Add {activeTab}</button>
+          >
+            Add {activeTab}
+          </button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create {activeTab.slice(0, -1)}</DialogTitle>
           </DialogHeader>
-          <form>
-            <InputField
-              value={formValues.zone}
-              htmlFor="zone"
-              placeholder="Zone"
-              name="zone"
-              handleChange={handleInputChange}
-            />
-            <InputField
-              value={formValues.route_name}
-              htmlFor="route_name"
-              placeholder="Route Name"
-              name="route_name"
-              handleChange={handleInputChange}
-            />
-            <InputField
-              value={formValues.vehicle_no}
-              htmlFor="vehicle_no"
-              placeholder="Vehicle No"
-              name="vehicle_no"
-              handleChange={handleInputChange}
-            />
-            <InputField
-              value={formValues.license_no}
-              htmlFor="license_no"
-              placeholder="License No"
-              name="license_no"
-              handleChange={handleInputChange}
-            />
-            <InputField
-              value={formValues.contact}
-              htmlFor="contact"
-              placeholder="Contact"
-              name="contact"
-              handleChange={handleInputChange}
-            />
-          </form>
+          <CreateTransportForm activeTab={activeTab} setIsDialogOpen={setIsDialogOpen}
+            zones={zones} buses={buses} routes={routes}
+          
+          />
           <DialogFooter>
-            <button onClick={handleCreate}>Create</button>
+            <button
+              form="create-transport-form"
+              className="px-4 py-2 w-fit rounded-lg"
+              style={{
+                backgroundColor: themeProperties?.buttonColor,
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Create
+            </button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

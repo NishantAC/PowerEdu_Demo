@@ -3,21 +3,12 @@ import { setMessage } from "./message";
 
 import ClassNoticeService from "../services/classnotice.service";
 
+
 export const registerclassnotice = createAsyncThunk(
   "notice/registerclassnotice",
-  async (
-    { school_id, date, classname, title, createdby, details },
-    thunkAPI
-  ) => {
+  async ({ school_id, date, classname, title, createdby, details }, thunkAPI) => {
     try {
-      const response = await ClassNoticeService.registerClassNotice(
-        school_id,
-        date,
-        classname,
-        title,
-        createdby,
-        details
-      );
+      const response = await ClassNoticeService.registerclassnotice(school_id, date, classname, title, createdby, details);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -37,16 +28,8 @@ export const classnoticedata = createAsyncThunk(
   "notice/classnoticedata",
   async ({ school_id, academic_year_id }, thunkAPI) => {
     try {
-      const response = await ClassNoticeService.getAllNotices(
-        school_id,
-        academic_year_id
-      );
-      console.log(response);
-
-      // Extract only the necessary serializable data
-      return {
-        classnotice: response.data, // Only store `data`, excluding headers and other non-serializable parts
-      };
+      const data = await ClassNoticeService.getAllNotices(school_id, academic_year_id);
+      return { classnotice: data };
     } catch (error) {
       const message =
         (error.response &&
@@ -60,48 +43,12 @@ export const classnoticedata = createAsyncThunk(
   }
 );
 
-// delete class notice
-
-export const deleteclassnotice = createAsyncThunk(
-  "notice/deleteclassnotice",
-  async (id, thunkAPI) => {
+export const getNoticeDropdownClasses = createAsyncThunk(
+  "notice/getNoticeDropdownClasses",
+  async ({ school_code }, thunkAPI) => {
     try {
-      const response = await ClassNoticeService.deleteClassNotice(id);
-      thunkAPI.dispatch(setMessage(response.data.message));
-      return response.data;
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunkAPI.dispatch(setMessage(message));
-      throw error;
-    }
-  }
-);
-
-// update class notice
-
-export const updateclassnotice = createAsyncThunk(
-  "notice/updateclassnotice",
-  async (
-    { id, school_id, date, classname, title, createdby, details },
-    thunkAPI
-  ) => {
-    try {
-      const response = await ClassNoticeService.updateClassNotice(
-        id,
-        school_id,
-        date,
-        classname,
-        title,
-        createdby,
-        details
-      );
-      thunkAPI.dispatch(setMessage(response.data.message));
-      return response.data;
+      const data = await ClassNoticeService.getNoticeDropdownClasses(school_code);
+      return data;
     } catch (error) {
       const message =
         (error.response &&
@@ -129,23 +76,31 @@ const classnoticeSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerclassnotice.fulfilled, (state, action) => {
+        state.isLoggedIn = false;
+      })
+      .addCase(registerclassnotice.rejected, (state, action) => {
+        state.isLoggedIn = false;
       })
       .addCase(classnoticedata.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
         state.classnotice = action.payload.classnotice;
       })
-      .addCase(deleteclassnotice.fulfilled, (state, action) => {
-        state.notices = state.notices.filter(
-          (notice) => notice.id !== action.payload
-        );
+      .addCase(classnoticedata.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.classnotice = null;
+      }) 
+      .addCase(getNoticeDropdownClasses.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.noticeDropdownclasses = action.payload.data.class_codes;
       })
-      .addCase(updateclassnotice.fulfilled, (state, action) => {
-        const index = state.notices.findIndex(
-          (notice) => notice.id === action.payload.id
-        );
-        if (index !== -1) {
-          state.notices[index] = action.payload;
-        }
-      });
+      .addCase(getNoticeDropdownClasses.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.noticeDropdownclasses = null;
+      })
+      .addCase(getNoticeDropdownClasses.pending, (state, action) => {
+        state.isLoggedIn = false;
+        state.noticeDropdownclasses = null;
+      })
   },
 });
 

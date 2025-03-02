@@ -1,13 +1,16 @@
 import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TablePagination,
+  LinearProgress,
+} from "@mui/material";
+
 import { useMediaQuery, Skeleton, Button } from "@mui/material";
 import {
   Dialog,
@@ -21,14 +24,47 @@ import { useSelector } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
 import InputField from "@/Components/InputField/InputField";
 import SelectBox from "@/Components/InputField/SelectBox";
+import DeleteDialog from "./DeleteDialog";
+import EditDialog from "./EditDialog";
+
 const TransportTable = ({
   transportList,
   handleDelete,
   handleUpdate,
   isLoading,
+  busData,
+  routeData,
+  zoneData,
   type = "Zone",
 }) => {
   const themeProperties = useSelector(selectThemeProperties);
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const getBusNameById = (id) => {
+    const bus = busData.find((bus) => bus.id === id);
+    return bus ? bus.bus_number : "Unknown Bus";
+  };
+
+  const getRouteNameById = (id) => {
+    const route = routeData.find((route) => route?.id === id);
+    return route ? route?.route_name : "Unknown Route";
+  };
+
+  const getZoneNameById = (id) => {
+    const zone = zoneData.find((zone) => zone.id === id);
+    return zone ? zone.zone_name : "Unknown Zone";
+  };
 
   const renderTableHeaders = () => {
     switch (type) {
@@ -69,7 +105,7 @@ const TransportTable = ({
                 color: themeProperties?.textColorAlt,
               }}
             >
-              Bus ID
+              Bus No.
             </TableCell>
             <TableCell
               sx={{
@@ -112,7 +148,7 @@ const TransportTable = ({
                 color: themeProperties?.textColorAlt,
               }}
             >
-              Route ID
+              Route Name
             </TableCell>
             <TableCell
               sx={{
@@ -139,7 +175,7 @@ const TransportTable = ({
                 color: themeProperties?.textColorAlt,
               }}
             >
-              Zone ID
+              Zone Name
             </TableCell>
             <TableCell
               sx={{
@@ -224,29 +260,44 @@ const TransportTable = ({
       );
     }
 
+    if (transportList.length == 0) {
+      return (
+        <div
+          className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center "
+          style={{ color: themeProperties?.textColor }}
+        >
+          <p className="text-lg font-semibold">No {type} Found</p>
+          <p className="text-sm mt-2">
+            Create a new {type} by clicking the button below
+          </p>
+        </div>
+      );
+    }
+
     return (
       <TableBody>
-        {transportList.length > 0 &&
-          transportList?.map((transport, index) => (
+        {transportList
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((transport, index) => (
             <TableRow key={index} hover>
               {type === "Driver" && (
                 <>
                   <TableCell>{transport?.driver_name}</TableCell>
                   <TableCell>{transport?.license_number}</TableCell>
                   <TableCell>{transport?.contact_number}</TableCell>
-                  <TableCell>{transport?.bus_id}</TableCell>
+                  <TableCell>{getBusNameById(transport?.bus_id)}</TableCell>
                 </>
               )}
               {type === "Bus" && (
                 <>
                   <TableCell>{transport?.bus_number}</TableCell>
                   <TableCell>{transport?.bus_capacity}</TableCell>
-                  <TableCell>{transport?.route_id}</TableCell>
+                  <TableCell>{getRouteNameById(transport?.route_id)}</TableCell>
                 </>
               )}
               {type === "Route" && (
                 <>
-                  <TableCell>{transport?.zone_id}</TableCell>
+                  <TableCell>{getZoneNameById(transport?.zone_id)}</TableCell>
                   <TableCell>{transport?.route_name}</TableCell>
                   <TableCell>{transport?.route_description}</TableCell>
                 </>
@@ -258,80 +309,18 @@ const TransportTable = ({
                 </>
               )}
               <TableCell sx={{ textAlign: "end" }}>
-                <Dialog>
-                  <DialogTrigger
-                    as={Button}
-                    variant="contained"
-                    color="primary"
-                    className="px-4 py-2 rounded-lg"
-                    style={{
-                      backgroundColor: themeProperties?.logoutColor,
-                      color: themeProperties?.textColorAlt,
-                    }}
-                  >
-                    Delete
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogTitle className=" capitalize">
-                      Delete {type}
-                    </DialogTitle>
-                    <DialogDescription>
-                      Are you sure you want to delete this {type}? This action
-                      cannot be undone.
-                    </DialogDescription>
-                    <div className="flex justify-end space-x-4">
-                      <button
-                        className="px-4 py-2 w-fit rounded-lg"
-                        style={{
-                          backgroundColor: themeProperties?.logoutColor,
-                          color: themeProperties?.textColorAlt,
-                        }}
-                        onClick={() => {
-                          handleDelete(transport?.id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-                <Dialog>
-                  <DialogTrigger
-                    as={Button}
-                    variant="contained"
-                    color="primary"
-                    className="px-4 py-2 rounded-lg mx-2"
-                    style={{
-                      backgroundColor: themeProperties?.normal1,
-                      color: themeProperties?.textColorAlt,
-                    }}
-                  >
-                    Edit
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogTitle className=" capitalize">
-                      Delete {type}
-                    </DialogTitle>
-                    <DialogDescription>
-                      Are you sure you want to delete this {type}? This action
-                      cannot be undone.
-                    </DialogDescription>
-                    <div className="flex justify-end space-x-4">
-                      <button
-                        className="px-4 py-2 w-fit rounded-lg"
-                        style={{
-                          backgroundColor: themeProperties?.logoutColor,
-                          color: themeProperties?.textColorAlt,
-                        }}
-                        onClick={() => {
-                          handleDelete(transport?.id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                <DeleteDialog
+                  type={type}
+                  transport={transport}
+                  handleDelete={handleDelete}
+                  themeProperties={themeProperties}
+                />
+                <EditDialog
+                  type={type}
+                  transport={transport}
+                  handleUpdate={handleUpdate}
+                  themeProperties={themeProperties}
+                />
               </TableCell>
             </TableRow>
           ))}
@@ -340,22 +329,40 @@ const TransportTable = ({
   };
 
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div
+      className="flex flex-col justify-between h-full"
+      style={{
+        backgroundColor: themeProperties?.boxBackgroundSolid || "#ffffff",
+        borderRadius: "10px",
+
+      }}
+    >
       <TableContainer
         component={Paper}
         sx={{
           boxShadow: "none",
-          borderRadius: 3,
           overflow: "hidden",
           backgroundColor: themeProperties?.boxBackgroundSolid || "#ffffff",
+          minHeight: "400px",
+          borderRadius: "10px",
         }}
-        style={{ height: "370px" }}
       >
         <Table>
           <TableHead>{renderTableHeaders()}</TableHead>
           {renderTableRows()}
         </Table>
       </TableContainer>
+      {transportList.length > 0 && (
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={transportList.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      )}
     </div>
   );
 };

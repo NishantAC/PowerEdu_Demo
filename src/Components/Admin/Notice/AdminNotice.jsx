@@ -1,22 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { classnoticedata } from "../../../slices/classnotice";
+import { getNoticeDropdownClasses, classnoticedata } from "../../../slices/classnotice";
 import { selectThemeProperties } from "@/slices/theme";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { MdDelete } from "react-icons/md";
+import ClassNoticeService from "../../../services/classnotice.service";
 
 export default function AdminNotice() {
   const dispatch = useDispatch();
