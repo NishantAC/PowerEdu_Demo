@@ -5,19 +5,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNoticeDropdownClasses } from '../../../slices/classnotice';
 
 
 const NoticeDropDown = ({ user, fetchClassNotices,filterClass, setFilterClass}) => {
     const dispatch = useDispatch();
     const noticeDropdownclasses = useSelector(state => state.classnotice.noticeDropdownclasses);
 
-useEffect(()=>{
-dispatch(getNoticeDropdownClasses({school_code:user?.school_id})).then((result) => {
-setFilterClass(result.payload.data.class_codes[0])
-fetchClassNotices(result.payload.data.class_codes[0])
-})
-},[])
+
 
     const handleDropdownChange = (event) => {
         setFilterClass(event.target.value)

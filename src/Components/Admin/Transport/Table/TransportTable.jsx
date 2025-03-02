@@ -17,18 +17,328 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import { useSelector } from "react-redux";
+import { selectThemeProperties } from "@/slices/theme";
+import InputField from "@/Components/InputField/InputField";
+import SelectBox from "@/Components/InputField/SelectBox";
 const TransportTable = ({
   transportList,
-  setDeleteItemId,
-  setShowDeleteConfirmationModal,
-  page,
-  limit,
-  total,
-  onPageChange,
-  themeProperties,
+  handleDelete,
+  handleUpdate,
   isLoading,
+  type = "Zone",
 }) => {
+  const themeProperties = useSelector(selectThemeProperties);
+
+  const renderTableHeaders = () => {
+    switch (type) {
+      case "Driver":
+        return (
+          <TableRow
+            sx={{
+              backgroundColor: themeProperties?.boxBackgroundTop || "#f5f5f5",
+            }}
+          >
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Driver Name
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              License No.
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Contact No.
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Bus ID
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+                textAlign: "end",
+                paddingRight: "30px",
+              }}
+            >
+              Action
+            </TableCell>
+          </TableRow>
+        );
+      case "Bus":
+        return (
+          <TableRow
+            sx={{
+              backgroundColor: themeProperties?.boxBackgroundTop || "#f5f5f5",
+            }}
+          >
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Bus Number
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Bus Capacity
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Route ID
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+                textAlign: "end",
+                paddingRight: "30px",
+              }}
+            >
+              Action
+            </TableCell>
+          </TableRow>
+        );
+      case "Route":
+        return (
+          <TableRow
+            sx={{
+              backgroundColor: themeProperties?.boxBackgroundTop || "#f5f5f5",
+            }}
+          >
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Zone ID
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Route Name
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Route Description
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+                textAlign: "end",
+                paddingRight: "30px",
+              }}
+            >
+              Action
+            </TableCell>
+          </TableRow>
+        );
+      case "Zone":
+        return (
+          <TableRow
+            sx={{
+              backgroundColor: themeProperties?.boxBackgroundTop || "#f5f5f5",
+            }}
+          >
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Zone Name
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Description
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: "normal",
+                color: themeProperties?.textColorAlt,
+                textAlign: "end",
+                paddingRight: "30px",
+              }}
+            >
+              Action
+            </TableCell>
+          </TableRow>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const renderTableRows = () => {
+    if (isLoading) {
+      return (
+        <TableBody>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <TableRow key={index}>
+              <TableCell colSpan={7} align="center">
+                <Skeleton height={50} variant="rectangular" />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      );
+    }
+
+    return (
+      <TableBody>
+        {transportList.length > 0 &&
+          transportList?.map((transport, index) => (
+            <TableRow key={index} hover>
+              {type === "Driver" && (
+                <>
+                  <TableCell>{transport?.driver_name}</TableCell>
+                  <TableCell>{transport?.license_number}</TableCell>
+                  <TableCell>{transport?.contact_number}</TableCell>
+                  <TableCell>{transport?.bus_id}</TableCell>
+                </>
+              )}
+              {type === "Bus" && (
+                <>
+                  <TableCell>{transport?.bus_number}</TableCell>
+                  <TableCell>{transport?.bus_capacity}</TableCell>
+                  <TableCell>{transport?.route_id}</TableCell>
+                </>
+              )}
+              {type === "Route" && (
+                <>
+                  <TableCell>{transport?.zone_id}</TableCell>
+                  <TableCell>{transport?.route_name}</TableCell>
+                  <TableCell>{transport?.route_description}</TableCell>
+                </>
+              )}
+              {type === "Zone" && (
+                <>
+                  <TableCell>{transport?.zone_name}</TableCell>
+                  <TableCell>{transport?.description}</TableCell>
+                </>
+              )}
+              <TableCell sx={{ textAlign: "end" }}>
+                <Dialog>
+                  <DialogTrigger
+                    as={Button}
+                    variant="contained"
+                    color="primary"
+                    className="px-4 py-2 rounded-lg"
+                    style={{
+                      backgroundColor: themeProperties?.logoutColor,
+                      color: themeProperties?.textColorAlt,
+                    }}
+                  >
+                    Delete
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogTitle className=" capitalize">
+                      Delete {type}
+                    </DialogTitle>
+                    <DialogDescription>
+                      Are you sure you want to delete this {type}? This action
+                      cannot be undone.
+                    </DialogDescription>
+                    <div className="flex justify-end space-x-4">
+                      <button
+                        className="px-4 py-2 w-fit rounded-lg"
+                        style={{
+                          backgroundColor: themeProperties?.logoutColor,
+                          color: themeProperties?.textColorAlt,
+                        }}
+                        onClick={() => {
+                          handleDelete(transport?.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+                <Dialog>
+                  <DialogTrigger
+                    as={Button}
+                    variant="contained"
+                    color="primary"
+                    className="px-4 py-2 rounded-lg mx-2"
+                    style={{
+                      backgroundColor: themeProperties?.normal1,
+                      color: themeProperties?.textColorAlt,
+                    }}
+                  >
+                    Edit
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogTitle className=" capitalize">
+                      Delete {type}
+                    </DialogTitle>
+                    <DialogDescription>
+                      Are you sure you want to delete this {type}? This action
+                      cannot be undone.
+                    </DialogDescription>
+                    <div className="flex justify-end space-x-4">
+                      <button
+                        className="px-4 py-2 w-fit rounded-lg"
+                        style={{
+                          backgroundColor: themeProperties?.logoutColor,
+                          color: themeProperties?.textColorAlt,
+                        }}
+                        onClick={() => {
+                          handleDelete(transport?.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </TableCell>
+            </TableRow>
+          ))}
+      </TableBody>
+    );
+  };
+
   return (
     <div className="flex flex-col justify-between h-full">
       <TableContainer
@@ -42,124 +352,10 @@ const TransportTable = ({
         style={{ height: "370px" }}
       >
         <Table>
-          {isLoading ? (
-            <TableHead>
-              <TableRow>
-                <TableCell colSpan={7} align="center" sx={{ color: themeProperties?.textColor }}>
-                  Loading...
-                </TableCell>
-              </TableRow>
-            </TableHead>
-          ) : (
-            <TableHead>
-              <TableRow sx={{ backgroundColor: themeProperties?.boxBackgroundTop || "#f5f5f5" }}>
-                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
-                  Zone
-                </TableCell>
-                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
-                  Route Name
-                </TableCell>
-                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
-                  Vehicle No.
-                </TableCell>
-                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
-                  Driver Name
-                </TableCell>
-                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
-                  License No.
-                </TableCell>
-                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt }}>
-                  Contact No.
-                </TableCell>
-                <TableCell sx={{ fontWeight: "normal", color: themeProperties?.textColorAlt, textAlign: "end", paddingRight: "30px" }}>
-                  Action
-                </TableCell>
-              </TableRow>
-            </TableHead>
-          )}
-
-          {isLoading ? (
-            <TableBody>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell colSpan={7} align="center">
-                    <Skeleton height={50} variant="rectangular" />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          ) : (
-            <TableBody>
-              {transportList.count > 0 &&
-                transportList.rows?.map((transport, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell>{transport?.zone}</TableCell>
-                    <TableCell>{transport?.route_name}</TableCell>
-                    <TableCell>{transport?.vehicle_no}</TableCell>
-                    <TableCell>{transport?.users_management?.firstname}</TableCell>
-                    <TableCell>{transport?.license_no}</TableCell>
-                    <TableCell>{transport?.contact}</TableCell>
-                    <TableCell sx={{ textAlign: "end" }}>
-                      <Dialog>
-                        <DialogTrigger as={Button} variant="contained" color="primary"
-                          className="px-4 py-2 rounded-lg"
-                          style={{
-                            backgroundColor: themeProperties?.logoutColor,
-                            color: themeProperties?.textColorAlt,
-                          }}
-                        >
-                          Delete
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogTitle>
-                            Are you sure you want to delete this transport?
-                          </DialogTitle>
-                          <DialogDescription>
-                            This action cannot be undone.
-                          </DialogDescription>
-                          <button
-                            className="px-4 py-2 w-fit rounded-lg"
-                            style={{
-                              backgroundColor: themeProperties?.logoutColor,
-                              color: themeProperties?.textColorAlt,
-                            }}
-                            onClick={() => {
-                              setDeleteItemId(transport.id);
-                              setShowDeleteConfirmationModal(true);
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </DialogContent>
-                      </Dialog>
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          )}
+          <TableHead>{renderTableHeaders()}</TableHead>
+          {renderTableRows()}
         </Table>
       </TableContainer>
-
-      <Stack alignItems="center" spacing={2} sx={{ marginTop: 2, padding: 2 }}>
-        <Pagination
-          count={Math.ceil(total / limit)}
-          page={page}
-          onChange={onPageChange}
-          sx={{
-            '& .MuiPaginationItem-root': {
-              color: themeProperties?.textColor,
-              '&.Mui-selected': {
-                backgroundColor: themeProperties?.normal1,
-                color: themeProperties?.textColorAlt,
-              },
-              '&:hover': {
-                backgroundColor: themeProperties?.normal1,
-                color: themeProperties?.textColorAlt,
-              },
-            },
-          }}
-        />
-      </Stack>
     </div>
   );
 };

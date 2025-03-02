@@ -42,6 +42,11 @@ const SubjectsTable = ({
     });
   };
 
+  const handleDeleteSubject = (subject_code) => {
+    SubjectService.deleteSubjectsOfClasses(subject_code);
+  };
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedSubject((prev) => ({
@@ -155,13 +160,13 @@ const SubjectsTable = ({
                         >
                           {subject?.class}
                         </TableCell>
-                        <TableCell sx={{ textAlign: "end" }}>
-                          <Dialog>
+                        <TableCell sx={{ textAlign: "end" ,  }}>
+                          <Dialog className="">
                             <DialogTrigger
                               as={Button}
                               variant="contained"
                               color="primary"
-                              className="px-4 py-2 rounded-lg"
+                              className="px-4 py-2 rounded-lg mr-4"
                               style={{
                                 backgroundColor: themeProperties?.logoutColor,
                                 color: themeProperties?.textColorAlt,
@@ -186,10 +191,7 @@ const SubjectsTable = ({
                                     color: themeProperties?.textColorAlt,
                                   }}
                                   onClick={() => {
-                                    setItemToDelete({
-                                      class_code: subject.class,
-                                      subject_code: subject.subjectCode,
-                                    });
+                                    handleDeleteSubject(subject.subject_code);
                                   }}
                                 >
                                   Delete

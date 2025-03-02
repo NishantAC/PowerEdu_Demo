@@ -32,6 +32,7 @@ import calendarSlice from "./slices/calendar";
 import theme from "./slices/theme";
 import mailReducer from "./slices/mailSlice";
 import manageClasses from "./slices/manageClasses";
+import transport from "./slices/transport"; // Import the transport slice
 
 const reducer = {
   auth,
@@ -65,9 +66,9 @@ const reducer = {
   admin,
   calendarSlice,
   theme,
-  mail : mailReducer,
+  mail: mailReducer,
   manageClasses,
-
+  transport, // Add the transport slice to the reducer object
 };
 
 const store = configureStore({

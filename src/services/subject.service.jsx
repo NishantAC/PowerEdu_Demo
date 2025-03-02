@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "@/common/constant";
 import axios from "axios";
-
+import { toast } from "sonner";
 const API_URL = API_BASE_URL + "admin/subjects";
 const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
 const token = "Bearer " + JSON.parse(powerEduAuthToken);
@@ -13,6 +13,7 @@ const registerSubject = async (
   description
 ) => {
   try {
+    toast.info("Creating subject");
     const response = await axios.post(
       `${API_URL}`,
       {
@@ -28,8 +29,10 @@ const registerSubject = async (
         },
       }
     );
+    toast.success("Subject created successfully");
     return response.data;
   } catch (error) {
+    toast.error("Error creating subject");
     console.error(error);
     throw error;
   }
@@ -123,6 +126,7 @@ const updateSubjectsOfClasses = async ({
   subject_code,
 }) => {
   try {
+    toast.info("Updating subject");
     const response = await axios.put(
       `${API_URL}/${subject_code}`,
       {
@@ -135,8 +139,10 @@ const updateSubjectsOfClasses = async ({
         },
       }
     );
+    toast.success("Subject updated successfully");
     return response.data;
   } catch (error) {
+    toast.error("Error updating subject");
     console.error(error);
     throw error;
   }
@@ -172,15 +178,22 @@ const getSearchSubjectsOfClasses = async (body) => {
   }
 };
 
-const deleteSubjectsOfClasses = async (body) => {
+const deleteSubjectsOfClasses = async (subject_code) => {
   try {
-    const response = await axios.post(
-      `${API_URL}delete-subjects-of-classes`,
-      body
+    toast.info("Deleting subject");
+    const response = await axios.delete(
+      `${API_URL}/${subject_code}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
     );
     //
+    toast.success("Subject deleted successfully");
     return response.data;
   } catch (error) {
+    toast.error("Error deleting subject");
     console.error(error);
     throw error;
   }

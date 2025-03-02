@@ -1,226 +1,151 @@
-import React, { useContext, useRef } from "react";
-import styles from './AdminNotice.module.css'
-import { MenuContext } from "../../../context/Menu/MenuContext";
-import Avatar from "@mui/material/Avatar";
-
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
-import SubjectTeacherService from "../../../services/subjectteacher.service";
-import ClassNoticeService from "../../../services/classnotice.service";
-import schoolService from "../../../services/school.service";
-import principalService from "../../../services/principal.service";
-import Readmore from "../../Student/Home/Readmore";
-import { FaDownload } from "react-icons/fa6";
-import PrincipalDeleteNotice from "./PrincipalDeleteNotice";
-import PrincipalAddNotice from "./PrincipalAddNotice";
-import EditNotice from "./EditNotice";
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import NoticeDropDown from "../../teacher/Notice/NoticeDropDown";
-import { Box } from "@mui/material";
-import { getDropdownClasses } from "../../../slices/principal";
-import AddPrincipalMsg from "./AddPrincipalMsg";
+import { classnoticedata } from "../../../slices/classnotice";
+import { selectThemeProperties } from "@/slices/theme";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { MdDelete } from "react-icons/md";
 
 export default function AdminNotice() {
-  const mycontext = useContext(MenuContext);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  const code = user?.school_id;
-  const [principalMsg, setPrincipalMsg] = useState({});
-  // const allNotices = useRef([]);
-  const [allNotices, setAllNotices] = useState()
-  const [type, setType] = useState("");
-  const [classIds, setClassIds] = useState([]);
-  const [logo, setLogo] = useState();
-  const [active, setActive] = useState(0);
-  const { classes } = useSelector((state) => state.principal);
-  const [filterClass, setFilterClass] = React.useState("");
-
-
-
-  // console.table(allNotices)
-
-  // useEffect(() => {
-
-  // }, [principalMsg])
+  const { user } = useSelector((state) => state.user);
+  const school_id = user?.school_id;
+  const academic_year_id = 1;
+  const themeProperties = useSelector(selectThemeProperties);
+  const classnotice = useSelector((state) => state.classnotice.classnotice);
+  const [allNotices, setAllNotices] = useState();
+  const [selectedNotice, setSelectedNotice] = useState(null);
 
   useEffect(() => {
-    dispatch(getDropdownClasses({ school_id: user?.school_id }));
-  }, []);
-
-
-  const classFunc = () => {
-    setType("class_notices");
-    setActive(0);
-  }
-
-  const schoolFunc = () => {
-    setType("overall");
-    setActive(1);
-  }
+    if (user) {
+      dispatch(classnoticedata({ school_id, academic_year_id }));
+    }
+  }, [user]);
 
   useEffect(() => {
-    fetchAllNotices()
-    fetchPrincipalMsg();
-    getPhoto();
-  }, []);
+    if (classnotice) {
+      setAllNotices(classnotice?.data);
+    }
+  }, [classnotice]);
 
-  //fetch class notice and overall
-  const fetchClassNotices = (cls) => {
-    const body = { school_code: user?.school_id, class_code: cls };
-    ClassNoticeService.getClassNotices(body)
-      .then((res) => {
-        setAllNotices(res.data)
-        classFunc()
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const fetchAllNotices = () => {
-    const body = { school_code: user?.school_id };
-    ClassNoticeService.getAllNotices(body)
-      .then((res) => {
-        setAllNotices(res.data)
-        schoolFunc()
-      })
-      .catch((err) => console.error(err));
-  };
-
-  //fetch principal msg
-  const fetchPrincipalMsg = () => {
-    principalService
-      .getPrincipalMessage({ school_code: user?.school_id })
-      .then((res) => {
-        setPrincipalMsg(res);
-      })
-      .catch((err) =>
-        console.error(err)
-      );
-  };
-
-  const getPhoto = () => {
-    principalService.getPrincipalPhoto({ "school_id": code })
-      .then((result) => {
-        const url = URL.createObjectURL(new Blob([result], { type: "image/jpeg" }))
-        // 
-        setLogo(url);
-        // 
-      }).catch((error) => {
-        
-      })
-  }
-
-  const handleDownloadButton = async (event, key) => {
-    event.preventDefault()
-    ClassNoticeService.getPdf({ key: key })
-      .then(async (response) => {
-        // 
-        const contentDisposition = response.headers['content-disposition'];
-        const match = contentDisposition.match(/filename="(.+)"/);
-        const fetchedFilename = match ? match[1] : 'file.pdf';
-        const blob = new Blob([response.data], { type: 'application/pdf' });
-        saveAs(blob, fetchedFilename);
-      }).catch((error) => {
-        
-      })
+  if (!allNotices) {
+    return (
+      <div className="p-4 h-full">
+        <div
+          className="p-6 rounded-lg shadow-md h-full flex justify-center items-center"
+          style={{ backgroundColor: themeProperties?.boxBackgroundSolid }}
+        >
+          <p style={{ color: themeProperties?.textColor }}>No notices found</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div
-      onClick={mycontext.offMenu}
-      onScroll={mycontext.offMenu}
-      className={styles.main}
-    >
-      <div style={{ display: "flex" }}>
-        <p className={styles.heading}>
-          Home &gt;
-          <b>
-            {" "}
-            <u>Notice</u>
-          </b>
-        </p>
-        {/* <Box sx={{ marginLeft: "auto", display: 'flex', flexDirection: { md: 'row', xs: 'column-reverse'} }}>
-          <span>
-            <PrincipalAddNotice
-            classes={classes}
-               user={user}
-              classFunc={classFunc}
-              schoolFunc={schoolFunc}
-              fetchClassNotices={fetchClassNotices}
-              fetchAllNotices={fetchAllNotices}
-            />
-          </span>
-        </Box> */}
-      </div>
+    <div className="  h-full">
+      <div
+        className="p-6 rounded-lg shadow-md h-full"
+        style={{ backgroundColor: themeProperties?.boxBackgroundSolid }}
+      >
+        {allNotices.map((notice) => (
+          <div key={notice?.id} className="mb-4">
+            <Dialog>
+              <DialogTrigger onClick={() => setSelectedNotice(notice)}>
+                <button
+                  className=" p-4 w-80 rounded-lg text-start flex flex-col  gap-4  text-base"
+                  style={{
+                    backgroundColor: themeProperties?.normal1,
+                    color: themeProperties?.textColorAlt,
+                  }}
+                >
+                  <h1>{notice?.title}</h1>
+                  <p className="text-sm">
+                    Date: {new Date(notice?.issued_date).toLocaleDateString()}
+                  </p>
+                </button>
+              </DialogTrigger>
+              {selectedNotice && selectedNotice?.id === notice?.id && (
+                <DialogContent
+                  style={{
+                    backgroundColor: themeProperties?.boxBackgroundSolid,
+                  }}
+                >
+                  <DialogHeader>
+                    <DialogTitle>{selectedNotice?.title}</DialogTitle>
+                  </DialogHeader>
+                  <DialogDescription>
+                    <p>{selectedNotice?.message}</p>
+                    {selectedNotice?.notice_links && (
+                      <a
+                        href={selectedNotice?.notice_links}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 underline"
+                      >
+                        More details
+                      </a>
+                    )}
+                  </DialogDescription>
+                  <DialogFooter>
+                    <p>
+                      Expiry date:{" "}
+                      {new Date(
+                        selectedNotice.expiry_date
+                      ).toLocaleDateString()}
+                    </p>
 
-      <div className={styles.noticediv}>
-
-        <div className={styles.noticedivD1}>
-          <div className={styles.clas}>
-            <p className={styles.head}>Notice</p>
-            <div className={styles.button}>
-            {active == 0 && <NoticeDropDown
-             user={user}
-             fetchClassNotices={fetchClassNotices}
-             classFunc={classFunc}
-             setFilterClass={setFilterClass}
-             filterClass={filterClass}
-          />}
-              <button autoFocus onClick={classFunc} className={`${styles.noticebtn} ${(active == 0) ? styles.noticebtnfocus : ''}`}>Class</button>
-              <button onClick={fetchAllNotices} className={`${styles.noticebtn} ${(active == 1) ? styles.noticebtnfocus : ''}`}>School</button>
-            </div>
+                    <Dialog className="self-end">
+                      <DialogTrigger
+                        className="self-end "
+                        style={{ color: themeProperties?.logoutColor }}
+                      >
+                        <MdDelete />
+                      </DialogTrigger>
+                      <DialogContent
+                        style={{
+                          backgroundColor: themeProperties?.boxBackgroundSolid,
+                        }}
+                      >
+                        <DialogHeader>
+                          <DialogTitle>Delete Notice</DialogTitle>
+                        </DialogHeader>
+                        <DialogDescription>
+                          <p>Are you sure you want to delete this notice?</p>
+                        </DialogDescription>
+                        <div className="text-end">
+                          <button
+                            className=" px-6 py-2 rounded-lg"
+                            style={{
+                              backgroundColor: themeProperties?.logoutColor,
+                              color: themeProperties?.textColorAlt,
+                            }}
+                            onClick={() => {
+                              // deleteNotice(notice?.id);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </DialogFooter>
+                </DialogContent>
+              )}
+            </Dialog>
           </div>
-
-          <div className={styles.area}>
-            {allNotices?.map((row) => (
-              <div style={{ display: "flex", margin: "0", width: "100%" }} >
-                <div style={{ width: '80%' }}>
-                  <p>{row?.date?.split("-").reverse().join("-")}</p>
-                  <p>{row.title}</p>
-                  <p>  <Readmore quote={row.description} wordLength={150} underline={true} /></p>
-                  {/* <NoticeDescription text={row.details} />*/}
-                </div>
-                {/* {console.table(row)} */}
-                <div style={{ width: "20%", paddingLeft: "100px" }}>
-                  {row?.file_url && <a onClick={event => handleDownloadButton(event, row.file_url)} href="your_download_link">
-                    <FaDownload />
-                  </a>
-                  }
-                  {/*if createdby and userid is same then permission to delete*/}
-                  {row?.created_by == user?.id && <a  >
-                    <PrincipalDeleteNotice
-                      title={row.title} id={row.id}
-                      type={type}
-                      classIds={classIds}
-                      fetchNotices={active == 0 ? fetchClassNotices : fetchAllNotices}
-                      setType={setType}
-                      filterClass={filterClass} />
-                  </a>}
-                  <p>{row?.class_code}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/*Principle*/}
-        {/* <div className={styles.noticedivD2}>
-          <div
-            className={styles.principal}
-          >
-            <div>
-              <p>
-                Principal Message
-              </p>
-            </div>
-            <div style={{display:"flex"}}>
-              <AddPrincipalMsg fetchPrincipalMsg={fetchPrincipalMsg} getPhoto={getPhoto} user={user}/>
-              <EditNotice fetchPrincipalMsg={fetchPrincipalMsg} getPhoto={getPhoto} initialData={principalMsg} school_id={code}/>
-            </div>
-          </div>
-        </div> */}
+        ))}
       </div>
     </div>
   );

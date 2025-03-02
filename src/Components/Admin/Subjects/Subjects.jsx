@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import WestIcon from "@mui/icons-material/West";
 import SubjectsTable from "./SubjectsTable";
 import { useDispatch, useSelector } from "react-redux";
-import classService from "../../../services/class.service";
 import {
-  getAllDropdownSubjectsByClass,
   getSubjectsOfClasses,
 } from "../../../slices/subject";
 import SubjectService from "../../../services/subject.service";
 import useDebounce from "../../../Utils/debounce";
-import AddSubjectForm from "./AddSubjectForm"; // Import the new component
-import SearchBarComponent from "@/Components/SearcBar/SearchBar";
 import { selectThemeProperties } from "@/slices/theme";
 import {
   Select,
@@ -38,7 +31,6 @@ import { Link } from "react-router-dom";
 
 function Subjects() {
   const { user } = useSelector((state) => state.user);
-  const [totalSubjects, setTotalSubjects] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce delay
   const { subjects, status } = useSelector((state) => state.subject);
@@ -78,32 +70,12 @@ function Subjects() {
         description: "",
         pclass: "",
       });
-      // Refresh subjects list
       dispatch(getSubjectsOfClasses(classFilter));
     } catch (error) {
       toast.error("Error creating subject");
       console.error("Error creating subject:", error);
     }
   };
-
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      const searchSubjectsAPI = async () => {
-        try {
-          const body = {
-            school_code: user?.school_id,
-            searchTerm: debouncedSearchTerm,
-            limit,
-          };
-          const result = await SubjectService.getSearchSubjectsOfClasses(body);
-          setFilteredSubjects(result); // Update the filtered subjects with API response
-        } catch (error) {
-          console.error("Error fetching subjects:", error);
-        }
-      };
-      searchSubjectsAPI();
-    }
-  }, [debouncedSearchTerm, user]);
 
   const getLimit = () => {
     const height = window.innerHeight;
@@ -117,11 +89,8 @@ function Subjects() {
   useEffect(() => {
     const intHeight = getLimit();
     setLimit(intHeight);
-  }, [window.innerHeight, page, totalSubjects]);
+  }, [window.innerHeight, page]);
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-  };
 
   useEffect(() => {
     if (user && user?.school_id !== undefined && classFilter !== null) {
@@ -129,17 +98,7 @@ function Subjects() {
     }
   }, [user, classFilter]);
 
-  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
-    useState(false);
 
-  const [itemToDelete, setItemToDelete] = useState({
-    class_code: null,
-    subject_code: null,
-  });
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value); // Update search term as user types
-  };
 
   const sortClassCodes = (a, b) => {
     const regex = /^(\d+)([A-Za-z]*)$/;
@@ -204,13 +163,6 @@ function Subjects() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </div>
-          <div className="fixed left-1/2 top-0 transform -translate-x-1/2 z-[10000]">
-            <SearchBarComponent
-              searchTerm={searchTerm}
-              placeholder="Search Subjects"
-              handleChange={handleSearchChange}
-            />
           </div>
           <Dialog>
             <DialogTrigger asChild>
@@ -308,9 +260,6 @@ function Subjects() {
           }}
         >
           <SubjectsTable
-            showDeleteConfirmationModal={showDeleteConfirmationModal}
-            setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
-            setItemToDelete={setItemToDelete}
             subjects={subjects?.data}
             page={page}
             limit={limit}

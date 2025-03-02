@@ -1,18 +1,24 @@
 import axios from "axios";
 import { API_BASE_URL } from "../common/constant";
+import { toast } from "sonner";
 
-const API_URL = API_BASE_URL + "class-notices/";
+const API_URL = API_BASE_URL;
+const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
+const token = "Bearer " + JSON.parse(powerEduAuthToken);
 
 const registerClassNotice = async (body) => {
   try {
-    const response = await axios.post(API_URL + "add", body, {
+    toast.info("Creating class notice...");
+    const response = await axios.post(API_URL + "admin/class-notices", body, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        Authorization: token,
+      },
     });
+    toast.success("Class notice created successfully");
     return response.data;
   } catch (error) {
-    throw error; // Re-throw the error for handling in the caller function
+    toast.error("Error creating class notice");
+    throw error;
   }
 };
 
@@ -26,16 +32,31 @@ const getClassNotices = (body) => {
   return axios.post(API_URL + "class", body);
 };
 
-const getAllNotices = (body) => {
-  return axios.post(API_URL + "all", body);
+const getAllNotices = (school_id, academic_year_id) => {
+  try {
+    const response = axios.get(
+      API_URL +
+        `admin/school-notices?school_id=${school_id}&academic_year_id=${academic_year_id}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    toast.error("Error fetching notices");
+    console.error(error);
+  }
 };
 
 const getPdf = async (body) => {
   try {
     const response = await axios.post(API_URL + "getPdf", body, {
-      responseType: 'blob'
-    })
-    // 
+      responseType: "blob",
+    });
+    //
     return response;
   } catch (error) {
     console.error(error);
@@ -45,31 +66,40 @@ const getPdf = async (body) => {
 
 const deleteClassNotice = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}remove/${id}`)
+    const response = await axios.delete(`${API_URL}admin/class-notices/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response;
   } catch (error) {
     console.error(error);
   }
-}
+};
 
-const getNoticeDropdownClasses = async (school_code) => {
+const updateClassNotice = async (id, body) => {
   try {
-    const response = await axios.get(`${API_URL}getclasses/${school_code}`)
+    const response = await axios.put(
+      `${API_URL}admin/class-notices/${id}`,
+      body,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
     return response;
   } catch (error) {
     console.error(error);
   }
-}
-
+};
 
 const ClassNoticeService = {
   registerClassNotice,
   getClassNoticeData,
   getAllNotices,
-  getClassNotices,
-  getPdf,
   deleteClassNotice,
-  getNoticeDropdownClasses
+  updateClassNotice,
 };
 
 export default ClassNoticeService;
