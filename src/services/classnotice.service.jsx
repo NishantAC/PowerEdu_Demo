@@ -22,11 +22,6 @@ const registerClassNotice = async (body) => {
   }
 };
 
-const getClassNoticeData = async (body) => {
-  const response = await axios.post(API_URL + "classnoticedata", body);
-  localStorage.setItem("classnotice", JSON.stringify(response.data));
-  return response.data;
-};
 
 const getClassNotices = (body) => {
   return axios.post(API_URL + "class", body);
@@ -96,7 +91,6 @@ const updateClassNotice = async (id, body) => {
 
 const ClassNoticeService = {
   registerClassNotice,
-  getClassNoticeData,
   getAllNotices,
   deleteClassNotice,
   updateClassNotice,

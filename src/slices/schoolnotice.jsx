@@ -1,79 +1,114 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { setMessage } from "./message";
-import SchoolNoticeService from "../services/schoolnotice.service";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { API_BASE_URL } from '@/common/constant';
+import { toast } from 'sonner';
 
-// Load school notice data from local storage
-const schoolNotice = JSON.parse(localStorage.getItem("schoolnotice"));
+const powerEduAuthToken = localStorage.getItem('powerEduAuthToken');
+const token = 'Bearer ' + JSON.parse(powerEduAuthToken);
+const API_URL = API_BASE_URL + 'admin/school-notices/';
 
-// Async thunk to register a school notice
-export const registerSchoolNotice = createAsyncThunk(
-  "notice/registerschoolnotice",
-  async ({ school_id, date, title, createdby, details }, thunk) => {
-    try {
-      const response = await SchoolNoticeService.registerSchoolNotice(
-        school_id,
-        date,
-        title,
-        createdby,
-        details
-      );
-      thunk.dispatch(setMessage(response.data.message));
-      return response.data;
-    } catch (error) {
-      const message =
-        (error.response && error.response.data && error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunk.dispatch(setMessage(message));
-      return thunk.rejectWithValue();
-    }
-  }
-);
+// Async thunks for API calls
+export const createSchoolNotice = createAsyncThunk('schoolnotice/createSchoolNotice', async (body) => {
+  toast.info('Creating school notice...');
+  const response = await axios.post(API_URL, body, {
+    headers: { Authorization: token },
+  });
+  toast.success('School notice created successfully');
+  return response.data.data[0];
+});
 
-// Async thunk to load school notice data
-export const loadSchoolNoticeData = createAsyncThunk(
-  "notice/schoolnoticedata",
-  async ({ code }, thunk) => {
-    try {
-      const data = await SchoolNoticeService.loadSchoolNoticeData(code);
-      return { schoolNotice: data };
-    } catch (error) {
-      const message =
-        (error.response && error.response.data && error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunk.dispatch(setMessage(message));
-      return thunk.rejectWithValue();
-    }
-  }
-);
+export const getSchoolNoticeData = createAsyncThunk('schoolnotice/getSchoolNoticeData', async ({ school_id, academic_year_id }) => {
+  const response = await axios.get(`${API_URL}?school_id=${school_id}&academic_year_id=${academic_year_id}`, {
+    headers: { Authorization: token },
+  });
+  return response.data.data;
+});
 
-// Define initial state
-const initialState = schoolNotice
-  ? { isLoggedIn: true, schoolNotice }
-  : { isLoggedIn: false, schoolNotice: null };
+export const deleteSchoolNotice = createAsyncThunk('schoolnotice/deleteSchoolNotice', async (id) => {
+  toast.info('Deleting school notice...');
+  const response = await axios.delete(`${API_URL}${id}`, {
+    headers: { Authorization: token },
+  });
+  toast.success('School notice deleted successfully');
+  return response.data.data;
+});
 
-// Define school notice slice
+export const updateSchoolNotice = createAsyncThunk('schoolnotice/updateSchoolNotice', async ({ id, body }) => {
+  toast.info('Updating school notice...');
+  const response = await axios.put(`${API_URL}${id}`, body, {
+    headers: { Authorization: token },
+  });
+  toast.success('School notice updated successfully');
+  return response.data.data[0];
+});
+
+// Initial state
+const initialState = {
+  notices: [],
+  status: 'idle',
+  error: null,
+};
+
+// Slice
 const schoolNoticeSlice = createSlice({
-  name: "schoolnotice",
+  name: 'schoolnotice',
   initialState,
-  extraReducers: {
-    [registerSchoolNotice.fulfilled]: (state, action) => {
-      state.isLoggedIn = false;
+  reducers: {
+    resetStatus: (state) => {
+      state.status = 'idle';
     },
-    [registerSchoolNotice.rejected]: (state, action) => {
-      state.isLoggedIn = false;
-    },
-    [loadSchoolNoticeData.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.schoolNotice = action.payload.schoolNotice;
-    },
-    [loadSchoolNoticeData.rejected]: (state, action) => {
-      state.isLoggedIn = false;
-      state.schoolNotice = null;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createSchoolNotice.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createSchoolNotice.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.notices.push(action.payload);
+      })
+      .addCase(createSchoolNotice.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(getSchoolNoticeData.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getSchoolNoticeData.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.notices = action.payload;
+      })
+      .addCase(getSchoolNoticeData.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(deleteSchoolNotice.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteSchoolNotice.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.notices = state.notices.filter(notice => notice.id !== action.meta.arg);
+      })
+      .addCase(deleteSchoolNotice.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(updateSchoolNotice.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateSchoolNotice.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const index = state.notices.findIndex(notice => notice.id === action.meta.arg.id);
+        if (index !== -1) {
+          state.notices[index] = action.payload;
+        }
+      })
+      .addCase(updateSchoolNotice.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 
-// Export school notice reducer
+export const { resetStatus } = schoolNoticeSlice.actions;
 export default schoolNoticeSlice.reducer;

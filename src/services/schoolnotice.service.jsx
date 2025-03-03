@@ -1,34 +1,83 @@
 import { API_BASE_URL } from "@/common/constant";
 import axios from "axios";
+import { toast } from "sonner";
 
-const API_URL = API_BASE_URL+"school-notices/";
+const API_URL = API_BASE_URL;
+const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
+const token = "Bearer " + JSON.parse(powerEduAuthToken);
 
-const registerSchoolNotice = async (body) => {
+
+const createSchoolNotice = async (body) => {
   try {
-    const response = await axios.post(`${API_URL}register-school-notice`, body);
+    toast.info("Creating class notice...");
+    const response = await axios.post(API_URL + "admin/school-notices", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    toast.success("Class notice created successfully");
     return response.data;
   } catch (error) {
-    console.error(error);
+    toast.error("Error creating class notice");
     throw error;
   }
 };
 
-const getSchoolNoticeData = async (code) => {
+const getSchoolNoticeData = (school_id, academic_year_id) => {
   try {
-    const response = await axios.post(`${API_URL}school-notice-data`, { code });
-    if (response.data.classname) {
-      localStorage.setItem("classnotice", JSON.stringify(response.data));
-    }
-    return response.data;
+    const response = axios.get(
+      API_URL +
+        `admin/school-notices?school_id=${school_id}&academic_year_id=${academic_year_id}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    toast.error("Error fetching notices");
+    console.error(error);
+  }
+};
+
+
+const deleteSchoolNotice = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}admin/school-notices/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response;
   } catch (error) {
     console.error(error);
-    throw error;
+  }
+};
+
+const updateSchoolNotice = async (id, body) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}admin/school-notices/${id}`,
+      body,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
   }
 };
 
 const SchoolNoticeService = {
-  registerSchoolNotice,
+  createSchoolNotice,
   getSchoolNoticeData,
+  deleteSchoolNotice,
+  updateSchoolNotice,
 };
 
 export default SchoolNoticeService;
