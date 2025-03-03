@@ -18,6 +18,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SchoolNoticeService from "../../../services/schoolnotice.service";
@@ -25,16 +34,47 @@ import SelectBox from "@/Components/InputField/SelectBox";
 import { format, set } from "date-fns";
 import { resetStatus } from "@/slices/schoolnotice";
 import { useDispatch, useSelector } from "react-redux";
-import { createSchoolNotice } from "../../../slices/schoolnotice";
+import { createClassNotice } from "@/slices/classnotice";
 const CreateNoticeDialog = ({ themeProperties, user }) => {
-  const status = useSelector((state) => state.schoolnotice.status);
+  const status = useSelector((state) => state.classnotice.status);
   const [openDialog, setOpenDialog] = useState(false);
+  const { classes } = useSelector((state) => state.manageClasses);
+  const [classFilter, setClassFilter] = useState(null);
+
+  const sortClassCodes = (a, b) => {
+    const regex = /^(\d+)([A-Za-z]*)$/;
+    const aMatch = a.class_code.match(regex);
+    const bMatch = b.class_code.match(regex);
+
+    if (aMatch && bMatch) {
+      const aNum = parseInt(aMatch[1], 10);
+      const bNum = parseInt(bMatch[1], 10);
+
+      if (aNum !== bNum) {
+        return aNum - bNum;
+      }
+
+      return aMatch[2].localeCompare(bMatch[2]);
+    }
+
+    return a.class_code.localeCompare(b.class_code);
+  };
+
+  useEffect(() => {
+    if (classes?.data) {
+      const sortedClasses = classes.data.slice().sort(sortClassCodes);
+      setClassFilter(sortedClasses[0]?.class_code);
+    }
+  }, [classes]);
+
   const [formValues, setFormValues] = useState({
     title: "",
     message: "",
     notice_links: "",
     expiry_date: "",
-    notice_type: "General",
+    notice_type: "",
+    class_id: null,
+    selectedClass: null,
   });
 
   const dispatch = useDispatch();
@@ -48,6 +88,8 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
         notice_links: "",
         expiry_date: "",
         notice_type: "",
+        class_id: null,
+        selectedClass: null,
       });
       dispatch(resetStatus());
     }
@@ -65,12 +107,16 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const noticeData = {
-      ...formValues,
+      title: formValues.title,
+      message: formValues.message,
+      notice_links: formValues.notice_links,
+      expiry_date: formValues.expiry_date,
+      class_id: formValues.class_id,
       school_id: user?.school_id,
       issued_by: user?.id,
       academic_year_id: 1,
     };
-    dispatch(createSchoolNotice(noticeData));
+    dispatch(createClassNotice(noticeData));
   };
 
   return (
@@ -110,25 +156,43 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
                 label="Title"
               />
               <div className=" relative">
-                {formValues.notice_type && (
-                  <p className="text-[12px] absolute -top-5 left-1">Notice Type</p>
+                {formValues.class_id && (
+                  <p className="text-[12px] absolute -top-5 left-1">Class</p>
                 )}
-                <SelectBox
-                  name="notice_type"
-                  value={formValues.notice_type}
-                  info={formValues.notice_type}
-                  placeHolder="Notice Type"
-                  options={["General", "Urgent"]}
-                  setInfo={() => {
-                    setFormValues({
-                      ...formValues,
-                      notice_type:
-                        formValues.notice_type === "General"
-                          ? "Urgent"
-                          : "General",
-                    });
-                  }}
-                />
+                <Select
+                value={formValues.class_id ? classes?.data?.find((c) => c.id === formValues.class_id)?.class_code : ""}
+                onValueChange={(value) =>
+                  // get the id of the selected class
+                  setFormValues((prev) => ({ ...prev, class_id: classes?.data?.find((c) => c.class_code === value)?.id }))
+                }
+                 
+                >
+                  <SelectTrigger
+                    className="w-48 relative z-[50]" // Ensure it's on top
+                  >
+                    <SelectValue placeholder="Select Class" />
+                  </SelectTrigger>
+                  <SelectContent
+                    className="capitalize z-[1000] pointer-events-auto absolute top-full mt-1 bg-white shadow-lg rounded-md"
+                    style={{ position: "absolute" }} // Ensures dropdown renders above
+                  >
+                    <SelectGroup>
+                      <SelectLabel>Class</SelectLabel>
+                      {classes?.data
+                        ?.slice()
+                        .sort(sortClassCodes)
+                        .map((classItem) => (
+                          <SelectItem
+                            key={classItem.class_code}
+                            value={classItem.class_code}
+                            className="hover:bg-gray-200"
+                          >
+                            {classItem.class_code}
+                          </SelectItem>
+                        ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <div className="flex justify-between">
@@ -142,14 +206,16 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
               />
               <div className=" relative">
                 {formValues.expiry_date && (
-                  <p className="text-[12px] absolute -top-5 left-1">Expiry Date</p>
+                  <p className="text-[12px] absolute -top-5 left-1">
+                    Expiry Date
+                  </p>
                 )}
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button
+                    <button
                       variant={"outline"}
                       className={cn(
-                        "justify-start text-center w-48 font-normal text-black"
+                        " text-sm text-center w-48 font-normal flex gap-2 items-center px-4 py-2 border rounded-md"
                       )}
                       style={{
                         background: themeProperties?.inputBackground,
@@ -160,7 +226,7 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
                       {formValues.expiry_date
                         ? format(new Date(formValues.expiry_date), "dd/MM/yyyy")
                         : "Expiry Date"}
-                    </Button>
+                    </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
                     <Calendar

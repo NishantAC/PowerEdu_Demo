@@ -8,8 +8,8 @@ const token = 'Bearer ' + JSON.parse(powerEduAuthToken);
 const API_URL = API_BASE_URL + 'admin/class-notices/';
 
 // Async thunks for API calls
-export const createClassNotice = createAsyncThunk('Classnotice/createClassNotice', async (body) => {
-  toast.info('Creating Class notice...');
+export const createClassNotice = createAsyncThunk('classnotice/createClassNotice', async (body) => {
+  toast.info('Creating class notice...');
   const response = await axios.post(API_URL, body, {
     headers: { Authorization: token },
   });
@@ -17,15 +17,15 @@ export const createClassNotice = createAsyncThunk('Classnotice/createClassNotice
   return response.data.data[0];
 });
 
-export const getClassNoticeData = createAsyncThunk('Classnotice/getClassNoticeData', async ({ Class_id, academic_year_id }) => {
-  const response = await axios.get(`${API_URL}?school_id=${Class_id}&academic_year_id=${academic_year_id}`, {
+export const getClassNoticeData = createAsyncThunk('classnotice/getClassNoticeData', async ({ school_id, academic_year_id }) => {
+  const response = await axios.get(`${API_URL}?school_id=${school_id}&academic_year_id=${academic_year_id}`, {
     headers: { Authorization: token },
   });
   return response.data.data;
 });
 
-export const deleteClassNotice = createAsyncThunk('Classnotice/deleteClassNotice', async (id) => {
-  toast.info('Deleting Class notice...');
+export const deleteClassNotice = createAsyncThunk('classnotice/deleteClassNotice', async (id) => {
+  toast.info('Deleting class notice...');
   const response = await axios.delete(`${API_URL}${id}`, {
     headers: { Authorization: token },
   });
@@ -33,8 +33,8 @@ export const deleteClassNotice = createAsyncThunk('Classnotice/deleteClassNotice
   return response.data.data;
 });
 
-export const updateClassNotice = createAsyncThunk('Classnotice/updateClassNotice', async ({ id, body }) => {
-  toast.info('Updating Class notice...');
+export const updateClassNotice = createAsyncThunk('classnotice/updateClassNotice', async ({ id, body }) => {
+  toast.info('Updating class notice...');
   const response = await axios.put(`${API_URL}${id}`, body, {
     headers: { Authorization: token },
   });
@@ -50,8 +50,8 @@ const initialState = {
 };
 
 // Slice
-const ClassNoticeSlice = createSlice({
-  name: 'Classnotice',
+const classNoticeSlice = createSlice({
+  name: 'classnotice',
   initialState,
   reducers: {
     resetStatus: (state) => {
@@ -110,5 +110,5 @@ const ClassNoticeSlice = createSlice({
   },
 });
 
-export const { resetStatus } = ClassNoticeSlice.actions;
-export default ClassNoticeSlice.reducer;
+export const { resetStatus } = classNoticeSlice.actions;
+export default classNoticeSlice.reducer;

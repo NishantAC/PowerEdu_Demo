@@ -39,7 +39,10 @@ const getLastMailPath = () => {
       ],
     },
     { name: "School", route: "/admin/school", icon: FaSchool, child: [] },
-    { name: "Notice", route: "/admin/notice", icon: FaBell, child: [] },
+    { name: "Notice",  icon: FaBell, child: [
+      { name: "Class Notice", route: "/admin/class-notice" },
+      { name: "School Notice", route: "/admin/school-notice" },
+    ] },
   ],
   Principal: [
     { name: "Dashboard", route: "/principal/dashboard", icon: MdDashboard, child: [] },

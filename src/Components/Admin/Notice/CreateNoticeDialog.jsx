@@ -111,7 +111,9 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
               />
               <div className=" relative">
                 {formValues.notice_type && (
-                  <p className="text-[12px] absolute -top-5 left-1">Notice Type</p>
+                  <p className="text-[12px] absolute -top-5 left-1">
+                    Notice Type
+                  </p>
                 )}
                 <SelectBox
                   name="notice_type"
@@ -142,14 +144,16 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
               />
               <div className=" relative">
                 {formValues.expiry_date && (
-                  <p className="text-[12px] absolute -top-5 left-1">Expiry Date</p>
+                  <p className="text-[12px] absolute -top-5 left-1">
+                    Expiry Date
+                  </p>
                 )}
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button
+                    <button
                       variant={"outline"}
                       className={cn(
-                        "justify-start text-center w-48 font-normal text-black"
+                        " text-sm text-center w-48 font-normal flex gap-2 items-center px-4 py-2 border rounded-md"
                       )}
                       style={{
                         background: themeProperties?.inputBackground,
@@ -160,7 +164,7 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
                       {formValues.expiry_date
                         ? format(new Date(formValues.expiry_date), "dd/MM/yyyy")
                         : "Expiry Date"}
-                    </Button>
+                    </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
                     <Calendar

@@ -94,6 +94,7 @@ import PrincipalStudentsTabs from "./components/Admin/Profiles/EditProfile/Princ
 import MainLayout from "./MainLayout/MainLayout";
 import { Toaster } from "@/components/ui/sonner"
 import Classes from "./Components/Admin/School/Classes/Classes";
+import ClassNotice from "./Components/Admin/ClassNotice/ClassNotice";
 
 
 function App() {
@@ -147,7 +148,8 @@ function App() {
           <Route path="/admin/Transport" element={<Transport />} />
           <Route path="/admin/mail/:mode" element={<MailComponent />} />
           <Route path="/admin/calendar" element={<Calendar />} />
-          <Route path="/admin/notice" element={<AdminNotice />} />
+          <Route path="/admin/school-notice" element={<AdminNotice />} />
+          <Route path="/admin/class-notice" element={<ClassNotice />} />
           <Route path="/admin/academic-fees" element={<AcademicFees />} />
           <Route path="/admin/extracurricular" element={<ExtracurricularFees />} />
           <Route path="/admin/transport-fees" element={<TransportFees />} />

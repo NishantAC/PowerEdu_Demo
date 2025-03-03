@@ -30,6 +30,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CreateNoticeDialog from "./CreateNoticeDialog";
 import SelectBox from "@/Components/InputField/SelectBox";
+import { Link } from "react-router-dom";
 
 export default function AdminNotice() {
   const { user } = useSelector((state) => state.user);
@@ -329,10 +330,10 @@ export default function AdminNotice() {
 
                                 <Popover>
                                   <PopoverTrigger asChild>
-                                    <Button
+                                    <button
                                       variant={"outline"}
                                       className={cn(
-                                        "justify-start text-center w-48 font-normal text-black"
+                                        " text-sm text-center w-48 font-normal flex gap-2 items-center px-4 py-2 border rounded-md"
                                       )}
                                       style={{
                                         background:
@@ -347,7 +348,7 @@ export default function AdminNotice() {
                                             "dd/MM/yyyy"
                                           )
                                         : "Expiry Date"}
-                                    </Button>
+                                    </button>
                                   </PopoverTrigger>
                                   <PopoverContent className="w-auto p-0">
                                     <Calendar
@@ -427,6 +428,18 @@ export default function AdminNotice() {
           ))}
         </div>
         <CreateNoticeDialog themeProperties={themeProperties} user={user} />
+        <div className="absolute bottom-6 left-6">
+          <Link
+            to="/admin/class-notice"
+            className="text-sm px-4 py-2 rounded-lg"
+            style={{
+              backgroundColor: themeProperties?.logoutColor,
+              color: themeProperties?.textColorAlt,
+            }}
+          >
+            Manage Class Notice
+          </Link>
+        </div>
       </div>
     </div>
   );
