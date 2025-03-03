@@ -120,13 +120,13 @@ const CreateNoticeDialog = ({ themeProperties, user }) => {
                   value={formValues.notice_type}
                   info={formValues.notice_type}
                   placeHolder="Notice Type"
-                  options={["General", "Urgent"]}
+                  options={["General", "Important"]}
                   setInfo={() => {
                     setFormValues({
                       ...formValues,
                       notice_type:
                         formValues.notice_type === "General"
-                          ? "Urgent"
+                          ? "Important"
                           : "General",
                     });
                   }}

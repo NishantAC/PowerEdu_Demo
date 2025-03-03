@@ -77,7 +77,7 @@ export default function ClassNotice() {
   useEffect(() => {
     if (classes?.data) {
       const sortedClasses = classes.data.slice().sort(sortClassCodes);
-      setClassFilter(sortedClasses[0]?.class_code);
+      setClassFilter("All");
     }
   }, [classes]);
   const [formValues, setFormValues] = useState({
@@ -131,6 +131,89 @@ export default function ClassNotice() {
       </div>
     );
   }
+  if (
+    notices.filter((notice) => notice.class_id === classShowId).length === 0 &&
+    classShowId !== null
+  ) {
+    return (
+      <div className="h-full">
+        <div
+          className="p-6 rounded-lg shadow-md h-full"
+          style={{ backgroundColor: themeProperties?.boxBackgroundSolid }}
+        >
+          <div className="flex justify-end gap-4 items-center">
+            <p
+              className="text-base "
+              style={{ color: themeProperties?.textColor }}
+            >
+              Class Selected
+            </p>
+            <Select
+              value={
+                classFilter
+                  ? classFilter
+                  : classes?.data?.slice().sort(sortClassCodes)[0]?.class_code
+              }
+              onValueChange={(value) => {
+                setClassFilter(value);
+                if (value === "All") {
+                  setClassShowId(null);
+                  return;
+                }
+                setClassShowId(
+                  classes?.data?.find((c) => c.class_code === value)?.id
+                );
+              }}
+            >
+              <SelectTrigger
+                className="w-32 relative z-[50]" // Ensure it's on top
+              >
+                <SelectValue placeholder="Select Class" />
+              </SelectTrigger>
+              <SelectContent
+                className="capitalize z-[1000] pointer-events-auto absolute top-full mt-1 bg-white shadow-lg rounded-md"
+                style={{ position: "absolute" }} // Ensures dropdown renders above
+              >
+                <SelectGroup>
+                  <SelectLabel>Class</SelectLabel>
+                  <SelectItem value="All"> All </SelectItem>
+                  {classes?.data
+                    ?.slice()
+                    .sort(sortClassCodes)
+                    .map((classItem) => (
+                      <SelectItem
+                        key={classItem.class_code}
+                        value={classItem.class_code}
+                        className="hover:bg-gray-200"
+                      >
+                        {classItem.class_code}
+                      </SelectItem>
+                    ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className=" flex justify-center h-full items-center">
+            <p>No notice found for {classFilter} class.</p>
+          </div>
+          <CreateNoticeDialog themeProperties={themeProperties} user={user} />
+          <div className="absolute bottom-6 left-6">
+            <Link
+              to="/admin/school-notice"
+              className="text-sm px-4 py-2 rounded-lg"
+              style={{
+                backgroundColor: themeProperties?.logoutColor,
+                color: themeProperties?.textColorAlt,
+              }}
+            >
+              Manage School Notice
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full">
@@ -138,7 +221,7 @@ export default function ClassNotice() {
         className="p-6 rounded-lg shadow-md h-full"
         style={{ backgroundColor: themeProperties?.boxBackgroundSolid }}
       >
-        <div className="flex justify-end gap-4 items-center">
+        <div className="flex justify-end gap-4 items-center px-4">
           <p
             className="text-base "
             style={{ color: themeProperties?.textColor }}
@@ -191,14 +274,14 @@ export default function ClassNotice() {
           </Select>
         </div>
 
-        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 mt-4">
           {notices &&
             notices
               .filter((notice) => {
-                    if (classShowId) {
-                    return notice.class_id === classShowId;
-                    }
-                    return notice;
+                if (classShowId) {
+                  return notice.class_id === classShowId;
+                }
+                return notice;
               })
               .map((notice) => (
                 <div key={notice?.id} className="">
@@ -224,12 +307,27 @@ export default function ClassNotice() {
                         {/* <span className="text-sm">Notice: </span>  */}
                         {notice?.title}
                       </h1>
-                      <div className="flex  justify-between">
-                        <p className="text-sm px-4 py-4 flex items-center gap-2">
+                      <div className="flex  justify-between items-center px-4 py-4">
+                        <p className="text-sm  flex items-center gap-2">
                           <CalendarIcon className="h-4 w-4" />
                           Date:{" "}
                           {new Date(notice?.issued_date).toLocaleDateString()}
                         </p>
+                        {
+                         classFilter === "All" &&
+                         <p
+                         className="text-sm "
+                         style={{
+                           color: themeProperties?.logoutColor,
+                         }}
+                       >
+                         Class:{" "}
+                         {
+                           classes?.data?.find((c) => c.id === notice.class_id)
+                             ?.class_code
+                         }
+                       </p>
+                        }
                       </div>
                     </DialogTrigger>
                     {selectedNotice && selectedNotice?.id === notice?.id && (
