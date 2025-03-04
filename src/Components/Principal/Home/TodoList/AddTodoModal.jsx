@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import '../../../teacher/Home/Calendar.css'
+import '../../../Teacher/Home/Calendar.css'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import styles from './AddTodoModal.module.css'

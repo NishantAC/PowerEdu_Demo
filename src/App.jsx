@@ -47,7 +47,7 @@ import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment
 import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
 import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
 import TeacherHome from "./Components/Teacher/Home/TeacherHome";
-import TeacherSubject from "./Components/teacher/Subjects/TeacherSubject";
+import TeacherSubject from "./Components/Teacher/Subjects/TeacherSubject";
 import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
 import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
 import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";

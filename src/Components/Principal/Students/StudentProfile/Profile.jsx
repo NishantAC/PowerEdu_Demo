@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchExamDetailsByClass } from '../../../../slices/hyexam';
 import { Button } from '@mui/material';
 import { fetchAllExamDetails } from '../../../../slices/exam';
-import AcademicsDetails from '../../../teacher/Student/StudentAcademics/AcademicsDetails';
+import AcademicsDetails from '../../../Teacher/Student/StudentAcademics/AcademicsDetails';
 import { useNavigate } from 'react-router-dom';
 
 function TabPanel(props) {

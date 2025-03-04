@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Timetable.css";
 import "../../../Student/Home/Home.css";
-import "../../../teacher/Home/Calendar.css";
+import "../../../Teacher/Home/Calendar.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import styles from "../../../teacher/Home/ToDoModal.module.css";
+import styles from "../../../Teacher/Home/ToDoModal.module.css";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";

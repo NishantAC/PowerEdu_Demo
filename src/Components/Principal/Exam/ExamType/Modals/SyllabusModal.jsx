@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "../../../../teacher/Home/ToDoModal.module.css";
+import styles from "../../../../Teacher/Home/ToDoModal.module.css";
 import { Box, Checkbox, Modal } from '@mui/material';
 
 export default function SyllabusModal({ selectedChapters, setSelectedChapters, closeSyllabus, syllabusModal }) {

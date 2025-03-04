@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import EditIcon from '@mui/icons-material/Edit';
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import styles from "../../../teacher/Home/ToDoModal.module.css";
+import styles from "../../../Teacher/Home/ToDoModal.module.css";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";

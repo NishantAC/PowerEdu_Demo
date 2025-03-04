@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./TimeTable.css";
 import styles from "./Calendar.module.css";
 import "./Home.css";
-import "../../teacher/Home/Calendar.css";
+import "../../Teacher/Home/Calendar.css";
 import Box from "@mui/material/Box";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";

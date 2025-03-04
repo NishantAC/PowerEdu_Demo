@@ -6,8 +6,8 @@ import SubjectDropdown from '../Academics/SubjectDropdown';
 import AttndncTable from './AttndncTable';
 import { fetchStudentsAcedemicYears, fetchUserAttendance } from '../../../../../slices/attendance';
 import { useDispatch, useSelector } from 'react-redux';
-import AcademicYearDropdown from '../../../../teacher/Student/StudentAcademics/AcademicYearDropdown';
-import AttendanceTable from '../../../../teacher/Student/StudentAttendanceInfo/AttendanceTable';
+import AcademicYearDropdown from '../../../../Teacher/Student/StudentAcademics/AcademicYearDropdown';
+import AttendanceTable from '../../../../Teacher/Student/StudentAttendanceInfo/AttendanceTable';
 
 
 const getAcademicYear = () => {

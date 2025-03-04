@@ -11,7 +11,7 @@ import moment from 'moment';
 import { Button, Paper } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import DownloadSheet from '../../../../teacher/Exam/ClassTestMarks/table/DownloadSheet';
+import DownloadSheet from '../../../../Teacher/Exam/ClassTestMarks/table/DownloadSheet';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchExamMarks } from '../../../../../slices/exam';

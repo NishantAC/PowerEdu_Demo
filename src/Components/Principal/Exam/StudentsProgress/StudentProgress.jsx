@@ -17,7 +17,7 @@ import {
 } from "../../../../slices/exam";
 import { fetchDropdownExamTypes } from "../../../../slices/examtype";
 import { toast } from "sonner";
-import styles from "../../../teacher/Subjects/TeacherSubject.module.css";
+import styles from "../../../Teacher/Subjects/TeacherSubject.module.css";
 import ExamMarkService from "../../../../services/exammark.service";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";

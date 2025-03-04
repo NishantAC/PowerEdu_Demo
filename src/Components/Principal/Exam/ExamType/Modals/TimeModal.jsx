@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "../../../../teacher/Home/ToDoModal.module.css";
+import styles from "../../../../Teacher/Home/ToDoModal.module.css";
 import { Box, Modal, TextField } from '@mui/material';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";

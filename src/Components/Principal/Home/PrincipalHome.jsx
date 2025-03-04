@@ -7,7 +7,7 @@ import Totalinfo from "./Totalinfo/Totalinfo";
 import TeacherAttendance from "./TeacherAttendance/TeacherAttendance";
 import Circulars from "./Circulars/Circulars";
 import TopStudents from "./TopStudents/TopStudents";
-import ToDo from "../../teacher/Home/ToDo";
+import ToDo from "../../Teacher/Home/ToDo";
 import { selectThemeProperties } from "@/slices/theme";
 import MeetingsBox from "@/Components/Meeting/MeetingsBox";
 import CircularsList from "@/Components/Admin/Home/CircularsList";

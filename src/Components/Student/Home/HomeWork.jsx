@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./HomeWork.css";
-import "../../teacher/Home/Calendar.css";
+import "../../Teacher/Home/Calendar.css";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import HomeWorkService from "../../../services/homework.service";
 import { useSelector } from "react-redux";

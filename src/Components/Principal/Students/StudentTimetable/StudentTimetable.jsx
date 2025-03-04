@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./StudentTimetable.css";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import styles from "../../../teacher/Home/ToDoModal.module.css";
+import styles from "../../../Teacher/Home/ToDoModal.module.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
