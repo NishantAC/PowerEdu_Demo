@@ -108,7 +108,7 @@ export default function feeStructures() {
   }, [status, setUpdateDialogOpen, dispatch]);
 
   useEffect(() => {
-    if (user) {
+    if (user && feeStructures.length === 0  ) {
       dispatch(getFeeStructures({ school_id, academic_year_id }));
     }
   }, [user]);
@@ -129,7 +129,7 @@ export default function feeStructures() {
     );
   }
 
-  if (isEmptyObject(feeStructures)) {
+  if (isEmptyObject(feeStructures) || feeStructures.length === 0) {
     return (
       <div className="p-4 h-full relative">
         <div
@@ -211,7 +211,7 @@ export default function feeStructures() {
           </div>
 
           <div className=" flex justify-center h-full items-center">
-            <p>No feeStructure found for {classFilter} class.</p>
+            <p>No Fee Structure found for {classFilter} class.</p>
           </div>
           <CreateDialog
             themeProperties={themeProperties}

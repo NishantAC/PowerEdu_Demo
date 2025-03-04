@@ -127,7 +127,6 @@ export default function FeePayment() {
       </>
     );
   }
-  console.log (feePayments)
 
   if (isEmptyObject(feePayments)) {
     return (

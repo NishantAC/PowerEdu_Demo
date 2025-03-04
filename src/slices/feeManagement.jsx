@@ -133,7 +133,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createFeeStructure.pending, (state) => {
-        state.status = 'loading';
+        // //state.status = 'loading';
       })
       .addCase(createFeeStructure.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -144,7 +144,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteFeeStructure.pending, (state) => {
-        state.status = 'loading';
+        //state.status = 'loading';
       })
       .addCase(deleteFeeStructure.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -155,7 +155,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(updateFeeStructure.pending, (state) => {
-        state.status = 'loading';
+        //state.status = 'loading';
       })
       .addCase(updateFeeStructure.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -180,7 +180,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createFeeDue.pending, (state) => {
-        state.status = 'loading';
+        //state.status = 'loading';
       })
       .addCase(createFeeDue.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -191,7 +191,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteFeeDue.pending, (state) => {
-        state.status = 'loading';
+        //state.status = 'loading';
       })
       .addCase(deleteFeeDue.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -202,7 +202,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(updateFeeDue.pending, (state) => {
-        state.status = 'loading';
+        //state.status = 'loading';
       })
       .addCase(updateFeeDue.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -227,7 +227,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createFeePayment.pending, (state) => {
-        state.status = 'loading';
+        //state.status = 'loading';
       })
       .addCase(createFeePayment.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -238,7 +238,7 @@ const feeManagementSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteFeePayment.pending, (state) => {
-        state.status = 'loading';
+        //state.status = 'loading';
       })
       .addCase(deleteFeePayment.fulfilled, (state, action) => {
         state.status = 'succeeded';
