@@ -5,74 +5,74 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/Login/Login";
-import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import Login from "./Components/Login/Login";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import MenuState from "./context/Menu/MenuState";
-import Register from "./components/Register/Register";
-import ResetPassword from "./components/ResetPassword/ResetPassword";
+import Register from "./Components/Register/Register";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import "./App.css";
-import ViewProfile from "./components/Principal/Students/ViewProfile";
+import ViewProfile from "./Components/Principal/Students/ViewProfile";
 import Calendar from "./Components/Calendar/Calendar";
 import MailComponent from "./Components/Mail/MailComponent";
 
 
 // Importing Admin Layout Components
-import Profiles from "./components/Admin/Profiles/Profile/Profiles";
-import EditProfile from "./components/Admin/Profiles/EditProfile/EditProfile";
-import Home from "./components/Admin/Home/Home";
-import FillUserInfo from "./components/Admin/AddUser/FillUserInfo";
-import Subjects from "./components/Admin/Subjects/Subjects";
-import Transport from "./components/Admin/Transport/Transport";
-import AdminNotice from "./components/Admin/Notice/AdminNotice";
+import Profiles from "./Components/Admin/Profiles/Profile/Profiles";
+import EditProfile from "./Components/Admin/Profiles/EditProfile/EditProfile";
+import Home from "./Components/Admin/Home/Home";
+import FillUserInfo from "./Components/Admin/AddUser/FillUserInfo";
+import Subjects from "./Components/Admin/Subjects/Subjects";
+import Transport from "./Components/Admin/Transport/Transport";
+import AdminNotice from "./Components/Admin/Notice/AdminNotice";
 import FeeStructure from "./Components/Admin/Expense/FeeStructure/FeeStructure";
 import FeePayment from "./Components/Admin/Expense/FeePayment/FeePayment";
 import FeeDue from "./Components/Admin/Expense/FeeDue/FeeDue";
-import School from "./components/Admin/School/School";
+import School from "./Components/Admin/School/School";
  
 // Importing Accounts Layout Components
-import AccountsHome from "./components/Accounts/Home/AccountsHome";
+import AccountsHome from "./Components/Accounts/Home/AccountsHome";
 
 // Importing Student Layout Components
-import StudentAssignment from "./components/Student/Assignment/StudentAssignment";
-import StudentExam from "./components/Student/Exam/StudentExam";
-import StudentFee from "./components/Student/Fee/StudentFee";
-import StudentHome from "./components/Student/Home/StudentHome";
-import StudentSubject from "./components/Student/Subject/StudentSubject";
-import StudentTeacher from "./components/Student/Teacher/StudentTeacher";
-import StudentNotice from "./components/Student/Notice/StudentNotice";
-import StudentProfile from "./components/Student/StudentProfile/Profile";
+import StudentAssignment from "./Components/Student/Assignment/StudentAssignment";
+import StudentExam from "./Components/Student/Exam/StudentExam";
+import StudentFee from "./Components/Student/Fee/StudentFee";
+import StudentHome from "./Components/Student/Home/StudentHome";
+import StudentSubject from "./Components/Student/Subject/StudentSubject";
+import StudentTeacher from "./Components/Student/Teacher/StudentTeacher";
+import StudentNotice from "./Components/Student/Notice/StudentNotice";
+import StudentProfile from "./Components/Student/StudentProfile/Profile";
 
 // Importing Teacher Layout Components
-import TeacherAssignment from "./components/Teacher/Assignment/TeacherAssignment";
-import TeacherHomework from "./components/Teacher/Homework/TeacherHomework";
-import TeacherExam from "./components/Teacher/Exam/TeacherExam";
-import TeacherHome from "./components/Teacher/Home/TeacherHome";
-import TeacherSubject from "./components/teacher/Subjects/TeacherSubject";
-import TeacherStudent from "./components/Teacher/Student/TeacherStudent";
-import TeacherNotice from "./components/Teacher/Notice/TeacherNotice";
-import ExamMarks from "./components/Teacher/Exam/ExamMarks/ExamMarks";
-import ClassTestMarks from "./components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
-import StudentAttendance from "./components/Teacher/Student/StudentAttendance/StudentAttendance";
-import TeachersProfile from "./components/Teacher/TeacherProfile/Profile";
-import FolderTable from "./components/Teacher/Exam/PaperFolder/FolderTable";
+import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
+import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
+import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
+import TeacherHome from "./Components/Teacher/Home/TeacherHome";
+import TeacherSubject from "./Components/teacher/Subjects/TeacherSubject";
+import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
+import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
+import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";
+import ClassTestMarks from "./Components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
+import StudentAttendance from "./Components/Teacher/Student/StudentAttendance/StudentAttendance";
+import TeachersProfile from "./Components/Teacher/TeacherProfile/Profile";
+import FolderTable from "./Components/Teacher/Exam/PaperFolder/FolderTable";
 
 // Importing Principal Layout Components
 
-import PrincipalHome from "./components/Principal/Home/PrincipalHome";
-import PrincipalStudents from "./components/Principal/Students/PrincipalStudents";
-import PrincipalTeachers from "./components/Principal/Teachers/PrincipalTeacher";
-import PrincipalExam from "./components/Principal/Exam/PrincipalExam";
-import PrincipalFees from "./components/Principal/Fees/PrincipalFees";
-import PrincipalNotice from "./components/Principal/Notice/PrincipalNotice";
-import TeachersAttendance from "./components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
-import TeacherProfile from "./components/Principal/Teachers/TeacherProfile/TeacherProfile";
-import StudentTimetable from "./components/Principal/Students/StudentTimetable/StudentTimetable";
-import PrincipalProfile from "./components/Principal/PrincipalProfile/Profile";
-import StudentMarksTable from "./components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
-import StudentProgress from "./components/Principal/Exam/StudentsProgress/StudentProgress";
-import PrincipalStudentsTabs from "./components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
+import PrincipalHome from "./Components/Principal/Home/PrincipalHome";
+import PrincipalStudents from "./Components/Principal/Students/PrincipalStudents";
+import PrincipalTeachers from "./Components/Principal/Teachers/PrincipalTeacher";
+import PrincipalExam from "./Components/Principal/Exam/PrincipalExam";
+import PrincipalFees from "./Components/Principal/Fees/PrincipalFees";
+import PrincipalNotice from "./Components/Principal/Notice/PrincipalNotice";
+import TeachersAttendance from "./Components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
+import TeacherProfile from "./Components/Principal/Teachers/TeacherProfile/TeacherProfile";
+import StudentTimetable from "./Components/Principal/Students/StudentTimetable/StudentTimetable";
+import PrincipalProfile from "./Components/Principal/PrincipalProfile/Profile";
+import StudentMarksTable from "./Components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
+import StudentProgress from "./Components/Principal/Exam/StudentsProgress/StudentProgress";
+import PrincipalStudentsTabs from "./Components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
 import MainLayout from "./MainLayout/MainLayout";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/Components/ui/sonner"
 import Classes from "./Components/Admin/School/Classes/Classes";
 import ClassNotice from "./Components/Admin/ClassNotice/ClassNotice";
 
