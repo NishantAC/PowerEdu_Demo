@@ -9,26 +9,6 @@ import Login from "./components/Login/Login";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import MenuState from "./context/Menu/MenuState";
 import Register from "./components/Register/Register";
-import RegisterSchool from "./components/Register/RegisterSchool";
-import RegisterPrincipal from "./components/Register/RegisterPrincipal";
-import RegisterClassNotice from "./components/Register/RegisterClassNotice";
-import RegisterSchoolNotice from "./components/Register/RegisterSchoolNotice";
-import RegisterClassTest from "./components/Register/RegisterClassTest";
-import RegisterHYExam from "./components/Register/RegisterHYExam";
-import RegisterHYExamMark from "./components/Register/RegisterHYExamMarks";
-import RegisterYExam from "./components/Register/RegisterYExam";
-import RegisterYExamMark from "./components/Register/RegisterYExamMarks";
-import RegisterClassTestMark from "./components/Register/RegisterClassTestMarks";
-import RegisterSubjectTeachers from "./components/Register/RegisterSubjectTeachers";
-import RegisterFeedbackStatus from "./components/Register/RegisterFeedbackStatus";
-import RegisterAcademicFee from "./components/Register/RegisterAcademicFee";
-import RegisterAcademicFeePaid from "./components/Register/RegisterAcademicFeePaid";
-import RegisterAssignment from "./components/Register/RegisterAssignment";
-import RegisterAssignmentStatus from "./components/Register/RegisterAssignmentStatus";
-import RegisterSubject from "./components/Register/RegisterSubject";
-import RegisterSyllabus from "./components/Register/RegisterSyllabus";
-import RegisterNote from "./components/Register/RegisterNote";
-import RegisterLink from "./components/Register/RegisterLink";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import "./App.css";
 import ViewProfile from "./components/Principal/Students/ViewProfile";
@@ -44,9 +24,9 @@ import FillUserInfo from "./components/Admin/AddUser/FillUserInfo";
 import Subjects from "./components/Admin/Subjects/Subjects";
 import Transport from "./components/Admin/Transport/Transport";
 import AdminNotice from "./components/Admin/Notice/AdminNotice";
-import AcademicFees from "./components/Admin/Expense/AcademicFees/AcademicFees";
-import ExtracurricularFees from "./components/Admin/Expense/ExtracurricularFees/ExtracurricularFees";
-import TransportFees from "./components/Admin/Expense/TransportFees/TransportFees";
+import FeeStructure from "./Components/Admin/Expense/FeeStructure/FeeStructure";
+import FeePayment from "./Components/Admin/Expense/FeePayment/FeePayment";
+import FeeDue from "./Components/Admin/Expense/FeeDue/FeeDue";
 import School from "./components/Admin/School/School";
  
 // Importing Accounts Layout Components
@@ -109,27 +89,6 @@ function App() {
             <Route path="/resetpassword" element={<ResetPassword />} />
             
             <Route path="/register" element={<Register />} />
-            <Route path="/register/school" element={<RegisterSchool />} />
-            <Route path="/register/principal" element={<RegisterPrincipal />} />
-            <Route path="/register/classnotice" element={<RegisterClassNotice />} />
-            <Route path="/register/classtest" element={<RegisterClassTest />} />
-            <Route path="/register/classtestmark" element={<RegisterClassTestMark />} />
-            <Route path="/register/hyexam" element={<RegisterHYExam />} />
-            <Route path="/register/hyexammark" element={<RegisterHYExamMark />} />
-            <Route path="/register/yexam" element={<RegisterYExam />} />
-            <Route path="/register/yexammark" element={<RegisterYExamMark />} />
-            <Route path="/register/schoolnotice" element={<RegisterSchoolNotice />} />
-            <Route path="/register/subjectteacher" element={<RegisterSubjectTeachers />} />
-            <Route path="/register/feedbackstatus" element={<RegisterFeedbackStatus />} />
-
-            <Route path="/register/academicfee" element={<RegisterAcademicFee />} />
-            <Route path="/register/academicfeepaid" element={<RegisterAcademicFeePaid />} />
-            <Route path="/register/assignment" element={<RegisterAssignment />} />
-            <Route path="/register/assignmentstatus" element={<RegisterAssignmentStatus />} />
-            <Route path="/register/subject" element={<RegisterSubject />} />
-            <Route path="/register/syllabus" element={<RegisterSyllabus />} />
-            <Route path="/register/note" element={<RegisterNote />} />
-            <Route path="/register/link" element={<RegisterLink />} />
             <Route path="/viewstudent" element={<ViewProfile />} />
             <Route path="*" element={<Navigate to="/" />} />
 
@@ -150,9 +109,9 @@ function App() {
           <Route path="/admin/calendar" element={<Calendar />} />
           <Route path="/admin/school-notice" element={<AdminNotice />} />
           <Route path="/admin/class-notice" element={<ClassNotice />} />
-          <Route path="/admin/academic-fees" element={<AcademicFees />} />
-          <Route path="/admin/extracurricular" element={<ExtracurricularFees />} />
-          <Route path="/admin/transport-fees" element={<TransportFees />} />
+          <Route path="/admin/fee-structure" element={<FeeStructure />} />
+          <Route path="/admin/fee-due" element={<FeeDue />} />
+          <Route path="/admin/fee-payment" element={<FeePayment />} />
           <Route path="/admin/school" element={<School />} />
           <Route path="/admin/manage-classes" element={<Classes />} />
 

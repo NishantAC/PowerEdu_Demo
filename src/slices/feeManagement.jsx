@@ -21,7 +21,7 @@ export const createFeeStructure = createAsyncThunk('feeManagement/createFeeStruc
     headers: { Authorization: token },
   });
   toast.success('Fee structure created successfully');
-  return response.data.data;
+  return response.data.data[0];
 });
 
 export const deleteFeeStructure = createAsyncThunk('feeManagement/deleteFeeStructure', async (id) => {
@@ -39,7 +39,7 @@ export const updateFeeStructure = createAsyncThunk('feeManagement/updateFeeStruc
     headers: { Authorization: token },
   });
   toast.success('Fee structure updated successfully');
-  return response.data.data;
+  return response.data.data[0];
 });
 
 export const getFeeDues = createAsyncThunk('feeManagement/getFeeDues', async () => {
@@ -55,7 +55,7 @@ export const createFeeDue = createAsyncThunk('feeManagement/createFeeDue', async
     headers: { Authorization: token },
   });
   toast.success('Fee due created successfully');
-  return response.data.data;
+  return response.data.data[0];
 });
 
 export const deleteFeeDue = createAsyncThunk('feeManagement/deleteFeeDue', async (id) => {
@@ -73,6 +73,13 @@ export const updateFeeDue = createAsyncThunk('feeManagement/updateFeeDue', async
     headers: { Authorization: token },
   });
   toast.success('Fee due updated successfully');
+  return response.data.data[0];
+});
+
+export const getFeePayments = createAsyncThunk('feeManagement/getFeePayments', async () => {
+  const response = await axios.get(`${API_URL}fee-payments`, {
+    headers: { Authorization: token },
+  });
   return response.data.data;
 });
 
@@ -82,7 +89,7 @@ export const createFeePayment = createAsyncThunk('feeManagement/createFeePayment
     headers: { Authorization: token },
   });
   toast.success('Fee payment created successfully');
-  return response.data.data;
+  return response.data.data[0];
 });
 
 export const deleteFeePayment = createAsyncThunk('feeManagement/deleteFeePayment', async (id) => {
@@ -205,6 +212,17 @@ const feeManagementSlice = createSlice({
         }
       })
       .addCase(updateFeeDue.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(getFeePayments.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getFeePayments.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.feePayments = action.payload;
+      })
+      .addCase(getFeePayments.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })

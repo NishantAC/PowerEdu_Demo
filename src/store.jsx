@@ -33,6 +33,7 @@ import theme from "./slices/theme";
 import mailReducer from "./slices/mailSlice";
 import manageClasses from "./slices/manageClasses";
 import transport from "./slices/transport"; // Import the transport slice
+import feeManagement from "./slices/feeManagement"; // Import the feeManagement slice
 
 const reducer = {
   auth,
@@ -68,7 +69,8 @@ const reducer = {
   theme,
   mail: mailReducer,
   manageClasses,
-  transport, // Add the transport slice to the reducer object
+  transport, 
+  feeManagement, 
 };
 
 const store = configureStore({

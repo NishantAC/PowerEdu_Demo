@@ -33,9 +33,9 @@ const getLastMailPath = () => {
       name: "Expenses",
       icon: FaMoneyBill,
       child: [
-        { name: "Academic Fees", route: "/admin/academic-fees" },
-        { name: "Transport Fees", route: "/admin/transport-fees" },
-        { name: "Extracurricular", route: "/admin/extracurricular" },
+        { name: "Fee Structure", route: "/admin/fee-structure" },
+        { name: "Fee Payment", route: "/admin/fee-payment" },
+        { name: "Fee Due", route: "/admin/fee-due" },
       ],
     },
     { name: "School", route: "/admin/school", icon: FaSchool, child: [] },
