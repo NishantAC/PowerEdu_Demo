@@ -9,6 +9,7 @@ import Profile from "./Profile";
 import Clock from "./Clock";
 import SpSchoolInfoService from "@/services/sp_schoolinfo.service";
 import { fetchClasses } from "@/slices/manageClasses";
+import { getCirculars } from "@/slices/circular";
 
 function Navbar({ toggleSidebar }) {
   const [data, setData] = useState({});
@@ -58,6 +59,7 @@ function Navbar({ toggleSidebar }) {
   useEffect(() => {
     if ( user && school_id) {
     dispatch(fetchClasses({ school_id, academic_year_id: 1 }));
+    dispatch( getCirculars({ school_id, academic_year_id: 1 }));
     }
   }, [user]);
 

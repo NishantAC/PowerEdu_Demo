@@ -46,8 +46,8 @@ function Layout(props) {
 
   return (
     <div>
-      <div className=" flex gap-2 pb-0 m-0 px-2 max-md:px-2 max-h-screen">
-        <div className="z-[10] h-screen py-2">
+      <div className=" flex gap-2 pb-0 m-0 px-2 max-md:px-0 max-h-screen">
+        <div className="z-[10] h-screen py-2 hidden md:block">
           <SideBar
             toggleSidebar={toggleSidebar}
             toggleOpenIndex={toggleOpenIndex}
@@ -58,7 +58,7 @@ function Layout(props) {
           />
         </div>
         <div
-          className=" flex flex-col flex-1 overflow-x-hidden gap-3 my-2 z-[0] rounded-[20px] backdrop-blur-lg"
+          className=" flex flex-col flex-1 overflow-x-hidden gap-3 my-2 max-md:my-0 z-[0] lg-md:rounded-[20px] backdrop-blur-lg"
           style={{
             backgroundColor: themeProperties.backgroundRight,
             color: themeProperties.textColor,
