@@ -29,7 +29,7 @@ function CircularsList() {
   const { user } = useSelector((state) => state.user);
   const [openDialog, setOpenDialog] = useState(false);
   const [updateDialog, setUpdateDialog] = useState(false);
-  const [mainDialog, setMainDialog] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState(false);
   const [selectedCircular, setSelectedCircular] = useState(null);
   const [formValues, setFormValues] = useState({
     title: "",
@@ -56,7 +56,7 @@ function CircularsList() {
   useEffect(() => {
     if (status === "succeeded") {
       setUpdateDialog(false);
-      setMainDialog(false);
+      setOpenDialog(false);
       setFormValues({
         title: "",
         message: "",
@@ -65,6 +65,28 @@ function CircularsList() {
       dispatch(resetStatus());
     }
   }, [status, dispatch]);
+
+  const handleUpdateCircular = () => {
+    const data = {
+      title: formValues.title,
+      message: formValues.message,
+      circular_links: formValues.circular,
+    };
+
+    console.log("Data:", data);
+    dispatch(
+      updateCircular({
+        id: selectedCircular?.id,
+        data,
+      })
+    );
+  };
+
+  const handleDeleteCircular = () => {
+    dispatch(deleteCircular(selectedCircular?.id));
+    setSelectedCircular(null);
+    setDeleteDialog(false);
+  };
 
   return (
     <div
@@ -137,11 +159,7 @@ function CircularsList() {
 
             {circulars.length > 0 &&
               formattedCirculars?.map((circular, index) => (
-                <Dialog
-                  key={index}
-                  onOpenChange={setMainDialog}
-                  open={mainDialog}
-                >
+                <Dialog key={index}>
                   <DialogTrigger>
                     <div
                       className="flex justify-between py-3 rounded-lg px-3 cursor-pointer transition circularButton border-2 text-sm overflow-hidden"
@@ -152,11 +170,7 @@ function CircularsList() {
                         borderColor: themeProperties.borderColor,
                       }}
                       onClick={() => {
-                        setFormValues({
-                          title: circular.subject,
-                          message: circular.message,
-                          circular_links: circular.circular_links,
-                        });
+                        setSelectedCircular(circular);
                       }}
                     >
                       <style>
@@ -229,7 +243,8 @@ function CircularsList() {
                       )}
                     </div>
                     <DialogFooter className="flex justify-end p-4">
-                      {user?.role == "Admin" && (
+                      {(user?.role === "Admin" ||
+                        user?.role === "Principal") && (
                         <button
                           className="text-sm px-4 py-2 rounded-lg"
                           style={{
@@ -237,27 +252,14 @@ function CircularsList() {
                             color: themeProperties.textColorAlt,
                           }}
                           onClick={() => {
-                            dispatch(deleteCircular(circular.id));
+                            setDeleteDialog(true);
+                            setSelectedCircular(circular);
                           }}
                         >
                           Delete
                         </button>
                       )}
-                      {user?.role == "Principal" && (
-                        <button
-                          className="text-sm px-4 py-2 rounded-lg"
-                          style={{
-                            backgroundColor: themeProperties.logoutColor,
-                            color: themeProperties.textColorAlt,
-                          }}
-                          onClick={() => {
-                            dispatch(deleteCircular(circular.id));
-                          }}
-                        >
-                          Delete
-                        </button>
-                      )}
-                      {user?.role == "Admin" && (
+                      {user?.role === "Admin" && (
                         <button
                           className="text-sm px-4 py-2 rounded-lg"
                           style={{
@@ -266,7 +268,6 @@ function CircularsList() {
                           }}
                           onClick={() => {
                             setUpdateDialog(true);
-                            setSelectedCircular(circular);
                             setFormValues({
                               title: circular.subject,
                               message: circular.message,
@@ -300,135 +301,179 @@ function CircularsList() {
         </div>
       </div>
 
-      {user?.role == "Admin" && (
-        <Dialog open={updateDialog} onOpenChange={setUpdateDialog}>
-          <DialogTrigger
-            className=" px-4 py-2 rounded-lg text-sm hidden"
-            style={{
-              backgroundColor: themeProperties?.buttonColor,
-              color: themeProperties?.textColorAlt,
-            }}
-          >
-            Update
-          </DialogTrigger>
-          <DialogContent
-            style={{
-              backgroundColor: themeProperties?.boxBackgroundSolid,
-            }}
-          >
-            <DialogHeader>
-              <DialogTitle className="text-base">
-                Update Circular : {selectedCircular?.subject}
-              </DialogTitle>
-            </DialogHeader>
-            <DialogDescription>
-              <div
-                className="flex flex-col gap-10"
-                style={{
-                  color: themeProperties?.textColor,
-                }}
-              >
-                <div className="flex justify-between mt-4">
-                  <InputField
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    value={formValues.title}
-                    handleChange={(e) =>
-                      setFormValues({
-                        ...formValues,
-                        title: e.target.value,
-                      })
-                    }
-                    label="Title"
-                  />
-                  <InputField
-                    type="text"
-                    name="circular_links"
-                    placeholder="Circular Links"
-                    value={formValues.circular_links}
-                    handleChange={(e) =>
-                      setFormValues({
-                        ...formValues,
-                        circular_links: e.target.value,
-                      })
-                    }
-                    label="Circular Links"
-                  />
-                </div>
-                <div className="">
-                  <InputField
-                    type="textarea"
-                    name="message"
-                    placeholder="Message"
-                    value={formValues.message}
-                    handleChange={(e) =>
-                      setFormValues({
-                        ...formValues,
-                        message: e.target.value,
-                      })
-                    }
-                    label="Message"
-                  />
-                </div>
-                <div className="text-end">
-                  <button
-                    className="px-4 text-sm py-2 rounded-lg "
-                    style={{
-                      backgroundColor: themeProperties?.normal1,
-                      color: themeProperties?.textColorAlt,
-                      opacity:
-                        formValues.title === "" || formValues.message === ""
-                          ? 0.5
-                          : 1,
-                      cursor:
-                        formValues.title === "" || formValues.message === ""
-                          ? "not-allowed"
-                          : "pointer",
-                    }}
-                    disabled={
-                      formValues.title === "" || formValues.message === ""
-                    }
-                    onClick={() => {
-                      const data = {
-                        ...formValues,
-                      };
-
-                      dispatch(
-                        updateCircular({
-                          id: selectedCircular?.id,
-                          data,
-                        })
-                      );
-                    }}
-                  >
-                    Update
-                  </button>
-                  <button
-                    type="button"
-                    className="px-4 text-sm py-2 rounded-lg mx-2"
-                    style={{
-                      backgroundColor: themeProperties?.logoutColor,
-                      color: themeProperties?.textColorAlt,
-                    }}
-                    onClick={() => {
-                      setFormValues({
-                        title: selectedCircular?.subject,
-                        message: selectedCircular?.message,
-                        circular_links: selectedCircular?.circular_links,
-                      });
-                      setSelectedCircular(null);
-                      setUpdateDialog(false);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
+      <Dialog open={updateDialog} onOpenChange={setUpdateDialog}>
+        <DialogTrigger
+          className=" px-4 py-2 rounded-lg text-sm hidden"
+          style={{
+            backgroundColor: themeProperties?.buttonColor,
+            color: themeProperties?.textColorAlt,
+          }}
+        >
+          Update
+        </DialogTrigger>
+        <DialogContent
+          style={{
+            backgroundColor: themeProperties?.boxBackgroundSolid,
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-base">Update Circular</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            <div
+              className="flex flex-col gap-10"
+              style={{
+                color: themeProperties?.textColor,
+              }}
+            >
+              <div className="flex justify-between mt-4">
+                <InputField
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  value={formValues.title}
+                  handleChange={(e) =>
+                    setFormValues({
+                      ...formValues,
+                      title: e.target.value,
+                    })
+                  }
+                  label="Title"
+                />
+                <InputField
+                  type="text"
+                  name="circular_links"
+                  placeholder="Circular Links"
+                  value={formValues.circular_links}
+                  handleChange={(e) =>
+                    setFormValues({
+                      ...formValues,
+                      circular_links: e.target.value,
+                    })
+                  }
+                  label="Circular Links"
+                />
               </div>
-            </DialogDescription>
-          </DialogContent>
-        </Dialog>
-      )}
+              <div className="">
+                <InputField
+                  type="textarea"
+                  name="message"
+                  placeholder="Message"
+                  value={formValues.message}
+                  handleChange={(e) =>
+                    setFormValues({
+                      ...formValues,
+                      message: e.target.value,
+                    })
+                  }
+                  label="Message"
+                />
+              </div>
+              <div className="text-end">
+                <button
+                  className="px-4 text-sm py-2 rounded-lg "
+                  style={{
+                    backgroundColor: themeProperties?.normal1,
+                    color: themeProperties?.textColorAlt,
+                    opacity:
+                      formValues.title === "" || formValues.message === ""
+                        ? 0.5
+                        : 1,
+                    cursor:
+                      formValues.title === "" || formValues.message === ""
+                        ? "not-allowed"
+                        : "pointer",
+                  }}
+                  disabled={
+                    formValues.title === "" || formValues.message === ""
+                  }
+                  onClick={handleUpdateCircular}
+                >
+                  Update
+                </button>
+                <button
+                  type="button"
+                  className="px-4 text-sm py-2 rounded-lg mx-2"
+                  style={{
+                    backgroundColor: themeProperties?.logoutColor,
+                    color: themeProperties?.textColorAlt,
+                  }}
+                  onClick={() => {
+                    setFormValues({
+                      title: selectedCircular?.subject,
+                      message: selectedCircular?.message,
+                      circular_links: selectedCircular?.circular_links,
+                    });
+                    setSelectedCircular(null);
+                    setUpdateDialog(false);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={deleteDialog} onOpenChange={setDeleteDialog}>
+        <DialogTrigger
+          className=" px-4 py-2 rounded-lg text-sm hidden"
+          style={{
+            backgroundColor: themeProperties?.buttonColor,
+            color: themeProperties?.textColorAlt,
+          }}
+        >
+          Delete
+        </DialogTrigger>
+        <DialogContent
+          style={{
+            backgroundColor: themeProperties?.boxBackgroundSolid,
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-base">Delete Circular</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            <div
+              className="flex flex-col gap-10"
+              style={{
+                color: themeProperties?.textColor,
+              }}
+            >
+              <div className="">
+                Are you sure you want to delete this circular?
+              </div>
+              <div className="text-end">
+                <button
+                  className="px-4 text-sm py-2 rounded-lg "
+                  style={{
+                    backgroundColor: themeProperties?.logoutColor,
+                    color: themeProperties?.textColorAlt,
+                  }}
+                  onClick={handleDeleteCircular}
+                >
+                  Delete
+                </button>
+                <button
+                  type="button"
+                  className="px-4 text-sm py-2 rounded-lg mx-2"
+                  style={{
+                    backgroundColor: themeProperties?.normal1,
+                    color: themeProperties?.textColorAlt,
+                  }}
+                  onClick={() => {
+                    setSelectedCircular(null);
+                    setDeleteDialog(false);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
