@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { handleImageUpload, handleChange, handleSubmit } from "./fillUserInfoFunction";
+import {
+  handleImageUpload,
+  handleChange,
+  handleSubmit,
+} from "./fillUserInfoFunction";
 import "./FillUserInfo.css";
 import { useSelector } from "react-redux";
 import authService from "../../../services/auth.service";
@@ -12,13 +16,12 @@ import UserTypeSelection from "./UserTypeSelection";
 import UserDetailsForm from "./UserDetailsForm";
 import { toast } from "sonner";
 function FillUserInfo() {
-
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const themeProperties = useSelector(selectThemeProperties);
 
   const [userType, setUserType] = useState(null);
-  const [rekorId, setRekorId] = useState();
+  const [powereduId, setPowereduId] = useState();
   const [rollNoPlaceholder, setRollNoPlaceholder] = useState();
   const [admissionNoPlaceholder, setAdmissionNoPlaceholder] = useState();
   const [errorMsg, setErrorMsg] = useState(null);
@@ -28,45 +31,44 @@ function FillUserInfo() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    school_id: user?.school_id,
-    rekorId: rekorId,
-    userType: null,
-    imageUrl: "",
-    image: null,
-    admissionNo: "",
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    gender: "",
-    class: "",
-    rollNo: "",
-    admissionDate: "",
-    email: "",
-    dob: "",
-    fatherName: "",
-    motherName: "",
-    guardianName: "",
-    fatherContactNo: "",
-    motherContactNo: "",
-    guardianContactNo: "",
-    addressLine1: "",
-    addressLine2: "",
+    poweredu_id: powereduId,
+    password: "",
     role: "",
-    subject: "",
-    primaryContactNumber: "",
-    secondaryContactNumber: "",
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    contact: "",
+    gender: "",
+    school_id: user?.school_id,
+    academic_year_id: 1,
+    class_id: null,
+    roll_number: null,
+    admission_date: "",
+    dob: "",
+    guardian: {
+      school_id: 1,
+      father_name: "",
+      father_contact: "",
+      mother_name: "",
+      mother_contact: "",
+      guardian_name: "",
+      guardian_contact: "",
+      address: "",
+    },
   });
 
   useEffect(() => {
     if (userType && user?.school_id !== undefined) {
       const body = {
         school_code: user?.school_id,
-        userType: userType.toLowerCase(),
+        userType: userType,
       };
       authService
-        .getUniqueRekorId(body)
+        .getUniquePowerEduId(userType)
         .then((res) => {
-          setRekorId(res.id);
+          powereduId(res?.data?.poweredu_id);
         })
         .catch((error) => {
           toast.error("Error in fetching Rekor Id");
@@ -80,31 +82,44 @@ function FillUserInfo() {
         .catch((error) => {
           toast.error("Error in fetching Admission No");
         });
-
-      if (userType === "Student") {
-        classService
-          .getDropdownClasses( user?.school_id )
-          .then((res) => {
-            setClassesDropdown(res);
-          });
-      }
-
-      if (userType === "Teacher") {
-        classService
-          .getAvailableClasses({ school_code: user?.school_id })
-          .then((res) => {
-            setClassesDropdown(res.data);
-          });
-      }
     }
   }, [user, userType]);
+
+  const { classes } = useSelector((state) => state.manageClasses);
+
+  const sortClassCodes = (a, b) => {
+    const regex = /^(\d+)([A-Za-z]*)$/;
+    const aMatch = a.class_code.match(regex);
+    const bMatch = b.class_code.match(regex);
+
+    if (aMatch && bMatch) {
+      const aNum = parseInt(aMatch[1], 10);
+      const bNum = parseInt(bMatch[1], 10);
+
+      if (aNum !== bNum) {
+        return aNum - bNum;
+      }
+
+      return aMatch[2].localeCompare(bMatch[2]);
+    }
+
+    return a.class_code.localeCompare(b.class_code);
+  };
+
+  useEffect(() => {
+    if (classes?.data) {
+      const sortedClasses = classes.data.slice().sort(sortClassCodes);
+      console.log(sortedClasses);
+      setClassesDropdown(sortedClasses);
+    }
+  }, [classes]);
 
   useEffect(() => {
     setFormValues({
       ...formValues,
-      rekorId: rekorId,
+      poweredu_id: powereduId,
     });
-  }, [rekorId]);
+  }, [powereduId]);
 
   useEffect(() => {
     if (userType && user?.school_id !== undefined && formValues.class !== "") {
@@ -120,9 +135,7 @@ function FillUserInfo() {
           .then((res) => {
             setRollNoPlaceholder(res.rollNo);
           })
-          .catch((error) => {
-            
-          });
+          .catch((error) => {});
       }
     }
   }, [formValues.class, user, userType]);
@@ -135,34 +148,38 @@ function FillUserInfo() {
   }, [userType]);
 
   return (
-    <div
-      className="px-4"
-    >
+    <div className="px-4">
       <div className=" flex gap-4">
-        <div className=" rounded-[20px] shadow-lg"
-        
-        >
-        <div className=" min-w-[250px] flex flex-col justify-center items-center gap-20 h-[82vh] rounded-[20px] relative"
-        style={{ backgroundColor: themeProperties?.boxBackground }}
-        >
-          <div>
-          <h1 className=" text-2xl font-normal mb-5 top-10 absolute border-b-2" 
-          style={{ color: themeProperties?.textColor, 
-            borderColor: themeProperties?.normal1,
-  
-           }}
-          >New User Profile</h1>
-          <UserProfileImage formValues={formValues} setFormValues={setFormValues} themeProperties={themeProperties}  />
+        <div className=" rounded-[20px] shadow-lg">
+          <div
+            className=" min-w-[250px] flex flex-col justify-center items-center gap-20 h-[82vh] rounded-[20px] relative"
+            style={{ backgroundColor: themeProperties?.boxBackground }}
+          >
+            <div>
+              <h1
+                className=" text-2xl font-normal mb-5 top-10 absolute border-b-2"
+                style={{
+                  color: themeProperties?.textColor,
+                  borderColor: themeProperties?.normal1,
+                }}
+              >
+                New User Profile
+              </h1>
+              <UserProfileImage
+                formValues={formValues}
+                setFormValues={setFormValues}
+                themeProperties={themeProperties}
+              />
+            </div>
+            <UserTypeSelection
+              userType={userType}
+              setUserType={setUserType}
+              themeProperties={themeProperties}
+            />
           </div>
-          <UserTypeSelection userType={userType} setUserType={setUserType} themeProperties={themeProperties} />
-
-        </div>
         </div>
 
-        <div
-          className=" flex-1 rounded-[20px] shadow-lg"
-
-        >
+        <div className=" flex-1 rounded-[20px] shadow-lg">
           <UserDetailsForm
             formValues={formValues}
             setFormValues={setFormValues}
@@ -172,8 +189,17 @@ function FillUserInfo() {
             classesDropdown={classesDropdown}
             userType={userType}
             errorMsg={errorMsg}
-            themeProperties={themeProperties} 
-            handleSubmit={(e) => handleSubmit(e, formValues, setErrorMsg, setUserId, setPassword, setShowConfirmationModal)}
+            themeProperties={themeProperties}
+            handleSubmit={(e) =>
+              handleSubmit(
+                e,
+                formValues,
+                setErrorMsg,
+                setUserId,
+                setPassword,
+                setShowConfirmationModal
+              )
+            }
           />
         </div>
       </div>

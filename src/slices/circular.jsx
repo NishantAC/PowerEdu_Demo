@@ -33,7 +33,7 @@ export const deleteCircular = createAsyncThunk('circularManagement/deleteCircula
   return response.data.data;
 });
 
-export const updateCircular = createAsyncThunk('circularManagement/updateCircular', async ({ id, body }) => {
+export const updateCircular = createAsyncThunk('circularManagement/updateCircular', async ({id, body }) => {
   toast.info('Updating circular...');
   const response = await axios.put(`${API_URL}${id}`, body, {
     headers: { Authorization: token },

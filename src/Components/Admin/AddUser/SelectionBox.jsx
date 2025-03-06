@@ -43,7 +43,7 @@ const SelectionBox = ({ formValues, setFormValues, themeProperties, array, formf
           <CommandList>
             <CommandEmpty>No {formfield} found.</CommandEmpty>
             <CommandGroup>
-              {array.map((value, index) => (
+              {array?.map((value, index) => (
                 <CommandItem
                   key={index}
                   value={value}

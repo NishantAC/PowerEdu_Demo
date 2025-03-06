@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "@/Components/InputField/InputField";
 
 import {
@@ -13,6 +13,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import SelectionBox from "./SelectionBox";
+import SelectClass from "@/Components/InputField/SelectClass";
+
 
 const genderOptions = ["Male", "Female", "Others"];
 
@@ -27,10 +29,11 @@ const UserDetailsForm = ({
   handleSubmit,
   themeProperties,
 }) => {
-
   const handleDateChange = (name, selectedDate) => {
     if (selectedDate) {
-      const localDate = new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000);
+      const localDate = new Date(
+        selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000
+      );
       const formattedDate = localDate.toISOString().split("T")[0];
       handleChange({
         target: {
@@ -40,6 +43,8 @@ const UserDetailsForm = ({
       });
     }
   };
+
+
 
   return (
     <form
@@ -65,9 +70,9 @@ const UserDetailsForm = ({
           <>
             <div className=" flex justify-around ">
               <div className=" border-2 py-2 px-6 rounded-lg">
-                <div className=" flex gap-4 items-center">
-                  <div>Rekor Id:</div>
-                  <div className="text-nowrap p-">{formValues.rekorId}</div>
+                <div className=" flex gap-4 items-center text-sm">
+                  <div>PowerEdu Id:</div>
+                  <div className="text-nowrap p-">{formValues?.powereduId}</div>
                 </div>
               </div>
               <div className=" flex items-center border-2 px-4 gap-4 rounded-lg">
@@ -131,12 +136,10 @@ const UserDetailsForm = ({
               {formValues.userType === "Student" ? (
                 <>
                   <div className="flex items-center">
-                    <SelectionBox
+                    <SelectClass
                       formValues={formValues}
                       setFormValues={setFormValues}
-                      themeProperties={themeProperties}
-                      array={classesDropdown}
-                      formfield="class"
+                      
                     />
                   </div>
                   <InputField
@@ -178,7 +181,9 @@ const UserDetailsForm = ({
                             ? new Date(formValues.admissionDate)
                             : undefined
                         }
-                        onSelect={(selectedDate) => handleDateChange("admissionDate", selectedDate)}
+                        onSelect={(selectedDate) =>
+                          handleDateChange("admissionDate", selectedDate)
+                        }
                         initialFocus
                       />
                     </PopoverContent>
@@ -257,7 +262,9 @@ const UserDetailsForm = ({
                             ? new Date(formValues.admissionDate)
                             : undefined
                         }
-                        onSelect={(selectedDate) => handleDateChange("admissionDate", selectedDate)}
+                        onSelect={(selectedDate) =>
+                          handleDateChange("admissionDate", selectedDate)
+                        }
                         initialFocus
                       />
                     </PopoverContent>
@@ -306,7 +313,9 @@ const UserDetailsForm = ({
                             ? new Date(formValues.admissionDate)
                             : undefined
                         }
-                        onSelect={(selectedDate) => handleDateChange("admissionDate", selectedDate)}
+                        onSelect={(selectedDate) =>
+                          handleDateChange("admissionDate", selectedDate)
+                        }
                         initialFocus
                       />
                     </PopoverContent>
@@ -363,7 +372,9 @@ const UserDetailsForm = ({
                     selected={
                       formValues.dob ? new Date(formValues.dob) : undefined
                     }
-                    onSelect={(selectedDate) => handleDateChange("dob", selectedDate)}
+                    onSelect={(selectedDate) =>
+                      handleDateChange("dob", selectedDate)
+                    }
                     initialFocus
                   />
                 </PopoverContent>

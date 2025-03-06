@@ -54,7 +54,7 @@ const AddButton = ({ onClick, name, width }) => {
   }, []);
 
   return (
-    <div className="w-full z-50">
+    <div className="w-full z-50 ">
       <button
         ref={buttonRef}
         onMouseEnter={() => {

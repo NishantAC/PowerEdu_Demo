@@ -20,8 +20,7 @@
     "Student",
     "Teacher",
     "Principal",
-    "Accountant",
-    "Staff",
+    "Admin",
   ];
 
   const UserTypeSelection = ({ userType, setUserType, themeProperties }) => {
@@ -50,7 +49,7 @@
             <CommandList>
               <CommandEmpty>No user type found.</CommandEmpty>
               <CommandGroup>
-                {userTypes.map((type) => (
+                {userTypes?.map((type) => (
                   <CommandItem
                     key={type}
                     value={type}

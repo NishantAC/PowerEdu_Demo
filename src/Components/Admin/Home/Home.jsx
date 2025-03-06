@@ -51,7 +51,7 @@ function Home() {
     >
       {/* Left Section */}
 
-      <div  className={`rounded-[18px] p-2 overflow-hidden z-50 w-[23%] max-lg:w-full h-full max-lg:min-h-[100vh]`}
+      <div  className={`rounded-[18px] p-2 overflow-hidden z-50 xl:w-[23%] min-w-fit max-lg:w-full h-full min-h-fit `}
         style={{
         }}
         >

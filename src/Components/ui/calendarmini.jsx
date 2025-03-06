@@ -22,8 +22,6 @@ function Calendarmini({
   const themeProperties = useSelector(selectThemeProperties);
   const googleEventDates = googleEvents.map(event => new Date(event.start.dateTime).toDateString());
 
-  
-
   const [open, setOpen] = React.useState(false);
   const [selectedEvent, setSelectedEvent] = React.useState(null);
 
@@ -32,8 +30,6 @@ function Calendarmini({
       (e) => new Date(e.start.dateTime).toDateString() === date.toDateString()
     );
     if (event) {
-
-     
       setSelectedEvent(event);
       setOpen(true);
     }
@@ -43,13 +39,13 @@ function Calendarmini({
     <>
       <DayPicker
         showOutsideDays={showOutsideDays}
-        className={cn("p-3", className)}
+        className={cn(" flex items-center justify-center scale-95 py-2 ", className)}
         style={{
           backgroundColor: themeProperties?.inputBackground,
           color: themeProperties?.textColor,
         }}
         classNames={{
-          months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+          months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 ",
           month: "space-y-4",
           caption: "flex justify-center pt-1 relative items-center",
           caption_label: "text-sm font-medium",
@@ -64,7 +60,7 @@ function Calendarmini({
           head_row: "flex",
           head_cell:
             "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem] ",
-          row: "flex w-full mt-2 ",
+          row: "flex w-full mt-2 flex-nowrap w-full",
           cell: cn(
             "relative p-[2px] text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
             props.mode === "range"
@@ -75,7 +71,6 @@ function Calendarmini({
             buttonVariants({ variant: "ghost" }),
             "h-8 w-8 p-0 font-normal aria-selected:opacity-100",
           ),
-
           day_range_start: "day-range-start",
           day_range_end: "day-range-end",
           day_selected:
@@ -102,27 +97,24 @@ function Calendarmini({
         }}
         modifiersClassNames={{
           googleEvent: "bg-red-500 text-white cursor-pointer hover:bg-red-600 hover:text-white",
-
         }}
         onDayClick={handleDayClick}
         {...props}
       />
-       {
-     open && (
-           <MeetingDetailsDialog
-               open={open}
-               setOpen={setOpen}
-               meeting={selectedEvent}
-               onOpenChange={setOpen}
-               themeProperties={themeProperties}
-               date={moment(selectedEvent.start.dateTime).format("DD-MM-YYYY")}
-           />
-          )
-       }
-
+      {open && (
+        <MeetingDetailsDialog
+          open={open}
+          setOpen={setOpen}
+          meeting={selectedEvent}
+          onOpenChange={setOpen}
+          themeProperties={themeProperties}
+          date={moment(selectedEvent.start.dateTime).format("DD-MM-YYYY")}
+        />
+      )}
     </>
   )
 }
+
 Calendarmini.displayName = "Calendarmini"
 
 export { Calendarmini }

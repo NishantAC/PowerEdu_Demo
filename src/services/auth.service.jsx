@@ -3,7 +3,9 @@ import { API_BASE_NEW_URL } from "../common/constant";
 import { setUser } from "../slices/user";
 import store from "../store"; // Assuming you have a store.js file where you configure your Redux store
 import {toast} from 'sonner';
+import { RollerShades } from "@mui/icons-material";
 const API_URL = API_BASE_NEW_URL + "auth/";
+const API_URL_TOKENIZED = API_BASE_NEW_URL + "admin/";
 
 const login = async (user_id, password, rememberMe) => {
   try {
@@ -62,10 +64,12 @@ const authUser = async () => {
 
 // services by Abhishek
 
-const getUniqueRekorId = async (body) => {
+const getUniquePowerEduId = async (role) => {
   try {
-    const response = await axios.get(`${API_URL}getuniquerekorid`, {
-      params: body,
+    const response = await axios.get(`${API_URL_TOKENIZED}users/generate-poweredu-id?role=${role}`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("powerEduAuthToken"))}`,
+      },
     });
     // 
     return response.data;
@@ -146,7 +150,7 @@ const authService = {
   updateUser,
   login,
   logout,
-  getUniqueRekorId,
+  getUniquePowerEduId,
   getUniqueAdmissionNo,
   getUniqueRollNo,
   sendOTP,

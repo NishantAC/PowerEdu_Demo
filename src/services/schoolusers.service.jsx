@@ -1,7 +1,9 @@
 import { API_BASE_URL } from "@/common/constant";
 import axios from "axios";
 
-const API_URL = API_BASE_URL+"schoolusers/";
+const API_URL = API_BASE_URL + "admin/";
+const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
+const token = "Bearer " + JSON.parse(powerEduAuthToken);
 
 const getTotalStudentsNumber = async (school_id) => {
   try {
@@ -37,11 +39,11 @@ const getTotalStaffNumber = async (school_id) => {
   }
 };
 
-const newlyAddedUsers = async (school_id) => {
+const newlyAddedUsers = async () => {
   try {
-    const response = await axios.get(
-      `${API_URL}get/newlyaddedusers/${school_id}`
-    );
+    const response = await axios.get(`${API_URL}users/new-users`, {
+      headers: { Authorization: token },
+    });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -85,7 +87,10 @@ const getAllTeachersByYear = async (body) => {
 
 const getAllTeachersByYearSearch = async (body) => {
   try {
-    const response = await axios.post(`${API_URL}/getallteachersbyyearsearch`, body);
+    const response = await axios.post(
+      `${API_URL}/getallteachersbyyearsearch`,
+      body
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -98,7 +103,6 @@ const getTeacher = async (body) => {
     const { data } = await axios.post(API_URL + "getteacherdetails", body);
     return data;
   } catch (error) {
-    
     throw error;
   }
 };
@@ -108,7 +112,6 @@ const updateTeacherDetails = async (body) => {
     const { data } = await axios.post(API_URL + "updateteacherdetails", body);
     return data;
   } catch (error) {
-    
     throw error;
   }
 };
@@ -147,7 +150,6 @@ const getOtherManagementMemeber = async (body) => {
     );
     return data;
   } catch (error) {
-    
     throw error;
   }
 };
@@ -160,7 +162,6 @@ const updateOtherManagementMemeberDetails = async (body) => {
     );
     return data;
   } catch (error) {
-    
     throw error;
   }
 };
@@ -179,7 +180,7 @@ const SchoolUsersService = {
   getAllOtherManagementMembersByYear,
   updateOtherManagementMemeberDetails,
   getAllTeachersByYearSearch,
-  getAllOtherManagementMembersByYearSearch
+  getAllOtherManagementMembersByYearSearch,
 };
 
 export default SchoolUsersService;

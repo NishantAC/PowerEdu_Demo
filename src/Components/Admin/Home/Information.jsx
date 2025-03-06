@@ -88,16 +88,8 @@ function Information() {
       setStudentGenderCounts(res);
     });
 
-    SchoolUsersService.newlyAddedUsers(user?.school_id).then((res) => {
-      const updatedUsersArray = res.map((user) => ({
-        imgSrc: user.profileImage || "",
-        firstName: user.firstname,
-        lastName: user.lastname,
-        designation: user.userType,
-        dateOfJoining: user.dateOfJoining,
-      }));
-
-      setNewlyAddedUsersArray([...updatedUsersArray]);
+    SchoolUsersService.newlyAddedUsers().then((res) => {
+      setNewlyAddedUsersArray(res?.data);
     });
   }, [user]);
 
@@ -204,7 +196,7 @@ function Information() {
     <div className=" max-xl:max-w-4/5 max-xl:mt-10 flex flex-col h-full " >
       <div className={`flex max-xl:flex-col-reverse flex-row justify-around items-center max-xl:py-4 rounded-[20px] `}
       >
-        <div className="flex max-md:flex-col w-96 justify-center items-center absolute top-2 right-[33%] z-50 " ref={searchRef}>
+        <div className="flex max-md:flex-col w-96 justify-center items-center absolute -top-1 right-[38%] z-50 " ref={searchRef}>
           <Box sx={{ }}>
             <Toolbar>
               <Search

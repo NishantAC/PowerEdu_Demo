@@ -79,7 +79,7 @@ function SideBar({
 
         // dispatch(handleTokenExpiry());
           
-        navigate(`/${userRole}/dashboard`);
+        // navigate(`/${userRole}/dashboard`);
       };
       getUserInfo();
     }    
@@ -133,9 +133,9 @@ function SideBar({
     const lastActiveIndex = Number(lastActiveIndexString);
     setActiveIndex(lastActiveIndex || 0);
     const route = Items[lastActiveIndex]?.route;
-    if (route) {
-      navigate(route);
-    }
+    // if (route) {
+    //   navigate(route);
+    // }
 
     // if the route include mail then show the mail items
     if (route?.includes("mail")) {

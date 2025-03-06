@@ -58,7 +58,7 @@ function Layout(props) {
           />
         </div>
         <div
-          className=" flex flex-col flex-1 overflow-x-hidden gap-3 my-2 max-md:my-0 z-[0] lg-md:rounded-[20px] backdrop-blur-lg"
+          className=" flex flex-col flex-1 overflow-x-hidden gap-3 my-2 max-md:my-0 z-[0] md:rounded-[20px] backdrop-blur-lg"
           style={{
             backgroundColor: themeProperties.backgroundRight,
             color: themeProperties.textColor,
