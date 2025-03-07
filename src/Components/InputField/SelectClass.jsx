@@ -24,9 +24,6 @@ const SelectClass = ({ formValues, setFormValues }) => {
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState();
 
-  React.useEffect(() => {
-    console.log("Classes data:", classes);
-  }, [classes]);
 
   const sortClassCodes = (a, b) => {
     const regex = /^(\d+)([A-Za-z]*)$/;

@@ -39,7 +39,7 @@ function Calendarmini({
     <>
       <DayPicker
         showOutsideDays={showOutsideDays}
-        className={cn(" flex items-center justify-center scale-95 py-2 ", className)}
+        className={cn(" flex items-center justify-center scale-95 py-2 px-4", className)}
         style={{
           backgroundColor: themeProperties?.inputBackground,
           color: themeProperties?.textColor,

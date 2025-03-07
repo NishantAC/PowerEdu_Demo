@@ -15,7 +15,6 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import SelectionBox from "./SelectionBox";
 import SelectClass from "@/Components/InputField/SelectClass";
 
-
 const genderOptions = ["Male", "Female", "Others"];
 
 const UserDetailsForm = ({
@@ -27,7 +26,13 @@ const UserDetailsForm = ({
   userType,
   errorMsg,
   handleSubmit,
+  rollNoPlaceholder,
   themeProperties,
+  powereduId,
+  guardianFormValues,
+  numberLoading,
+  handleGuardianChange,
+  setGuardianFormValues,
 }) => {
   const handleDateChange = (name, selectedDate) => {
     if (selectedDate) {
@@ -43,8 +48,6 @@ const UserDetailsForm = ({
       });
     }
   };
-
-
 
   return (
     <form
@@ -68,53 +71,69 @@ const UserDetailsForm = ({
 
         {userType && (
           <>
-            <div className=" flex justify-around ">
-              <div className=" border-2 py-2 px-6 rounded-lg">
-                <div className=" flex gap-4 items-center text-sm">
-                  <div>PowerEdu Id:</div>
-                  <div className="text-nowrap p-">{formValues?.powereduId}</div>
-                </div>
-              </div>
-              <div className=" flex items-center border-2 px-4 gap-4 rounded-lg">
-                <div className="text-nowrap ">
-                  {formValues.userType === "Student"
-                    ? "Admission No"
-                    : "Employee Id"}
-                </div>
-                <input
-                  name="admissionNo"
-                  value={formValues.admissionNo}
-                  onChange={handleChange}
-                  placeholder={admissionNoPlaceholder}
-                  className="w-fit p-2 bg-white text-black rounded outline-none"
-                  required
-                />
-              </div>
+            <div className=" flex gap-10 mt-10">
+              <InputField
+                type="text"
+                value={powereduId}
+                disable
+                placeholder="Poweredu Id"
+              />
+
+              <InputField
+                type="text"
+                value={admissionNoPlaceholder}
+                readOnly
+                placeholder={
+                  userType === "Student" ? "Admission Nu" : "Employee Id"
+                }
+              />
+
+              <InputField
+                value={formValues.username}
+                htmlFor="username"
+                placeholder="User Name * "
+                name="username"
+                type="text"
+                handleChange={handleChange}
+                themeProperties={themeProperties}
+                required
+              />
+
+              <InputField
+                value={formValues.password}
+                htmlFor="password"
+                placeholder="User Password * "
+                name="password"
+                type="password"
+                handleChange={handleChange}
+                themeProperties={themeProperties}
+                required
+              />
             </div>
             <div className="flex justify-start gap-10 items-center mt-4">
               <InputField
-                value={formValues.firstName}
-                htmlFor="firstName"
+                value={formValues.first_name}
+                htmlFor="first_name"
                 placeholder="First Name"
-                name="firstName"
+                name="first_name"
                 handleChange={handleChange}
                 themeProperties={themeProperties}
                 required={true}
               />
               <InputField
-                value={formValues.middleName}
-                htmlFor="middleName"
+                value={formValues.middle_name}
+                htmlFor="middle_name"
                 placeholder="Middle Name (optional)"
-                name="middleName"
+                name="middle_name"
                 handleChange={handleChange}
                 themeProperties={themeProperties}
                 required={false}
               />
               <InputField
-                value={formValues.lastName}
-                htmlFor="lastName"
+                value={formValues.last_name}
+                htmlFor="last_name"
                 placeholder="Last Name"
-                name="lastName"
+                name="last_name"
                 handleChange={handleChange}
                 themeProperties={themeProperties}
                 required={true}
@@ -133,19 +152,18 @@ const UserDetailsForm = ({
             </div>
 
             <div className=" flex justify-start gap-10 items-center mt-4">
-              {formValues.userType === "Student" ? (
+              {userType === "Student" ? (
                 <>
                   <div className="flex items-center">
                     <SelectClass
                       formValues={formValues}
                       setFormValues={setFormValues}
-                      
                     />
                   </div>
                   <InputField
-                    value={formValues.rollNo}
+                    value={formValues.roll_number}
                     htmlFor="rollNo"
-                    placeholder="Roll No"
+                    placeholder="Roll No ( Auto Fill )"
                     name="rollNo"
                     type="number"
                     handleChange={handleChange}
@@ -158,7 +176,7 @@ const UserDetailsForm = ({
                         variant={"outline"}
                         className={cn(
                           "justify-start text-center w-48 font-normal text-black",
-                          !formValues.admissionDate && "text-muted-foreground"
+                          !formValues.admission_date && "text-muted-foreground"
                         )}
                         style={{
                           background: themeProperties?.inputBackground,
@@ -166,8 +184,8 @@ const UserDetailsForm = ({
                         }}
                       >
                         <CalendarIcon className="h-4 w-4" />
-                        {formValues.admissionDate ? (
-                          format(new Date(formValues.admissionDate), "PPP")
+                        {formValues.admission_date ? (
+                          format(new Date(formValues.admission_date), "PPP")
                         ) : (
                           <span>Admission Date</span>
                         )}
@@ -177,12 +195,12 @@ const UserDetailsForm = ({
                       <Calendar
                         mode="single"
                         selected={
-                          formValues.admissionDate
-                            ? new Date(formValues.admissionDate)
+                          formValues.admission_date
+                            ? new Date(formValues.admission_date)
                             : undefined
                         }
                         onSelect={(selectedDate) =>
-                          handleDateChange("admissionDate", selectedDate)
+                          handleDateChange("admission_date", selectedDate)
                         }
                         initialFocus
                       />
@@ -200,7 +218,7 @@ const UserDetailsForm = ({
                     required={true}
                   />
                 </>
-              ) : formValues.userType === "Teacher" ? (
+              ) : userType === "Teacher" ? (
                 <>
                   <div className=" flex items-center gap-4">
                     <SelectionBox
@@ -383,34 +401,34 @@ const UserDetailsForm = ({
               {userType === "Student" ? (
                 <>
                   <InputField
-                    value={formValues.fatherName}
-                    htmlFor="fatherName"
+                    value={guardianFormValues.father_name}
+                    htmlFor="father_name"
                     placeholder="Father Name"
-                    name="fatherName"
+                    name="father_name"
                     type="text"
-                    handleChange={handleChange}
+                    handleChange={handleGuardianChange}
                     themeProperties={themeProperties}
                     required={true}
                   />
 
                   <InputField
-                    value={formValues.motherName}
-                    htmlFor="motherName"
+                    value={guardianFormValues.mother_name}
+                    htmlFor="mother_name"
                     placeholder="Mother Name"
-                    name="motherName"
+                    name="mother_name"
                     type="text"
-                    handleChange={handleChange}
+                    handleChange={handleGuardianChange}
                     themeProperties={themeProperties}
                     required={true}
                   />
 
                   <InputField
-                    value={formValues.guardianName}
-                    htmlFor="guardianName"
-                    placeholder="Guardian Name (optional)"
-                    name="guardianName"
+                    value={guardianFormValues.guardian_name}
+                    htmlFor="guardian_name"
+                    placeholder="Guardian Name"
+                    name="guardian_name"
                     type="text"
-                    handleChange={handleChange}
+                    handleChange={handleGuardianChange}
                     themeProperties={themeProperties}
                     required={false}
                   />
@@ -443,7 +461,7 @@ const UserDetailsForm = ({
                     required={true}
                   />
 
-                  {userType === "Teacher" && (
+                  {userType == "Teacher" && (
                     <InputField
                       value={formValues.email}
                       htmlFor="email"
@@ -462,40 +480,53 @@ const UserDetailsForm = ({
             {userType === "Student" && (
               <div className="flex justify-start gap-10 items-center mt-4">
                 <InputField
-                  value={formValues.fatherContactNo}
-                  htmlFor="fatherContactNo"
+                  value={formValues.contact}
+                  htmlFor="contact"
+                  placeholder=" Contact"
+                  name="contact"
+                  type="tel"
+                  pattern="[0-9]{10}"
+                  title="Contact must have 10 digits number"
+                  handleChange={handleChange}
+                  themeProperties={themeProperties}
+                  required={true}
+                />
+
+                <InputField
+                  value={guardianFormValues.father_contact}
+                  htmlFor="father_contact"
                   placeholder="Father Contact No."
-                  name="fatherContactNo"
+                  name="father_contact"
                   type="tel"
                   pattern="[0-9]{10}"
                   title="Contact must have 10 digits number"
-                  handleChange={handleChange}
+                  handleChange={handleGuardianChange}
                   themeProperties={themeProperties}
                   required={true}
                 />
 
                 <InputField
-                  value={formValues.motherContactNo}
-                  htmlFor="motherContactNo"
+                  value={guardianFormValues.mother_contact}
+                  htmlFor="mother_contact"
                   placeholder="Mother Contact No."
-                  name="motherContactNo"
+                  name="mother_contact"
                   type="tel"
                   pattern="[0-9]{10}"
                   title="Contact must have 10 digits number"
-                  handleChange={handleChange}
+                  handleChange={handleGuardianChange}
                   themeProperties={themeProperties}
                   required={true}
                 />
 
                 <InputField
-                  value={formValues.guardianContactNo}
-                  htmlFor="guardianContactNo"
+                  value={guardianFormValues.guardian_contact}
+                  htmlFor="guardian_contact"
                   placeholder="Guardian Contact No."
-                  name="guardianContactNo"
+                  name="guardian_contact"
                   type="tel"
                   pattern="[0-9]{10}"
                   title="Contact must have 10 digits number"
-                  handleChange={handleChange}
+                  handleChange={handleGuardianChange}
                   themeProperties={themeProperties}
                   required={false}
                 />
@@ -503,38 +534,45 @@ const UserDetailsForm = ({
             )}
 
             <div className=" mt-4 flex w-full justify-between">
-              <InputField
-                value={formValues.addressLine1}
-                htmlFor="addressLine1"
-                placeholder="Address Line 1"
-                name="addressLine1"
-                type="text"
-                handleChange={handleChange}
-                themeProperties={themeProperties}
-                required
-                address={true}
-              />
-
-              <InputField
-                value={formValues.addressLine2}
-                htmlFor="addressLine2"
-                placeholder="Address Line 2"
-                name="addressLine2"
-                type="text"
-                handleChange={handleChange}
-                themeProperties={themeProperties}
-                required
-                address={true}
-              />
+              {userType === "Student" && (
+                <div className="flex gap-20">
+                  <InputField
+                    value={guardianFormValues.address}
+                    htmlFor="address"
+                    placeholder="Address"
+                    name="address"
+                    type="text"
+                    handleChange={handleGuardianChange}
+                    themeProperties={themeProperties}
+                    required
+                    address={true}
+                  />
+                </div>
+              )}
+              {userType !== "Student" && (
+                <div className="flex gap-10">
+                  <InputField
+                    value={formValues.addressLine1}
+                    htmlFor="addressLine1"
+                    placeholder="Address Line 1"
+                    name="addressLine1"
+                    type="text"
+                    handleChange={handleChange}
+                    themeProperties={themeProperties}
+                    required
+                    address={true}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="flex gap-5 absolute bottom-6 right-6 text-lg">
               <Button
                 className=" px-14 w-fit py-3 rounded"
                 type="submit"
-                disabled={!formValues.userType}
+                disabled={!userType}
                 style={{
-                  display: !formValues.userType ? "none" : "block",
+                  display: !userType ? "none" : "block",
                   background: themeProperties?.buttonColor,
                   color: themeProperties?.textColorAlt,
                 }}
