@@ -28,14 +28,14 @@ const ProfileForm = ({ profiletype, values, handleChange }) => {
         school_code: user?.school_id,
         userType: profiletype.toLowerCase(),
       };
-      authService
-        .getUniqueRekorId(body)
-        .then((res) => {
-          setRekorId(res.id);
-        })
-        .catch((error) => {
+      // authService
+      //   .getUniqueRekorId(body)
+      //   .then((res) => {
+      //     setRekorId(res.id);
+      //   })
+      //   .catch((error) => {
           
-        });
+      //   });
 
       authService
         .getUniqueAdmissionNo(body)

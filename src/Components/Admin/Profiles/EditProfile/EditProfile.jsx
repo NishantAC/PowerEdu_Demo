@@ -22,8 +22,11 @@ import { handleChange } from "../../AddUser/fillUserInfoFunction";
 
 function EditProfile() {
   const navigate = useNavigate();
-  const userDetailsString = localStorage.getItem("editUserDetails");
-  const userDetails = JSON.parse(userDetailsString);
+  // const userDetailsString = localStorage.getItem("editUserDetails");
+  const userDetails ={
+    user_id : 1,
+    profiletype : "students"
+  };
   const { user_id, profiletype } = userDetails;
   const { student, loading } = useSelector((state) => state.student);
   const { teacher, otherManagementMember } = useSelector(

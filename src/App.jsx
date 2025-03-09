@@ -101,7 +101,7 @@ function App() {
           <Route path="/admin/profile/principal" element={<Profiles />} />
           <Route path="/admin/profile/accountant" element={<Profiles />} />
           <Route path="/admin/profile/staff" element={<Profiles />} />
-          <Route path="/admin/edit-profile" element={<EditProfile />} />
+          <Route path="/admin/profile/:id" element={<EditProfile />} />
           <Route path="/admin/addUser" element={<FillUserInfo />} />
           <Route path="/admin/Subjects" element={<Subjects />} />
           <Route path="/admin/Transport" element={<Transport />} />
