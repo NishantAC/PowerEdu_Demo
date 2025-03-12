@@ -14,6 +14,14 @@ import InputField from "@/Components/InputField/InputField";
 import { Button } from "@/Components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -31,12 +39,15 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, set } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
+import { API_BASE_URL } from "@/common/constant";
+import axios from "axios";
 import {
+  createFeeDue,
   createFeeStructure,
   getFeeStructures,
   resetStatus,
 } from "@/slices/feeManagement";
-import SelectBox from "@/Components/InputField/SelectBox";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 const CreateDialog = ({ themeProperties, user }) => {
   const status = useSelector((state) => state.feeManagement.status);
@@ -44,8 +55,12 @@ const CreateDialog = ({ themeProperties, user }) => {
     (state) => state.feeManagement.feeStructures
   );
   const [openDialog, setOpenDialog] = useState(false);
+  const [open, setOpen] = useState(false);
   const { classes } = useSelector((state) => state.manageClasses);
   const [classFilter, setClassFilter] = useState(null);
+  const [selectedClass, setSelectedClass] = useState(null);
+  const [loadingClasses, setLoadingClasses] = useState(false);
+  const [studentArray, setStudentArray] = useState([]);
   const school_id = user?.school_id;
   const academic_year_id = 1;
 
@@ -68,6 +83,36 @@ const CreateDialog = ({ themeProperties, user }) => {
     return a.class_code.localeCompare(b.class_code);
   };
 
+  const getStudents = async () => {
+    setStudentArray([]);
+    const powerEduAuthToken = localStorage.getItem("powerEduAuthToken");
+    const token = "Bearer " + JSON.parse(powerEduAuthToken);
+    try {
+      const res = await axios.get(
+        `${API_BASE_URL}admin/student?class_code=${selectedClass}`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      setStudentArray(res?.data?.data);
+      console.log(res?.data?.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingClasses(false);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedClass) {
+      console.log(selectedClass);
+      setLoadingClasses(true);
+      getStudents();
+    }
+  }, [selectedClass]);
+
   useEffect(() => {
     if (classes?.data) {
       const sortedClasses = classes.data.slice().sort(sortClassCodes);
@@ -78,13 +123,12 @@ const CreateDialog = ({ themeProperties, user }) => {
   const [formValues, setFormValues] = useState({
     class_id: null,
     fee_structure_id: null,
-    selectedFeeStructure: null,
     due_date: "",
     student_id: null,
     poweredu_id: null,
+    student_name: "",
     amount: null,
-    penalty_amount: null,
-    frequency: "",
+    academic_year_id: 1,
   });
 
   const dispatch = useDispatch();
@@ -101,13 +145,11 @@ const CreateDialog = ({ themeProperties, user }) => {
       setFormValues({
         class_id: null,
         fee_structure_id: null,
-        penalty_amount: null,
         due_date: "",
         student_id: null,
         poweredu_id: null,
         amount: null,
-        frequency: "",
-        
+        academic_year_id: 1,
       });
       dispatch(resetStatus());
     }
@@ -124,15 +166,34 @@ const CreateDialog = ({ themeProperties, user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      amount: formValues.amount,
-      frequency: formValues.frequency,
-      penalty_amount: formValues.penalty_amount,
-      class_id: formValues.class_id,
-      school_id: user?.school_id,
+      poweredu_id: formValues.poweredu_id,
+      student_id: formValues.student_id,
+      fee_structure_id: formValues.fee_structure_id,
+      due_amount: formValues.amount,
+      due_date: "2025-02-01",
       academic_year_id: 1,
-      
     };
-    dispatch(createFeeStructure(data));
+    dispatch(createFeeDue(data));
+  };
+
+  const handleClassChange = (value) => {
+    const selectedClass = classes?.data?.find((c) => c.class_code === value);
+    const selectedClassId = selectedClass?.id;
+
+    if (selectedClassId && selectedClassId !== formValues.class_id) {
+      setSelectedClass(value); // Optional if you need it elsewhere
+      setClassFilter(value); // Update classFilter state
+
+      setFormValues((prev) => ({
+        ...prev,
+        class_id: selectedClassId,
+        fee_structure_id: null,
+        amount: "",
+        penalty_amount: "",
+        frequency: "",
+        student_id: null,
+      }));
+    }
   };
 
   return (
@@ -144,7 +205,7 @@ const CreateDialog = ({ themeProperties, user }) => {
           color: themeProperties?.textColorAlt,
         }}
       >
-        Create Fee Payment
+        Create Fee Due
       </DialogTrigger>
       <DialogContent
         style={{
@@ -152,7 +213,7 @@ const CreateDialog = ({ themeProperties, user }) => {
         }}
       >
         <DialogHeader>
-          <DialogTitle className="text-base">Create Fee Payment</DialogTitle>
+          <DialogTitle className="text-base">Create Fee Due</DialogTitle>
         </DialogHeader>
         <DialogDescription>
           <form
@@ -163,8 +224,7 @@ const CreateDialog = ({ themeProperties, user }) => {
             }}
           >
             <div className="flex justify-between mt-4">
-  
-              <div className="relative">
+              <div className="relative ">
                 {formValues.class_id && (
                   <p className="text-[12px] absolute -top-5 left-1">Class</p>
                 )}
@@ -172,21 +232,10 @@ const CreateDialog = ({ themeProperties, user }) => {
                   value={
                     formValues.class_id
                       ? classes?.data?.find((c) => c.id === formValues.class_id)
-                          ?.class_code
+                          ?.class_code || ""
                       : ""
                   }
-                  onValueChange={(value) =>
-                    setFormValues((prev) => ({
-                      ...prev,
-                      class_id: classes?.data?.find(
-                        (c) => c.class_code === value
-                      )?.id,
-                      fee_structure_id: null,
-                      amount: "",
-                      penalty_amount: "",
-                      frequency: "",
-                    }))
-                  }
+                  onValueChange={(value) => handleClassChange(value)}
                 >
                   <SelectTrigger className="w-48 relative z-[50]">
                     <SelectValue placeholder="Select Class" />
@@ -210,17 +259,72 @@ const CreateDialog = ({ themeProperties, user }) => {
                   </SelectContent>
                 </Select>
               </div>
-              <InputField
-                type="text"
-                name="student_id"
-                placeholder="Student ID"
-                value={formValues.student_id}
-                handleChange={handleChange}
-                label="Student ID"
-              />
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    aria-expanded={open}
+                    className="w-[190px] justify-between opacity-100 bg-opacity-100 border-2 border-solid rounded-[8px] p-2"
+                    style={{
+                      color: themeProperties?.textColor,
+                      backgroundColor: themeProperties?.inputBackground,
+                    }}
+                  >
+                    {formValues?.student_id
+                      ? formValues?.student_name
+                      : "Select Student..."}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  className="w-[200px] p-0"
+                  style={{
+                    backgroundColor: themeProperties?.inputBackground,
+                  }}
+                >
+                  <Command>
+                    <CommandInput placeholder="Search ..." />
+                    <CommandList>
+                      <CommandEmpty>
+                        {loadingClasses ? "Loading..." : "No students found."}
+                      </CommandEmpty>
+                      <CommandGroup>
+                        {studentArray.length > 0 &&
+                          studentArray.map((student, index) => (
+                            <CommandItem
+                              key={index}
+                              value={student.student_id}
+                              onSelect={() => {
+
+                                setFormValues((prev) => ({
+                                  ...prev,
+                                  student_id: student.student_id,
+                                  poweredu_id: student.poweredu_id,
+                                  student_name: `${student.first_name} ${student.last_name}`,
+                                }));
+
+                                setOpen(false);
+                              }}
+                            >
+                              {student.first_name + " " + student.last_name}
+
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  formValues.student_id === student.student_id
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                                style={{ color: themeProperties?.normal3 }}
+                              />
+                            </CommandItem>
+                          ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="flex justify-between">
-
               <div className="relative">
                 {formValues.fee_structure_id && (
                   <p className="text-[12px] absolute -top-5 left-1">
@@ -238,9 +342,10 @@ const CreateDialog = ({ themeProperties, user }) => {
                       ...prev,
                       fee_structure_id: selectedFee ? selectedFee.id : "",
                       amount: selectedFee ? selectedFee.amount : "",
-                        penalty_amount: selectedFee ? selectedFee.penalty_amount : "",
-                        frequency: selectedFee ? selectedFee.frequency : "",
-                      
+                      penalty_amount: selectedFee
+                        ? selectedFee.penalty_amount
+                        : "",
+                      frequency: selectedFee ? selectedFee.frequency : "",
                     }));
                   }}
                 >
@@ -297,7 +402,7 @@ const CreateDialog = ({ themeProperties, user }) => {
               <InputField
                 type="number"
                 name="amount"
-                placeholder="Amount ( Auto  )"
+                placeholder="Due Amount ( Auto  )"
                 value={formValues.amount}
                 // handleChange={handleChange}
                 label="Amount"

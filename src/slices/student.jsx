@@ -15,7 +15,7 @@ export const fetchAllStudents = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const data = await StudentService.getAllStudents(body);
-      return data;
+      return data?.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }

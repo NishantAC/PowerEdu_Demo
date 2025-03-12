@@ -18,7 +18,7 @@ import {
 import { selectThemeProperties } from "@/slices/theme";
 import { useSelector } from "react-redux";
 
-const SelectionBox = ({ formValues, setFormValues, array, formfield }) => {
+const SelectStudent = ({ formValues, setFormValues, array, formfield }) => {
   const themeProperties = useSelector(selectThemeProperties);
   const [open, setOpen] =useState(false);
 
@@ -74,4 +74,4 @@ const SelectionBox = ({ formValues, setFormValues, array, formfield }) => {
   );
 };
 
-export default SelectionBox;
+export default SelectStudent;

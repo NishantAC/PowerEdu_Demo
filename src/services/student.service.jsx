@@ -1,11 +1,18 @@
 import { API_BASE_URL } from "@/common/constant";
 import axios from "axios";
-const API_URL = API_BASE_URL+"student/";
+
+const powerEduAuthToken = localStorage.getItem('powerEduAuthToken');
+const token = 'Bearer ' + JSON.parse(powerEduAuthToken);
+const API_URL = API_BASE_URL + 'admin/users';
+
 
 const getAllStudents = async (body) => {
   try {
-    const response = await axios.post(API_URL + "all", body);
-
+    const response = await axios.get(`${API_URL}/?role=Student`, {
+      headers: {
+        Authorization: token
+      }
+    });
     return response.data;
   } catch (error) {
     

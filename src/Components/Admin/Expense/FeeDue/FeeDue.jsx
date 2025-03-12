@@ -151,9 +151,9 @@ export default function FeeDue() {
     classShowId !== null
   ) {
     return (
-      <div className="h-full">
+      <div className="min-h-full">
         <div
-          className="p-6 rounded-lg shadow-md h-full"
+          className="p-6 rounded-lg shadow-md h-full overflow-hidden"
           style={{ backgroundColor: themeProperties?.boxBackgroundSolid }}
         >
           <div className="flex justify-end gap-4 items-center">
@@ -224,7 +224,7 @@ export default function FeeDue() {
   return (
     <div className="h-full">
       <div
-        className="p-6 rounded-lg shadow-md h-full"
+        className="p-6 rounded-lg shadow-md h-full overflow-scroll"
         style={{ backgroundColor: themeProperties?.boxBackgroundSolid }}
       >
         <div className="flex justify-end gap-4 items-center px-4">

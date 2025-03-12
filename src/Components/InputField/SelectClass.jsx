@@ -18,12 +18,11 @@ import {
 import { useSelector } from "react-redux";
 import { selectThemeProperties } from "@/slices/theme";
 
-const SelectClass = ({ formValues, setFormValues }) => {
-     const themeProperties = useSelector(selectThemeProperties);
+const SelectClass = ({ formValues, setFormValues, classFilter, setClassFilter, updateType= "formValues" }) => {
+  const themeProperties = useSelector(selectThemeProperties);
   const { classes } = useSelector((state) => state.manageClasses);
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState();
-
 
   const sortClassCodes = (a, b) => {
     const regex = /^(\d+)([A-Za-z]*)$/;
@@ -47,6 +46,24 @@ const SelectClass = ({ formValues, setFormValues }) => {
   const filteredClasses = search ? classes?.data?.slice().sort(sortClassCodes).filter((classItem) =>
       classItem.class_code.toLowerCase().includes(search.toLowerCase())
     ) : classes?.data?.slice().sort(sortClassCodes);
+
+  const handleSelect = (currentValue) => {
+    const selectedClass = classes?.data?.find(
+      (c) => c.class_code === currentValue
+    );
+
+    if (updateType === "formValues") {
+      setFormValues({
+        ...formValues,
+        class_id: selectedClass?.id,
+      });
+    } else if (updateType === "classFilter") {
+      setClassFilter(selectedClass?.class_code);
+    }
+
+    setOpen(false);
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -58,10 +75,11 @@ const SelectClass = ({ formValues, setFormValues }) => {
             background: themeProperties?.inputBackground,
           }}
         >
-          {formValues.class_id
-            ? classes?.data?.find((c) => c.id === formValues.class_id)
-                ?.class_code
-            : "Select Class..."}
+          {updateType === "formValues"
+            ? formValues.class_id
+              ? classes?.data?.find((c) => c.id === formValues.class_id)?.class_code
+              : "Select Class..."
+            : classFilter || "Select Class..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -85,22 +103,14 @@ const SelectClass = ({ formValues, setFormValues }) => {
                 <CommandItem
                   key={classItem.class_code}
                   value={classItem.class_code}
-                  onSelect={(currentValue) => {
-                    const selectedClass = classes?.data?.find(
-                      (c) => c.class_code === currentValue
-                    );
-                    setFormValues({
-                      ...formValues,
-                      class_id: selectedClass?.id,
-                    });
-                    setOpen(false);
-                  }}
+                  onSelect={handleSelect}
                 >
                   {classItem.class_code}
                   <Check
                     className={cn(
                       "ml-auto",
-                      formValues.class_id === classItem.id
+                      (updateType === "formValues" && formValues.class_id === classItem.id) ||
+                      (updateType === "classFilter" && classFilter === classItem.class_code)
                         ? "opacity-100"
                         : "opacity-0"
                     )}

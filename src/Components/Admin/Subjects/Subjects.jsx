@@ -131,7 +131,7 @@ function Subjects() {
   };
 
   return (
-    <div className="subjectsContainer">
+    <div className=" p-4">
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         <div
           style={{

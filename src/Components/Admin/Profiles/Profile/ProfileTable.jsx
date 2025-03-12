@@ -25,7 +25,7 @@ function ProfileTable({
 
   const getClassOrDepartment = (profile) => {
     if (profileType === "students" || profileType === "teachers") {
-      return profile.class || "N/A";
+      return profile.class_code || "N/A";
     } else {
       return profile.department || "N/A";
     }
@@ -98,16 +98,16 @@ function ProfileTable({
             </TableBody>
           ) : (
             <TableBody>
-            {allUsers[profileType]?.map((profile, index) => (
-              <TableRow key={profile.user_id} hover>
-                <TableCell>{profile.rekorid || "N/A"}</TableCell>
+            {allUsers?.map((profile, index) => (
+              <TableRow key={index} hover>
+                <TableCell>{profile?.poweredu_id || "N/A"}</TableCell>
                 <TableCell>{profileType === "students" ? profile.rollno : index + 1}</TableCell>
                 <TableCell>{profile.name || "N/A"}</TableCell>
                 <TableCell>{getClassOrDepartment(profile)}</TableCell>
                 <TableCell>{getAdmissionOrEmployeeId(profile)}</TableCell>
                 <TableCell sx = {{textAlign: "end"}}>
                   <Link
-                    to={{ pathname: "/admin/edit-profile", userId: profile.user_id, userType: profileType }}
+                    to={{ pathname: "/admin/profile/" + profile?.name + " " + profile?.poweredu_id}}
                     style={{ textDecoration: "none" }}
                   >
                     <button

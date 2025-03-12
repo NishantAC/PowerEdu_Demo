@@ -31,6 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import {toast} from 'sonner'
+import SelectClass from "@/Components/InputField/SelectClass";
  
 
 function Profiles() {
@@ -290,6 +291,8 @@ function Profiles() {
     setPage(value);
   };
 
+  console.log(allUsers)
+
 
   return (
     <div className="p-1 rounded-[20px] h-full">
@@ -358,29 +361,11 @@ function Profiles() {
 
 
             {profileType === "students" && (
-              <Select value={classFilter} onValueChange={setClassFilter}
-              style = {{color: themeProperties?.textColorAlt, 
-              }}
-              >
-                <SelectTrigger className="w-[140px]" 
-                style ={{color: themeProperties?.textColor}}
-                >
-                  <SelectValue placeholder="Select a class" >
-                    {classFilter}
-                  </SelectValue>
-
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel className= " font-normal">Classes</SelectLabel>
-                    {classes?.map((c) => (
-                      <SelectItem key={c} value={c}                      >
-                        {c}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+             <SelectClass
+                classFilter={classFilter}
+                setClassFilter={setClassFilter}
+                updateType="classFilter"
+              />
             )}
           </div>
         </div>
