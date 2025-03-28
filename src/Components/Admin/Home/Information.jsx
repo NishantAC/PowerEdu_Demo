@@ -14,7 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Spinner from "@/Components/Spinner/Spinner";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/Components/ui/skeleton";
 import debounce from "lodash.debounce";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

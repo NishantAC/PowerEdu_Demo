@@ -16,7 +16,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/Components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -24,9 +24,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import InputField from "@/Components/InputField/InputField";
-import { Button } from "@/components/ui/button"; // Import Button component
+import { Button } from "@/Components/ui/button"; // Import Button component
 import { Link } from "react-router-dom";
 
 function Subjects() {

@@ -13,7 +13,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable";
+} from "@/Components/ui/resizable";
 import { IoMdRefresh } from "react-icons/io";
 import { Button, Skeleton } from "@mui/material";
 import { toast } from "sonner";

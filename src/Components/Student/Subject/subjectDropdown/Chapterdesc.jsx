@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/ui/accordion"; // Import Shadcn accordion components
+} from "@/Components/ui/accordion"; // Import Shadcn accordion Components
 
 export default function Chapterdesc({ chapterDesc }) {
   const [selectedKey, setSelectedKey] = useState("1");

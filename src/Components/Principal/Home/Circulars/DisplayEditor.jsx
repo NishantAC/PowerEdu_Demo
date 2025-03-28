@@ -18,7 +18,7 @@ function DisplayEditor({ editorHtml, edit, handleChange }) {
         modules={{ toolbar: edit ? true : false }} 
         readOnly={edit ? false : true}
       /> */}
-      {/* Other components or actions */}
+      {/* Other Components or actions */}
     </div>
   );
 }

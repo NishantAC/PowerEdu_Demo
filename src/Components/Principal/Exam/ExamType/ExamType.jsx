@@ -5,7 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/Components/ui/accordion"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ExamTypeTable from "./ExamTypeTable";
 import {

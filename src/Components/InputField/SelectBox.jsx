@@ -5,7 +5,7 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select";
+} from "@/Components/ui/select";
 import { selectThemeProperties } from "@/slices/theme";
 import { useSelector } from "react-redux";
 

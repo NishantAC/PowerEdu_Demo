@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { bgcolor } from '@mui/system';
 
 const theme = createTheme({
-  components: {
+  Components: {
     MuiDialog: {
       styleOverrides: {
         paper: {

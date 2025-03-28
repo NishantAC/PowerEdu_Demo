@@ -11,7 +11,7 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/Components/ui/select"
 import { selectThemeProperties } from '@/slices/theme';
 
 function TabAttendance({ userId }) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ExamType from "./ExamType/ExamType";
 import "./PrincipalExam.css";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"; // Import ShadCN Accordion components
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/Components/ui/accordion"; // Import ShadCN Accordion Components
 
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, clearMessage, fetchExamTypes, mergeExamTypes } from "../../../slices/examtype";

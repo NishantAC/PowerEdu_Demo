@@ -40,7 +40,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/Components/ui/select";
 
 const StyledDay = styled(Paper)(({ theme, isSelected, isToday, isCurrentMonth, hasEvents, themeProperties }) => ({
   height: '80px', // Increased height for better spacing

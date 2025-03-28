@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { resetStatus } from "@/slices/transport";

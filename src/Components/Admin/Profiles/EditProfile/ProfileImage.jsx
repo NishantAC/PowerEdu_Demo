@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 const ProfileImage = ({ formValues, themeProperties, profiletype, name, handlechange }) => {
   const [imageUrl, setImageUrl] = useState(formValues?.imageUrl || "");

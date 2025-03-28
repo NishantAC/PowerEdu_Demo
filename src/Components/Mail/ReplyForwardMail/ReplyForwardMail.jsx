@@ -16,7 +16,7 @@ import {
   DialogTrigger,
   DialogTitle,
   DialogDescription
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";

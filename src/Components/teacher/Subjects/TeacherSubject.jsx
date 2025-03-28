@@ -4,7 +4,7 @@ import { MenuContext } from "../../../context/Menu/MenuContext";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSubjectDetails } from "../../../slices/subject";
 import SubjectTeacherService from "../../../services/subjectteacher.service";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"; // Import ShadCN Accordion components
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/Components/ui/accordion"; // Import ShadCN Accordion Components
 import styles from "./TeacherSubject.module.css";
 import ClassDropdown from "./SubDropdown/classDropdown";
 

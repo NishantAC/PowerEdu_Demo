@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./AccountsSidebar.css";
-import styled from "styled-components";
+import styled from "styled-Components";
 import SidebarItems from "./SidebarItems";
 import { Link } from "react-router-dom";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";

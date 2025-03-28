@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { submitFeedback, updateFeedback } from "../../../slices/feedbackresponses";
-import  Modal  from "@/components/ui/modal"; // Shadcn Modal component
-import { Button } from "@/components/ui/button"; // Shadcn Button component
-import  Textarea  from "@/components/ui/textarea"; // Shadcn Textarea component
-import { RadioGroup, RadioItem } from "@/components/ui/radiogroup"; // Shadcn Radio components
-import Typography from "@/components/ui/typography"; // Shadcn Typography component
+import  Modal  from "@/Components/ui/modal"; // Shadcn Modal component
+import { Button } from "@/Components/ui/button"; // Shadcn Button component
+import  Textarea  from "@/Components/ui/textarea"; // Shadcn Textarea component
+import { RadioGroup, RadioItem } from "@/Components/ui/radiogroup"; // Shadcn Radio Components
+import Typography from "@/Components/ui/typography"; // Shadcn Typography component
 import { toast } from "sonner"; // For displaying toast notifications
 
 const FeedbackForm = ({ show, onHide, feedbackForm }) => {

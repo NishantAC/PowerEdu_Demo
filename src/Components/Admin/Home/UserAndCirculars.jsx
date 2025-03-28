@@ -12,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/Components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 
 const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
@@ -88,7 +88,7 @@ const UserAndCirculars = ({ newlyAddedUsersArray, deviceSize }) => {
                     className="flex items-center gap-2"
                     style={{ color: themeProperties.textColor }}
                   >
-                  <div className=" flex items-center mt-4 gap-4 cursor-pointer">
+                  <div className=" flex items-center  gap-4 cursor-pointer">
                   <Avatar>
                       <AvatarImage
                         src="https://github.com/shadcn.png"

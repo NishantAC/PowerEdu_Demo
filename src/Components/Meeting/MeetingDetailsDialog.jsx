@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/Components/ui/dialog";
 import { IoTimeOutline } from "react-icons/io5";
 import { CiCalendarDate } from "react-icons/ci";
 import DOMPurify from "dompurify";

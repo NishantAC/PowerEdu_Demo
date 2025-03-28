@@ -4,7 +4,7 @@ import SubDropdown from "./subjectDropdown/SubDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import SubjectService from "../../../services/subject.service";
 import { getAllSubjectDetails } from "../../../slices/subject";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"; // Import the Shadcn Accordion components
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/Components/ui/accordion"; // Import the Shadcn Accordion Components
 import "./subjectDropdown/SubDropdown.css";
 import styles from "./StudentSubject.module.css";
 

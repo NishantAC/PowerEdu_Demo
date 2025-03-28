@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/Components/ui/dialog";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import InputField from "@/Components/InputField/InputField";

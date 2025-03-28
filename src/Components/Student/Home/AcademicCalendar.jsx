@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { MyMonthlyCalendar } from "./Calendar";
 import MonthSelect from "./MonthDropdown";
 import YearSelect from "./YearDropdown";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/Components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/Components/ui/popover";
 import CalendarServices from "../../../services/calendar.service";
 
 export default function AcademicCalendar() {

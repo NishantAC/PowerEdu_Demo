@@ -15,7 +15,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/Components/ui/popover"
 import { selectThemeProperties } from "@/slices/theme";
 
 const NotificationModal = () => {

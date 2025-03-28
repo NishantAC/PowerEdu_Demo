@@ -4,8 +4,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+} from "@/Components/ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 import SelectTheme from "./SelectTheme";
 import { SiAnalogue } from "react-icons/si";
 

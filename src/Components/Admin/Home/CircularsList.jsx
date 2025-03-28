@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { FaCalendarAlt } from "react-icons/fa";
 import { Calendarmini } from "@/Components/ui/calendarmini";
 import { selectThemeProperties } from "@/slices/theme";

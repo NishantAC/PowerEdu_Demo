@@ -8,7 +8,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from "@/Components/ui/drawer";
 import { SunIcon } from "lucide-react";
 
 import {
@@ -19,8 +19,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@/Components/ui/select";
+import { Skeleton } from "@/Components/ui/skeleton";
 
 const SelectTheme = () => {
   const dispatch = useDispatch();

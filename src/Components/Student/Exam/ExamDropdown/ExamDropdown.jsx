@@ -7,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../../components/ui/dropdown-menu";
+} from "../../../../Components/ui/dropdown-menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ExamDropdownMenu from "./ExamDropdownMenu";
 import ExamDDMYearly from "./ExamDDMYearly";

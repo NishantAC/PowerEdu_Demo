@@ -36,7 +36,7 @@ function Editor({editorHtml, setEditorHtml}) {
         placeholder="Write your message..."
  
       /> */}
-      {/* Other components or actions */}
+      {/* Other Components or actions */}
     </div>
   );
 }

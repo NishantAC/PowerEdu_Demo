@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"; // Shadcn Accordion components
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/Components/ui/accordion"; // Shadcn Accordion Components
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import BasicTable from "./DropdownMenu";
 import { Typography } from "@mui/material";

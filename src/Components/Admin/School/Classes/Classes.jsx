@@ -24,7 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { selectThemeProperties } from "@/slices/theme";
 import Spinner from "@/Components/Spinner/Spinner";
 import { Button } from "@/Components/ui/button";

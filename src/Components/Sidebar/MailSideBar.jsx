@@ -10,7 +10,7 @@ import { MdDelete } from "react-icons/md";
 import { IoDocument, IoPencil } from "react-icons/io5";
 import { RiSpam2Fill } from "react-icons/ri";
 import { FaAngleDown } from "react-icons/fa";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 import { logoutGoogle } from "@/services/mail.service";
 import { FaStar, FaInbox } from "react-icons/fa";
 import { LuMails } from "react-icons/lu";
@@ -19,7 +19,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/Components/ui/popover";
 import { checkAuth } from "@/services/mail.service";
 import { toast } from "sonner";
 import { Skeleton } from "@mui/material";
