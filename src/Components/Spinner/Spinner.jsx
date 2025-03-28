@@ -1,5 +1,5 @@
 import React from 'react'
-import './Spinner.css'
+import './spinner.css'
 import { selectThemeProperties } from '@/slices/theme'
 import { useSelector } from 'react-redux'
 const Spinner = ({}) => {
