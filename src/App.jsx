@@ -16,7 +16,7 @@ import Calendar from "./Components/Calendar/Calendar";
 import MailComponent from "./Components/Mail/MailComponent";
 
 
-// Importing Admin Layout Components
+//! Importing Admin Layout Components
 import Profiles from "./Components/Admin/Profiles/Profile/Profiles";
 import EditProfile from "./Components/Admin/Profiles/EditProfile/EditProfile";
 import Home from "./Components/Admin/Home/Home";
@@ -29,52 +29,52 @@ import FeePayment from "./Components/Admin/Expense/FeePayment/FeePayment";
 import FeeDue from "./Components/Admin/Expense/FeeDue/FeeDue";
 import School from "./Components/Admin/School/School";
  
-// Importing Accounts Layout Components
-import AccountsHome from "./Components/Accounts/Home/AccountsHome";
+//! Importing Accounts Layout Components
+// import AccountsHome from "./Components/Accounts/Home/AccountsHome";
 
-// Importing Student Layout Components
-import StudentAssignment from "./Components/Student/Assignment/StudentAssignment";
-import StudentExam from "./Components/Student/Exam/StudentExam";
-import StudentFee from "./Components/Student/Fee/StudentFee";
-import StudentHome from "./Components/Student/Home/StudentHome";
-import StudentSubject from "./Components/Student/Subject/StudentSubject";
-import StudentTeacher from "./Components/Student/Teacher/StudentTeacher";
-import StudentNotice from "./Components/Student/Notice/StudentNotice";
-import StudentProfile from "./Components/Student/StudentProfile/Profile";
+//! Importing Student Layout Components
+// import StudentAssignment from "./Components/Student/Assignment/StudentAssignment";
+// import StudentExam from "./Components/Student/Exam/StudentExam";
+// import StudentFee from "./Components/Student/Fee/StudentFee";
+// import StudentHome from "./Components/Student/Home/StudentHome";
+// import StudentSubject from "./Components/Student/Subject/StudentSubject";
+// import StudentTeacher from "./Components/Student/Teacher/StudentTeacher";
+// import StudentNotice from "./Components/Student/Notice/StudentNotice";
+// import StudentProfile from "./Components/Student/StudentProfile/Profile";
 
-// Importing Teacher Layout Components
-import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
-import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
-import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
-import TeacherHome from "./Components/Teacher/Home/TeacherHome";
-import TeacherSubject from "./Components/Teacher/Subjects/TeacherSubject";
-import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
-import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
-import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";
-import ClassTestMarks from "./Components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
-import StudentAttendance from "./Components/Teacher/Student/StudentAttendance/StudentAttendance";
-import TeachersProfile from "./Components/Teacher/TeacherProfile/Profile";
-import FolderTable from "./Components/Teacher/Exam/PaperFolder/FolderTable";
+//! Importing Teacher Layout Components
+// import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
+// import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
+// import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
+// import TeacherHome from "./Components/Teacher/Home/TeacherHome";
+// import TeacherSubject from "./Components/Teacher/Subjects/TeacherSubject";
+// import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
+// import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
+// import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";
+// import ClassTestMarks from "./Components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
+// import StudentAttendance from "./Components/Teacher/Student/StudentAttendance/StudentAttendance";
+// import TeachersProfile from "./Components/Teacher/TeacherProfile/Profile";
+// import FolderTable from "./Components/Teacher/Exam/PaperFolder/FolderTable";
 
-// Importing Principal Layout Components
+//! Importing Principal Layout Components
 
-import PrincipalHome from "./Components/Principal/Home/PrincipalHome";
-import PrincipalStudents from "./Components/Principal/Students/PrincipalStudents";
-import PrincipalTeachers from "./Components/Principal/Teachers/PrincipalTeacher";
-import PrincipalExam from "./Components/Principal/Exam/PrincipalExam";
-import PrincipalFees from "./Components/Principal/Fees/PrincipalFees";
-import PrincipalNotice from "./Components/Principal/Notice/PrincipalNotice";
-import TeachersAttendance from "./Components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
-import TeacherProfile from "./Components/Principal/Teachers/TeacherProfile/TeacherProfile";
-import StudentTimetable from "./Components/Principal/Students/StudentTimetable/StudentTimetable";
-import PrincipalProfile from "./Components/Principal/PrincipalProfile/Profile";
-import StudentMarksTable from "./Components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
-import StudentProgress from "./Components/Principal/Exam/StudentsProgress/StudentProgress";
-import PrincipalStudentsTabs from "./Components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
-import MainLayout from "./MainLayout/MainLayout";
-import { Toaster } from "@/Components/ui/sonner"
-import Classes from "./Components/Admin/School/Classes/Classes";
-import ClassNotice from "./Components/Admin/ClassNotice/ClassNotice";
+// import PrincipalHome from "./Components/Principal/Home/PrincipalHome";
+// import PrincipalStudents from "./Components/Principal/Students/PrincipalStudents";
+// import PrincipalTeachers from "./Components/Principal/Teachers/PrincipalTeacher";
+// import PrincipalExam from "./Components/Principal/Exam/PrincipalExam";
+// import PrincipalFees from "./Components/Principal/Fees/PrincipalFees";
+// import PrincipalNotice from "./Components/Principal/Notice/PrincipalNotice";
+// import TeachersAttendance from "./Components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
+// import TeacherProfile from "./Components/Principal/Teachers/TeacherProfile/TeacherProfile";
+// import StudentTimetable from "./Components/Principal/Students/StudentTimetable/StudentTimetable";
+// import PrincipalProfile from "./Components/Principal/PrincipalProfile/Profile";
+// import StudentMarksTable from "./Components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
+// import StudentProgress from "./Components/Principal/Exam/StudentsProgress/StudentProgress";
+// import PrincipalStudentsTabs from "./Components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
+// import MainLayout from "./MainLayout/MainLayout";
+// import { Toaster } from "@/Components/ui/sonner"
+// import Classes from "./Components/Admin/School/Classes/Classes";
+// import ClassNotice from "./Components/Admin/ClassNotice/ClassNotice";
 
 
 function App() {
