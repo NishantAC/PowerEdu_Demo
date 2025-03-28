@@ -43,36 +43,34 @@ import StudentNotice from "./Components/Student/Notice/StudentNotice";
 import StudentProfile from "./Components/Student/StudentProfile/Profile";
 
 // Importing Teacher Layout Components
-// import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
-// import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
-// import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
-// import TeacherHome from "./Components/Teacher/Home/TeacherHome";
-// import TeacherSubject from "./Components/Teacher/Subjects/TeacherSubject";
-// import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
-// import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
-// import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";
-// import ClassTestMarks from "./Components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
-// import StudentAttendance from "./Components/Teacher/Student/StudentAttendance/StudentAttendance";
-// import TeachersProfile from "./Components/Teacher/TeacherProfile/Profile";
-// import FolderTable from "./Components/Teacher/Exam/PaperFolder/FolderTable";
+import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
+import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
+import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
+import TeacherHome from "./Components/Teacher/Home/TeacherHome";
+import TeacherSubject from "./Components/Teacher/Subjects/TeacherSubject";
+import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
+import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
+import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";
+import ClassTestMarks from "./Components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
+import StudentAttendance from "./Components/Teacher/Student/StudentAttendance/StudentAttendance";
+import TeachersProfile from "./Components/Teacher/TeacherProfile/Profile";
+import FolderTable from "./Components/Teacher/Exam/PaperFolder/FolderTable";
 
 // Importing Principal Layout Components
 
-// import PrincipalHome from "./Components/Principal/Home/PrincipalHome";
-// import PrincipalStudents from "./Components/Principal/Students/PrincipalStudents";
-// import PrincipalTeachers from "./Components/Principal/Teachers/PrincipalTeacher";
-// import PrincipalExam from "./Components/Principal/Exam/PrincipalExam";
-// import PrincipalFees from "./Components/Principal/Fees/PrincipalFees";
-// import PrincipalNotice from "./Components/Principal/Notice/PrincipalNotice";
-// import TeachersAttendance from "./Components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
-// import TeacherProfile from "./Components/Principal/Teachers/TeacherProfile/TeacherProfile";
-// import StudentTimetable from "./Components/Principal/Students/StudentTimetable/StudentTimetable";
-// import PrincipalProfile from "./Components/Principal/PrincipalProfile/Profile";
-// import StudentMarksTable from "./Components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
-// import StudentProgress from "./Components/Principal/Exam/StudentsProgress/StudentProgress";
-// import PrincipalStudentsTabs from "./Components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
-
-
+import PrincipalHome from "./Components/Principal/Home/PrincipalHome";
+import PrincipalStudents from "./Components/Principal/Students/PrincipalStudents";
+import PrincipalTeachers from "./Components/Principal/Teachers/PrincipalTeacher";
+import PrincipalExam from "./Components/Principal/Exam/PrincipalExam";
+import PrincipalFees from "./Components/Principal/Fees/PrincipalFees";
+import PrincipalNotice from "./Components/Principal/Notice/PrincipalNotice";
+import TeachersAttendance from "./Components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
+import TeacherProfile from "./Components/Principal/Teachers/TeacherProfile/TeacherProfile";
+import StudentTimetable from "./Components/Principal/Students/StudentTimetable/StudentTimetable";
+import PrincipalProfile from "./Components/Principal/PrincipalProfile/Profile";
+import StudentMarksTable from "./Components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
+import StudentProgress from "./Components/Principal/Exam/StudentsProgress/StudentProgress";
+import PrincipalStudentsTabs from "./Components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
 import MainLayout from "./MainLayout/MainLayout";
 import { Toaster } from "@/Components/ui/sonner"
 import Classes from "./Components/Admin/School/Classes/Classes";
@@ -119,7 +117,7 @@ function App() {
 
 
           {/*  Teacher layout  */}
-          {/* <Route path="/teacher/dashboard" element={<TeacherHome />} />
+          <Route path="/teacher/dashboard" element={<TeacherHome />} />
           <Route path="/teacher/subject" element={<TeacherSubject />} />
           <Route path="/teacher/add-assignment" element={<TeacherAssignment />} />
           <Route path="/teacher/add-homework" element={<TeacherHomework />} />
@@ -131,7 +129,7 @@ function App() {
           <Route path="/teacher/class-test-marks" element={<ClassTestMarks />} />
           <Route path="/teacher/upload-paper" element={<TeacherExam />} />
           <Route path="/teacher/question-paper" element={<FolderTable />} />
-          <Route path="/teacher/dashboard/profile" element={<TeachersProfile />} /> */}
+          <Route path="/teacher/dashboard/profile" element={<TeachersProfile />} />
 
             {/*  Student layout  */}
 
@@ -147,7 +145,7 @@ function App() {
 
 
             {/*  Principal layout  */}
-            {/* <Route path="/principal/dashboard" element={<PrincipalHome />} />
+            <Route path="/principal/dashboard" element={<PrincipalHome />} />
             <Route path="/principal/student/profile" element={<PrincipalStudents />} />
             <Route path="/principal/student/timetable" element={<StudentTimetable />} />
             <Route path="/principal/student/marks" element={<StudentMarksTable />} />
@@ -161,7 +159,7 @@ function App() {
             <Route path="/principal/mail/:mode" element={<MailComponent />} />
             <Route path="/principal/notice" element={<PrincipalNotice />} />
             <Route path="/Principal/dashboard/profile" element={<PrincipalProfile />} />
-            <Route path="/principal/view-profile" element={<PrincipalStudentsTabs />} /> */}
+            <Route path="/principal/view-profile" element={<PrincipalStudentsTabs />} />
 
             {/*  Accounts layout  */}
 

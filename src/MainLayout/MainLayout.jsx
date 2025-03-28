@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import Layout from '../components/Sidebar/Layout';
+import Layout from '../Components/Sidebar/Layout';
 
 const MainLayout = () => {
   const navigate = useNavigate();
