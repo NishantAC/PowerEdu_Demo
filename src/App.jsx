@@ -44,17 +44,17 @@ import StudentProfile from "./Components/Student/StudentProfile/Profile";
 
 // Importing Teacher Layout Components
 // import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
-import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
-import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
-import TeacherHome from "./Components/Teacher/Home/TeacherHome";
-import TeacherSubject from "./Components/Teacher/Subjects/TeacherSubject";
-import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
-import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
-import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";
-import ClassTestMarks from "./Components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
-import StudentAttendance from "./Components/Teacher/Student/StudentAttendance/StudentAttendance";
-import TeachersProfile from "./Components/Teacher/TeacherProfile/Profile";
-import FolderTable from "./Components/Teacher/Exam/PaperFolder/FolderTable";
+// import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
+// import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
+// import TeacherHome from "./Components/Teacher/Home/TeacherHome";
+// import TeacherSubject from "./Components/Teacher/Subjects/TeacherSubject";
+// import TeacherStudent from "./Components/Teacher/Student/TeacherStudent";
+// import TeacherNotice from "./Components/Teacher/Notice/TeacherNotice";
+// import ExamMarks from "./Components/Teacher/Exam/ExamMarks/ExamMarks";
+// import ClassTestMarks from "./Components/Teacher/Exam/ClassTestMarks/ClassTestMarks";
+// import StudentAttendance from "./Components/Teacher/Student/StudentAttendance/StudentAttendance";
+// import TeachersProfile from "./Components/Teacher/TeacherProfile/Profile";
+// import FolderTable from "./Components/Teacher/Exam/PaperFolder/FolderTable";
 
 // Importing Principal Layout Components
 
@@ -117,9 +117,9 @@ function App() {
 
 
           {/*  Teacher layout  */}
-          <Route path="/teacher/dashboard" element={<TeacherHome />} />
+          {/* <Route path="/teacher/dashboard" element={<TeacherHome />} />
           <Route path="/teacher/subject" element={<TeacherSubject />} />
-          {/* <Route path="/teacher/add-assignment" element={<TeacherAssignment />} /> */}
+          <Route path="/teacher/add-assignment" element={<TeacherAssignment />} />
           <Route path="/teacher/add-homework" element={<TeacherHomework />} />
           <Route path="/teacher/student/attendance" element={<StudentAttendance />} />
           <Route path="/teacher/student/profile" element={<TeacherStudent />} />
@@ -129,7 +129,7 @@ function App() {
           <Route path="/teacher/class-test-marks" element={<ClassTestMarks />} />
           <Route path="/teacher/upload-paper" element={<TeacherExam />} />
           <Route path="/teacher/question-paper" element={<FolderTable />} />
-          <Route path="/teacher/dashboard/profile" element={<TeachersProfile />} />
+          <Route path="/teacher/dashboard/profile" element={<TeachersProfile />} /> */}
 
             {/*  Student layout  */}
 
