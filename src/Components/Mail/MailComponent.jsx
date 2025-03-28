@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Mail from "./Mails/MailInbox";
 // import ComposeMail from "./ComposeMail/ComposeMail";
 import io from "socket.io-client";
-import GoogleImage from "../../assets/images/Google.png";
+import GoogleImage from "../../assets/Images/Google.png";
 import {
   checkAuth,
   fetchAllMails,

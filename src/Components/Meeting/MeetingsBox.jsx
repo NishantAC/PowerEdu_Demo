@@ -7,7 +7,7 @@ import { monthNames } from "@/common/Time";
 import { getGoogleEvents } from "@/slices/calendar";
 import { checkAuth, googleAuth } from "@/services/mail.service";
 import CalendarModal from "./CalendarModal";
-import GoogleImage from "../.../../../assets/images/Google.png";
+import GoogleImage from "../.../../../assets/Images/Google.png";
 import { CircularProgress } from "@mui/material";
 import MeetingsTable from "./MeetingsTable";
 import { toast } from "sonner";
