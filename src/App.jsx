@@ -43,7 +43,7 @@ import StudentNotice from "./Components/Student/Notice/StudentNotice";
 import StudentProfile from "./Components/Student/StudentProfile/Profile";
 
 // Importing Teacher Layout Components
-import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
+// import TeacherAssignment from "./Components/Teacher/Assignment/TeacherAssignment";
 import TeacherHomework from "./Components/Teacher/Homework/TeacherHomework";
 import TeacherExam from "./Components/Teacher/Exam/TeacherExam";
 import TeacherHome from "./Components/Teacher/Home/TeacherHome";
@@ -119,7 +119,7 @@ function App() {
           {/*  Teacher layout  */}
           <Route path="/teacher/dashboard" element={<TeacherHome />} />
           <Route path="/teacher/subject" element={<TeacherSubject />} />
-          <Route path="/teacher/add-assignment" element={<TeacherAssignment />} />
+          {/* <Route path="/teacher/add-assignment" element={<TeacherAssignment />} /> */}
           <Route path="/teacher/add-homework" element={<TeacherHomework />} />
           <Route path="/teacher/student/attendance" element={<StudentAttendance />} />
           <Route path="/teacher/student/profile" element={<TeacherStudent />} />
