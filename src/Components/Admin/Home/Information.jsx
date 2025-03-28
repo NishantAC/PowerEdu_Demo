@@ -155,7 +155,7 @@ function Information() {
         setShowDropdown(true);
         try {
           const response = await axios.get(
-            `https://poweredu-backend.onrender.com/v1/admin/users?role=Student&page=1&limit=10&search=${value}`,
+            `${API_BASE_URL}admin/users?role=Student&page=1&limit=10&search=${value}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

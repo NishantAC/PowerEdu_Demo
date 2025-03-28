@@ -32,11 +32,8 @@ const getLastMailPath = () => {
     {
       name: "Expenses",
       icon: FaMoneyBill,
-      child: [
-        { name: "Fee Structure", route: "/admin/fee-structure" },
-        { name: "Fee Payment", route: "/admin/fee-payment" },
-        { name: "Fee Due", route: "/admin/fee-due" },
-      ],
+      route: "/admin/fee-structure",
+      child:[]
     },
     { name: "School", route: "/admin/school", icon: FaSchool, child: [] },
     { name: "Notice", route: "/admin/school-notice", icon: FaBell, child: [

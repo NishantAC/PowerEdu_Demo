@@ -42,7 +42,8 @@ export const createTransportZone = createAsyncThunk('transport/createTransportZo
     headers: { Authorization: token },
   });
   toast.success('Transport zone created successfully');
-  return response.data.data;
+  console.log("Create zone " + response.data);
+  return response.data.data[0];
 });
 
 export const createBusRoutesRoute = createAsyncThunk('transport/createBusRoutesRoute', async (body) => {

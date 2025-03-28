@@ -25,12 +25,15 @@ function MeetingsBox() {
   const themeProperties = useSelector(selectThemeProperties);
   const { user: currentUser } = useSelector((state) => state.user);
   const { googleEvents } = useSelector((state) => state.calendarSlice);
+  const ClientId = import.meta.env.VITE_CLIENT_ID;
+  const ClientSecret = import.meta.env.VITE_CLIENT_SECRET;
 
   const dispatch = useDispatch();
 
   const checkUserAuthorization = async () => {
-    const response = await checkAuth(currentUser?.id);
-    setIsAuthorised(response?.data?.isAuthorised);
+      const response = await checkAuth();
+      console.log("Check auth response:", response?.data?.data); // Log the object directly
+      setIsAuthorised(response?.data?.data?.isAuthorized);
   };
 
   const filterMeetings = () => {
@@ -50,13 +53,22 @@ function MeetingsBox() {
   }, [selectedDate, googleEvents]);
 
   useEffect(() => {
-    checkUserAuthorization();
-    dispatch(getGoogleEvents()).finally(() => setLoading(false));
-  }, []);
+    if(currentUser){
+
+      const googleAccessToken = localStorage.getItem("googleAccessToken");
+      if (!googleAccessToken) {
+        setIsAuthorised(false);
+        setLoading(false);
+        return;
+      }
+      checkUserAuthorization();
+      dispatch(getGoogleEvents()).finally(() => setLoading(false));
+    }
+  }, [currentUser]);
 
 
   const googleLogin = useGoogleLogin({
-    flow: "auth-code",
+    flow: "implicit",
     scope:
       "https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar",
     include_granted_scopes: false,
@@ -64,10 +76,9 @@ function MeetingsBox() {
       console.log("codeResponse", codeResponse);
       console.log("currentUser", currentUser?.poweredu_id);
 
-      await googleAuth({
-        code: codeResponse.code,
-        user_id: currentUser?.poweredu_id,
-      });
+      localStorage.setItem("googleAccessToken", codeResponse.access_token);
+
+      await googleAuth();
       setIsAuthorised(true);
       toast.success("Authentication successful", { autoClose: 500 });
     },

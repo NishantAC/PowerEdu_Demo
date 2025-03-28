@@ -2,29 +2,34 @@ import axios from "axios";
 import authHeader from "./auth-header";
 import { API_BASE_URL } from "@/common/constant";
 
-const API_URL = API_BASE_URL+"mail/";
+const API_URL = API_BASE_URL;
 
-export const googleAuth = async (body) => {
+
+export const googleAuth = async () => {
+  const googleAccessToken = localStorage.getItem("googleAccessToken");
   try {
-    console.log("googleAuth body", body);
-    const response = await axios.post(`${API_URL}auth/google`, body, {
-      
-      withCredentials: true,
+    const response = await axios.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json", {
+      headers: {
+        Authorization: `Bearer ${googleAccessToken}`,
+      },
     });
     
     return response;
   } catch (error) {
-    
     throw error;
   }
 };
 
 export const logoutGoogle = async () => {
+  const token = JSON.parse(localStorage.getItem("powerEduAuthToken"));
   try {
-    const response = await axios.get(`${API_URL}logout/google`, {
-      headers: authHeader(),
-      withCredentials: true,
+    const response = await axios.get(`${API_URL}admin/gmail/logout/google`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
+    console.log("Logout response", response?.data?.data);
+    localStorage.removeItem("googleAccessToken");
     return response;
   } catch (error) {
     
@@ -33,25 +38,28 @@ export const logoutGoogle = async () => {
 };
 
 export const checkAuth = async () => {
+  const powerEduAuthToken = JSON.parse(localStorage.getItem("powerEduAuthToken"));
+
   try {
-    const response = await axios.get(`${API_URL}check-auth`, {
-      headers: authHeader(),
-      withCredentials: true,
+    const response = await axios.get(`${API_URL}admin/gmail/check-auth`, {
+      headers: {
+        Authorization: `Bearer ${powerEduAuthToken}`,
+      },
     });
-    console.log("Check auth response " + response);
+    console.log("Check auth response", response?.data?.data);
     return response;
   } catch (error) {
-    console.error("Check auth error " +error);
-    throw error;
-    
+    console.error("Check auth error:", error); // Ensure error is logged properly
   }
 };
 
-export const getInbox = async (body) => {
+export const getInbox = async () => {
   try {
-    const response = await axios.post(`${API_URL}get-inbox`, body, {
-      headers: authHeader(),
-      withCredentials: true,
+    const response = await axios.post(`${API_URL}admin/gmail/get-inbox`,{}, 
+{
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("powerEduAuthToken"))}`,
+      }
     });
     return { response, error: null };
   } catch (error) {
@@ -145,9 +153,11 @@ export const getDraftMails = async (body) => {
 
 export const getSentMails = async (body) => {
   try {
-    const response = await axios.post(`${API_URL}get-sent`, body, {
-      headers: authHeader(),
-      withCredentials: true,
+    const response = await axios.post(`${API_URL}admin/gmail/get-sent`,{}, 
+{
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("powerEduAuthToken"))}`,
+      }
     });
     return { response, error: null };
   } catch (error) {

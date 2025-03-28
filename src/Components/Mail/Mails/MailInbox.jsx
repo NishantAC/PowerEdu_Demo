@@ -160,7 +160,7 @@ function Mail({
             `}
           </style>
 
-          <div className="flex items-center justify-center fixed mt-4 top-0 z-[1000] -translate-x-1/2 left-1/2">
+          <div className="flex items-center justify-center fixed mt-4 -top-5 z-[1000] -translate-x-1/2 left-1/2">
             <Box sx={{}}>
               <Toolbar>
                 <Search

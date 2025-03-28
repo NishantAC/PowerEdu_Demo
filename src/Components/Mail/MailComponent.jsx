@@ -67,15 +67,17 @@ function MailComponent() {
   
 
   const googleLogin = useGoogleLogin({
-    flow: "auth-code",
+    flow: "implicit",
     scope:
       "https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar",
     include_granted_scopes: false,
     onSuccess: async (codeResponse) => {
       try {
-
+        console.log("codeResponse", codeResponse);
+      console.log("currentUser", user?.poweredu_id);
         //! have to change the userId as user?.poweredu_id
-        await googleAuth({ code: codeResponse.code, userId: 123456 });
+        localStorage.setItem("googleAccessToken", codeResponse.access_token);
+        await googleAuth();
         setIsAuthorised(true);
         toast.success("Login successful!", { description: "Login successful!" });
       } catch (error) {
@@ -153,10 +155,12 @@ function MailComponent() {
     setLoading(true);
     try {
       const response = await getInbox({ pageToken: refresh ? null : nextPageToken });
-      const mailItems = response?.response?.data?.mails;
+      console.log("Inbox response:", response); // Log the object directly
+      const mailItems =  response?.response?.data?.data?.mails;
       const newNextPageToken = response?.response?.data?.nextPageToken;
 
-      if (response?.response?.status === 200) {
+      if (response?.response?.status == 200) {
+        console.log("Inbox response data:", mailItems); // Log the object directly
         if (refresh ){
           setInboxMails(mailItems); 
         }
@@ -179,6 +183,7 @@ function MailComponent() {
   }
 
   const fetchSentMail = async (refresh) => {
+    console.log("Sent Mail", refresh);
     if (loading) return;
     if (mode != "sent") return;
     if (!hasMoreSent ) return;
@@ -200,7 +205,7 @@ function MailComponent() {
         setSentMails(response?.data?.mails);
       }
       else {
-      setSentMails && setSentMails((prevMails) => [...prevMails, ...response?.data?.mails]);
+      setSentMails && setSentMails((prevMails) => [...prevMails, ...response?.data?.data?.mails]);
       }
       setSentMailNextPageToken(response?.data?.nextPageToken);
       setHasMoreSent(!!response?.data?.nextPageToken);
@@ -295,9 +300,17 @@ const fetchDeletedMail = async (refresh) => {
 
   useEffect(() => {
     const checkUserAuthorization = async () => {
+
+      const googleAccessToken = localStorage.getItem("googleAccessToken");
+      if (!googleAccessToken) {
+        setIsAuthorised(false);
+        setGoogleLoading(false);
+        return;
+      }
+
       try {
         const response = await checkAuth();
-        setIsAuthorised(response?.data?.isAuthorised);
+        setIsAuthorised(response?.data?.data?.isAuthorized);
       } catch (error) {
         setIsAuthorised(false);
       }

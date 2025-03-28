@@ -56,9 +56,7 @@ function Profiles() {
     if (profileType === "students") {
       dispatch(
         fetchAllStudents({
-          school_code: currentUser?.school_id,
           class_code: classFilter,
-          year: parseInt(academicYearFilter),
           page,
           limit,
         })

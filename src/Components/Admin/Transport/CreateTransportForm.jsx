@@ -88,6 +88,7 @@ const CreateTransportForm = ({
           description: formValues.description,
           school_id: formValues.school_id,
         };
+        console.log(ZoneData);
         dispatch(createTransportZone(ZoneData));
         break;
       case "Routes":

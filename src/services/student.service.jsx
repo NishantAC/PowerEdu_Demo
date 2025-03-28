@@ -6,9 +6,9 @@ const token = 'Bearer ' + JSON.parse(powerEduAuthToken);
 const API_URL = API_BASE_URL + 'admin/users';
 
 
-const getAllStudents = async (body) => {
+const getAllStudents = async ({class_code, page = 1, limit = 5}) => {
   try {
-    const response = await axios.get(`${API_URL}/?role=Student`, {
+    const response = await axios.get(`${API_URL}?role=Student&class_code=${class_code}&page=${page}&limit=${limit}`, {
       headers: {
         Authorization: token
       }

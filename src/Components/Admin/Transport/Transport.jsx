@@ -46,7 +46,7 @@ const Transport = () => {
       dispatch(getTransportRoutesList());
       dispatch(getTransportZonesList());
     }
-  }, [dispatch]);
+  }, [user]);
 
   const handleDelete = (id) => {
     switch (activeTab) {

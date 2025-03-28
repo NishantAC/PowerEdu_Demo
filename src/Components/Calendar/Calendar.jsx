@@ -120,7 +120,9 @@ function Calendar() {
   const [selectedMonth, setSelectedMonth] = useState(format(new Date(), "MMMM"));
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
   const themeProperties = useSelector(selectThemeProperties);
-
+  const circulars = useSelector(
+    (state) => state.circularManagementSlice.circulars
+  );
   const dispatch = useDispatch();
   const { googleEvents } = useSelector((state) => state.calendarSlice);
   const { user: currentUser } = useSelector((state) => state.user);
