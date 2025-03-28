@@ -58,19 +58,21 @@ import StudentProfile from "./Components/Student/StudentProfile/Profile";
 
 // Importing Principal Layout Components
 
-import PrincipalHome from "./Components/Principal/Home/PrincipalHome";
-import PrincipalStudents from "./Components/Principal/Students/PrincipalStudents";
-import PrincipalTeachers from "./Components/Principal/Teachers/PrincipalTeacher";
-import PrincipalExam from "./Components/Principal/Exam/PrincipalExam";
-import PrincipalFees from "./Components/Principal/Fees/PrincipalFees";
-import PrincipalNotice from "./Components/Principal/Notice/PrincipalNotice";
-import TeachersAttendance from "./Components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
-import TeacherProfile from "./Components/Principal/Teachers/TeacherProfile/TeacherProfile";
-import StudentTimetable from "./Components/Principal/Students/StudentTimetable/StudentTimetable";
-import PrincipalProfile from "./Components/Principal/PrincipalProfile/Profile";
-import StudentMarksTable from "./Components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
-import StudentProgress from "./Components/Principal/Exam/StudentsProgress/StudentProgress";
-import PrincipalStudentsTabs from "./Components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
+// import PrincipalHome from "./Components/Principal/Home/PrincipalHome";
+// import PrincipalStudents from "./Components/Principal/Students/PrincipalStudents";
+// import PrincipalTeachers from "./Components/Principal/Teachers/PrincipalTeacher";
+// import PrincipalExam from "./Components/Principal/Exam/PrincipalExam";
+// import PrincipalFees from "./Components/Principal/Fees/PrincipalFees";
+// import PrincipalNotice from "./Components/Principal/Notice/PrincipalNotice";
+// import TeachersAttendance from "./Components/Principal/Teachers/TeacherAttendance/TeachersAttendance";
+// import TeacherProfile from "./Components/Principal/Teachers/TeacherProfile/TeacherProfile";
+// import StudentTimetable from "./Components/Principal/Students/StudentTimetable/StudentTimetable";
+// import PrincipalProfile from "./Components/Principal/PrincipalProfile/Profile";
+// import StudentMarksTable from "./Components/Principal/Students/StudentProfile/Academics/StudentMarksTable";
+// import StudentProgress from "./Components/Principal/Exam/StudentsProgress/StudentProgress";
+// import PrincipalStudentsTabs from "./Components/Admin/Profiles/EditProfile/PrincipalStudentsTabs";
+
+
 import MainLayout from "./MainLayout/MainLayout";
 import { Toaster } from "@/Components/ui/sonner"
 import Classes from "./Components/Admin/School/Classes/Classes";
@@ -145,7 +147,7 @@ function App() {
 
 
             {/*  Principal layout  */}
-            <Route path="/principal/dashboard" element={<PrincipalHome />} />
+            {/* <Route path="/principal/dashboard" element={<PrincipalHome />} />
             <Route path="/principal/student/profile" element={<PrincipalStudents />} />
             <Route path="/principal/student/timetable" element={<StudentTimetable />} />
             <Route path="/principal/student/marks" element={<StudentMarksTable />} />
@@ -159,7 +161,7 @@ function App() {
             <Route path="/principal/mail/:mode" element={<MailComponent />} />
             <Route path="/principal/notice" element={<PrincipalNotice />} />
             <Route path="/Principal/dashboard/profile" element={<PrincipalProfile />} />
-            <Route path="/principal/view-profile" element={<PrincipalStudentsTabs />} />
+            <Route path="/principal/view-profile" element={<PrincipalStudentsTabs />} /> */}
 
             {/*  Accounts layout  */}
 
